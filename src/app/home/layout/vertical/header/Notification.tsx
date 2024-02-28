@@ -31,6 +31,7 @@ const Notifications = () => {
   return (
     <Box>
       <IconButton
+        disabled
         size="large"
         aria-label="show 11 new notifications"
         color="inherit"

@@ -36,6 +36,7 @@ const Profile = () => {
   return (
     <Box>
       <IconButton
+        disabled
         size="large"
         aria-label="show 11 new notifications"
         color="inherit"
@@ -49,7 +50,7 @@ const Profile = () => {
         onClick={handleClick2}
       >
         <Avatar
-          src={"/images/profile/user-1.jpg"}
+          src={"/images/profile/dummy-avatar.jpg"}
           alt={"ProfileImg"}
           sx={{
             width: 35,

@@ -12,7 +12,8 @@ import {
 import { TypographyOptions } from "@mui/material/styles/createTypography";
 import { Inter } from "next/font/google";
 import { ChartsProvider } from "./context/charts";
-
+import '@rainbow-me/rainbowkit/styles.css';
+import { Providers } from './providers';
 const inter = Inter({ subsets: ["latin"] });
 
 const MyApp = ({ children }: { children: React.ReactNode }) => {
@@ -87,7 +88,7 @@ const MyApp = ({ children }: { children: React.ReactNode }) => {
           })}
         >
           <CssBaseline />
-          {children}
+          <Providers>{children}</Providers>
         </ThemeProvider>
       </NextAppDirEmotionCacheProvider>
     </ChartsProvider>
