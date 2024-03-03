@@ -9,7 +9,7 @@ import Banner from '@/app/(DashboardLayout)/components/landingpage/banner/Banner
 
 export default function Dashboard () {
   return (
-    <PageContainer title="Landingpage" description="this is Landingpage">
+    <PageContainer title="VTRU Scope" description="VTRU Scope by Vitruveo">
       <Banner />
     </PageContainer>
   ); 
