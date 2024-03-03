@@ -9,48 +9,12 @@ import {
   darkTheme,
   lightTheme
 } from '@rainbow-me/rainbowkit';
-import {
-  argentWallet,
-  trustWallet,
-  ledgerWallet,
-} from '@rainbow-me/rainbowkit/wallets';
+
 import { configureChains, createConfig, WagmiConfig } from 'wagmi';
 import { publicProvider } from 'wagmi/providers/public';
-import {
-  arbitrum,
-  base,
-  mainnet,
-  optimism,
-  polygon,
-  sepolia,
-  zora,
-  goerli,
-  bsc,
-  bscTestnet
-} from 'wagmi/chains';
+
 import merge from 'lodash.merge';
 
-const ethereum = {
-  id: 1,
-  name: 'Ethereum',
-  network: 'ethereum',
-  iconUrl: '/images/eth.svg',
-  iconBackground: '#fff',
-  nativeCurrency: {
-    decimals: 18,
-    name: 'Ethereum',
-    symbol: 'ETH',
-  },
-  rpcUrls: {
-    public: { http: [process.env.NEXT_PUBLIC_INFURA] },
-    default: { http: [process.env.NEXT_PUBLIC_INFURA] },
-  },
-  blockExplorers: {
-    default: { name: 'Etherscan', url: 'https://etherscan.io' },
-    etherscan: { name: 'Etherscan', url: 'https://etherscan.io' },
-  },
-  testnet: false,
-};
 
 const vitruveo = {
   id: 1490,
@@ -101,36 +65,32 @@ const { chains, publicClient, webSocketPublicClient } = configureChains(
   [publicProvider()]
 );
 
-const projectId = 'vtru';
+const projectId = '7a21b3d51f846061c7b618791d151066';
+const appName = 'Vitruveo Scope';
 
 const { wallets } = getDefaultWallets({
-  appName: 'vtru',
+  appName,
   projectId,
   chains,
 });
 
-const demoAppInfo = {
-  appName: 'vtru',
+const appInfo = {
+  appName,
+  learnMoreUrl: 'https://www.vitruveo.xyz'
 };
 
 const connectors = connectorsForWallets([
   ...wallets,
-  // {
-  //   groupName: 'Other',
-  //   wallets: [
-  //     argentWallet({ projectId, chains }),
-  //     trustWallet({ projectId, chains }),
-  //     ledgerWallet({ projectId, chains }),
-  //   ],
-  // },
 ]);
 const myTheme = merge(lightTheme(), {
   colors: {
     accentColor: '#763EBD',
   },
 } as Theme);
+
 const wagmiConfig = createConfig({
   autoConnect: true,
+  
   connectors,
   publicClient,
   webSocketPublicClient,
@@ -141,7 +101,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
   React.useEffect(() => setMounted(true), []);
   return (
     <WagmiConfig config={wagmiConfig}>
-      <RainbowKitProvider chains={chains} appInfo={demoAppInfo} theme={myTheme}>
+      <RainbowKitProvider id={projectId} chains={chains} appInfo={appInfo} theme={myTheme}>
         {mounted && children}
       </RainbowKitProvider>
     </WagmiConfig>

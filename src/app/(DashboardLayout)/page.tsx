@@ -1,0 +1,18 @@
+"use client"
+
+import React from 'react';
+import PageContainer from '@/app/(DashboardLayout)/components/container/PageContainer';
+
+// components
+import Banner from '@/app/(DashboardLayout)/components/landingpage/banner/Banner';
+
+
+export default function Dashboard () {
+  return (
+    <PageContainer title="Landingpage" description="this is Landingpage">
+      <Banner />
+    </PageContainer>
+  ); 
+};
+
+Dashboard.layout = "Blank";

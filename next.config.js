@@ -1,20 +1,15 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
-  webpack: config => {
-    config.resolve.fallback = { fs: false, net: false, tls: false };
-    config.externals.push('pino-pretty', 'lokijs', 'encoding');
-    return config;
+  modularizeImports: {
+    "@mui/icons-material": {
+      transform: "@mui/icons-material/{{member}}",
+    },
+    // TODO: Consider enabling modularizeImports for material when https://github.com/mui/material-ui/issues/36218 is resolved
+    // '@mui/material': {
+    //   transform: '@mui/material/{{member}}',
+    // },
   },
-  async redirects() {
-    return [
-      {
-        source: "/",
-        destination: "/home",
-        permanent: true,
-      },
-    ];
-  },
+  
 };
 
 module.exports = nextConfig;
