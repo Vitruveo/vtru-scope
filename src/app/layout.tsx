@@ -40,16 +40,14 @@ export const MyApp = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children, }: {  children: React.ReactNode; }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <body>
         <Provider store={store}>
-            <MyApp children={children} />
+            <MyApp>
+              {children}
+            </MyApp>
         </Provider>
       </body>
     </html>

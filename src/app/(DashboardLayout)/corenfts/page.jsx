@@ -61,7 +61,7 @@ export default function CoreNft () {
 
     getTokens();
 
-  }, [contract, account])
+  }, [contract, account ])
 
 
   async function getAccountNfts(tokens) {
