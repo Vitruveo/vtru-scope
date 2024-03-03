@@ -42,15 +42,20 @@ export default function CoreNft () {
   useEffect(() => {
 
     async function getTokens() {
-      const transfers = contract?.filters?.CoreNFTGranted(null, null, account, null);
-      if (transfers) {
-        const logEvents = await contract.queryFilter(transfers);
-        const tokens = [];
-        logEvents.map((log) => {
-          const info = contract.interface.parseLog(log);
-          tokens.push(Number(info.args.tokenId));
-        });
-        await getAccountNfts(tokens);
+
+      if (account !== null) {
+        const transfers = contract?.filters?.CoreNFTGranted(null, null, account, null);
+        if (transfers) {
+          const logEvents = await contract.queryFilter(transfers);
+          const tokens = [];
+          logEvents.map((log) => {
+            const info = contract.interface.parseLog(log);
+            tokens.push(Number(info.args.tokenId));
+          });
+          await getAccountNfts(tokens);
+        }  
+      } else {
+        setNfts(arr => []);
       }
     }
 

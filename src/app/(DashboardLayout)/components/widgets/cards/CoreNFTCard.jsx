@@ -137,7 +137,7 @@ const CoreNFTCard = ({ nft }) => {
   topcards[4] = [
     {
       title: "Share Quota",
-      digits: nft.voteCredits * 50,
+      digits: formatBlock(nft.voteCredits * 50),
       bgcolor: "primary",
     },
     {
