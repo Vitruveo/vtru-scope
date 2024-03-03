@@ -111,7 +111,7 @@ export default function CoreNft () {
 
 
   return (
-    <PageContainer title="Core NFTs" description="View all Core NFTs">
+    <PageContainer title="VTRU Scope" description="View all Core NFTs">
       <Breadcrumb title="Core NFTs" items={breadcrumb} />
              
           {

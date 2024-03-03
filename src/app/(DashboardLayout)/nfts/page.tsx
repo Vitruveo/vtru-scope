@@ -18,7 +18,7 @@ export default function Nfts () {
   ];
 
   return (
-    <PageContainer title="NFTs" description="View all your NFTs">
+    <PageContainer title="VTRU Scope" description="View all your NFTs">
       <Breadcrumb title="NFTs" items={breadcrumb} />
       <h3 style={{marginLeft: '20px'}}>Coming Soon!</h3>
     </PageContainer>

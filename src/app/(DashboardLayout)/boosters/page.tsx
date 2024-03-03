@@ -18,7 +18,7 @@ export default function Boosters () {
   ];
 
   return (
-    <PageContainer title="Boosters" description="View all Booster NFTs">
+    <PageContainer title="VTRU Scope" description="View all Booster NFTs">
       <Breadcrumb title="Boosters" items={breadcrumb} />
       <h3 style={{marginLeft: '20px'}}>Coming Soon!</h3>
     </PageContainer>

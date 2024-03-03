@@ -9,7 +9,7 @@ import LpHeader from '@/app/(DashboardLayout)/components/landingpage/header/Head
 
 export default function Landingpage () {
   return (
-    <PageContainer title="Landingpage" description="this is Landingpage">
+    <PageContainer title="VTRU Scope" description="VTRU Scope is the focal point for tracking all Vitruveo assets">
       <LpHeader />
       <Banner />
     </PageContainer>
