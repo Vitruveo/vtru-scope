@@ -13,7 +13,7 @@ export default function Nfts () {
       title: 'Home',
     },
     {
-      title: 'Boosters',
+      title: 'NFTs',
     },
   ];
 
