@@ -53,6 +53,14 @@ const CoreNFTCard = ({ nft }) => {
     });
   }
 
+  const formatQuota = (n) => {
+    const converted = Number(n) / Math.pow(10, 18); 
+    return converted.toLocaleString(undefined, { 
+      minimumFractionDigits: 0, 
+      maximumFractionDigits: 0 
+    });
+  }
+
   const formatBlock = (n) => {
     return Number(n).toLocaleString(undefined, { 
       minimumFractionDigits: 0, 
@@ -91,7 +99,7 @@ const CoreNFTCard = ({ nft }) => {
     },
     {
       title: "Claimed",
-      digits: formatBigNum(nft.claimedGrantAmount),
+      digits: formatBigNum(unlocked),
       bgcolor: "primary",
     },
     {
@@ -137,7 +145,7 @@ const CoreNFTCard = ({ nft }) => {
   topcards[4] = [
     {
       title: "Share Quota",
-      digits: formatBlock(nft.voteCredits * 50),
+      digits: formatQuota(nft.grantAmount),
       bgcolor: "primary",
     },
     {
@@ -148,7 +156,7 @@ const CoreNFTCard = ({ nft }) => {
   ];
 
   
- // console.log(nft)
+  //console.log(nft)
   
   return (
         <Grid item xs={12} sm={12} md={6} lg={6} key={nft.id}>
