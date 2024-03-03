@@ -162,7 +162,7 @@ const CoreNFTCard = ({ nft }) => {
         <Grid item xs={12} sm={12} md={6} lg={6} key={nft.id}>
           <BlankCard className="hoverCard">
             <>
-              <img src={'/images/placeholder.png'} alt="img" style={{width: '100%' }} onLoad={(e) => {e.target.src=`${nft.class.image}`;}} />
+              <img src={'/images/placeholder.png'} alt="img" style={{width: '100%' }} onLoad={(e) => {e.target.src=`${nft.class.image}`;}}  onError={(e) => {e.target.src=`/images/placeholder.png`;}} />
               <CardContent>
                 {/*
                   <Chip label={nft.class.name} size="small"></Chip>
