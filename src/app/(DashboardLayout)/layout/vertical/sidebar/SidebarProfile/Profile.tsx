@@ -25,7 +25,7 @@ export const Profile = () => {
         <>
 
           <Box>
-            <Typography variant="caption">v0.5 beta</Typography>
+            <Typography variant="caption">v0.51 beta</Typography>
           </Box>
         </>
       ) : (

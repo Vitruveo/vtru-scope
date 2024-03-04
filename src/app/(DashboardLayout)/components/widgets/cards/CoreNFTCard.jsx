@@ -155,14 +155,18 @@ const CoreNFTCard = ({ nft }) => {
     },
   ];
 
-  
+  async function fetchImage(tokenId, imgUrl) {
+    const img = document.getElementById(`img-${tokenId}`);
+    delete img.onLoad;
+    img.src = imgUrl;
+  }
   //console.log(nft)
   
   return (
         <Grid item xs={12} sm={12} md={6} lg={6} key={nft.id}>
           <BlankCard className="hoverCard">
             <>
-              <img src={'/images/placeholder.png'} alt="img" style={{width: '100%' }} onLoad={(e) => {e.target.src=`${nft.class.image}`;}}  onError={(e) => {e.target.src=`/images/placeholder.png`;}} />
+              <img src={'/images/placeholder.png'} alt="img" style={{width: '100%' }} id={`img-${nft.id}`} onLoad={(e) => {fetchImage(`${nft.id}`, `${nft.class.image}`);}}  onError={(e) => {e.target.src=`/images/placeholder.png`;}} />
               <CardContent>
                 {/*
                   <Chip label={nft.class.name} size="small"></Chip>

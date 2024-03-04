@@ -48,6 +48,17 @@ These are the release notes:
               </Typography>
             </FormLabel>
             <ChildCard>
+                  <Typography variant="h6">v0.51 beta</Typography>
+
+                  <Typography variant="body1" color="textSecondary">
+                    <ul>
+                      <li>Fixes for NFT image rendering</li>
+                      <li>Fix for transferred NFTs</li>
+                      <li>Display Boosters in account</li>
+                    </ul>
+                  </Typography>
+            </ChildCard>
+            <ChildCard>
                   <Typography variant="h6">v0.5 beta</Typography>
 
                   <Typography variant="body1" color="textSecondary">
