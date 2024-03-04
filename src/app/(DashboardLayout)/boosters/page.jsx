@@ -4,14 +4,14 @@ import React, { useEffect, useState, useRef } from "react";
 import { Grid, Typography } from '@mui/material';
 import Breadcrumb from '@/app/(DashboardLayout)/layout/shared/breadcrumb/Breadcrumb';
 import PageContainer from '@/app/(DashboardLayout)/components/container/PageContainer';
-import CoreNFTCard from '@/app/(DashboardLayout)/components/widgets/cards/CoreNFTCard';
+import BoosterNFTCard from '@/app/(DashboardLayout)/components/widgets/cards/BoosterNFTCard';
 
 import { readContract, watchAccount } from "@wagmi/core";
-import * as prodConfig  from "@/app/config/corevest_prod.json";
+import * as prodConfig  from "@/app/config/boosters_prod.json";
 import { useAccount } from "wagmi";
 import { ethers } from "ethers";
 
-export default function CoreNft () {
+export default function Boosters () {
   const [contract, setContract] = useState(null);
   const [account, setAccount] = useState(null);
   const [nfts, setNfts] = useState([]);
@@ -22,11 +22,7 @@ export default function CoreNft () {
     
     onConnect({ address, connector, isReconnected }) {
       const rpcUrl = connector.chains[0].rpcUrls['default']['http'][0];
-      const provider = new ethers.JsonRpcProvider(rpcUrl);
-      provider.getBlockNumber().then((result) => {
-        console.log("Current block number: " + result);
-      });
-      
+      const provider = new ethers.JsonRpcProvider(rpcUrl);      
       setNfts(arr => []);
       setContract(new ethers.Contract(config.contractAddress, config.abi, provider));
       setAccount(address);
@@ -42,6 +38,7 @@ export default function CoreNft () {
   useEffect(() => {
 
     async function getTokens(connectedOwner) {
+     
       if (connectedOwner !== null) {
         const transfers = contract?.filters?.Transfer(null, connectedOwner, null);
         if (transfers) {
@@ -72,25 +69,29 @@ export default function CoreNft () {
 
   }, [contract, account ])
 
+  const getData = async (id) => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const resp = await fetch(`https://booster.vitruveo.xyz/api/metadata/${id}.json`);
+        const json = await resp.json();
+        resolve(json.data);
+      } catch (error) {
+        reject(error);
+      }
+    });
+  };
 
   async function getAccountNfts(tokens) {
     try {
       let nftTmp = [];
       for(let t=0; t<tokens.length; t++) {
-        let token = tokens[t];
+        let tokenId = tokens[t];
         const nft = await readContract({
                       address: config?.contractAddress,
                       abi: config?.abi,
-                      functionName: "getCoreTokenInfo",
-                      args: [token]
+                      functionName: "Boosters",
+                      args: [tokenId]
                     });
-        const tokenUri = await readContract({
-          address: config?.contractAddress,
-          abi: config?.abi,
-          functionName: "tokenURI",
-          args: [token]
-        });
-        nft.class = JSON.parse(atob(tokenUri.split(',')[1]));
         nftTmp.push(nft);
       }
 
@@ -111,7 +112,7 @@ export default function CoreNft () {
       title: 'Home',
     },
     {
-      title: 'Core NFTs',
+      title: 'Boosters',
     },
   ];
 
@@ -119,21 +120,21 @@ export default function CoreNft () {
 
   return (
     <PageContainer title="VTRU Scope" description="View all Core NFTs">
-      <Breadcrumb title="Core NFTs" items={breadcrumb} />
+      <Breadcrumb title="Booster NFTs" items={breadcrumb} />
              
           {
             nfts.length == 0 ?
               (account == null ?
-                <Typography variant="h4" sx={{mx: 2}}>Connect account to view Core NFTs.</Typography>
+                <Typography variant="h4" sx={{mx: 2}}>Connect account to view Booster NFTs.</Typography>
               :
-                <Typography variant="h4" sx={{mx: 2}}>No Core NFTs in connected account.</Typography>
+                <Typography variant="h4" sx={{mx: 2}}>No Booster NFTs in connected account.</Typography>
               )
             :
               <Grid container spacing={3}>
                   {
                     nfts.map((nft) => {
                       return (
-                        <CoreNFTCard nft={nft} key={nft.id}/>
+                        <BoosterNFTCard nft={nft} key={nft[0]}/>
                       );
                     })
                   }
@@ -144,4 +145,4 @@ export default function CoreNft () {
   ); 
 };
 
-CoreNft.layout = "Blank";
+Boosters.layout = "Blank";
