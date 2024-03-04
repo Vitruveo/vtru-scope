@@ -9,7 +9,7 @@ const Logo = () => {
   const customizer = useSelector((state: AppState) => state.customizer);
   const LinkStyled = styled(Link)(() => ({
     height: customizer.TopbarHeight,
-    width: customizer.isCollapse ? "40px" : "180px",
+    width: customizer.isCollapse ? "40px" : "220px",
     overflow: "hidden",
     display: "block",
   }));
@@ -20,18 +20,18 @@ const Logo = () => {
       <LinkStyled href="/" sx={{ mt: 2.5 }}>
         {customizer.activeMode === "dark" ? (
           <Image
-            src="/images/logo.png"
+            src="/images/scope.svg"
             alt="logo"
-            height={41}
-            width={180}
+            height={39}
+            width={220}
             priority
           />
         ) : (
           <Image 
-            src={"/images/logo.png"}
+            src={"/images/scope.svg"}
             alt="logo"
-            height={41}
-            width={180}
+            height={39}
+            width={220}
             priority
           />
         )}
@@ -43,18 +43,18 @@ const Logo = () => {
     <LinkStyled href="/">
       {customizer.activeMode === "dark" ? (
         <Image
-          src="/images/logo.png"
+          src="/images/scope.svg"
           alt="logo"
-          height={41}
-          width={180}
-          priority
+          height={39}
+          width={220}
+        priority
         />
       ) : (
         <Image
-          src="/images/logo.png"
+          src="/images/scope.svg"
           alt="logo"
-          height={41}
-          width={180}
+          height={39}
+          width={220}
           priority
         />
       )}

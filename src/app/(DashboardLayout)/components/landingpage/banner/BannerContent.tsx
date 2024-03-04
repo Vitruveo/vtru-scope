@@ -43,14 +43,13 @@ const BannerContent = () => {
             lineHeight: {
               md: '60px',
             },
+            marginBottom: '40px'
           }}
         >
           The focal point
           for your Vitruveo assets
-          <Typography component={'span'} variant="inherit" color={'primary'}>
-          <p>VTRU Scope</p>
-          </Typography>{' '}
         </Typography>
+        <img src="/images/scope.svg" style={{maxWidth: '100%', marginTop: '2opx'}} />
       </motion.div>
 
     </Box>

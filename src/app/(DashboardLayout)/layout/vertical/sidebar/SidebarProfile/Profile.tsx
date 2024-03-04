@@ -25,7 +25,8 @@ export const Profile = () => {
         <>
 
           <Box>
-            <Typography variant="caption">v0.51 beta</Typography>
+            <Typography variant="h6" sx={{ml: '8px', mb: '8px',}}>Version 0.51 beta</Typography>
+            <img src="/images/logo.png" style={{width: '180px'}} />
           </Box>
         </>
       ) : (
