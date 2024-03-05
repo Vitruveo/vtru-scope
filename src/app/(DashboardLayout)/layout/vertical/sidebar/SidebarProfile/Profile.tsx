@@ -19,14 +19,14 @@ export const Profile = () => {
       display={'flex'}
       alignItems="center"
       gap={2}
-      sx={{ m: 3, p: 2, bgcolor: `${'secondary.light'}` }}
+      sx={{ m: 3, p: 2 }}
     >
       {!hideMenu ? (
         <>
 
-          <Box>
-            <Typography variant="h6" sx={{ml: '8px', mb: '8px',}}>Version 0.51 beta</Typography>
-            <img src="/images/logo.png" style={{width: '180px'}} />
+          <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center"}}>
+            <Typography sx={{ mb: '8px',}}>v0.51 beta</Typography>
+            <img src="/images/logo.png" style={{marginLeft: '10px', width: '120px'}} />
           </Box>
         </>
       ) : (
