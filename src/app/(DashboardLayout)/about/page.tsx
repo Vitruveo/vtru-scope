@@ -48,6 +48,18 @@ These are the release notes:
               </Typography>
             </FormLabel>
             <ChildCard>
+                  <Typography variant="h6">v0.60 beta</Typography>
+
+                  <Typography variant="body1" color="textSecondary">
+                    <ul>
+                      <li>Claim feature enabled</li>
+                      <li>Boost feature enabled</li>
+                      <li>Refactored Core NFT information</li>
+                      <li>Upgraded smart contracts</li>
+                    </ul>
+                  </Typography>
+            </ChildCard>
+            <ChildCard>
                   <Typography variant="h6">v0.51 beta</Typography>
 
                   <Typography variant="body1" color="textSecondary">
@@ -59,7 +71,7 @@ These are the release notes:
                   </Typography>
             </ChildCard>
             <ChildCard>
-                  <Typography variant="h6">v0.5 beta</Typography>
+                  <Typography variant="h6">v0.50 beta</Typography>
 
                   <Typography variant="body1" color="textSecondary">
                     <ul>

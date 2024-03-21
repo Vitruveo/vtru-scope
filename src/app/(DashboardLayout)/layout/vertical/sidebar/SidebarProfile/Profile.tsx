@@ -19,13 +19,13 @@ export const Profile = () => {
       display={'flex'}
       alignItems="center"
       gap={2}
-      sx={{ m: 3, p: 2 }}
+      sx={{ m: 3, p: 1 }}
     >
       {!hideMenu ? (
         <>
 
-          <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center"}}>
-            <Typography sx={{ mb: '8px',}}>v0.51 beta</Typography>
+          <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center"}} px={0}>
+            <Typography>v0.60 beta</Typography>
             <img src="/images/logo.png" style={{marginLeft: '10px', width: '120px'}} />
           </Box>
         </>

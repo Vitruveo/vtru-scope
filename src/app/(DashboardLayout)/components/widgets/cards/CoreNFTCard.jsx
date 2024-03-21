@@ -1,5 +1,6 @@
-import * as React from 'react'; 
+import React, { useEffect, useState, useRef } from "react";
 import Link  from 'next/link';
+import { useRouter } from 'next/navigation';
 import {
   CardContent,
   Grid,
@@ -21,13 +22,16 @@ import TabPanel from '@mui/lab/TabPanel';
 import Image from "next/image";
 
 
-const CoreNFTCard = ({ nft }) => {
+const CoreNFTCard = ({ nft, handleClaim }) => {
+  const router = useRouter();
+  const [buttonMessage, setButtonMessage] = useState('CLAIM');
+  const [buttonEnabled, setButtonEnabled] = useState(nft.grantClaimableAmount + nft.rebaseClaimableAmount > 0);
+
   const COMMON_TAB = [
     { value: 0, label: 'Summary', disabled: false },
     { value: 1, label: 'Grant', disabled: false },
-    { value: 2, label: 'Vesting', disabled: false },
-    { value: 3, label: 'Rebases', disabled: false },
-    { value: 4, label: 'Other', disabled: false }
+    { value: 2, label: 'Info', disabled: false },
+    { value: 3, label: 'Claim', disabled: false },
   ];
   const [value, setValue] = React.useState('1');
 
@@ -61,7 +65,7 @@ const CoreNFTCard = ({ nft }) => {
     });
   }
 
-  const formatBlock = (n) => {
+  const formatStandard = (n) => {
     return Number(n).toLocaleString(undefined, { 
       minimumFractionDigits: 0, 
       maximumFractionDigits: 0 
@@ -80,43 +84,25 @@ const CoreNFTCard = ({ nft }) => {
       bgcolor: "primary",
     },
     {
-      title: "Claimable",
-      digits: "0",
+      title: "Grant Avail.",
+      digits: formatBigNum(nft.grantClaimableAmount),
       bgcolor: "primary",
     },
     {
-      title: "Claim",
-      digits: "0",
-      bgcolor: "white",
+      title: "Rebase Avail.",
+      digits: formatBigNum(nft.rebaseClaimableAmount),
+      bgcolor: "primary",
     },
   ];
-
   topcards[1] = [
     {
-      title: "Unlocked",
-      digits: formatBigNum(unlocked),
+      title: "Lock Months",
+      digits: nft.lockMonths ,
       bgcolor: "primary",
     },
     {
-      title: "Claimed",
-      digits: formatBigNum(unlocked),
-      bgcolor: "primary",
-    },
-    {
-      title: "Grant Block",
-      digits: formatBlock(nft.grantBlock),
-      bgcolor: "primary",
-    },
-  ];
-  topcards[2] = [
-    {
-      title: "Locked",
-      digits: nft.lockMonths + ' mths',
-      bgcolor: "primary",
-    },
-    {
-      title: "Vesting",
-      digits: nft.vestingMonths + ' mths',
+      title: "Vesting Months",
+      digits: nft.vestingMonths,
       bgcolor: "primary",
     },
     {
@@ -125,15 +111,34 @@ const CoreNFTCard = ({ nft }) => {
       bgcolor: "primary",
     }
   ];
+
+  topcards[2] = [
+    {
+      title: "Grant Block",
+      digits: formatStandard(nft.grantBlock),
+      bgcolor: "primary",
+    },
+    {
+      title: "Elapsed Months",
+      digits: formatStandard(nft.elapsedMonths),
+      bgcolor: "primary",
+    },
+    {
+      title: "Vote Credits",
+      digits: nft.voteCredits,
+      bgcolor: "primary",
+    }
+  ];
+
   topcards[3] = [
     {
-      title: "Rebased",
-      digits: "0",
+      title: "Claimed",
+      digits: formatBigNum(nft.claimedGrantAmount + nft.claimedRebaseAmount),
       bgcolor: "primary",
     },
     {
       title: "Claimable",
-      digits: "0",
+      digits: formatBigNum(nft.grantClaimableAmount + nft.rebaseClaimableAmount),
       bgcolor: "primary",
     },
     {
@@ -142,26 +147,39 @@ const CoreNFTCard = ({ nft }) => {
       bgcolor: "white",
     },
   ];
-  topcards[4] = [
-    {
-      title: "Share Quota",
-      digits: formatQuota(nft.grantAmount),
-      bgcolor: "primary",
-    },
-    {
-      title: "Vote Credits",
-      digits: nft.voteCredits,
-      bgcolor: "primary",
-    },
-  ];
+
+  if ( nft.classId == 1 ) {
+    COMMON_TAB.push({ value: 4, label: 'Boost', disabled: false });
+    topcards[4] = [
+      {
+        title: "Boosts",
+        digits: formatStandard(nft.boosts),
+        bgcolor: "primary",
+      },
+      {
+        title: "Acceleration %",
+        digits: (nft.boostBasisPoints/100).toFixed(2),
+        bgcolor: "primary",
+      },
+      {
+        title: "Boost",
+        digits: "0",
+        bgColor: "white",
+      }
+    ];
+  }
 
   async function fetchImage(tokenId, imgUrl) {
     const img = document.getElementById(`img-${tokenId}`);
     delete img.onLoad;
     img.src = imgUrl;
   }
-  //console.log(nft)
-  
+
+  function buttonState(enabled) {
+    setButtonEnabled(enabled);
+    setButtonMessage('Wait...');
+  }
+
   return (
         <Grid item xs={12} sm={12} md={6} lg={6} key={nft.id}>
           <BlankCard className="hoverCard">
@@ -187,13 +205,25 @@ const CoreNFTCard = ({ nft }) => {
                             {topcards[panel.value].map((topcard, i) => (
                             <Grid item xs={12} sm={12} md={4} lg={4} key={i}>
                               <Box bgcolor={topcard.bgcolor + ".light"} textAlign="center">
-                                <CardContent>
+                                <CardContent px={1}>
                                   { 
-                                    ((panel.value == 0 || panel.value == 3) && i == 2) ?
-                                      <Button color="primary" size="large" disabled fullWidth>
-                                        CLAIM
-                                      </Button>
-                                    :
+                                    ((panel.value == 3 || panel.value == 4) && i == 2) ?
+                                        (
+                                          panel.value == 4 ?
+                                          (
+                                             nft.classId == 1 ?
+                                              <Button color="primary" size="large" fullWidth onClick={() => router.push(`/boosters?boost=${nft.id}`)}>
+                                                BOOST
+                                              </Button>
+                                              :
+                                              <></>
+                                          )
+                                            :
+                                              <Button color="primary" size="large" disabled={ !buttonEnabled } fullWidth onClick={ () => { buttonState(false); handleClaim(nft.id); } }>
+                                                { buttonMessage }
+                                              </Button>
+                                        )
+                                      :
                                       <>
                                           <Typography
                                           color={topcard.bgcolor + ".main"} 
@@ -211,7 +241,7 @@ const CoreNFTCard = ({ nft }) => {
                                     
                                           </Typography>
                                       </>
-                                  }                                                            
+                                  }           
                                 </CardContent>
                               </Box>
                             </Grid>
