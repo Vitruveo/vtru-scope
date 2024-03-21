@@ -73,8 +73,7 @@ const CoreNFTCard = ({ nft, handleClaim }) => {
   }
 
   const unlocked = Number(nft.grantAmount) * (nft.unlockBasisPoints/10000);
-  const monthly = (Number(formatBigNum(((Number(nft.grantAmount) - unlocked)/nft.vestingMonths))) + nft.boostBasisPoints/100).toFixed(2);
-
+  const monthly = ((((Number(nft.grantAmount) - unlocked)/nft.vestingMonths)/Math.pow(10,18)) + (nft.boostBasisPoints/100)).toFixed(2);
 
   const topcards = [];
   topcards[0] = [
@@ -119,7 +118,7 @@ const CoreNFTCard = ({ nft, handleClaim }) => {
       bgcolor: "primary",
     },
     {
-      title: "Elapsed Months",
+      title: "Elapsed Mths.",
       digits: formatStandard(nft.elapsedMonths),
       bgcolor: "primary",
     },
