@@ -73,7 +73,7 @@ const CoreNFTCard = ({ nft, handleClaim }) => {
   }
 
   const unlocked = Number(nft.grantAmount) * (nft.unlockBasisPoints/10000);
-  const monthly = formatBigNum((Number(nft.grantAmount) - unlocked)/nft.vestingMonths);
+  const monthly = (Number(formatBigNum(((Number(nft.grantAmount) - unlocked)/nft.vestingMonths))) + nft.boostBasisPoints/100).toFixed(2);
 
 
   const topcards = [];
