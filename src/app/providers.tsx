@@ -15,7 +15,6 @@ import { publicProvider } from 'wagmi/providers/public';
 
 import merge from 'lodash.merge';
 
-
 const vitruveo = {
   id: 1490,
   name: 'Vitruveo',
@@ -61,7 +60,7 @@ const vitruveoTestnet = {
 };
 
 const { chains, publicClient, webSocketPublicClient } = configureChains(
-  [...process.env.NEXT_PUBLIC_IS_TESTNET == "true" ? [vitruveoTestnet] : [vitruveo]],
+ [...process.env.NEXT_PUBLIC_IS_TESTNET == "true" ? [vitruveoTestnet] : [vitruveo]],
   [publicProvider()]
 );
 

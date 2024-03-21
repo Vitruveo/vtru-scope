@@ -10,14 +10,14 @@ const BpIcon = styled('span')(({ theme }) => ({
   boxShadow:
     theme.palette.mode === 'dark'
       ? `0 0 0 1px ${theme.palette.grey[200]}`
-      : `inset 0 0 0 1px ${theme.palette.grey[300]}`,
+      : `inset 0 0 0 1px ${theme.palette.grey[600]}`,
   backgroundColor: 'transparent',
 
   '.Mui-focusVisible &': {
     outline:
       theme.palette.mode === 'dark'
         ? `0px auto ${theme.palette.grey[200]}`
-        : `0px auto  ${theme.palette.grey[300]}`,
+        : `0px auto  ${theme.palette.grey[600]}`,
     outlineOffset: 2,
   },
   'input:hover ~ &': {
