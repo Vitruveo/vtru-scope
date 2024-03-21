@@ -73,7 +73,9 @@ const CoreNFTCard = ({ nft, handleClaim }) => {
   }
 
   const unlocked = Number(nft.grantAmount) * (nft.unlockBasisPoints/10000);
-  const monthly = ((((Number(nft.grantAmount) - unlocked)/nft.vestingMonths)/Math.pow(10,18)) + (nft.boostBasisPoints/100)).toFixed(2);
+  const annualAmount = ((Number(nft.grantAmount) - unlocked)); 
+  const monthlyPercentage = 1/nft.vestingMonths + nft.boostBasisPoints/10000; 
+  const monthly = ((annualAmount * monthlyPercentage)/Math.pow(10,18)).toFixed(2);
 
   const topcards = [];
   topcards[0] = [
@@ -168,10 +170,13 @@ const CoreNFTCard = ({ nft, handleClaim }) => {
     ];
   }
 
+  const loadedImages = [];
   async function fetchImage(tokenId, imgUrl) {
+    if (loadedImages.indexOf(tokenId) > -1) return;
     const img = document.getElementById(`img-${tokenId}`);
     delete img.onLoad;
     img.src = imgUrl;
+    loadedImages.push(tokenId);
   }
 
   function buttonState(enabled) {
