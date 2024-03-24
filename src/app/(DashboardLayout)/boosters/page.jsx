@@ -326,7 +326,7 @@ export default function Boosters() {
                   variant="filled"                  
                   severity="info"
                 >
-                  The "Boost Target Account" must have a Nexus or Maxim NFT so after boosting, benefits can be tracked. If none is found, a Maxim NFT will automatically be added to the account.
+                  The <b>Boost Target Account</b> must have a Nexus or Maxim NFT so after boosting, benefits can be tracked. If none is found, a Maxim NFT will automatically be added to the account.
               </Alert>
           </Grid>
           }

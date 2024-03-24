@@ -54,7 +54,6 @@ These are the release notes:
                     <ul>
                       <li>Feature to boost any account by address</li>
                       <li>Auto-add Maxim NFT if boosted address does not have Nexus/Maxim NFT</li>
-                      <li>NFTs view shows boosted NFTs (others to be added in the future)</li>
                       <li>Fixed minor issues with claim amount calculations</li>
                       <li>Refactored Core NFT card information tab content</li>
                       <li>Upgraded smart contracts</li>
