@@ -48,6 +48,20 @@ These are the release notes:
               </Typography>
             </FormLabel>
             <ChildCard>
+                  <Typography variant="h6">v0.65 beta</Typography>
+
+                  <Typography variant="body1" color="textSecondary">
+                    <ul>
+                      <li>Feature to boost any account by address</li>
+                      <li>Auto-add Maxim NFT if boosted address does not have Nexus/Maxim NFT</li>
+                      <li>NFTs view shows boosted NFTs (others to be added in the future)</li>
+                      <li>Fixed minor issues with claim amount calculations</li>
+                      <li>Refactored Core NFT card information tab content</li>
+                      <li>Upgraded smart contracts</li>
+                    </ul>
+                  </Typography>
+            </ChildCard>
+            <ChildCard>
                   <Typography variant="h6">v0.60 beta</Typography>
 
                   <Typography variant="body1" color="textSecondary">

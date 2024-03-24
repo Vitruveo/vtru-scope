@@ -74,8 +74,22 @@ const CoreNFTCard = ({ nft, handleClaim }) => {
 
   const unlocked = Number(nft.grantAmount) * (nft.unlockBasisPoints/10000);
   const annualAmount = ((Number(nft.grantAmount) - unlocked)); 
-  const monthlyPercentage = 1/nft.vestingMonths + nft.boostBasisPoints/10000; 
+  const monthlyPercentage = nft.vestingMonths == 0 ? 0 : 1/nft.vestingMonths + nft.boostBasisPoints/10000; 
   const monthly = ((annualAmount * monthlyPercentage)/Math.pow(10,18)).toFixed(2);
+
+  // const byMonth = [];
+  // let runningTotal = 0;
+  // let stop = false;
+  // for(let i=0;i<nft.vestingMonths;i++) {
+  //     let currVal = (annualAmount * monthlyPercentage)/Math.pow(10,18);
+  //     if (runningTotal + currVal > annualAmount) {
+  //       currVal = AnnualAmount - runningTotal;
+  //       stop = true;
+  //     }
+  //     byMonth.push(currVal);
+  //     if (stop) break;
+  // }
+
 
   const topcards = [];
   topcards[0] = [
@@ -97,20 +111,20 @@ const CoreNFTCard = ({ nft, handleClaim }) => {
   ];
   topcards[1] = [
     {
-      title: "Lock Months",
-      digits: nft.lockMonths ,
+      title: "Token ID",
+      digits: `${nft.id}`,
       bgcolor: "primary",
     },
     {
-      title: "Vesting Months",
-      digits: nft.vestingMonths,
+      title: "Lock/Vest Mths",
+      digits: `${nft.lockMonths}/${nft.vestingMonths}` ,
       bgcolor: "primary",
     },
     {
       title: "Vesting/Month",
       digits: monthly,
       bgcolor: "primary",
-    }
+    },
   ];
 
   topcards[2] = [
@@ -125,8 +139,8 @@ const CoreNFTCard = ({ nft, handleClaim }) => {
       bgcolor: "primary",
     },
     {
-      title: "Vote Credits",
-      digits: nft.voteCredits,
+      title: "Next Claim Block",
+      digits: nft.elapsedMonths > nft.vestingMonths || nft.vestingMonths == 0 ? 'N/A' : formatStandard(Number(nft.grantBlock) + ((Number(nft.elapsedMonths) + 1) * 518400)), // 17280 blocks per day * 30 days
       bgcolor: "primary",
     }
   ];
@@ -149,7 +163,7 @@ const CoreNFTCard = ({ nft, handleClaim }) => {
     },
   ];
 
-  if ( nft.classId == 1 ) {
+  if ( nft.classId == 1 || nft.classId == 2) {
     COMMON_TAB.push({ value: 4, label: 'Boost', disabled: false });
     topcards[4] = [
       {

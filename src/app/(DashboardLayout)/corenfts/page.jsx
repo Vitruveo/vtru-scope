@@ -47,7 +47,7 @@ export default function CoreNft () {
   useEffect(() => {
 
     async function getTokens(connectedOwner) {
-      //connectedOwner=''
+     // connectedOwner='0xB342FC9411e11aDF8A5A6051C57EC8076Ae51111'
       if (connectedOwner !== null) {
         const transfers = contract?.filters?.Transfer(null, connectedOwner, null);
         if (transfers) {
@@ -129,7 +129,7 @@ export default function CoreNft () {
         nft.rebaseClaimableAmount = claimInfo[1];
         nft.elapsedMonths = claimInfo[2];
         nftTmp.push(nft);
-        console.table(nft);console.log(claimInfo)
+        //console.table(nft);console.log(claimInfo)
       }
 
       if (nftTmp.length > 0) {

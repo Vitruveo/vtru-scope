@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState, useRef } from "react";
 import Box from "@mui/material/Box";
-import { CardContent, Grid, Typography, Button } from "@mui/material";
+import { CardContent, Grid, Typography, Button, Alert} from "@mui/material";
 import { styled } from "@mui/material/styles";
 import Breadcrumb from "@/app/(DashboardLayout)/layout/shared/breadcrumb/Breadcrumb";
 import PageContainer from "@/app/(DashboardLayout)/components/container/PageContainer";
@@ -32,8 +32,9 @@ export default function Boosters() {
   const [totalBoosters, setTotalBoosters] = useState(0);
   const [totalVtru, setTotalVtru] = useState(0);
   const [totalBasisPoints, setTotalBasisPoints] = useState(0);
-  const [buttonMessage, setButtonMessage] = useState('BOOST NEXUS');
+  const [buttonMessage, setButtonMessage] = useState('BOOST IT!');
   const [buttonEnabled, setButtonEnabled] = useState(false);
+  const [targetAddress, setTargetAddress] = useState('');
 
   const config = process.env.NEXT_PUBLIC_IS_TESTNET == "true" ? testConfig : prodConfig;
   const coreConfig = process.env.NEXT_PUBLIC_IS_TESTNET == "true" ? testCoreConfig : prodCoreConfig;
@@ -94,6 +95,10 @@ export default function Boosters() {
     getTokens(account);
   }, [contract, account]);
 
+  useEffect(() => {
+    setButtonEnabled(boosters.length > 0 && targetAddress != '');
+  }, [targetAddress]);
+
   function trackBoosters(nft) {
     const idx = boosters.indexOf(nft.tokenId); 
     if (idx > -1) {
@@ -108,7 +113,15 @@ export default function Boosters() {
         setTotalBasisPoints(totalBasisPoints + nft.basisPoints)  
     }
     setBoosters(boosters);
-    setButtonEnabled(boosters.length > 0);
+    setButtonEnabled(boosters.length > 0 && (boostNftId ? true : targetAddress != ''));
+  }
+
+  function handleAddressChange(e) {
+    if (ethers.isAddress(e.target.value.toLowerCase())) {
+      setTargetAddress(e.target.value.toLowerCase());
+    } else {
+      setTargetAddress('');      
+    }
   }
 
   async function boost() {
@@ -118,13 +131,16 @@ export default function Boosters() {
     setButtonEnabled(false);
 
     processing = true;
+    const method = targetAddress != '' ? 'batchBoostAccount' : 'batchBoostToken';
+    const param = targetAddress != '' ? targetAddress : boostNftId;
+    
     // Send transaction
     try {
         await writeContract({
             address: coreConfig.contractAddress,
             abi: coreConfig.abi,
-            functionName: "batchBoostToken",
-            args: [boostNftId, boosters]
+            functionName: method,
+            args: [param, boosters]
             });
         setTimeout(() => {
             window.location.reload()
@@ -133,7 +149,7 @@ export default function Boosters() {
     } catch(e) {
         console.log('***************',e);
         processing = false;
-        setButtonMessage('BOOST NEXUS');
+        setButtonMessage('BOOST IT!');
         setButtonEnabled(true);
     
     } 
@@ -162,7 +178,6 @@ export default function Boosters() {
       }
 
       if (nftTmp.length > 0) {
-        
         setNfts((arr) => nftTmp.sort((a,b) => a.isBoosted - b.isBoosted));
       } else {
         setNfts((arr) => []);
@@ -183,6 +198,9 @@ export default function Boosters() {
     },
   ];
 
+  const gridCols = boostNftId ? 3 : 2;
+  const btnCols = boostNftId ? 3 : 2;
+
   return (
     <PageContainer title="VTRU Scope" description="View all Core NFTs">
       <Breadcrumb title="Booster NFTs" items={breadcrumb} />
@@ -199,10 +217,9 @@ export default function Boosters() {
         )
       ) : (
         <>
-          {
-            boostNftId ? 
+         
             <Grid container spacing={3} textAlign="center" mb={3}>
-              <Grid item xs={12} md={6} lg={3}>
+              <Grid item xs={12} md={6} lg={gridCols}>
               <Box bgcolor={"primary.light"} textAlign="center">
                     <CardContent>
                       <Typography
@@ -210,7 +227,7 @@ export default function Boosters() {
                         variant="subtitle1"
                         fontWeight={600}
                       >
-                        Selected Boosters
+                        Selected
                       </Typography>
                       <Typography
                         color={"grey.900"}
@@ -224,7 +241,7 @@ export default function Boosters() {
 
               </Grid>
 
-            <Grid item xs={12} md={6} lg={3}>
+            <Grid item xs={12} md={6} lg={gridCols}>
             <Box bgcolor={"primary.light"} textAlign="center">
                   <CardContent>
                     <Typography
@@ -245,7 +262,7 @@ export default function Boosters() {
                 </Box>
             </Grid>
 
-            <Grid item xs={12} md={6} lg={3}>
+            <Grid item xs={12} md={6} lg={gridCols}>
                 <Box bgcolor={"primary.light"} textAlign="center">
                   <CardContent>
                     <Typography
@@ -265,8 +282,26 @@ export default function Boosters() {
                   </CardContent>
                 </Box>
             </Grid>
+            {
+              boostNftId ? 
+              <></> :
+                <Grid item xs={12} md={6} lg={4}>
+                <Box bgcolor={"primary.light"} textAlign="center" style={{ maxHeight: "98.09px" }}>
+                  <CardContent sx={{ pt: 2, pb: 2 }}>
+                    <Typography
+                      color={"primary.main"}
+                      variant="subtitle1"
+                      fontWeight={600}
+                    >
+                      Boost Target Account
+                    </Typography>
+                        <input type="text" onChange={handleAddressChange} style={{marginTop: '10px', padding: '2px', paddingTop: '5px', paddingBottom: '5px', fontSize: '11px', width: '98%', fontFamily: 'monospace'}} />
+                  </CardContent>
+                </Box>
+              </Grid>
+            }
 
-            <Grid item xs={12} md={6} lg={3} textAlign="center">
+            <Grid item xs={12} md={6} lg={btnCols} textAlign="center">
               <Box textAlign="center">
                 <CardContent>
                   <Button
@@ -283,13 +318,21 @@ export default function Boosters() {
               </Box>
             </Grid>
           </Grid>
-          :
-          <></>
+          {
+            boostNftId ? 
+            <></> :            
+            <Grid item xs={12} md={12} lg={12} sx={{ mb: 3}}>
+                <Alert
+                  variant="filled"                  
+                  severity="info"
+                >
+                  The "Boost Target Account" must have a Nexus or Maxim NFT so after boosting, benefits can be tracked. If none is found, a Maxim NFT will automatically be added to the account.
+              </Alert>
+          </Grid>
           }
-
-          <Grid container spacing={3}>
+          <Grid container>
             {nfts.map((nft) => {
-              return <BoosterNFTCard nft={nft} key={nft.tokenId} tracker={ boostNftId ? trackBoosters : null}/>;
+              return <BoosterNFTCard nft={nft} key={nft.tokenId} tracker={ trackBoosters }/>;
             })}
           </Grid>
         </>
