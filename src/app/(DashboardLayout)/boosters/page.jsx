@@ -330,7 +330,7 @@ export default function Boosters() {
               </Alert>
           </Grid>
           }
-          <Grid container>
+          <Grid container spacing={3}>
             {nfts.map((nft) => {
               return <BoosterNFTCard nft={nft} key={nft.tokenId} tracker={ trackBoosters }/>;
             })}

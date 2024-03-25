@@ -60,7 +60,7 @@ export default function CoreNft () {
   useEffect(() => {
 
     async function getTokens(connectedOwner) {
-     // connectedOwner='0xB342FC9411e11aDF8A5A6051C57EC8076Ae51111'
+     //connectedOwner=''
       if (connectedOwner !== null) {
         const transfers = contract?.filters?.Transfer(null, connectedOwner, null);
         if (transfers) {
