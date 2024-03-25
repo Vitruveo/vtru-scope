@@ -22,23 +22,16 @@ import TabPanel from '@mui/lab/TabPanel';
 import Image from "next/image";
 
 
-const CoreNFTCard = ({ nft, handleClaim }) => {
+const CoreNFTCard = ({ nft, handleClaim, getBlockNumber }) => {
   const router = useRouter();
   const [buttonMessage, setButtonMessage] = useState('CLAIM');
   const [buttonEnabled, setButtonEnabled] = useState(nft.grantClaimableAmount + nft.rebaseClaimableAmount > 0);
 
-  const COMMON_TAB = [
-    { value: 0, label: 'Summary', disabled: false },
-    { value: 1, label: 'Grant', disabled: false },
-    { value: 2, label: 'Info', disabled: false },
-    { value: 3, label: 'Claim', disabled: false },
-  ];
   const [value, setValue] = React.useState('1');
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-
   const digits = (n) => {
     if (n < 0) {
       return 6;
@@ -90,100 +83,121 @@ const CoreNFTCard = ({ nft, handleClaim }) => {
   //     if (stop) break;
   // }
 
+  let tabs = [
+    { label: 'Summary', disabled: false },
+    { label: 'Grant', disabled: false },
+    { label: 'Blocks', disabled: false },
+    { label: 'Claim', disabled: false },
+  ];
 
-  const topcards = [];
-  topcards[0] = [
+  let tabPanels = [];
+  tabPanels[0] = [
     {
       title: "Granted",
-      digits: formatBigNum(nft.grantAmount),
+      content: formatBigNum(nft.grantAmount),
       bgcolor: "primary",
     },
     {
       title: "Grant Avail.",
-      digits: formatBigNum(nft.grantClaimableAmount),
+      content: formatBigNum(nft.grantClaimableAmount),
       bgcolor: "primary",
     },
     {
       title: "Rebase Avail.",
-      digits: formatBigNum(nft.rebaseClaimableAmount),
+      content: formatBigNum(nft.rebaseClaimableAmount),
       bgcolor: "primary",
     },
   ];
-  topcards[1] = [
+  tabPanels[1] = [
     {
-      title: "Token ID",
-      digits: `${nft.id}`,
+      title: "Lock/Vest Mths",
+      content: `${nft.lockMonths}/${nft.vestingMonths}` ,
       bgcolor: "primary",
     },
     {
-      title: "Lock/Vest Mths",
-      digits: `${nft.lockMonths}/${nft.vestingMonths}` ,
+      title: "Elapsed Mths",
+      content: `${nft.elapsedMonths}`,
       bgcolor: "primary",
     },
     {
       title: "Vesting/Month",
-      digits: monthly,
+      content: monthly,
       bgcolor: "primary",
     },
   ];
 
-  topcards[2] = [
+  tabPanels[2] = [
     {
       title: "Grant Block",
-      digits: formatStandard(nft.grantBlock),
+      content: formatStandard(nft.grantBlock),
       bgcolor: "primary",
     },
     {
-      title: "Elapsed Mths.",
-      digits: formatStandard(nft.elapsedMonths),
+      title: "Current Block",
+      content: 'CLAIM_BLOCK', // 17280 blocks per day * 30 days
       bgcolor: "primary",
     },
     {
-      title: "Next Claim Block",
-      digits: nft.elapsedMonths > nft.vestingMonths || nft.vestingMonths == 0 ? 'N/A' : formatStandard(Number(nft.grantBlock) + ((Number(nft.elapsedMonths) + 1) * 518400)), // 17280 blocks per day * 30 days
+      title: "Next Claim",
+      content: nft.elapsedMonths > nft.vestingMonths || nft.vestingMonths == 0 ? 'N/A' : formatStandard(Number(nft.grantBlock) + ((Number(nft.elapsedMonths) + 1) * 518400)),
       bgcolor: "primary",
     }
   ];
 
-  topcards[3] = [
+  tabPanels[3] = [
     {
       title: "Claimed",
-      digits: formatBigNum(nft.claimedGrantAmount + nft.claimedRebaseAmount),
+      content: formatBigNum(nft.claimedGrantAmount + nft.claimedRebaseAmount),
       bgcolor: "primary",
     },
     {
       title: "Claimable",
-      digits: formatBigNum(nft.grantClaimableAmount + nft.rebaseClaimableAmount),
+      content: formatBigNum(nft.grantClaimableAmount + nft.rebaseClaimableAmount),
       bgcolor: "primary",
     },
     {
-      title: "Claim",
-      digits: "0",
+      title: "CLAIM_BUTTON",
+      content: "0",
       bgcolor: "white",
     },
   ];
 
   if ( nft.classId == 1 || nft.classId == 2) {
-    COMMON_TAB.push({ value: 4, label: 'Boost', disabled: false });
-    topcards[4] = [
+    tabs.push({ label: 'Boost', disabled: false });
+    tabPanels[4] = [
       {
         title: "Boosts",
-        digits: formatStandard(nft.boosts),
+        content: formatStandard(nft.boosts),
         bgcolor: "primary",
       },
       {
         title: "Acceleration %",
-        digits: (nft.boostBasisPoints/100).toFixed(2),
+        content: (nft.boostBasisPoints/100).toFixed(2),
         bgcolor: "primary",
       },
       {
-        title: "Boost",
-        digits: "0",
+        title: "BOOST_BUTTON",
+        content: "0",
         bgColor: "white",
       }
     ];
   }
 
+  if (nft.classId == 3) {
+    tabs.push({ label: 'KYC', disabled: false });
+    tabPanels[4] = [
+      {
+        title: "Status",
+        content: nft.isKyc ? '✅' : '❌',
+        bgcolor: "primary",
+      },
+      {
+        title: "KYC_BUTTON",
+        content: "0",
+        bgColor: "white",
+      }
+    ];
+  }
   const loadedImages = [];
   async function fetchImage(tokenId, imgUrl) {
     if (loadedImages.indexOf(tokenId) > -1) return;
@@ -198,68 +212,83 @@ const CoreNFTCard = ({ nft, handleClaim }) => {
     setButtonMessage('Wait...');
   }
 
+  function renderTabContent(nft, panel) {
+    switch(panel.title) {
+      case 'CLAIM_BUTTON':
+        return  (
+          <Button color="primary" size="large" disabled={ !buttonEnabled } fullWidth onClick={ () => { buttonState(false); handleClaim(nft.id); } }>
+            { buttonMessage }
+          </Button>
+        );
+      case 'BOOST_BUTTON':
+        return (
+          <Button color="primary" size="large" fullWidth onClick={() => router.push(`/boosters?boost=${nft.id}`)}>
+            BOOST
+          </Button>
+        );
+      case 'KYC_BUTTON':
+        if (!nft.isKyc) {
+          return (
+            <Button color="primary" size="large" fullWidth disabled>
+              REQUEST KYC
+            </Button>
+          );  
+        } else {
+          return <></>
+        }
+      default:
+        return (
+        <>
+          <Typography
+            color={panel.bgcolor + ".main"} 
+            variant="subtitle1"
+            fontWeight={600}
+          >
+            {panel.title}
+          </Typography>
+          <Typography
+            color={"grey.900"}
+            variant="h5"
+            fontWeight={600}
+          >
+            { 
+                panel.content == 'CLAIM_BLOCK' ?
+                  formatStandard(getBlockNumber())
+                  :
+                  panel.content   
+            }                               
+          </Typography>
+        </>
+      );
+    }
+  }
+
   return (
         <Grid item xs={12} sm={12} md={6} lg={6} key={nft.id}>
           <BlankCard className="hoverCard">
             <>
-              <img src={'/images/placeholder.png'} alt="img" style={{width: '100%' }} id={`img-${nft.id}`} onLoad={(e) => {fetchImage(`${nft.id}`, `${nft.class.image}`);}}  onError={(e) => {e.target.src=`/images/placeholder.png`;}} />
+
+              <img src={'/images/placeholder.png'} alt={`Token ID=${nft.id}`} style={{width: '100%' }} id={`img-${nft.id}`} onLoad={(e) => {fetchImage(`${nft.id}`, `${nft.class.image}`);}}  onError={(e) => {e.target.src=`/images/placeholder.png`;}} />
               <CardContent>
-                {/*
-                  <Chip label={nft.class.name} size="small"></Chip>
-                */}
                 <TabContext value={value}>
                   <Box>
+
                       <TabList onChange={handleChange}>
-                        {COMMON_TAB.map((tab, index) => (
-                          <Tab key={tab.value} label={tab.label} value={String(index + 1)} />
+                        {tabs.map((tab, tabIndex) => (
+                          <Tab key={tabIndex} label={tab.label} value={String(tabIndex + 1)} />
                         ))}
                       </TabList>
                     </Box>
                     <Divider />
                     <Box>
-                      {COMMON_TAB.map((panel, index) => (
-                        <TabPanel key={panel.value} value={String(index + 1)} sx={{ m:0, mt:3, p:0}}>
+                      {tabs.map((tab, tabIndex) => (
+                        <TabPanel key={tabIndex} value={String(tabIndex + 1)} sx={{ m:0, mt:3, p:0}}>
                           <Grid container spacing={1}>
-                            {topcards[panel.value].map((topcard, i) => (
-                            <Grid item xs={12} sm={12} md={4} lg={4} key={i}>
-                              <Box bgcolor={topcard.bgcolor + ".light"} textAlign="center">
+                            {tabPanels[tabIndex].map((panel, panelIndex) => (
+                            <Grid item xs={12} sm={12} md={4} lg={4} key={panelIndex}>
+                              <Box bgcolor={panel.bgcolor + ".light"} textAlign="center">
                                 <CardContent px={1}>
-                                  { 
-                                    ((panel.value == 3 || panel.value == 4) && i == 2) ?
-                                        (
-                                          panel.value == 4 ?
-                                          (
-                                             nft.classId == 1 ?
-                                              <Button color="primary" size="large" fullWidth onClick={() => router.push(`/boosters?boost=${nft.id}`)}>
-                                                BOOST
-                                              </Button>
-                                              :
-                                              <></>
-                                          )
-                                            :
-                                              <Button color="primary" size="large" disabled={ !buttonEnabled } fullWidth onClick={ () => { buttonState(false); handleClaim(nft.id); } }>
-                                                { buttonMessage }
-                                              </Button>
-                                        )
-                                      :
-                                      <>
-                                          <Typography
-                                          color={topcard.bgcolor + ".main"} 
-                                          variant="subtitle1"
-                                          fontWeight={600}
-                                          >
-                                            {topcard.title}
-                                          </Typography>
-                                          <Typography
-                                          color={"grey.900"}
-                                          variant="h5"
-                                          fontWeight={600}
-                                          >
-                                            {topcard.digits}
-                                    
-                                          </Typography>
-                                      </>
-                                  }           
+                                  { renderTabContent(nft, panel) }     
                                 </CardContent>
                               </Box>
                             </Grid>

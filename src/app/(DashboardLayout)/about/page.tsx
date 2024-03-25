@@ -48,6 +48,16 @@ These are the release notes:
               </Typography>
             </FormLabel>
             <ChildCard>
+                  <Typography variant="h6">v0.66 beta</Typography>
+
+                  <Typography variant="body1" color="textSecondary">
+                    <ul>
+                      <li>Validator Core NFT Support</li>
+                      <li>Real-time block number</li>
+                    </ul>
+                  </Typography>
+            </ChildCard>
+            <ChildCard>
                   <Typography variant="h6">v0.65 beta</Typography>
 
                   <Typography variant="body1" color="textSecondary">

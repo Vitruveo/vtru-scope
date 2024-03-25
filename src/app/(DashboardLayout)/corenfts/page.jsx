@@ -17,8 +17,26 @@ export default function CoreNft () {
   const [account, setAccount] = useState(null);
   const [nfts, setNfts] = useState([]);
   const [loadMessage, setLoadMessage] = useState('Scanning account for Core NFTs...');
+  const [blockNumber, setBlockNumber] = useState(0);
+  const [provider, setProvider] = useState(null);
   let processing = false;
 
+  useEffect(() => {
+      const interval = setInterval(() => {
+          if (provider !== null) {
+            provider.getBlockNumber().then((block) => setBlockNumber(block));
+          }
+      }, 5000);
+
+      return () => clearInterval(interval);
+  }, [blockNumber, provider]);
+
+
+  useEffect(() => {
+    if (provider !== null) {
+      setContract(new ethers.Contract(config.contractAddress, config.abi, provider));
+    }
+  }, [provider]);
 
   const config = process.env.NEXT_PUBLIC_IS_TESTNET == "true" ? testConfig : prodConfig; 
 
@@ -26,20 +44,15 @@ export default function CoreNft () {
     
     onConnect({ address, connector, isReconnected }) {
       const rpcUrl = connector.chains[0].rpcUrls['default']['http'][0];
-      const provider = new ethers.JsonRpcProvider(rpcUrl);
-      provider.getBlockNumber().then((result) => {
-//        console.log("Current block number: " + result);
-      });
-      
       setNfts(arr => []);
-      setContract(new ethers.Contract(config.contractAddress, config.abi, provider));
       setAccount(address);
-     
+      setProvider(new ethers.JsonRpcProvider(rpcUrl));      
     },
     onDisconnect() {
       setAccount(null);
       setNfts(arr => []);
-      setLoadMessage('Account disconnected.')
+      setLoadMessage('Account disconnected.');
+      setProvider(null);
     },
   });
 
@@ -52,7 +65,7 @@ export default function CoreNft () {
         const transfers = contract?.filters?.Transfer(null, connectedOwner, null);
         if (transfers) {
           const logEvents = await contract.queryFilter(transfers);
-          const tokens = [];console.log(logEvents)
+          const tokens = [];
           for(let l=0; l<logEvents.length; l++) {
             const log = logEvents[l];
             const info = contract.interface.parseLog(log);
@@ -64,7 +77,6 @@ export default function CoreNft () {
                                     args: [tokenId]
                                   });
             if (currentOwner.toLowerCase() == connectedOwner.toLowerCase()) {
-              console.log(tokenId);
               tokens.push(Number(tokenId));
             }
           }
@@ -78,6 +90,10 @@ export default function CoreNft () {
     getTokens(account);
 
   }, [contract, account ])
+
+  function getBlockNumber() {
+    return blockNumber;
+  }
 
   async function handleClaim(tokenId) {
     if (processing) return;
@@ -159,7 +175,6 @@ export default function CoreNft () {
   return (
     <PageContainer title="VTRU Scope" description="View all Core NFTs">
       <Breadcrumb title="Core NFTs" items={breadcrumb} />
-             
           {
             nfts.length == 0 ?
               (account == null ?
@@ -173,7 +188,7 @@ export default function CoreNft () {
                   {
                     nfts.map((nft) => {
                       return (
-                        <CoreNFTCard nft={nft} key={nft.id} handleClaim={handleClaim}/>
+                        <CoreNFTCard nft={nft} key={nft.id} handleClaim={handleClaim} getBlockNumber={getBlockNumber}/>
                       );
                     })
                   }

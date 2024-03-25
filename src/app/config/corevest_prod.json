@@ -578,6 +578,45 @@
 			  "internalType": "uint256",
 			  "name": "tokenId",
 			  "type": "uint256"
+			},
+			{
+			  "internalType": "bool",
+			  "name": "includeRebase",
+			  "type": "bool"
+			},
+			{
+			  "internalType": "uint256",
+			  "name": "blockNumber",
+			  "type": "uint256"
+			}
+		  ],
+		  "name": "calculateGrantClaimAmounts",
+		  "outputs": [
+			{
+			  "internalType": "uint256",
+			  "name": "",
+			  "type": "uint256"
+			},
+			{
+			  "internalType": "uint256",
+			  "name": "",
+			  "type": "uint256"
+			},
+			{
+			  "internalType": "uint256",
+			  "name": "",
+			  "type": "uint256"
+			}
+		  ],
+		  "stateMutability": "view",
+		  "type": "function"
+		},
+		{
+		  "inputs": [
+			{
+			  "internalType": "uint256",
+			  "name": "tokenId",
+			  "type": "uint256"
 			}
 		  ],
 		  "name": "claim",
@@ -699,6 +738,11 @@
 				{
 				  "internalType": "bool",
 				  "name": "isRevoked",
+				  "type": "bool"
+				},
+				{
+				  "internalType": "bool",
+				  "name": "isKyc",
 				  "type": "bool"
 				}
 			  ],
@@ -866,6 +910,11 @@
 				  "internalType": "bool",
 				  "name": "isRevoked",
 				  "type": "bool"
+				},
+				{
+				  "internalType": "bool",
+				  "name": "isKyc",
+				  "type": "bool"
 				}
 			  ],
 			  "internalType": "struct CoreVestV2.CoreNFT",
@@ -969,6 +1018,11 @@
 			  "internalType": "bool",
 			  "name": "isRevocable",
 			  "type": "bool"
+			},
+			{
+			  "internalType": "bool",
+			  "name": "isKyc",
+			  "type": "bool"
 			}
 		  ],
 		  "name": "grantCoreNFT",
@@ -1016,24 +1070,6 @@
 			}
 		  ],
 		  "stateMutability": "view",
-		  "type": "function"
-		},
-		{
-		  "inputs": [
-			{
-			  "internalType": "uint256",
-			  "name": "count",
-			  "type": "uint256"
-			},
-			{
-			  "internalType": "bool",
-			  "name": "init",
-			  "type": "bool"
-			}
-		  ],
-		  "name": "hydrateCoreNFTsByOwner",
-		  "outputs": [],
-		  "stateMutability": "nonpayable",
 		  "type": "function"
 		},
 		{
@@ -1264,24 +1300,6 @@
 		  "inputs": [
 			{
 			  "internalType": "uint256",
-			  "name": "count",
-			  "type": "uint256"
-			},
-			{
-			  "internalType": "bool",
-			  "name": "init",
-			  "type": "bool"
-			}
-		  ],
-		  "name": "resetCoreNFTsByOwner",
-		  "outputs": [],
-		  "stateMutability": "nonpayable",
-		  "type": "function"
-		},
-		{
-		  "inputs": [
-			{
-			  "internalType": "uint256",
 			  "name": "tokenId",
 			  "type": "uint256"
 			}
@@ -1413,6 +1431,24 @@
 			}
 		  ],
 		  "name": "setClassImageURI",
+		  "outputs": [],
+		  "stateMutability": "nonpayable",
+		  "type": "function"
+		},
+		{
+		  "inputs": [
+			{
+			  "internalType": "address",
+			  "name": "account",
+			  "type": "address"
+			},
+			{
+			  "internalType": "bool",
+			  "name": "kyc",
+			  "type": "bool"
+			}
+		  ],
+		  "name": "setKyc",
 		  "outputs": [],
 		  "stateMutability": "nonpayable",
 		  "type": "function"
