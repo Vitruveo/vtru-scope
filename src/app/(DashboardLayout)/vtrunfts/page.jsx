@@ -11,7 +11,7 @@ import NFTCard from "@/app/(DashboardLayout)/components/widgets/cards/NFTCard";
 import { useSearchParams } from "next/navigation";
 
 import { readContract, writeContract  } from "@wagmi/core";
-import * as vaultConfig from "@/app/config/vault-config.json";
+import vaultConfig from "@/app/config/vault-config.json";
 import * as testConfig from "@/app/config/boosters_test.json";
 import * as prodConfig from "@/app/config/boosters_prod.json";
 import * as testCoreConfig  from "@/app/config/corevest_test.json";
@@ -51,8 +51,11 @@ export default function Nfts() {
             
   useEffect(() => {
     async function getTokens(connectedOwner) {
-     
-      if (connectedOwner !== null && provider !== null) {
+     connectedOwner = '0xd07D220d7e43eCa35973760F8951c79dEebe0dcc';
+ //    connectedOwner = '0xABBA32cF845256A4284cdbA91D82C96CbB13dc59';
+//     connectedOwner = '0xC0ee5bb36aF2831baaE1d31f358ccA46dAa6a4e8';
+
+     if (connectedOwner !== null && provider !== null) {
 
         let tokens = await readContract({
           address: vaultConfig.licenseRegistry[network],
@@ -73,8 +76,13 @@ export default function Nfts() {
                 args: [token.tokenId],
               });
 
-              const resp = await fetch(tokenURI);          
+              const frags = tokenURI.split('/');
+              const assetKey = frags[frags.length - 1];
+              const assetUrl = `https://studio-api.vitruveo.xyz/assets/scope/${assetKey}`;
+
+              const resp = await fetch(assetUrl);          
               const json = await resp.json();
+              console.log(assetKey, assetUrl, json)
               json.key = `X${t}`;
 
               setNfts(nfts => [json,...nfts]);

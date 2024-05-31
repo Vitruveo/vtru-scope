@@ -78,9 +78,6 @@ const Menuitems: MenuitemsType[] = [
     href: "/",
     chipColor: "secondary",
   },
- 
-
-
   {
     id: uniqueId(),
     title: "Core NFTs",
@@ -97,7 +94,7 @@ const Menuitems: MenuitemsType[] = [
   //   id: uniqueId(),
   //   title: "VTRU Suite NFTs",
   //   icon: IconStar,
-  //   href: "/nfts"
+  //   href: "/vtrunfts"
   // },
   {
     id: uniqueId(),
