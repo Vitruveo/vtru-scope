@@ -4,22 +4,6 @@ import {
 
 
 const NFTCard = ({ nft }) => {
-  const loadedImages = [];
-
-
-  async function fetchImage() {
-    try {
-      if (loadedImages.indexOf(nft.previewUrl) > -1) return; 
-      if (nft.image) {
-        const img = document.getElementById(`img-${nft.key}`);
-        delete img.onLoad;    
-        img.src = nft.previewUrl; 
-        loadedImages.push(nft.previewUrl);    
-      }
-    } catch(e) {
-       console.log(e)
-    }
-  }
 
   return (
         <Grid item   
@@ -28,7 +12,7 @@ const NFTCard = ({ nft }) => {
         md={4}
         sm={6} 
         display="flex" key={nft[0]}>
-              <a href={`${nft.storeUrl}`} target="_new"><img src={'/images/blank.png'} alt={`${nft.name}`} style={{width: '100%' }} id={`img-${nft.key}`} onLoad={(e) => { fetchImage(); }} onError={(e) => {e.target.src=`/images/blank.png`;}} /></a>
+              <a href={`${nft.storeUrl}`} target="_new"><img src={`${nft.previewUrl}`} alt={`${nft.name}`} style={{width: '100%' }} id={`img-${nft.key}`} /></a>
         </Grid>
       )
   }
