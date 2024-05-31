@@ -9,7 +9,7 @@ const NFTCard = ({ nft }) => {
 
   async function fetchImage() {
     try {
-      if (loadedImages.indexOf(nft.image) > -1) return; 
+      if (loadedImages.indexOf(nft.previewUrl) > -1) return; 
       if (nft.image) {
         const img = document.getElementById(`img-${nft.key}`);
         delete img.onLoad;    
