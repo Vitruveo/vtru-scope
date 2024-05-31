@@ -95,7 +95,7 @@ const Menuitems: MenuitemsType[] = [
   },
   {
     id: uniqueId(),
-    title: "NFTs",
+    title: "VTRU Suite NFTs",
     icon: IconStar,
     href: "/nfts"
   },

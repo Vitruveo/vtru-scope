@@ -1,0 +1,6642 @@
+{
+    "assetRegistry": {
+      "testnet": "0xeC84C281396C4E971586E0707FA39585073E6403",
+      "mainnet": "0xeBF19B6f5c3f99BC5F75137D1113F506C7f6799E",
+      "abi": [
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "address",
+              "name": "previousAdmin",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "internalType": "address",
+              "name": "newAdmin",
+              "type": "address"
+            }
+          ],
+          "name": "AdminChanged",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "string",
+              "name": "assetKey",
+              "type": "string"
+            },
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "creatorVault",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint256[]",
+              "name": "licenses",
+              "type": "uint256[]"
+            }
+          ],
+          "name": "AssetConsigned",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "string",
+              "name": "assetKey",
+              "type": "string"
+            },
+            {
+              "indexed": true,
+              "internalType": "enum ICreatorData.Status",
+              "name": "status",
+              "type": "uint8"
+            }
+          ],
+          "name": "AssetStatusChanged",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "beacon",
+              "type": "address"
+            }
+          ],
+          "name": "BeaconUpgraded",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "string",
+              "name": "assetKey",
+              "type": "string"
+            },
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "collaboratorVault",
+              "type": "address"
+            }
+          ],
+          "name": "CollaboratorAdded",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "uint8",
+              "name": "version",
+              "type": "uint8"
+            }
+          ],
+          "name": "Initialized",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "licensee",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "internalType": "uint256",
+              "name": "licenseId",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint64",
+              "name": "quantity",
+              "type": "uint64"
+            }
+          ],
+          "name": "LicenseAcquired",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "string",
+              "name": "assetKey",
+              "type": "string"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "licenseId",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "licenseTypeId",
+              "type": "uint256"
+            }
+          ],
+          "name": "LicenseAdded",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            }
+          ],
+          "name": "Paused",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "bytes32",
+              "name": "role",
+              "type": "bytes32"
+            },
+            {
+              "indexed": true,
+              "internalType": "bytes32",
+              "name": "previousAdminRole",
+              "type": "bytes32"
+            },
+            {
+              "indexed": true,
+              "internalType": "bytes32",
+              "name": "newAdminRole",
+              "type": "bytes32"
+            }
+          ],
+          "name": "RoleAdminChanged",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "bytes32",
+              "name": "role",
+              "type": "bytes32"
+            },
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "sender",
+              "type": "address"
+            }
+          ],
+          "name": "RoleGranted",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "bytes32",
+              "name": "role",
+              "type": "bytes32"
+            },
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "sender",
+              "type": "address"
+            }
+          ],
+          "name": "RoleRevoked",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            }
+          ],
+          "name": "Unpaused",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "implementation",
+              "type": "address"
+            }
+          ],
+          "name": "Upgraded",
+          "type": "event"
+        },
+        {
+          "inputs": [],
+          "name": "DECIMALS",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "DEFAULT_ADMIN_ROLE",
+          "outputs": [
+            {
+              "internalType": "bytes32",
+              "name": "",
+              "type": "bytes32"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "KEEPER_ROLE",
+          "outputs": [
+            {
+              "internalType": "bytes32",
+              "name": "",
+              "type": "bytes32"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "LICENSOR_ROLE",
+          "outputs": [
+            {
+              "internalType": "bytes32",
+              "name": "",
+              "type": "bytes32"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "REEDEEMER_ROLE",
+          "outputs": [
+            {
+              "internalType": "bytes32",
+              "name": "",
+              "type": "bytes32"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "STUDIO_ROLE",
+          "outputs": [
+            {
+              "internalType": "bytes32",
+              "name": "",
+              "type": "bytes32"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "UNAUTHORIZED_USER",
+          "outputs": [
+            {
+              "internalType": "string",
+              "name": "",
+              "type": "string"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "UPGRADER_ROLE",
+          "outputs": [
+            {
+              "internalType": "bytes32",
+              "name": "",
+              "type": "bytes32"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "_licenseId",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "_value",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "uint256",
+              "name": "licenseId",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint64",
+              "name": "quantity",
+              "type": "uint64"
+            },
+            {
+              "internalType": "address",
+              "name": "licensee",
+              "type": "address"
+            }
+          ],
+          "name": "acquireLicense",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "string",
+              "name": "assetKey",
+              "type": "string"
+            },
+            {
+              "components": [
+                {
+                  "internalType": "address",
+                  "name": "vault",
+                  "type": "address"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "split",
+                  "type": "uint256"
+                }
+              ],
+              "internalType": "struct ICreatorData.CreatorInfo",
+              "name": "collaborator",
+              "type": "tuple"
+            }
+          ],
+          "name": "addAssetCollaborator",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "string",
+              "name": "assetKey",
+              "type": "string"
+            },
+            {
+              "components": [
+                {
+                  "internalType": "uint256",
+                  "name": "id",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "licenseTypeId",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint64",
+                  "name": "editions",
+                  "type": "uint64"
+                },
+                {
+                  "internalType": "uint64",
+                  "name": "editionCents",
+                  "type": "uint64"
+                },
+                {
+                  "internalType": "uint64",
+                  "name": "discountEditions",
+                  "type": "uint64"
+                },
+                {
+                  "internalType": "uint64",
+                  "name": "discountBasisPoints",
+                  "type": "uint64"
+                },
+                {
+                  "internalType": "uint64",
+                  "name": "discountMaxBasisPoints",
+                  "type": "uint64"
+                },
+                {
+                  "internalType": "uint64",
+                  "name": "available",
+                  "type": "uint64"
+                },
+                {
+                  "internalType": "string",
+                  "name": "code",
+                  "type": "string"
+                },
+                {
+                  "internalType": "address[]",
+                  "name": "licensees",
+                  "type": "address[]"
+                }
+              ],
+              "internalType": "struct ICreatorData.LicenseInfo",
+              "name": "license",
+              "type": "tuple"
+            }
+          ],
+          "name": "addAssetLicense",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "uint256",
+              "name": "fee",
+              "type": "uint256"
+            }
+          ],
+          "name": "changeAssetPremiumFee",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "string",
+              "name": "assetKey",
+              "type": "string"
+            },
+            {
+              "internalType": "enum ICreatorData.Status",
+              "name": "status",
+              "type": "uint8"
+            }
+          ],
+          "name": "changeAssetStatus",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "string",
+              "name": "assetKey",
+              "type": "string"
+            },
+            {
+              "internalType": "string",
+              "name": "uri",
+              "type": "string"
+            }
+          ],
+          "name": "changeAssetTokenUri",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "uint256",
+              "name": "credits",
+              "type": "uint256"
+            }
+          ],
+          "name": "changeCreatorCreditsRequired",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "string",
+              "name": "assetKey",
+              "type": "string"
+            },
+            {
+              "components": [
+                {
+                  "internalType": "string",
+                  "name": "title",
+                  "type": "string"
+                },
+                {
+                  "internalType": "string",
+                  "name": "description",
+                  "type": "string"
+                },
+                {
+                  "internalType": "string",
+                  "name": "tokenUri",
+                  "type": "string"
+                },
+                {
+                  "internalType": "string[]",
+                  "name": "mediaTypes",
+                  "type": "string[]"
+                },
+                {
+                  "internalType": "string[]",
+                  "name": "mediaItems",
+                  "type": "string[]"
+                },
+                {
+                  "internalType": "enum ICreatorData.Status",
+                  "name": "status",
+                  "type": "uint8"
+                }
+              ],
+              "internalType": "struct ICreatorData.CoreInfo",
+              "name": "core",
+              "type": "tuple"
+            },
+            {
+              "components": [
+                {
+                  "internalType": "address",
+                  "name": "vault",
+                  "type": "address"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "split",
+                  "type": "uint256"
+                }
+              ],
+              "internalType": "struct ICreatorData.CreatorInfo",
+              "name": "creator",
+              "type": "tuple"
+            },
+            {
+              "components": [
+                {
+                  "internalType": "address",
+                  "name": "vault",
+                  "type": "address"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "split",
+                  "type": "uint256"
+                }
+              ],
+              "internalType": "struct ICreatorData.CreatorInfo",
+              "name": "collaborator1",
+              "type": "tuple"
+            },
+            {
+              "components": [
+                {
+                  "internalType": "address",
+                  "name": "vault",
+                  "type": "address"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "split",
+                  "type": "uint256"
+                }
+              ],
+              "internalType": "struct ICreatorData.CreatorInfo",
+              "name": "collaborator2",
+              "type": "tuple"
+            },
+            {
+              "components": [
+                {
+                  "internalType": "uint256",
+                  "name": "id",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "licenseTypeId",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint64",
+                  "name": "editions",
+                  "type": "uint64"
+                },
+                {
+                  "internalType": "uint64",
+                  "name": "editionCents",
+                  "type": "uint64"
+                },
+                {
+                  "internalType": "uint64",
+                  "name": "discountEditions",
+                  "type": "uint64"
+                },
+                {
+                  "internalType": "uint64",
+                  "name": "discountBasisPoints",
+                  "type": "uint64"
+                },
+                {
+                  "internalType": "uint64",
+                  "name": "discountMaxBasisPoints",
+                  "type": "uint64"
+                },
+                {
+                  "internalType": "uint64",
+                  "name": "available",
+                  "type": "uint64"
+                },
+                {
+                  "internalType": "string",
+                  "name": "code",
+                  "type": "string"
+                },
+                {
+                  "internalType": "address[]",
+                  "name": "licensees",
+                  "type": "address[]"
+                }
+              ],
+              "internalType": "struct ICreatorData.LicenseInfo",
+              "name": "license1",
+              "type": "tuple"
+            },
+            {
+              "components": [
+                {
+                  "internalType": "uint256",
+                  "name": "id",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "licenseTypeId",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint64",
+                  "name": "editions",
+                  "type": "uint64"
+                },
+                {
+                  "internalType": "uint64",
+                  "name": "editionCents",
+                  "type": "uint64"
+                },
+                {
+                  "internalType": "uint64",
+                  "name": "discountEditions",
+                  "type": "uint64"
+                },
+                {
+                  "internalType": "uint64",
+                  "name": "discountBasisPoints",
+                  "type": "uint64"
+                },
+                {
+                  "internalType": "uint64",
+                  "name": "discountMaxBasisPoints",
+                  "type": "uint64"
+                },
+                {
+                  "internalType": "uint64",
+                  "name": "available",
+                  "type": "uint64"
+                },
+                {
+                  "internalType": "string",
+                  "name": "code",
+                  "type": "string"
+                },
+                {
+                  "internalType": "address[]",
+                  "name": "licensees",
+                  "type": "address[]"
+                }
+              ],
+              "internalType": "struct ICreatorData.LicenseInfo",
+              "name": "license2",
+              "type": "tuple"
+            },
+            {
+              "components": [
+                {
+                  "internalType": "uint256",
+                  "name": "id",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "licenseTypeId",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint64",
+                  "name": "editions",
+                  "type": "uint64"
+                },
+                {
+                  "internalType": "uint64",
+                  "name": "editionCents",
+                  "type": "uint64"
+                },
+                {
+                  "internalType": "uint64",
+                  "name": "discountEditions",
+                  "type": "uint64"
+                },
+                {
+                  "internalType": "uint64",
+                  "name": "discountBasisPoints",
+                  "type": "uint64"
+                },
+                {
+                  "internalType": "uint64",
+                  "name": "discountMaxBasisPoints",
+                  "type": "uint64"
+                },
+                {
+                  "internalType": "uint64",
+                  "name": "available",
+                  "type": "uint64"
+                },
+                {
+                  "internalType": "string",
+                  "name": "code",
+                  "type": "string"
+                },
+                {
+                  "internalType": "address[]",
+                  "name": "licensees",
+                  "type": "address[]"
+                }
+              ],
+              "internalType": "struct ICreatorData.LicenseInfo",
+              "name": "license3",
+              "type": "tuple"
+            },
+            {
+              "components": [
+                {
+                  "internalType": "uint256",
+                  "name": "id",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "licenseTypeId",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint64",
+                  "name": "editions",
+                  "type": "uint64"
+                },
+                {
+                  "internalType": "uint64",
+                  "name": "editionCents",
+                  "type": "uint64"
+                },
+                {
+                  "internalType": "uint64",
+                  "name": "discountEditions",
+                  "type": "uint64"
+                },
+                {
+                  "internalType": "uint64",
+                  "name": "discountBasisPoints",
+                  "type": "uint64"
+                },
+                {
+                  "internalType": "uint64",
+                  "name": "discountMaxBasisPoints",
+                  "type": "uint64"
+                },
+                {
+                  "internalType": "uint64",
+                  "name": "available",
+                  "type": "uint64"
+                },
+                {
+                  "internalType": "string",
+                  "name": "code",
+                  "type": "string"
+                },
+                {
+                  "internalType": "address[]",
+                  "name": "licensees",
+                  "type": "address[]"
+                }
+              ],
+              "internalType": "struct ICreatorData.LicenseInfo",
+              "name": "license4",
+              "type": "tuple"
+            }
+          ],
+          "name": "consign",
+          "outputs": [],
+          "stateMutability": "payable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "string",
+              "name": "assetKey",
+              "type": "string"
+            }
+          ],
+          "name": "getAsset",
+          "outputs": [
+            {
+              "components": [
+                {
+                  "internalType": "string",
+                  "name": "key",
+                  "type": "string"
+                },
+                {
+                  "components": [
+                    {
+                      "internalType": "string",
+                      "name": "title",
+                      "type": "string"
+                    },
+                    {
+                      "internalType": "string",
+                      "name": "description",
+                      "type": "string"
+                    },
+                    {
+                      "internalType": "string",
+                      "name": "tokenUri",
+                      "type": "string"
+                    },
+                    {
+                      "internalType": "string[]",
+                      "name": "mediaTypes",
+                      "type": "string[]"
+                    },
+                    {
+                      "internalType": "string[]",
+                      "name": "mediaItems",
+                      "type": "string[]"
+                    },
+                    {
+                      "internalType": "enum ICreatorData.Status",
+                      "name": "status",
+                      "type": "uint8"
+                    }
+                  ],
+                  "internalType": "struct ICreatorData.CoreInfo",
+                  "name": "core",
+                  "type": "tuple"
+                },
+                {
+                  "components": [
+                    {
+                      "internalType": "address",
+                      "name": "vault",
+                      "type": "address"
+                    },
+                    {
+                      "internalType": "uint256",
+                      "name": "split",
+                      "type": "uint256"
+                    }
+                  ],
+                  "internalType": "struct ICreatorData.CreatorInfo",
+                  "name": "creator",
+                  "type": "tuple"
+                },
+                {
+                  "components": [
+                    {
+                      "internalType": "address",
+                      "name": "vault",
+                      "type": "address"
+                    },
+                    {
+                      "internalType": "uint256",
+                      "name": "split",
+                      "type": "uint256"
+                    }
+                  ],
+                  "internalType": "struct ICreatorData.CreatorInfo[]",
+                  "name": "collaborators",
+                  "type": "tuple[]"
+                },
+                {
+                  "internalType": "uint256[]",
+                  "name": "licenses",
+                  "type": "uint256[]"
+                },
+                {
+                  "internalType": "enum ICreatorData.Status",
+                  "name": "status",
+                  "type": "uint8"
+                },
+                {
+                  "internalType": "enum ICreatorData.Source",
+                  "name": "originator",
+                  "type": "uint8"
+                },
+                {
+                  "internalType": "address",
+                  "name": "editor",
+                  "type": "address"
+                },
+                {
+                  "internalType": "bool",
+                  "name": "isPremium",
+                  "type": "bool"
+                }
+              ],
+              "internalType": "struct ICreatorData.AssetInfo",
+              "name": "",
+              "type": "tuple"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "uint256",
+              "name": "index",
+              "type": "uint256"
+            }
+          ],
+          "name": "getAssetAtIndex",
+          "outputs": [
+            {
+              "components": [
+                {
+                  "internalType": "string",
+                  "name": "key",
+                  "type": "string"
+                },
+                {
+                  "components": [
+                    {
+                      "internalType": "string",
+                      "name": "title",
+                      "type": "string"
+                    },
+                    {
+                      "internalType": "string",
+                      "name": "description",
+                      "type": "string"
+                    },
+                    {
+                      "internalType": "string",
+                      "name": "tokenUri",
+                      "type": "string"
+                    },
+                    {
+                      "internalType": "string[]",
+                      "name": "mediaTypes",
+                      "type": "string[]"
+                    },
+                    {
+                      "internalType": "string[]",
+                      "name": "mediaItems",
+                      "type": "string[]"
+                    },
+                    {
+                      "internalType": "enum ICreatorData.Status",
+                      "name": "status",
+                      "type": "uint8"
+                    }
+                  ],
+                  "internalType": "struct ICreatorData.CoreInfo",
+                  "name": "core",
+                  "type": "tuple"
+                },
+                {
+                  "components": [
+                    {
+                      "internalType": "address",
+                      "name": "vault",
+                      "type": "address"
+                    },
+                    {
+                      "internalType": "uint256",
+                      "name": "split",
+                      "type": "uint256"
+                    }
+                  ],
+                  "internalType": "struct ICreatorData.CreatorInfo",
+                  "name": "creator",
+                  "type": "tuple"
+                },
+                {
+                  "components": [
+                    {
+                      "internalType": "address",
+                      "name": "vault",
+                      "type": "address"
+                    },
+                    {
+                      "internalType": "uint256",
+                      "name": "split",
+                      "type": "uint256"
+                    }
+                  ],
+                  "internalType": "struct ICreatorData.CreatorInfo[]",
+                  "name": "collaborators",
+                  "type": "tuple[]"
+                },
+                {
+                  "internalType": "uint256[]",
+                  "name": "licenses",
+                  "type": "uint256[]"
+                },
+                {
+                  "internalType": "enum ICreatorData.Status",
+                  "name": "status",
+                  "type": "uint8"
+                },
+                {
+                  "internalType": "enum ICreatorData.Source",
+                  "name": "originator",
+                  "type": "uint8"
+                },
+                {
+                  "internalType": "address",
+                  "name": "editor",
+                  "type": "address"
+                },
+                {
+                  "internalType": "bool",
+                  "name": "isPremium",
+                  "type": "bool"
+                }
+              ],
+              "internalType": "struct ICreatorData.AssetInfo",
+              "name": "",
+              "type": "tuple"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "uint256",
+              "name": "start",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "count",
+              "type": "uint256"
+            }
+          ],
+          "name": "getAssetBatch",
+          "outputs": [
+            {
+              "components": [
+                {
+                  "internalType": "string",
+                  "name": "key",
+                  "type": "string"
+                },
+                {
+                  "components": [
+                    {
+                      "internalType": "string",
+                      "name": "title",
+                      "type": "string"
+                    },
+                    {
+                      "internalType": "string",
+                      "name": "description",
+                      "type": "string"
+                    },
+                    {
+                      "internalType": "string",
+                      "name": "tokenUri",
+                      "type": "string"
+                    },
+                    {
+                      "internalType": "string[]",
+                      "name": "mediaTypes",
+                      "type": "string[]"
+                    },
+                    {
+                      "internalType": "string[]",
+                      "name": "mediaItems",
+                      "type": "string[]"
+                    },
+                    {
+                      "internalType": "enum ICreatorData.Status",
+                      "name": "status",
+                      "type": "uint8"
+                    }
+                  ],
+                  "internalType": "struct ICreatorData.CoreInfo",
+                  "name": "core",
+                  "type": "tuple"
+                },
+                {
+                  "components": [
+                    {
+                      "internalType": "address",
+                      "name": "vault",
+                      "type": "address"
+                    },
+                    {
+                      "internalType": "uint256",
+                      "name": "split",
+                      "type": "uint256"
+                    }
+                  ],
+                  "internalType": "struct ICreatorData.CreatorInfo",
+                  "name": "creator",
+                  "type": "tuple"
+                },
+                {
+                  "components": [
+                    {
+                      "internalType": "address",
+                      "name": "vault",
+                      "type": "address"
+                    },
+                    {
+                      "internalType": "uint256",
+                      "name": "split",
+                      "type": "uint256"
+                    }
+                  ],
+                  "internalType": "struct ICreatorData.CreatorInfo[]",
+                  "name": "collaborators",
+                  "type": "tuple[]"
+                },
+                {
+                  "internalType": "uint256[]",
+                  "name": "licenses",
+                  "type": "uint256[]"
+                },
+                {
+                  "internalType": "enum ICreatorData.Status",
+                  "name": "status",
+                  "type": "uint8"
+                },
+                {
+                  "internalType": "enum ICreatorData.Source",
+                  "name": "originator",
+                  "type": "uint8"
+                },
+                {
+                  "internalType": "address",
+                  "name": "editor",
+                  "type": "address"
+                },
+                {
+                  "internalType": "bool",
+                  "name": "isPremium",
+                  "type": "bool"
+                }
+              ],
+              "internalType": "struct ICreatorData.AssetInfo[]",
+              "name": "",
+              "type": "tuple[]"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "getAssetCount",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "count",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "uint256",
+              "name": "licenseId",
+              "type": "uint256"
+            }
+          ],
+          "name": "getAssetLicense",
+          "outputs": [
+            {
+              "components": [
+                {
+                  "internalType": "uint256",
+                  "name": "id",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "licenseTypeId",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint64",
+                  "name": "editions",
+                  "type": "uint64"
+                },
+                {
+                  "internalType": "uint64",
+                  "name": "editionCents",
+                  "type": "uint64"
+                },
+                {
+                  "internalType": "uint64",
+                  "name": "discountEditions",
+                  "type": "uint64"
+                },
+                {
+                  "internalType": "uint64",
+                  "name": "discountBasisPoints",
+                  "type": "uint64"
+                },
+                {
+                  "internalType": "uint64",
+                  "name": "discountMaxBasisPoints",
+                  "type": "uint64"
+                },
+                {
+                  "internalType": "uint64",
+                  "name": "available",
+                  "type": "uint64"
+                },
+                {
+                  "internalType": "string",
+                  "name": "code",
+                  "type": "string"
+                },
+                {
+                  "internalType": "address[]",
+                  "name": "licensees",
+                  "type": "address[]"
+                }
+              ],
+              "internalType": "struct ICreatorData.LicenseInfo",
+              "name": "",
+              "type": "tuple"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "string",
+              "name": "assetKey",
+              "type": "string"
+            }
+          ],
+          "name": "getAssetLicenses",
+          "outputs": [
+            {
+              "components": [
+                {
+                  "internalType": "uint256",
+                  "name": "id",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "licenseTypeId",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint64",
+                  "name": "editions",
+                  "type": "uint64"
+                },
+                {
+                  "internalType": "uint64",
+                  "name": "editionCents",
+                  "type": "uint64"
+                },
+                {
+                  "internalType": "uint64",
+                  "name": "discountEditions",
+                  "type": "uint64"
+                },
+                {
+                  "internalType": "uint64",
+                  "name": "discountBasisPoints",
+                  "type": "uint64"
+                },
+                {
+                  "internalType": "uint64",
+                  "name": "discountMaxBasisPoints",
+                  "type": "uint64"
+                },
+                {
+                  "internalType": "uint64",
+                  "name": "available",
+                  "type": "uint64"
+                },
+                {
+                  "internalType": "string",
+                  "name": "code",
+                  "type": "string"
+                },
+                {
+                  "internalType": "address[]",
+                  "name": "licensees",
+                  "type": "address[]"
+                }
+              ],
+              "internalType": "struct ICreatorData.LicenseInfo[]",
+              "name": "licenses",
+              "type": "tuple[]"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "getMediaRegistryContract",
+          "outputs": [
+            {
+              "internalType": "address",
+              "name": "",
+              "type": "address"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "bytes32",
+              "name": "role",
+              "type": "bytes32"
+            }
+          ],
+          "name": "getRoleAdmin",
+          "outputs": [
+            {
+              "internalType": "bytes32",
+              "name": "",
+              "type": "bytes32"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "global",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "assetsConsigned",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "premiumFee",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "creatorCreditsRequired",
+              "type": "uint256"
+            },
+            {
+              "internalType": "address",
+              "name": "mediaRegistryContract",
+              "type": "address"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "bytes32",
+              "name": "role",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            }
+          ],
+          "name": "grantRole",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "bytes32",
+              "name": "role",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            }
+          ],
+          "name": "hasRole",
+          "outputs": [
+            {
+              "internalType": "bool",
+              "name": "",
+              "type": "bool"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "initialize",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "string",
+              "name": "assetKey",
+              "type": "string"
+            }
+          ],
+          "name": "isAsset",
+          "outputs": [
+            {
+              "internalType": "bool",
+              "name": "",
+              "type": "bool"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            }
+          ],
+          "name": "isContract",
+          "outputs": [
+            {
+              "internalType": "bool",
+              "name": "",
+              "type": "bool"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "pause",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "paused",
+          "outputs": [
+            {
+              "internalType": "bool",
+              "name": "",
+              "type": "bool"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "proxiableUUID",
+          "outputs": [
+            {
+              "internalType": "bytes32",
+              "name": "",
+              "type": "bytes32"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "recoverVTRU",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "bytes32",
+              "name": "role",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            }
+          ],
+          "name": "renounceRole",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "uint256",
+              "name": "licenseId",
+              "type": "uint256"
+            },
+            {
+              "internalType": "address",
+              "name": "licensee",
+              "type": "address"
+            }
+          ],
+          "name": "revokeLicense",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "bytes32",
+              "name": "role",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            }
+          ],
+          "name": "revokeRole",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            }
+          ],
+          "name": "setMediaRegistryContract",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "bytes4",
+              "name": "interfaceId",
+              "type": "bytes4"
+            }
+          ],
+          "name": "supportsInterface",
+          "outputs": [
+            {
+              "internalType": "bool",
+              "name": "",
+              "type": "bool"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "unpause",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "string",
+              "name": "assetKey",
+              "type": "string"
+            }
+          ],
+          "name": "upgradeAsset",
+          "outputs": [],
+          "stateMutability": "payable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "newImplementation",
+              "type": "address"
+            }
+          ],
+          "name": "upgradeTo",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "newImplementation",
+              "type": "address"
+            },
+            {
+              "internalType": "bytes",
+              "name": "data",
+              "type": "bytes"
+            }
+          ],
+          "name": "upgradeToAndCall",
+          "outputs": [],
+          "stateMutability": "payable",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "version",
+          "outputs": [
+            {
+              "internalType": "string",
+              "name": "",
+              "type": "string"
+            }
+          ],
+          "stateMutability": "pure",
+          "type": "function"
+        },
+        {
+          "stateMutability": "payable",
+          "type": "receive"
+        }
+      ]
+    },
+    "mediaRegistry": {
+      "testnet": "0x8e6A921744335994283046449522b914d0B06E7d",
+      "mainnet": "0x3925b92Ef881A9B0465Ef1ebDEE5D6C0ED4d464b",
+      "abi": [
+        {
+          "type": "event",
+          "anonymous": false,
+          "name": "AdminChanged",
+          "inputs": [
+            {
+              "type": "address",
+              "name": "previousAdmin",
+              "indexed": false
+            },
+            {
+              "type": "address",
+              "name": "newAdmin",
+              "indexed": false
+            }
+          ]
+        },
+        {
+          "type": "event",
+          "anonymous": false,
+          "name": "BeaconUpgraded",
+          "inputs": [
+            {
+              "type": "address",
+              "name": "beacon",
+              "indexed": true
+            }
+          ]
+        },
+        {
+          "type": "event",
+          "anonymous": false,
+          "name": "Initialized",
+          "inputs": [
+            {
+              "type": "uint8",
+              "name": "version",
+              "indexed": false
+            }
+          ]
+        },
+        {
+          "type": "event",
+          "anonymous": false,
+          "name": "Paused",
+          "inputs": [
+            {
+              "type": "address",
+              "name": "account",
+              "indexed": false
+            }
+          ]
+        },
+        {
+          "type": "event",
+          "anonymous": false,
+          "name": "RoleAdminChanged",
+          "inputs": [
+            {
+              "type": "bytes32",
+              "name": "role",
+              "indexed": true
+            },
+            {
+              "type": "bytes32",
+              "name": "previousAdminRole",
+              "indexed": true
+            },
+            {
+              "type": "bytes32",
+              "name": "newAdminRole",
+              "indexed": true
+            }
+          ]
+        },
+        {
+          "type": "event",
+          "anonymous": false,
+          "name": "RoleGranted",
+          "inputs": [
+            {
+              "type": "bytes32",
+              "name": "role",
+              "indexed": true
+            },
+            {
+              "type": "address",
+              "name": "account",
+              "indexed": true
+            },
+            {
+              "type": "address",
+              "name": "sender",
+              "indexed": true
+            }
+          ]
+        },
+        {
+          "type": "event",
+          "anonymous": false,
+          "name": "RoleRevoked",
+          "inputs": [
+            {
+              "type": "bytes32",
+              "name": "role",
+              "indexed": true
+            },
+            {
+              "type": "address",
+              "name": "account",
+              "indexed": true
+            },
+            {
+              "type": "address",
+              "name": "sender",
+              "indexed": true
+            }
+          ]
+        },
+        {
+          "type": "event",
+          "anonymous": false,
+          "name": "Unpaused",
+          "inputs": [
+            {
+              "type": "address",
+              "name": "account",
+              "indexed": false
+            }
+          ]
+        },
+        {
+          "type": "event",
+          "anonymous": false,
+          "name": "Upgraded",
+          "inputs": [
+            {
+              "type": "address",
+              "name": "implementation",
+              "indexed": true
+            }
+          ]
+        },
+        {
+          "type": "function",
+          "name": "DECIMALS",
+          "constant": true,
+          "stateMutability": "view",
+          "payable": false,
+          "inputs": [],
+          "outputs": [
+            {
+              "type": "uint256",
+              "name": ""
+            }
+          ]
+        },
+        {
+          "type": "function",
+          "name": "DEFAULT_ADMIN_ROLE",
+          "constant": true,
+          "stateMutability": "view",
+          "payable": false,
+          "inputs": [],
+          "outputs": [
+            {
+              "type": "bytes32",
+              "name": ""
+            }
+          ]
+        },
+        {
+          "type": "function",
+          "name": "KEEPER_ROLE",
+          "constant": true,
+          "stateMutability": "view",
+          "payable": false,
+          "inputs": [],
+          "outputs": [
+            {
+              "type": "bytes32",
+              "name": ""
+            }
+          ]
+        },
+        {
+          "type": "function",
+          "name": "LICENSOR_ROLE",
+          "constant": true,
+          "stateMutability": "view",
+          "payable": false,
+          "inputs": [],
+          "outputs": [
+            {
+              "type": "bytes32",
+              "name": ""
+            }
+          ]
+        },
+        {
+          "type": "function",
+          "name": "REEDEEMER_ROLE",
+          "constant": true,
+          "stateMutability": "view",
+          "payable": false,
+          "inputs": [],
+          "outputs": [
+            {
+              "type": "bytes32",
+              "name": ""
+            }
+          ]
+        },
+        {
+          "type": "function",
+          "name": "STUDIO_ROLE",
+          "constant": true,
+          "stateMutability": "view",
+          "payable": false,
+          "inputs": [],
+          "outputs": [
+            {
+              "type": "bytes32",
+              "name": ""
+            }
+          ]
+        },
+        {
+          "type": "function",
+          "name": "UNAUTHORIZED_USER",
+          "constant": true,
+          "stateMutability": "view",
+          "payable": false,
+          "inputs": [],
+          "outputs": [
+            {
+              "type": "string",
+              "name": ""
+            }
+          ]
+        },
+        {
+          "type": "function",
+          "name": "UPGRADER_ROLE",
+          "constant": true,
+          "stateMutability": "view",
+          "payable": false,
+          "inputs": [],
+          "outputs": [
+            {
+              "type": "bytes32",
+              "name": ""
+            }
+          ]
+        },
+        {
+          "type": "function",
+          "name": "addMedia",
+          "constant": false,
+          "payable": false,
+          "inputs": [
+            {
+              "type": "string",
+              "name": "assetKey"
+            },
+            {
+              "type": "string",
+              "name": "mediaType"
+            },
+            {
+              "type": "string",
+              "name": "mediaItem"
+            }
+          ],
+          "outputs": []
+        },
+        {
+          "type": "function",
+          "name": "addMediaBatch",
+          "constant": false,
+          "payable": false,
+          "inputs": [
+            {
+              "type": "string",
+              "name": "assetKey"
+            },
+            {
+              "type": "string[]",
+              "name": "mediaTypes"
+            },
+            {
+              "type": "string[]",
+              "name": "mediaItems"
+            }
+          ],
+          "outputs": []
+        },
+        {
+          "type": "function",
+          "name": "getAssetRegistryContract",
+          "constant": true,
+          "stateMutability": "view",
+          "payable": false,
+          "inputs": [],
+          "outputs": [
+            {
+              "type": "address",
+              "name": ""
+            }
+          ]
+        },
+        {
+          "type": "function",
+          "name": "getMedia",
+          "constant": true,
+          "stateMutability": "view",
+          "payable": false,
+          "inputs": [
+            {
+              "type": "string",
+              "name": "assetKey"
+            }
+          ],
+          "outputs": [
+            {
+              "type": "tuple[]",
+              "name": "",
+              "components": [
+                {
+                  "type": "string",
+                  "name": "mediaType"
+                },
+                {
+                  "type": "string",
+                  "name": "media"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "function",
+          "name": "getMediaByType",
+          "constant": true,
+          "stateMutability": "view",
+          "payable": false,
+          "inputs": [
+            {
+              "type": "string",
+              "name": "assetKey"
+            },
+            {
+              "type": "string",
+              "name": "mediaType"
+            }
+          ],
+          "outputs": [
+            {
+              "type": "string",
+              "name": ""
+            }
+          ]
+        },
+        {
+          "type": "function",
+          "name": "getRoleAdmin",
+          "constant": true,
+          "stateMutability": "view",
+          "payable": false,
+          "inputs": [
+            {
+              "type": "bytes32",
+              "name": "role"
+            }
+          ],
+          "outputs": [
+            {
+              "type": "bytes32",
+              "name": ""
+            }
+          ]
+        },
+        {
+          "type": "function",
+          "name": "global",
+          "constant": true,
+          "stateMutability": "view",
+          "payable": false,
+          "inputs": [],
+          "outputs": [
+            {
+              "type": "address",
+              "name": "assetRegistryContract"
+            }
+          ]
+        },
+        {
+          "type": "function",
+          "name": "grantRole",
+          "constant": false,
+          "payable": false,
+          "inputs": [
+            {
+              "type": "bytes32",
+              "name": "role"
+            },
+            {
+              "type": "address",
+              "name": "account"
+            }
+          ],
+          "outputs": []
+        },
+        {
+          "type": "function",
+          "name": "hasRole",
+          "constant": true,
+          "stateMutability": "view",
+          "payable": false,
+          "inputs": [
+            {
+              "type": "bytes32",
+              "name": "role"
+            },
+            {
+              "type": "address",
+              "name": "account"
+            }
+          ],
+          "outputs": [
+            {
+              "type": "bool",
+              "name": ""
+            }
+          ]
+        },
+        {
+          "type": "function",
+          "name": "initialize",
+          "constant": false,
+          "payable": false,
+          "inputs": [],
+          "outputs": []
+        },
+        {
+          "type": "function",
+          "name": "pause",
+          "constant": false,
+          "payable": false,
+          "inputs": [],
+          "outputs": []
+        },
+        {
+          "type": "function",
+          "name": "paused",
+          "constant": true,
+          "stateMutability": "view",
+          "payable": false,
+          "inputs": [],
+          "outputs": [
+            {
+              "type": "bool",
+              "name": ""
+            }
+          ]
+        },
+        {
+          "type": "function",
+          "name": "proxiableUUID",
+          "constant": true,
+          "stateMutability": "view",
+          "payable": false,
+          "inputs": [],
+          "outputs": [
+            {
+              "type": "bytes32",
+              "name": ""
+            }
+          ]
+        },
+        {
+          "type": "function",
+          "name": "recoverVTRU",
+          "constant": false,
+          "payable": false,
+          "inputs": [],
+          "outputs": []
+        },
+        {
+          "type": "function",
+          "name": "removeMedia",
+          "constant": false,
+          "payable": false,
+          "inputs": [
+            {
+              "type": "string",
+              "name": "assetKey"
+            }
+          ],
+          "outputs": []
+        },
+        {
+          "type": "function",
+          "name": "removeMediaByType",
+          "constant": false,
+          "payable": false,
+          "inputs": [
+            {
+              "type": "string",
+              "name": "assetKey"
+            },
+            {
+              "type": "string",
+              "name": "mediaType"
+            }
+          ],
+          "outputs": []
+        },
+        {
+          "type": "function",
+          "name": "renounceRole",
+          "constant": false,
+          "payable": false,
+          "inputs": [
+            {
+              "type": "bytes32",
+              "name": "role"
+            },
+            {
+              "type": "address",
+              "name": "account"
+            }
+          ],
+          "outputs": []
+        },
+        {
+          "type": "function",
+          "name": "revokeRole",
+          "constant": false,
+          "payable": false,
+          "inputs": [
+            {
+              "type": "bytes32",
+              "name": "role"
+            },
+            {
+              "type": "address",
+              "name": "account"
+            }
+          ],
+          "outputs": []
+        },
+        {
+          "type": "function",
+          "name": "setAssetRegistryContract",
+          "constant": false,
+          "payable": false,
+          "inputs": [
+            {
+              "type": "address",
+              "name": "account"
+            }
+          ],
+          "outputs": []
+        },
+        {
+          "type": "function",
+          "name": "supportsInterface",
+          "constant": true,
+          "stateMutability": "view",
+          "payable": false,
+          "inputs": [
+            {
+              "type": "bytes4",
+              "name": "interfaceId"
+            }
+          ],
+          "outputs": [
+            {
+              "type": "bool",
+              "name": ""
+            }
+          ]
+        },
+        {
+          "type": "function",
+          "name": "unpause",
+          "constant": false,
+          "payable": false,
+          "inputs": [],
+          "outputs": []
+        },
+        {
+          "type": "function",
+          "name": "upgradeTo",
+          "constant": false,
+          "payable": false,
+          "inputs": [
+            {
+              "type": "address",
+              "name": "newImplementation"
+            }
+          ],
+          "outputs": []
+        },
+        {
+          "type": "function",
+          "name": "upgradeToAndCall",
+          "constant": false,
+          "stateMutability": "payable",
+          "payable": true,
+          "inputs": [
+            {
+              "type": "address",
+              "name": "newImplementation"
+            },
+            {
+              "type": "bytes",
+              "name": "data"
+            }
+          ],
+          "outputs": []
+        },
+        {
+          "type": "function",
+          "name": "version",
+          "constant": true,
+          "stateMutability": "pure",
+          "payable": false,
+          "inputs": [],
+          "outputs": [
+            {
+              "type": "string",
+              "name": ""
+            }
+          ]
+        },
+        {
+          "type": "receive",
+          "stateMutability": "payable"
+        }
+      ]
+    },
+    "licenseRegistry": {
+      "testnet": "0x1e8F9510e9A599204Db4dA3f352a7e73111f050C",
+      "mainnet": "0x79AfA7Dd7AE14F9C5255f1AC9c8A2b8bEb2CcCD1",
+      "abi": [
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "address",
+              "name": "previousAdmin",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "internalType": "address",
+              "name": "newAdmin",
+              "type": "address"
+            }
+          ],
+          "name": "AdminChanged",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "beacon",
+              "type": "address"
+            }
+          ],
+          "name": "BeaconUpgraded",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "uint8",
+              "name": "version",
+              "type": "uint8"
+            }
+          ],
+          "name": "Initialized",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "string",
+              "name": "assetKey",
+              "type": "string"
+            },
+            {
+              "indexed": false,
+              "internalType": "address",
+              "name": "licensee",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "internalType": "uint256",
+              "name": "licenseId",
+              "type": "uint256"
+            },
+            {
+              "indexed": true,
+              "internalType": "uint256",
+              "name": "licenseInstanceId",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint256[]",
+              "name": "tokenIds",
+              "type": "uint256[]"
+            }
+          ],
+          "name": "LicenseIssued",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            }
+          ],
+          "name": "Paused",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "bytes32",
+              "name": "role",
+              "type": "bytes32"
+            },
+            {
+              "indexed": true,
+              "internalType": "bytes32",
+              "name": "previousAdminRole",
+              "type": "bytes32"
+            },
+            {
+              "indexed": true,
+              "internalType": "bytes32",
+              "name": "newAdminRole",
+              "type": "bytes32"
+            }
+          ],
+          "name": "RoleAdminChanged",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "bytes32",
+              "name": "role",
+              "type": "bytes32"
+            },
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "sender",
+              "type": "address"
+            }
+          ],
+          "name": "RoleGranted",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "bytes32",
+              "name": "role",
+              "type": "bytes32"
+            },
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "sender",
+              "type": "address"
+            }
+          ],
+          "name": "RoleRevoked",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            }
+          ],
+          "name": "Unpaused",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "implementation",
+              "type": "address"
+            }
+          ],
+          "name": "Upgraded",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "centsPerVtru",
+              "type": "uint256"
+            }
+          ],
+          "name": "UsdVtruExchangeRateChanged",
+          "type": "event"
+        },
+        {
+          "inputs": [],
+          "name": "DECIMALS",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "DEFAULT_ADMIN_ROLE",
+          "outputs": [
+            {
+              "internalType": "bytes32",
+              "name": "",
+              "type": "bytes32"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "KEEPER_ROLE",
+          "outputs": [
+            {
+              "internalType": "bytes32",
+              "name": "",
+              "type": "bytes32"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "LICENSOR_ROLE",
+          "outputs": [
+            {
+              "internalType": "bytes32",
+              "name": "",
+              "type": "bytes32"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "REEDEEMER_ROLE",
+          "outputs": [
+            {
+              "internalType": "bytes32",
+              "name": "",
+              "type": "bytes32"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "STUDIO_ROLE",
+          "outputs": [
+            {
+              "internalType": "bytes32",
+              "name": "",
+              "type": "bytes32"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "UNAUTHORIZED_USER",
+          "outputs": [
+            {
+              "internalType": "string",
+              "name": "",
+              "type": "string"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "UPGRADER_ROLE",
+          "outputs": [
+            {
+              "internalType": "bytes32",
+              "name": "",
+              "type": "bytes32"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "_licenseInstanceId",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "_value",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "_licenseTypeId",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "_value",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "allow",
+              "type": "address"
+            }
+          ],
+          "name": "addToAllowList",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "string",
+              "name": "assetKey",
+              "type": "string"
+            },
+            {
+              "internalType": "enum ICreatorData.Status",
+              "name": "status",
+              "type": "uint8"
+            }
+          ],
+          "name": "changeAssetStatus",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "uint256",
+              "name": "licenseTypeId",
+              "type": "uint256"
+            },
+            {
+              "internalType": "string",
+              "name": "name",
+              "type": "string"
+            },
+            {
+              "internalType": "string",
+              "name": "info",
+              "type": "string"
+            },
+            {
+              "internalType": "bool",
+              "name": "active",
+              "type": "bool"
+            }
+          ],
+          "name": "changeLicenseType",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "getAllowBlockNumber",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "string",
+              "name": "assetKey",
+              "type": "string"
+            }
+          ],
+          "name": "getAsset",
+          "outputs": [
+            {
+              "components": [
+                {
+                  "internalType": "string",
+                  "name": "key",
+                  "type": "string"
+                },
+                {
+                  "components": [
+                    {
+                      "internalType": "string",
+                      "name": "title",
+                      "type": "string"
+                    },
+                    {
+                      "internalType": "string",
+                      "name": "description",
+                      "type": "string"
+                    },
+                    {
+                      "internalType": "string",
+                      "name": "tokenUri",
+                      "type": "string"
+                    },
+                    {
+                      "internalType": "string[]",
+                      "name": "mediaTypes",
+                      "type": "string[]"
+                    },
+                    {
+                      "internalType": "string[]",
+                      "name": "mediaItems",
+                      "type": "string[]"
+                    },
+                    {
+                      "internalType": "enum ICreatorData.Status",
+                      "name": "status",
+                      "type": "uint8"
+                    }
+                  ],
+                  "internalType": "struct ICreatorData.CoreInfo",
+                  "name": "core",
+                  "type": "tuple"
+                },
+                {
+                  "components": [
+                    {
+                      "internalType": "address",
+                      "name": "vault",
+                      "type": "address"
+                    },
+                    {
+                      "internalType": "uint256",
+                      "name": "split",
+                      "type": "uint256"
+                    }
+                  ],
+                  "internalType": "struct ICreatorData.CreatorInfo",
+                  "name": "creator",
+                  "type": "tuple"
+                },
+                {
+                  "components": [
+                    {
+                      "internalType": "address",
+                      "name": "vault",
+                      "type": "address"
+                    },
+                    {
+                      "internalType": "uint256",
+                      "name": "split",
+                      "type": "uint256"
+                    }
+                  ],
+                  "internalType": "struct ICreatorData.CreatorInfo[]",
+                  "name": "collaborators",
+                  "type": "tuple[]"
+                },
+                {
+                  "internalType": "uint256[]",
+                  "name": "licenses",
+                  "type": "uint256[]"
+                },
+                {
+                  "internalType": "enum ICreatorData.Status",
+                  "name": "status",
+                  "type": "uint8"
+                },
+                {
+                  "internalType": "enum ICreatorData.Source",
+                  "name": "originator",
+                  "type": "uint8"
+                },
+                {
+                  "internalType": "address",
+                  "name": "editor",
+                  "type": "address"
+                },
+                {
+                  "internalType": "bool",
+                  "name": "isPremium",
+                  "type": "bool"
+                }
+              ],
+              "internalType": "struct ICreatorData.AssetInfo",
+              "name": "",
+              "type": "tuple"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "uint256",
+              "name": "licenseId",
+              "type": "uint256"
+            }
+          ],
+          "name": "getAssetLicense",
+          "outputs": [
+            {
+              "components": [
+                {
+                  "internalType": "uint256",
+                  "name": "id",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "licenseTypeId",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint64",
+                  "name": "editions",
+                  "type": "uint64"
+                },
+                {
+                  "internalType": "uint64",
+                  "name": "editionCents",
+                  "type": "uint64"
+                },
+                {
+                  "internalType": "uint64",
+                  "name": "discountEditions",
+                  "type": "uint64"
+                },
+                {
+                  "internalType": "uint64",
+                  "name": "discountBasisPoints",
+                  "type": "uint64"
+                },
+                {
+                  "internalType": "uint64",
+                  "name": "discountMaxBasisPoints",
+                  "type": "uint64"
+                },
+                {
+                  "internalType": "uint64",
+                  "name": "available",
+                  "type": "uint64"
+                },
+                {
+                  "internalType": "string",
+                  "name": "code",
+                  "type": "string"
+                },
+                {
+                  "internalType": "address[]",
+                  "name": "licensees",
+                  "type": "address[]"
+                }
+              ],
+              "internalType": "struct ICreatorData.LicenseInfo",
+              "name": "",
+              "type": "tuple"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "string",
+              "name": "assetKey",
+              "type": "string"
+            }
+          ],
+          "name": "getAssetLicenses",
+          "outputs": [
+            {
+              "components": [
+                {
+                  "internalType": "uint256",
+                  "name": "id",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "licenseTypeId",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint64",
+                  "name": "editions",
+                  "type": "uint64"
+                },
+                {
+                  "internalType": "uint64",
+                  "name": "editionCents",
+                  "type": "uint64"
+                },
+                {
+                  "internalType": "uint64",
+                  "name": "discountEditions",
+                  "type": "uint64"
+                },
+                {
+                  "internalType": "uint64",
+                  "name": "discountBasisPoints",
+                  "type": "uint64"
+                },
+                {
+                  "internalType": "uint64",
+                  "name": "discountMaxBasisPoints",
+                  "type": "uint64"
+                },
+                {
+                  "internalType": "uint64",
+                  "name": "available",
+                  "type": "uint64"
+                },
+                {
+                  "internalType": "string",
+                  "name": "code",
+                  "type": "string"
+                },
+                {
+                  "internalType": "address[]",
+                  "name": "licensees",
+                  "type": "address[]"
+                }
+              ],
+              "internalType": "struct ICreatorData.LicenseInfo[]",
+              "name": "",
+              "type": "tuple[]"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "getAssetRegistryContract",
+          "outputs": [
+            {
+              "internalType": "address",
+              "name": "",
+              "type": "address"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            }
+          ],
+          "name": "getAvailableCredits",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "tokens",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "creditCents",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "creditOther",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "string",
+              "name": "assetKey",
+              "type": "string"
+            },
+            {
+              "internalType": "uint256",
+              "name": "licenseTypeId",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint64",
+              "name": "quantity",
+              "type": "uint64"
+            }
+          ],
+          "name": "getAvailableLicense",
+          "outputs": [
+            {
+              "components": [
+                {
+                  "internalType": "uint256",
+                  "name": "id",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "licenseTypeId",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint64",
+                  "name": "editions",
+                  "type": "uint64"
+                },
+                {
+                  "internalType": "uint64",
+                  "name": "editionCents",
+                  "type": "uint64"
+                },
+                {
+                  "internalType": "uint64",
+                  "name": "discountEditions",
+                  "type": "uint64"
+                },
+                {
+                  "internalType": "uint64",
+                  "name": "discountBasisPoints",
+                  "type": "uint64"
+                },
+                {
+                  "internalType": "uint64",
+                  "name": "discountMaxBasisPoints",
+                  "type": "uint64"
+                },
+                {
+                  "internalType": "uint64",
+                  "name": "available",
+                  "type": "uint64"
+                },
+                {
+                  "internalType": "string",
+                  "name": "code",
+                  "type": "string"
+                },
+                {
+                  "internalType": "address[]",
+                  "name": "licensees",
+                  "type": "address[]"
+                }
+              ],
+              "internalType": "struct ICreatorData.LicenseInfo",
+              "name": "",
+              "type": "tuple"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "getCollectorCreditContract",
+          "outputs": [
+            {
+              "internalType": "address",
+              "name": "",
+              "type": "address"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "getCreatorVaultFactoryContract",
+          "outputs": [
+            {
+              "internalType": "address",
+              "name": "",
+              "type": "address"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "uint256",
+              "name": "licenseInstanceId",
+              "type": "uint256"
+            }
+          ],
+          "name": "getLicenseInstance",
+          "outputs": [
+            {
+              "components": [
+                {
+                  "internalType": "uint256",
+                  "name": "id",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "string",
+                  "name": "assetKey",
+                  "type": "string"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "licenseId",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256[]",
+                  "name": "tokenIds",
+                  "type": "uint256[]"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "licenseFeeCents",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "amountPaidCents",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "address[]",
+                  "name": "licensees",
+                  "type": "address[]"
+                },
+                {
+                  "internalType": "uint64",
+                  "name": "licenseQuantity",
+                  "type": "uint64"
+                },
+                {
+                  "internalType": "uint16",
+                  "name": "platformBasisPoints",
+                  "type": "uint16"
+                },
+                {
+                  "internalType": "uint16",
+                  "name": "curatorBasisPoints",
+                  "type": "uint16"
+                },
+                {
+                  "internalType": "uint16",
+                  "name": "sellerBasisPoints",
+                  "type": "uint16"
+                },
+                {
+                  "internalType": "uint16",
+                  "name": "creatorRoyaltyBasisPoints",
+                  "type": "uint16"
+                }
+              ],
+              "internalType": "struct ICreatorData.LicenseInstanceInfo",
+              "name": "",
+              "type": "tuple"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            }
+          ],
+          "name": "getLicenseInstancesByOwner",
+          "outputs": [
+            {
+              "components": [
+                {
+                  "internalType": "uint256",
+                  "name": "id",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "string",
+                  "name": "assetKey",
+                  "type": "string"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "licenseId",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256[]",
+                  "name": "tokenIds",
+                  "type": "uint256[]"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "licenseFeeCents",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "amountPaidCents",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "address[]",
+                  "name": "licensees",
+                  "type": "address[]"
+                },
+                {
+                  "internalType": "uint64",
+                  "name": "licenseQuantity",
+                  "type": "uint64"
+                },
+                {
+                  "internalType": "uint16",
+                  "name": "platformBasisPoints",
+                  "type": "uint16"
+                },
+                {
+                  "internalType": "uint16",
+                  "name": "curatorBasisPoints",
+                  "type": "uint16"
+                },
+                {
+                  "internalType": "uint16",
+                  "name": "sellerBasisPoints",
+                  "type": "uint16"
+                },
+                {
+                  "internalType": "uint16",
+                  "name": "creatorRoyaltyBasisPoints",
+                  "type": "uint16"
+                }
+              ],
+              "internalType": "struct ICreatorData.LicenseInstanceInfo[]",
+              "name": "",
+              "type": "tuple[]"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "bytes32",
+              "name": "role",
+              "type": "bytes32"
+            }
+          ],
+          "name": "getRoleAdmin",
+          "outputs": [
+            {
+              "internalType": "bytes32",
+              "name": "",
+              "type": "bytes32"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "getStudioAccount",
+          "outputs": [
+            {
+              "internalType": "address",
+              "name": "",
+              "type": "address"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "owner",
+              "type": "address"
+            }
+          ],
+          "name": "getTokens",
+          "outputs": [
+            {
+              "components": [
+                {
+                  "internalType": "address",
+                  "name": "vault",
+                  "type": "address"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "tokenId",
+                  "type": "uint256"
+                }
+              ],
+              "internalType": "struct LicenseRegistry.OwnedTokenInfo[]",
+              "name": "",
+              "type": "tuple[]"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "getUsdVtruExchangeRate",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "global",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "usdVtruExchangeRate",
+              "type": "uint256"
+            },
+            {
+              "internalType": "address",
+              "name": "collectorCreditContract",
+              "type": "address"
+            },
+            {
+              "internalType": "address",
+              "name": "assetRegistryContract",
+              "type": "address"
+            },
+            {
+              "internalType": "address",
+              "name": "creatorVaultFactoryContract",
+              "type": "address"
+            },
+            {
+              "internalType": "address",
+              "name": "studioAccount",
+              "type": "address"
+            },
+            {
+              "internalType": "uint256",
+              "name": "allowBlockNumber",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "bytes32",
+              "name": "role",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            }
+          ],
+          "name": "grantRole",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "bytes32",
+              "name": "role",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            }
+          ],
+          "name": "hasRole",
+          "outputs": [
+            {
+              "internalType": "bool",
+              "name": "",
+              "type": "bool"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "initialize",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "string",
+              "name": "assetKey",
+              "type": "string"
+            },
+            {
+              "internalType": "uint256",
+              "name": "licenseTypeId",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint64",
+              "name": "quantity",
+              "type": "uint64"
+            }
+          ],
+          "name": "issueLicenseUsingCredits",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "licensee",
+              "type": "address"
+            },
+            {
+              "internalType": "string",
+              "name": "assetKey",
+              "type": "string"
+            },
+            {
+              "internalType": "uint256",
+              "name": "licenseTypeId",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint64",
+              "name": "quantity",
+              "type": "uint64"
+            }
+          ],
+          "name": "issueLicenseUsingCreditsStudio",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "pause",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "paused",
+          "outputs": [
+            {
+              "internalType": "bool",
+              "name": "",
+              "type": "bool"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "proxiableUUID",
+          "outputs": [
+            {
+              "internalType": "bytes32",
+              "name": "",
+              "type": "bytes32"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "recoverVTRU",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "string",
+              "name": "name",
+              "type": "string"
+            },
+            {
+              "internalType": "string",
+              "name": "info",
+              "type": "string"
+            },
+            {
+              "internalType": "bool",
+              "name": "isMintable",
+              "type": "bool"
+            },
+            {
+              "internalType": "bool",
+              "name": "isElastic",
+              "type": "bool"
+            }
+          ],
+          "name": "registerLicenseType",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "allow",
+              "type": "address"
+            }
+          ],
+          "name": "removeFromAllowList",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "bytes32",
+              "name": "role",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            }
+          ],
+          "name": "renounceRole",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "bytes32",
+              "name": "role",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            }
+          ],
+          "name": "revokeRole",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "uint256",
+              "name": "blockNumber",
+              "type": "uint256"
+            }
+          ],
+          "name": "setAllowBlockNumber",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            }
+          ],
+          "name": "setAssetRegistryContract",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            }
+          ],
+          "name": "setCollectorCreditContract",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            }
+          ],
+          "name": "setCreatorVaultFactoryContract",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            }
+          ],
+          "name": "setStudioAccount",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "uint256",
+              "name": "centsPerVtru",
+              "type": "uint256"
+            }
+          ],
+          "name": "setUsdVtruExchangeRate",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "bytes4",
+              "name": "interfaceId",
+              "type": "bytes4"
+            }
+          ],
+          "name": "supportsInterface",
+          "outputs": [
+            {
+              "internalType": "bool",
+              "name": "",
+              "type": "bool"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "vault",
+              "type": "address"
+            },
+            {
+              "internalType": "uint256[]",
+              "name": "tokenIds",
+              "type": "uint256[]"
+            },
+            {
+              "internalType": "address",
+              "name": "from",
+              "type": "address"
+            },
+            {
+              "internalType": "address",
+              "name": "to",
+              "type": "address"
+            }
+          ],
+          "name": "transferTokens",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "unpause",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "owner",
+              "type": "address"
+            },
+            {
+              "internalType": "uint256[]",
+              "name": "tokenIds",
+              "type": "uint256[]"
+            }
+          ],
+          "name": "unregisterTokens",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "newImplementation",
+              "type": "address"
+            }
+          ],
+          "name": "upgradeTo",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "newImplementation",
+              "type": "address"
+            },
+            {
+              "internalType": "bytes",
+              "name": "data",
+              "type": "bytes"
+            }
+          ],
+          "name": "upgradeToAndCall",
+          "outputs": [],
+          "stateMutability": "payable",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "version",
+          "outputs": [
+            {
+              "internalType": "string",
+              "name": "",
+              "type": "string"
+            }
+          ],
+          "stateMutability": "pure",
+          "type": "function"
+        },
+        {
+          "stateMutability": "payable",
+          "type": "receive"
+        }
+      ]
+    },
+    "creatorVault": {
+      "testnet": "0xBa8B73999f7c8Aff0f21B0B68531F7faCe08C8a9",
+      "mainnet": "0x808433d59FDd504516b7388DCceEa068e3f22DEf",
+      "abi":  [
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "owner",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "approved",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "internalType": "uint256",
+              "name": "tokenId",
+              "type": "uint256"
+            }
+          ],
+          "name": "Approval",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "owner",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "operator",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "internalType": "bool",
+              "name": "approved",
+              "type": "bool"
+            }
+          ],
+          "name": "ApprovalForAll",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "address",
+              "name": "vault",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "amount",
+              "type": "uint256"
+            }
+          ],
+          "name": "FundsClaimed",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "address",
+              "name": "vault",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "amount",
+              "type": "uint256"
+            }
+          ],
+          "name": "FundsReceived",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "uint8",
+              "name": "version",
+              "type": "uint8"
+            }
+          ],
+          "name": "Initialized",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            }
+          ],
+          "name": "Paused",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "bytes32",
+              "name": "role",
+              "type": "bytes32"
+            },
+            {
+              "indexed": true,
+              "internalType": "bytes32",
+              "name": "previousAdminRole",
+              "type": "bytes32"
+            },
+            {
+              "indexed": true,
+              "internalType": "bytes32",
+              "name": "newAdminRole",
+              "type": "bytes32"
+            }
+          ],
+          "name": "RoleAdminChanged",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "bytes32",
+              "name": "role",
+              "type": "bytes32"
+            },
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "sender",
+              "type": "address"
+            }
+          ],
+          "name": "RoleGranted",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "bytes32",
+              "name": "role",
+              "type": "bytes32"
+            },
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "sender",
+              "type": "address"
+            }
+          ],
+          "name": "RoleRevoked",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "from",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "to",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "internalType": "uint256",
+              "name": "tokenId",
+              "type": "uint256"
+            }
+          ],
+          "name": "Transfer",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            }
+          ],
+          "name": "Unpaused",
+          "type": "event"
+        },
+        {
+          "inputs": [],
+          "name": "DECIMALS",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "DEFAULT_ADMIN_ROLE",
+          "outputs": [
+            {
+              "internalType": "bytes32",
+              "name": "",
+              "type": "bytes32"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "EPOCH_BLOCKS",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "KEEPER_ROLE",
+          "outputs": [
+            {
+              "internalType": "bytes32",
+              "name": "",
+              "type": "bytes32"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "LICENSOR_ROLE",
+          "outputs": [
+            {
+              "internalType": "bytes32",
+              "name": "",
+              "type": "bytes32"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "REEDEEMER_ROLE",
+          "outputs": [
+            {
+              "internalType": "bytes32",
+              "name": "",
+              "type": "bytes32"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "STUDIO_ROLE",
+          "outputs": [
+            {
+              "internalType": "bytes32",
+              "name": "",
+              "type": "bytes32"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "UNAUTHORIZED_USER",
+          "outputs": [
+            {
+              "internalType": "string",
+              "name": "",
+              "type": "string"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "UPGRADER_ROLE",
+          "outputs": [
+            {
+              "internalType": "bytes32",
+              "name": "",
+              "type": "bytes32"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "_tokenId",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "_value",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "uint256",
+              "name": "credits",
+              "type": "uint256"
+            }
+          ],
+          "name": "addCreatorCredits",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "wallet",
+              "type": "address"
+            }
+          ],
+          "name": "addVaultWallet",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "to",
+              "type": "address"
+            },
+            {
+              "internalType": "uint256",
+              "name": "tokenId",
+              "type": "uint256"
+            }
+          ],
+          "name": "approve",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "owner",
+              "type": "address"
+            }
+          ],
+          "name": "balanceOf",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "claim",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            }
+          ],
+          "name": "claimStudio",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "currentSupply",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "fundsAvailableBlockNumber",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "uint256",
+              "name": "tokenId",
+              "type": "uint256"
+            }
+          ],
+          "name": "getApproved",
+          "outputs": [
+            {
+              "internalType": "address",
+              "name": "",
+              "type": "address"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "getCreatorCredits",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "bytes32",
+              "name": "role",
+              "type": "bytes32"
+            }
+          ],
+          "name": "getRoleAdmin",
+          "outputs": [
+            {
+              "internalType": "bytes32",
+              "name": "",
+              "type": "bytes32"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "uint256",
+              "name": "tokenId",
+              "type": "uint256"
+            }
+          ],
+          "name": "getTokenInfo",
+          "outputs": [
+            {
+              "components": [
+                {
+                  "internalType": "string",
+                  "name": "assetKey",
+                  "type": "string"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "licenseInstanceId",
+                  "type": "uint256"
+                }
+              ],
+              "internalType": "struct CreatorVault.TokenInfo",
+              "name": "",
+              "type": "tuple"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "getVaultWallets",
+          "outputs": [
+            {
+              "internalType": "address[]",
+              "name": "",
+              "type": "address[]"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "global",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "creatorCredits",
+              "type": "uint256"
+            },
+            {
+              "internalType": "address",
+              "name": "licenseRegistry",
+              "type": "address"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "bytes32",
+              "name": "role",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            }
+          ],
+          "name": "grantRole",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "bytes32",
+              "name": "role",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            }
+          ],
+          "name": "hasRole",
+          "outputs": [
+            {
+              "internalType": "bool",
+              "name": "",
+              "type": "bool"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "string",
+              "name": "vaultName",
+              "type": "string"
+            },
+            {
+              "internalType": "string",
+              "name": "vaultSymbol",
+              "type": "string"
+            },
+            {
+              "internalType": "address[]",
+              "name": "wallets",
+              "type": "address[]"
+            }
+          ],
+          "name": "initialize",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "owner",
+              "type": "address"
+            },
+            {
+              "internalType": "address",
+              "name": "operator",
+              "type": "address"
+            }
+          ],
+          "name": "isApprovedForAll",
+          "outputs": [
+            {
+              "internalType": "bool",
+              "name": "",
+              "type": "bool"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "isTrusted",
+          "outputs": [
+            {
+              "internalType": "bool",
+              "name": "",
+              "type": "bool"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "wallet",
+              "type": "address"
+            }
+          ],
+          "name": "isVaultWallet",
+          "outputs": [
+            {
+              "internalType": "bool",
+              "name": "",
+              "type": "bool"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "lastDepositBlockNumber",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "components": [
+                {
+                  "internalType": "uint256",
+                  "name": "id",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "string",
+                  "name": "assetKey",
+                  "type": "string"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "licenseId",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256[]",
+                  "name": "tokenIds",
+                  "type": "uint256[]"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "licenseFeeCents",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "amountPaidCents",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "address[]",
+                  "name": "licensees",
+                  "type": "address[]"
+                },
+                {
+                  "internalType": "uint64",
+                  "name": "licenseQuantity",
+                  "type": "uint64"
+                },
+                {
+                  "internalType": "uint16",
+                  "name": "platformBasisPoints",
+                  "type": "uint16"
+                },
+                {
+                  "internalType": "uint16",
+                  "name": "curatorBasisPoints",
+                  "type": "uint16"
+                },
+                {
+                  "internalType": "uint16",
+                  "name": "sellerBasisPoints",
+                  "type": "uint16"
+                },
+                {
+                  "internalType": "uint16",
+                  "name": "creatorRoyaltyBasisPoints",
+                  "type": "uint16"
+                }
+              ],
+              "internalType": "struct ICreatorData.LicenseInstanceInfo",
+              "name": "licenseInstance",
+              "type": "tuple"
+            },
+            {
+              "internalType": "address",
+              "name": "licensee",
+              "type": "address"
+            }
+          ],
+          "name": "mintLicensedAssets",
+          "outputs": [
+            {
+              "internalType": "uint256[]",
+              "name": "",
+              "type": "uint256[]"
+            }
+          ],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "name",
+          "outputs": [
+            {
+              "internalType": "string",
+              "name": "",
+              "type": "string"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "uint256",
+              "name": "tokenId",
+              "type": "uint256"
+            }
+          ],
+          "name": "ownerOf",
+          "outputs": [
+            {
+              "internalType": "address",
+              "name": "",
+              "type": "address"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "pause",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "paused",
+          "outputs": [
+            {
+              "internalType": "bool",
+              "name": "",
+              "type": "bool"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            }
+          ],
+          "name": "recoverFundsStudio",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "wallet",
+              "type": "address"
+            }
+          ],
+          "name": "removeVaultWallet",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "bytes32",
+              "name": "role",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            }
+          ],
+          "name": "renounceRole",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "bytes32",
+              "name": "role",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            }
+          ],
+          "name": "revokeRole",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "from",
+              "type": "address"
+            },
+            {
+              "internalType": "address",
+              "name": "to",
+              "type": "address"
+            },
+            {
+              "internalType": "uint256",
+              "name": "tokenId",
+              "type": "uint256"
+            }
+          ],
+          "name": "safeTransferFrom",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "from",
+              "type": "address"
+            },
+            {
+              "internalType": "address",
+              "name": "to",
+              "type": "address"
+            },
+            {
+              "internalType": "uint256",
+              "name": "tokenId",
+              "type": "uint256"
+            },
+            {
+              "internalType": "bytes",
+              "name": "data",
+              "type": "bytes"
+            }
+          ],
+          "name": "safeTransferFrom",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "operator",
+              "type": "address"
+            },
+            {
+              "internalType": "bool",
+              "name": "approved",
+              "type": "bool"
+            }
+          ],
+          "name": "setApprovalForAll",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "bool",
+              "name": "trusted",
+              "type": "bool"
+            }
+          ],
+          "name": "setTrusted",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "bytes4",
+              "name": "interfaceId",
+              "type": "bytes4"
+            }
+          ],
+          "name": "supportsInterface",
+          "outputs": [
+            {
+              "internalType": "bool",
+              "name": "",
+              "type": "bool"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "symbol",
+          "outputs": [
+            {
+              "internalType": "string",
+              "name": "",
+              "type": "string"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "uint256",
+              "name": "index",
+              "type": "uint256"
+            }
+          ],
+          "name": "tokenByIndex",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "owner",
+              "type": "address"
+            },
+            {
+              "internalType": "uint256",
+              "name": "index",
+              "type": "uint256"
+            }
+          ],
+          "name": "tokenOfOwnerByIndex",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "uint256",
+              "name": "tokenId",
+              "type": "uint256"
+            }
+          ],
+          "name": "tokenURI",
+          "outputs": [
+            {
+              "internalType": "string",
+              "name": "",
+              "type": "string"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "totalSupply",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "from",
+              "type": "address"
+            },
+            {
+              "internalType": "address",
+              "name": "to",
+              "type": "address"
+            },
+            {
+              "internalType": "uint256",
+              "name": "tokenId",
+              "type": "uint256"
+            }
+          ],
+          "name": "transferFrom",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "unpause",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "uint256",
+              "name": "credits",
+              "type": "uint256"
+            }
+          ],
+          "name": "useCreatorCredits",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "vaultBalance",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "version",
+          "outputs": [
+            {
+              "internalType": "string",
+              "name": "",
+              "type": "string"
+            }
+          ],
+          "stateMutability": "pure",
+          "type": "function"
+        },
+        {
+          "stateMutability": "payable",
+          "type": "receive"
+        }
+      ]
+    },
+    "creatorVaultFactory": {
+      "testnet": "0xB507bc726f9Fdb29527667A1e39D0F3E05D37C4d",
+      "mainnet": "0xDFda76C704515d19C737C54cFf523E45ab01d90A",
+      "abi": [
+        {
+          "type": "constructor",
+          "stateMutability": "undefined",
+          "payable": false,
+          "inputs": [
+            {
+              "type": "address",
+              "name": "initTarget"
+            },
+            {
+              "type": "address",
+              "name": "licenseRegistry"
+            }
+          ]
+        },
+        {
+          "type": "event",
+          "anonymous": false,
+          "name": "OwnershipTransferred",
+          "inputs": [
+            {
+              "type": "address",
+              "name": "previousOwner",
+              "indexed": true
+            },
+            {
+              "type": "address",
+              "name": "newOwner",
+              "indexed": true
+            }
+          ]
+        },
+        {
+          "type": "event",
+          "anonymous": false,
+          "name": "VaultCreated",
+          "inputs": [
+            {
+              "type": "string",
+              "name": "vaultKey",
+              "indexed": true
+            },
+            {
+              "type": "address",
+              "name": "vault",
+              "indexed": true
+            }
+          ]
+        },
+        {
+          "type": "function",
+          "name": "createVault",
+          "constant": false,
+          "payable": false,
+          "inputs": [
+            {
+              "type": "string",
+              "name": "vaultKey"
+            },
+            {
+              "type": "string",
+              "name": "vaultName"
+            },
+            {
+              "type": "string",
+              "name": "vaultSymbol"
+            },
+            {
+              "type": "address[]",
+              "name": "wallets"
+            }
+          ],
+          "outputs": []
+        },
+        {
+          "type": "function",
+          "name": "getBeacon",
+          "constant": true,
+          "stateMutability": "view",
+          "payable": false,
+          "inputs": [],
+          "outputs": [
+            {
+              "type": "address",
+              "name": ""
+            }
+          ]
+        },
+        {
+          "type": "function",
+          "name": "getImplementation",
+          "constant": true,
+          "stateMutability": "view",
+          "payable": false,
+          "inputs": [],
+          "outputs": [
+            {
+              "type": "address",
+              "name": ""
+            }
+          ]
+        },
+        {
+          "type": "function",
+          "name": "getKeyAtIndex",
+          "constant": true,
+          "stateMutability": "view",
+          "payable": false,
+          "inputs": [
+            {
+              "type": "uint256",
+              "name": "index"
+            }
+          ],
+          "outputs": [
+            {
+              "type": "string",
+              "name": ""
+            }
+          ]
+        },
+        {
+          "type": "function",
+          "name": "getLicenseRegistryContract",
+          "constant": true,
+          "stateMutability": "view",
+          "payable": false,
+          "inputs": [],
+          "outputs": [
+            {
+              "type": "address",
+              "name": ""
+            }
+          ]
+        },
+        {
+          "type": "function",
+          "name": "getVault",
+          "constant": true,
+          "stateMutability": "view",
+          "payable": false,
+          "inputs": [
+            {
+              "type": "string",
+              "name": "vaultKey"
+            }
+          ],
+          "outputs": [
+            {
+              "type": "address",
+              "name": ""
+            }
+          ]
+        },
+        {
+          "type": "function",
+          "name": "getVaultAtIndex",
+          "constant": true,
+          "stateMutability": "view",
+          "payable": false,
+          "inputs": [
+            {
+              "type": "uint256",
+              "name": "index"
+            }
+          ],
+          "outputs": [
+            {
+              "type": "address",
+              "name": ""
+            }
+          ]
+        },
+        {
+          "type": "function",
+          "name": "getVaultBatch",
+          "constant": true,
+          "stateMutability": "view",
+          "payable": false,
+          "inputs": [
+            {
+              "type": "uint256",
+              "name": "start"
+            },
+            {
+              "type": "uint256",
+              "name": "count"
+            }
+          ],
+          "outputs": [
+            {
+              "type": "address[]",
+              "name": ""
+            }
+          ]
+        },
+        {
+          "type": "function",
+          "name": "getVaultCount",
+          "constant": true,
+          "stateMutability": "view",
+          "payable": false,
+          "inputs": [],
+          "outputs": [
+            {
+              "type": "uint256",
+              "name": "count"
+            }
+          ]
+        },
+        {
+          "type": "function",
+          "name": "isVault",
+          "constant": true,
+          "stateMutability": "view",
+          "payable": false,
+          "inputs": [
+            {
+              "type": "string",
+              "name": "vaultKey"
+            }
+          ],
+          "outputs": [
+            {
+              "type": "bool",
+              "name": ""
+            }
+          ]
+        },
+        {
+          "type": "function",
+          "name": "licenseRegistryContract",
+          "constant": true,
+          "stateMutability": "view",
+          "payable": false,
+          "inputs": [],
+          "outputs": [
+            {
+              "type": "address",
+              "name": ""
+            }
+          ]
+        },
+        {
+          "type": "function",
+          "name": "owner",
+          "constant": true,
+          "stateMutability": "view",
+          "payable": false,
+          "inputs": [],
+          "outputs": [
+            {
+              "type": "address",
+              "name": ""
+            }
+          ]
+        },
+        {
+          "type": "function",
+          "name": "renounceOwnership",
+          "constant": false,
+          "payable": false,
+          "inputs": [],
+          "outputs": []
+        },
+        {
+          "type": "function",
+          "name": "setLicenseRegistryContract",
+          "constant": false,
+          "payable": false,
+          "inputs": [
+            {
+              "type": "address",
+              "name": "account"
+            }
+          ],
+          "outputs": []
+        },
+        {
+          "type": "function",
+          "name": "transferOwnership",
+          "constant": false,
+          "payable": false,
+          "inputs": [
+            {
+              "type": "address",
+              "name": "newOwner"
+            }
+          ],
+          "outputs": []
+        }
+      ]
+    },
+    "collectorCredit": {
+      "testnet": "0x2921f3c02f4c6b1BbD35c5B8deA666F78A9D5919",
+      "mainnet": "0x5c7421fcCA16C685cEC5aaFf745a9a6BDf75Ba06",
+      "abi": [
+        {
+          "type": "event",
+          "anonymous": false,
+          "name": "AdminChanged",
+          "inputs": [
+            {
+              "type": "address",
+              "name": "previousAdmin",
+              "indexed": false
+            },
+            {
+              "type": "address",
+              "name": "newAdmin",
+              "indexed": false
+            }
+          ]
+        },
+        {
+          "type": "event",
+          "anonymous": false,
+          "name": "Approval",
+          "inputs": [
+            {
+              "type": "address",
+              "name": "owner",
+              "indexed": true
+            },
+            {
+              "type": "address",
+              "name": "approved",
+              "indexed": true
+            },
+            {
+              "type": "uint256",
+              "name": "tokenId",
+              "indexed": true
+            }
+          ]
+        },
+        {
+          "type": "event",
+          "anonymous": false,
+          "name": "ApprovalForAll",
+          "inputs": [
+            {
+              "type": "address",
+              "name": "owner",
+              "indexed": true
+            },
+            {
+              "type": "address",
+              "name": "operator",
+              "indexed": true
+            },
+            {
+              "type": "bool",
+              "name": "approved",
+              "indexed": false
+            }
+          ]
+        },
+        {
+          "type": "event",
+          "anonymous": false,
+          "name": "BeaconUpgraded",
+          "inputs": [
+            {
+              "type": "address",
+              "name": "beacon",
+              "indexed": true
+            }
+          ]
+        },
+        {
+          "type": "event",
+          "anonymous": false,
+          "name": "CollectorCreditGranted",
+          "inputs": [
+            {
+              "type": "uint256",
+              "name": "tokenId",
+              "indexed": true
+            },
+            {
+              "type": "address",
+              "name": "account",
+              "indexed": true
+            },
+            {
+              "type": "bool",
+              "name": "isUSD",
+              "indexed": false
+            },
+            {
+              "type": "uint256",
+              "name": "value",
+              "indexed": false
+            }
+          ]
+        },
+        {
+          "type": "event",
+          "anonymous": false,
+          "name": "CollectorCreditRedeemed",
+          "inputs": [
+            {
+              "type": "address",
+              "name": "account",
+              "indexed": true
+            },
+            {
+              "type": "uint64",
+              "name": "amountCents",
+              "indexed": false
+            },
+            {
+              "type": "uint256",
+              "name": "licenseInstanceId",
+              "indexed": false
+            },
+            {
+              "type": "uint64",
+              "name": "redeemedCents",
+              "indexed": false
+            },
+            {
+              "type": "uint256",
+              "name": "vtru",
+              "indexed": false
+            },
+            {
+              "type": "address",
+              "name": "vault",
+              "indexed": false
+            }
+          ]
+        },
+        {
+          "type": "event",
+          "anonymous": false,
+          "name": "Initialized",
+          "inputs": [
+            {
+              "type": "uint8",
+              "name": "version",
+              "indexed": false
+            }
+          ]
+        },
+        {
+          "type": "event",
+          "anonymous": false,
+          "name": "Paused",
+          "inputs": [
+            {
+              "type": "address",
+              "name": "account",
+              "indexed": false
+            }
+          ]
+        },
+        {
+          "type": "event",
+          "anonymous": false,
+          "name": "RoleAdminChanged",
+          "inputs": [
+            {
+              "type": "bytes32",
+              "name": "role",
+              "indexed": true
+            },
+            {
+              "type": "bytes32",
+              "name": "previousAdminRole",
+              "indexed": true
+            },
+            {
+              "type": "bytes32",
+              "name": "newAdminRole",
+              "indexed": true
+            }
+          ]
+        },
+        {
+          "type": "event",
+          "anonymous": false,
+          "name": "RoleGranted",
+          "inputs": [
+            {
+              "type": "bytes32",
+              "name": "role",
+              "indexed": true
+            },
+            {
+              "type": "address",
+              "name": "account",
+              "indexed": true
+            },
+            {
+              "type": "address",
+              "name": "sender",
+              "indexed": true
+            }
+          ]
+        },
+        {
+          "type": "event",
+          "anonymous": false,
+          "name": "RoleRevoked",
+          "inputs": [
+            {
+              "type": "bytes32",
+              "name": "role",
+              "indexed": true
+            },
+            {
+              "type": "address",
+              "name": "account",
+              "indexed": true
+            },
+            {
+              "type": "address",
+              "name": "sender",
+              "indexed": true
+            }
+          ]
+        },
+        {
+          "type": "event",
+          "anonymous": false,
+          "name": "Transfer",
+          "inputs": [
+            {
+              "type": "address",
+              "name": "from",
+              "indexed": true
+            },
+            {
+              "type": "address",
+              "name": "to",
+              "indexed": true
+            },
+            {
+              "type": "uint256",
+              "name": "tokenId",
+              "indexed": true
+            }
+          ]
+        },
+        {
+          "type": "event",
+          "anonymous": false,
+          "name": "Unpaused",
+          "inputs": [
+            {
+              "type": "address",
+              "name": "account",
+              "indexed": false
+            }
+          ]
+        },
+        {
+          "type": "event",
+          "anonymous": false,
+          "name": "Upgraded",
+          "inputs": [
+            {
+              "type": "address",
+              "name": "implementation",
+              "indexed": true
+            }
+          ]
+        },
+        {
+          "type": "function",
+          "name": "DECIMALS",
+          "constant": true,
+          "stateMutability": "view",
+          "payable": false,
+          "inputs": [],
+          "outputs": [
+            {
+              "type": "uint256",
+              "name": ""
+            }
+          ]
+        },
+        {
+          "type": "function",
+          "name": "DEFAULT_ADMIN_ROLE",
+          "constant": true,
+          "stateMutability": "view",
+          "payable": false,
+          "inputs": [],
+          "outputs": [
+            {
+              "type": "bytes32",
+              "name": ""
+            }
+          ]
+        },
+        {
+          "type": "function",
+          "name": "GRANTER_ROLE",
+          "constant": true,
+          "stateMutability": "view",
+          "payable": false,
+          "inputs": [],
+          "outputs": [
+            {
+              "type": "bytes32",
+              "name": ""
+            }
+          ]
+        },
+        {
+          "type": "function",
+          "name": "REEDEEMER_ROLE",
+          "constant": true,
+          "stateMutability": "view",
+          "payable": false,
+          "inputs": [],
+          "outputs": [
+            {
+              "type": "bytes32",
+              "name": ""
+            }
+          ]
+        },
+        {
+          "type": "function",
+          "name": "UPGRADER_ROLE",
+          "constant": true,
+          "stateMutability": "view",
+          "payable": false,
+          "inputs": [],
+          "outputs": [
+            {
+              "type": "bytes32",
+              "name": ""
+            }
+          ]
+        },
+        {
+          "type": "function",
+          "name": "approve",
+          "constant": false,
+          "payable": false,
+          "inputs": [
+            {
+              "type": "address",
+              "name": "to"
+            },
+            {
+              "type": "uint256",
+              "name": "tokenId"
+            }
+          ],
+          "outputs": []
+        },
+        {
+          "type": "function",
+          "name": "balanceOf",
+          "constant": true,
+          "stateMutability": "view",
+          "payable": false,
+          "inputs": [
+            {
+              "type": "address",
+              "name": "owner"
+            }
+          ],
+          "outputs": [
+            {
+              "type": "uint256",
+              "name": ""
+            }
+          ]
+        },
+        {
+          "type": "function",
+          "name": "currentSupply",
+          "constant": true,
+          "stateMutability": "view",
+          "payable": false,
+          "inputs": [],
+          "outputs": [
+            {
+              "type": "uint256",
+              "name": ""
+            }
+          ]
+        },
+        {
+          "type": "function",
+          "name": "getAccountTokens",
+          "constant": true,
+          "stateMutability": "view",
+          "payable": false,
+          "inputs": [
+            {
+              "type": "address",
+              "name": "account"
+            }
+          ],
+          "outputs": [
+            {
+              "type": "tuple[]",
+              "name": "",
+              "components": [
+                {
+                  "type": "uint256",
+                  "name": "id"
+                },
+                {
+                  "type": "uint256",
+                  "name": "classId"
+                },
+                {
+                  "type": "bool",
+                  "name": "isUSD"
+                },
+                {
+                  "type": "uint256",
+                  "name": "value"
+                },
+                {
+                  "type": "uint256",
+                  "name": "activeBlock"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "function",
+          "name": "getActiveAccountTokens",
+          "constant": true,
+          "stateMutability": "view",
+          "payable": false,
+          "inputs": [
+            {
+              "type": "address",
+              "name": "account"
+            }
+          ],
+          "outputs": [
+            {
+              "type": "tuple[]",
+              "name": "",
+              "components": [
+                {
+                  "type": "uint256",
+                  "name": "id"
+                },
+                {
+                  "type": "uint256",
+                  "name": "classId"
+                },
+                {
+                  "type": "bool",
+                  "name": "isUSD"
+                },
+                {
+                  "type": "uint256",
+                  "name": "value"
+                },
+                {
+                  "type": "uint256",
+                  "name": "activeBlock"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "function",
+          "name": "getApproved",
+          "constant": true,
+          "stateMutability": "view",
+          "payable": false,
+          "inputs": [
+            {
+              "type": "uint256",
+              "name": "tokenId"
+            }
+          ],
+          "outputs": [
+            {
+              "type": "address",
+              "name": ""
+            }
+          ]
+        },
+        {
+          "type": "function",
+          "name": "getAvailableCreditTokens",
+          "constant": true,
+          "stateMutability": "view",
+          "payable": false,
+          "inputs": [
+            {
+              "type": "address",
+              "name": "account"
+            }
+          ],
+          "outputs": [
+            {
+              "type": "tuple[]",
+              "name": "creditNFTs",
+              "components": [
+                {
+                  "type": "uint256",
+                  "name": "id"
+                },
+                {
+                  "type": "uint256",
+                  "name": "classId"
+                },
+                {
+                  "type": "bool",
+                  "name": "isUSD"
+                },
+                {
+                  "type": "uint256",
+                  "name": "value"
+                },
+                {
+                  "type": "uint256",
+                  "name": "activeBlock"
+                }
+              ]
+            },
+            {
+              "type": "uint256",
+              "name": "creditCents"
+            },
+            {
+              "type": "uint256",
+              "name": "creditOther"
+            }
+          ]
+        },
+        {
+          "type": "function",
+          "name": "getAvailableCredits",
+          "constant": true,
+          "stateMutability": "view",
+          "payable": false,
+          "inputs": [
+            {
+              "type": "address",
+              "name": "account"
+            }
+          ],
+          "outputs": [
+            {
+              "type": "uint256",
+              "name": "tokens"
+            },
+            {
+              "type": "uint256",
+              "name": "creditCents"
+            },
+            {
+              "type": "uint256",
+              "name": "creditOther"
+            }
+          ]
+        },
+        {
+          "type": "function",
+          "name": "getCreditClassInfo",
+          "constant": true,
+          "stateMutability": "view",
+          "payable": false,
+          "inputs": [
+            {
+              "type": "uint256",
+              "name": "id"
+            }
+          ],
+          "outputs": [
+            {
+              "type": "tuple",
+              "name": "",
+              "components": [
+                {
+                  "type": "uint256",
+                  "name": "id"
+                },
+                {
+                  "type": "string",
+                  "name": "name"
+                },
+                {
+                  "type": "bool",
+                  "name": "isUSD"
+                },
+                {
+                  "type": "uint256",
+                  "name": "value"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "function",
+          "name": "getCreditTokenInfo",
+          "constant": true,
+          "stateMutability": "view",
+          "payable": false,
+          "inputs": [
+            {
+              "type": "uint256",
+              "name": "id"
+            }
+          ],
+          "outputs": [
+            {
+              "type": "tuple",
+              "name": "",
+              "components": [
+                {
+                  "type": "uint256",
+                  "name": "id"
+                },
+                {
+                  "type": "uint256",
+                  "name": "classId"
+                },
+                {
+                  "type": "bool",
+                  "name": "isUSD"
+                },
+                {
+                  "type": "uint256",
+                  "name": "value"
+                },
+                {
+                  "type": "uint256",
+                  "name": "activeBlock"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "function",
+          "name": "getRoleAdmin",
+          "constant": true,
+          "stateMutability": "view",
+          "payable": false,
+          "inputs": [
+            {
+              "type": "bytes32",
+              "name": "role"
+            }
+          ],
+          "outputs": [
+            {
+              "type": "bytes32",
+              "name": ""
+            }
+          ]
+        },
+        {
+          "type": "function",
+          "name": "global",
+          "constant": true,
+          "stateMutability": "view",
+          "payable": false,
+          "inputs": [],
+          "outputs": [
+            {
+              "type": "string",
+              "name": "classImageURI"
+            }
+          ]
+        },
+        {
+          "type": "function",
+          "name": "grantCreditNFT",
+          "constant": false,
+          "payable": false,
+          "inputs": [
+            {
+              "type": "uint256",
+              "name": "classId"
+            },
+            {
+              "type": "address",
+              "name": "account"
+            },
+            {
+              "type": "uint256",
+              "name": "activeBlock"
+            },
+            {
+              "type": "uint256",
+              "name": "quantity"
+            }
+          ],
+          "outputs": []
+        },
+        {
+          "type": "function",
+          "name": "grantRole",
+          "constant": false,
+          "payable": false,
+          "inputs": [
+            {
+              "type": "bytes32",
+              "name": "role"
+            },
+            {
+              "type": "address",
+              "name": "account"
+            }
+          ],
+          "outputs": []
+        },
+        {
+          "type": "function",
+          "name": "hasRole",
+          "constant": true,
+          "stateMutability": "view",
+          "payable": false,
+          "inputs": [
+            {
+              "type": "bytes32",
+              "name": "role"
+            },
+            {
+              "type": "address",
+              "name": "account"
+            }
+          ],
+          "outputs": [
+            {
+              "type": "bool",
+              "name": ""
+            }
+          ]
+        },
+        {
+          "type": "function",
+          "name": "initialize",
+          "constant": false,
+          "payable": false,
+          "inputs": [],
+          "outputs": []
+        },
+        {
+          "type": "function",
+          "name": "isApprovedForAll",
+          "constant": true,
+          "stateMutability": "view",
+          "payable": false,
+          "inputs": [
+            {
+              "type": "address",
+              "name": "owner"
+            },
+            {
+              "type": "address",
+              "name": "operator"
+            }
+          ],
+          "outputs": [
+            {
+              "type": "bool",
+              "name": ""
+            }
+          ]
+        },
+        {
+          "type": "function",
+          "name": "name",
+          "constant": true,
+          "stateMutability": "view",
+          "payable": false,
+          "inputs": [],
+          "outputs": [
+            {
+              "type": "string",
+              "name": ""
+            }
+          ]
+        },
+        {
+          "type": "function",
+          "name": "ownerOf",
+          "constant": true,
+          "stateMutability": "view",
+          "payable": false,
+          "inputs": [
+            {
+              "type": "uint256",
+              "name": "tokenId"
+            }
+          ],
+          "outputs": [
+            {
+              "type": "address",
+              "name": ""
+            }
+          ]
+        },
+        {
+          "type": "function",
+          "name": "pause",
+          "constant": false,
+          "payable": false,
+          "inputs": [],
+          "outputs": []
+        },
+        {
+          "type": "function",
+          "name": "paused",
+          "constant": true,
+          "stateMutability": "view",
+          "payable": false,
+          "inputs": [],
+          "outputs": [
+            {
+              "type": "bool",
+              "name": ""
+            }
+          ]
+        },
+        {
+          "type": "function",
+          "name": "proxiableUUID",
+          "constant": true,
+          "stateMutability": "view",
+          "payable": false,
+          "inputs": [],
+          "outputs": [
+            {
+              "type": "bytes32",
+              "name": ""
+            }
+          ]
+        },
+        {
+          "type": "function",
+          "name": "recoverVTRU",
+          "constant": false,
+          "payable": false,
+          "inputs": [],
+          "outputs": []
+        },
+        {
+          "type": "function",
+          "name": "redeemUsd",
+          "constant": false,
+          "payable": false,
+          "inputs": [
+            {
+              "type": "address",
+              "name": "account"
+            },
+            {
+              "type": "uint256",
+              "name": "licenseInstanceId"
+            },
+            {
+              "type": "uint64",
+              "name": "amountCents"
+            },
+            {
+              "type": "uint256",
+              "name": "usdVtruExchangeRate"
+            },
+            {
+              "type": "address",
+              "name": "vault"
+            }
+          ],
+          "outputs": [
+            {
+              "type": "uint64",
+              "name": "redeemedCents"
+            }
+          ]
+        },
+        {
+          "type": "function",
+          "name": "registerCreditClass",
+          "constant": false,
+          "payable": false,
+          "inputs": [
+            {
+              "type": "uint256",
+              "name": "id"
+            },
+            {
+              "type": "string",
+              "name": "name"
+            },
+            {
+              "type": "bool",
+              "name": "isUSD"
+            },
+            {
+              "type": "uint256",
+              "name": "value"
+            }
+          ],
+          "outputs": [
+            {
+              "type": "tuple",
+              "name": "",
+              "components": [
+                {
+                  "type": "uint256",
+                  "name": "id"
+                },
+                {
+                  "type": "string",
+                  "name": "name"
+                },
+                {
+                  "type": "bool",
+                  "name": "isUSD"
+                },
+                {
+                  "type": "uint256",
+                  "name": "value"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "function",
+          "name": "renounceRole",
+          "constant": false,
+          "payable": false,
+          "inputs": [
+            {
+              "type": "bytes32",
+              "name": "role"
+            },
+            {
+              "type": "address",
+              "name": "account"
+            }
+          ],
+          "outputs": []
+        },
+        {
+          "type": "function",
+          "name": "revokeRole",
+          "constant": false,
+          "payable": false,
+          "inputs": [
+            {
+              "type": "bytes32",
+              "name": "role"
+            },
+            {
+              "type": "address",
+              "name": "account"
+            }
+          ],
+          "outputs": []
+        },
+        {
+          "type": "function",
+          "name": "safeTransferFrom",
+          "constant": false,
+          "payable": false,
+          "inputs": [
+            {
+              "type": "address",
+              "name": "from"
+            },
+            {
+              "type": "address",
+              "name": "to"
+            },
+            {
+              "type": "uint256",
+              "name": "tokenId"
+            }
+          ],
+          "outputs": []
+        },
+        {
+          "type": "function",
+          "name": "safeTransferFrom",
+          "constant": false,
+          "payable": false,
+          "inputs": [
+            {
+              "type": "address",
+              "name": "from"
+            },
+            {
+              "type": "address",
+              "name": "to"
+            },
+            {
+              "type": "uint256",
+              "name": "tokenId"
+            },
+            {
+              "type": "bytes",
+              "name": "data"
+            }
+          ],
+          "outputs": []
+        },
+        {
+          "type": "function",
+          "name": "setApprovalForAll",
+          "constant": false,
+          "payable": false,
+          "inputs": [
+            {
+              "type": "address",
+              "name": "operator"
+            },
+            {
+              "type": "bool",
+              "name": "approved"
+            }
+          ],
+          "outputs": []
+        },
+        {
+          "type": "function",
+          "name": "setClassImageURI",
+          "constant": false,
+          "payable": false,
+          "inputs": [
+            {
+              "type": "string",
+              "name": "uri"
+            }
+          ],
+          "outputs": []
+        },
+        {
+          "type": "function",
+          "name": "supportsInterface",
+          "constant": true,
+          "stateMutability": "view",
+          "payable": false,
+          "inputs": [
+            {
+              "type": "bytes4",
+              "name": "interfaceId"
+            }
+          ],
+          "outputs": [
+            {
+              "type": "bool",
+              "name": ""
+            }
+          ]
+        },
+        {
+          "type": "function",
+          "name": "symbol",
+          "constant": true,
+          "stateMutability": "view",
+          "payable": false,
+          "inputs": [],
+          "outputs": [
+            {
+              "type": "string",
+              "name": ""
+            }
+          ]
+        },
+        {
+          "type": "function",
+          "name": "tokenURI",
+          "constant": true,
+          "stateMutability": "view",
+          "payable": false,
+          "inputs": [
+            {
+              "type": "uint256",
+              "name": "tokenId"
+            }
+          ],
+          "outputs": [
+            {
+              "type": "string",
+              "name": ""
+            }
+          ]
+        },
+        {
+          "type": "function",
+          "name": "transferFrom",
+          "constant": false,
+          "payable": false,
+          "inputs": [
+            {
+              "type": "address",
+              "name": "from"
+            },
+            {
+              "type": "address",
+              "name": "to"
+            },
+            {
+              "type": "uint256",
+              "name": "tokenId"
+            }
+          ],
+          "outputs": []
+        },
+        {
+          "type": "function",
+          "name": "unpause",
+          "constant": false,
+          "payable": false,
+          "inputs": [],
+          "outputs": []
+        },
+        {
+          "type": "function",
+          "name": "updateTransfers",
+          "constant": false,
+          "payable": false,
+          "inputs": [
+            {
+              "type": "address",
+              "name": "from"
+            },
+            {
+              "type": "address",
+              "name": "to"
+            },
+            {
+              "type": "uint256",
+              "name": "tokenId"
+            }
+          ],
+          "outputs": []
+        },
+        {
+          "type": "function",
+          "name": "upgradeTo",
+          "constant": false,
+          "payable": false,
+          "inputs": [
+            {
+              "type": "address",
+              "name": "newImplementation"
+            }
+          ],
+          "outputs": []
+        },
+        {
+          "type": "function",
+          "name": "upgradeToAndCall",
+          "constant": false,
+          "stateMutability": "payable",
+          "payable": true,
+          "inputs": [
+            {
+              "type": "address",
+              "name": "newImplementation"
+            },
+            {
+              "type": "bytes",
+              "name": "data"
+            }
+          ],
+          "outputs": []
+        },
+        {
+          "type": "function",
+          "name": "usdRedeemed",
+          "constant": true,
+          "stateMutability": "view",
+          "payable": false,
+          "inputs": [],
+          "outputs": [
+            {
+              "type": "uint256",
+              "name": ""
+            }
+          ]
+        },
+        {
+          "type": "function",
+          "name": "version",
+          "constant": true,
+          "stateMutability": "pure",
+          "payable": false,
+          "inputs": [],
+          "outputs": [
+            {
+              "type": "string",
+              "name": ""
+            }
+          ]
+        },
+        {
+          "type": "receive",
+          "stateMutability": "payable"
+        }
+      ]
+    }
+  }
+  

@@ -15,7 +15,6 @@ const Logo = () => {
   }));
 
   if (customizer.activeDir === "ltr") {
-    console.log(customizer.TopbarHeight)
     return (
       <LinkStyled href="/" sx={{ mt: 2.5 }}>
         {customizer.activeMode === "dark" ? (
