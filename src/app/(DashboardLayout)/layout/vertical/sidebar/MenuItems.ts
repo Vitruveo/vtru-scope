@@ -86,15 +86,15 @@ const Menuitems: MenuitemsType[] = [
   },
   {
     id: uniqueId(),
-    title: "Boosters",
-    icon: IconBox,
-    href: "/boosters"
-  },
-  {
-    id: uniqueId(),
     title: "VTRU Suite NFTs",
     icon: IconStar,
     href: "/vtrunfts"
+  },
+  {
+    id: uniqueId(),
+    title: "Boosters",
+    icon: IconBox,
+    href: "/boosters"
   },
   {
     id: uniqueId(),
