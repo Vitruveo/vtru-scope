@@ -47,11 +47,14 @@ const VortexNFTCard = ({ nft }) => {
     display="flex" key={nft[0]}>
       <BlankCard className="hoverCard">
         <>
-        <img src={`${nft.image.indexOf('.mp4') > -1 ? '/images/blank.png' : nft.image }`} alt={`${nft.name}`} style={{width: '100%' }} id={`img-${nft.key}`} />
+        <div>
+          <img src={`/images/vortex/${nft.rarity}.png`} alt={`${nft.name}`} style={{width: '100%' }} id={`img-${nft.key}`} />
+          <div style={{position:'absolute', top: '20px', right: '10px', marginLeft: '-150px', fontSize: '60px', color: '#fff'}}>{`${glyphs[index]}`}</div>
+        </div>
           <CardContent>
-              <Chip label={`${glyphs[index]} ${nft.glyphName}`} size="large" color="primary"></Chip>
-              &nbsp;&nbsp;
               <Chip label={`${nft.rarity}`} size="large" color="primary" ></Chip>
+              &nbsp;&nbsp;
+              <Chip label={`${nft.glyphName}`} size="large" color="primary"></Chip>
           </CardContent>
         </>
       </BlankCard>
