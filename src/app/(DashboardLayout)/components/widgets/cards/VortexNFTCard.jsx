@@ -48,7 +48,7 @@ const VortexNFTCard = ({ nft }) => {
       <BlankCard className="hoverCard">
         <>
         <div>
-          <img src={`/images/vortex/${nft.rarity}.png`} alt={`${nft.name}`} style={{width: '100%' }} id={`img-${nft.key}`} />
+          <img src={`/images/vortex/${nft.rarity.toLowerCase()}.png`} alt={`${nft.name}`} style={{width: '100%' }} id={`img-${nft.key}`} />
           <div style={{position:'absolute', top: '20px', right: '10px', marginLeft: '-150px', fontSize: '60px', color: '#fff'}}>{`${glyphs[index]}`}</div>
         </div>
           <CardContent>
