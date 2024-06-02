@@ -3,7 +3,7 @@ import {
 } from '@mui/material';
 
 
-const NFTCard = ({ nft }) => {
+const VtruNFTCard = ({ nft }) => {
 
   return (
         <Grid item   
@@ -17,4 +17,4 @@ const NFTCard = ({ nft }) => {
       )
   }
 
-export default NFTCard;
+export default VtruNFTCard;

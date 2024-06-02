@@ -92,6 +92,12 @@ const Menuitems: MenuitemsType[] = [
   },
   {
     id: uniqueId(),
+    title: "Vortex NFTs",
+    icon: IconAperture,
+    href: "/vortex"
+  },
+  {
+    id: uniqueId(),
     title: "Boosters",
     icon: IconBox,
     href: "/boosters"

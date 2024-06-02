@@ -6,20 +6,16 @@ import { CardContent, Grid, Typography, Button, Alert} from "@mui/material";
 import { styled } from "@mui/material/styles";
 import Breadcrumb from "@/app/(DashboardLayout)/layout/shared/breadcrumb/Breadcrumb";
 import PageContainer from "@/app/(DashboardLayout)/components/container/PageContainer";
-import VtruNFTCard from "@/app/(DashboardLayout)/components/widgets/cards/VtruNFTCard";
+import VortexNFTCard from "@/app/(DashboardLayout)/components/widgets/cards/VortexNFTCard";
 
 import { useSearchParams } from "next/navigation";
 
 import { readContract, writeContract  } from "@wagmi/core";
-import vaultConfig from "@/app/config/vault-config.json";
-import * as testConfig from "@/app/config/boosters_test.json";
-import * as prodConfig from "@/app/config/boosters_prod.json";
-import * as testCoreConfig  from "@/app/config/corevest_test.json";
-import * as prodCoreConfig  from "@/app/config/corevest_prod.json";
+import vortexConfig from "@/app/config/vortex-config.json";
 
 import { useAccount } from "wagmi";
 import { ethers } from "ethers";
-
+ 
 
 export default function Nfts() {
   const [contract, setContract] = useState(null);
@@ -49,6 +45,7 @@ export default function Nfts() {
     },
   });
             
+  
   useEffect(() => {
     async function getTokens(connectedOwner) {
 //     connectedOwner = '0xd07D220d7e43eCa35973760F8951c79dEebe0dcc';
@@ -58,8 +55,8 @@ export default function Nfts() {
      if (connectedOwner !== null && provider !== null) {
 
         let tokens = await readContract({
-          address: vaultConfig.licenseRegistry[network],
-          abi: vaultConfig.licenseRegistry.abi,
+          address: vortexConfig.contractAddress,
+          abi: vortexConfig.abi,
           functionName: "getTokens",
           args: [connectedOwner],
         });
@@ -70,19 +67,13 @@ export default function Nfts() {
 
               const token = tokens[t];
               let tokenURI = await readContract({
-                address: token.vault,
-                abi: vaultConfig.creatorVault.abi,
+                address: vortexConfig.contractAddress,
+                abi: vortexConfig.abi,
                 functionName: "tokenURI",
                 args: [token.tokenId],
               });
-
-              const frags = tokenURI.split('/');
-              const assetKey = frags[frags.length - 1];
-              const assetUrl = `https://studio-api.vitruveo.xyz/assets/scope/${assetKey}`;
-
-              const resp = await fetch(assetUrl);          
-              const json = await resp.json();
-              console.log(assetKey, assetUrl, json)
+            
+              const json = JSON.parse(atob(tokenURI.split(',')[1]));
               json.key = `X${t}`;
 
               setNfts(nfts => [json,...nfts]);
@@ -139,7 +130,7 @@ export default function Nfts() {
               "No NFTs found in account."
               :
               nfts.map((nft, index) => {
-                return <VtruNFTCard nft={nft} key={index} />;
+                return <VortexNFTCard nft={nft} key={index} />;
               })
             }
           </Grid>
