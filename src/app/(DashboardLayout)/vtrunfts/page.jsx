@@ -85,7 +85,7 @@ export default function Nfts() {
               console.log(assetKey, assetUrl, json)
               json.key = `X${t}`;
 
-              setNfts(nfts => [json,...nfts]);
+              setNfts(nfts => [...nfts, json]);
            
             } catch(e) {
 
@@ -118,7 +118,7 @@ export default function Nfts() {
 
   return (
     <PageContainer title="VTRU Scope" description="View all account NFTs">
-      <Breadcrumb title="NFTs" items={breadcrumb} />
+      <Breadcrumb title="VTRU Suite NFTs" items={breadcrumb} />
 
       {nfts.length == 0 ? (
         account == null ? (

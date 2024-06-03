@@ -61,6 +61,11 @@ export default function Nfts() {
           args: [connectedOwner],
         });
 
+        const order = ["Epic", "Ultra", "Rare", "Common"];
+        tokens = tokens.sort(function(a,b) {
+          return order.indexOf( a.rarity ) - order.indexOf( b.rarity );
+        });  
+
         for(let t=0; t<tokens.length; t++) {
       
             try {
@@ -76,7 +81,7 @@ export default function Nfts() {
               const json = JSON.parse(atob(tokenURI.split(',')[1]));
               json.key = `X${t}`;
 
-              setNfts(nfts => [json,...nfts]);
+              setNfts(nfts => [...nfts, json]);
            
             } catch(e) {
 
@@ -109,7 +114,7 @@ export default function Nfts() {
 
   return (
     <PageContainer title="VTRU Scope" description="View all account NFTs">
-      <Breadcrumb title="NFTs" items={breadcrumb} />
+      <Breadcrumb title="Vortex NFTs" items={breadcrumb} />
 
       {nfts.length == 0 ? (
         account == null ? (
