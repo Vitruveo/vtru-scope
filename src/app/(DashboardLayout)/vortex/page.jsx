@@ -80,6 +80,7 @@ export default function Nfts() {
             
               const json = JSON.parse(atob(tokenURI.split(',')[1]));
               json.key = `X${t}`;
+              json.id = token.tokenId;
 
               setNfts(nfts => [...nfts, json]);
            

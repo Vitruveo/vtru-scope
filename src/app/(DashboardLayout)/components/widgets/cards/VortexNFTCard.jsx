@@ -52,6 +52,8 @@ const VortexNFTCard = ({ nft }) => {
           <div style={{position:'absolute', top: '20px', right: '10px', marginLeft: '-150px', fontSize: '60px', color: '#fff'}}>{`${glyphs[index]}`}</div>
         </div>
           <CardContent>
+              <Chip label={`${nft.id}`} size="large" color="primary"></Chip>
+              &nbsp;&nbsp;
               <Chip label={`${nft.rarity}`} size="large" color="primary" ></Chip>
               &nbsp;&nbsp;
               <Chip label={`${nft.glyphName}`} size="large" color="primary"></Chip>
