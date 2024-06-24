@@ -48,7 +48,7 @@ These are the release notes:
               </Typography>
             </FormLabel>
             <ChildCard>
-                  <Typography variant="h6">v0.71 beta</Typography>
+                  <Typography variant="h6">v0.7.1 beta</Typography>
 
                   <Typography variant="body1" color="textSecondary">
                     <ul>
@@ -57,7 +57,7 @@ These are the release notes:
                   </Typography>
             </ChildCard>
             <ChildCard>
-                  <Typography variant="h6">v0.70 beta</Typography>
+                  <Typography variant="h6">v0.7.0 beta</Typography>
 
                   <Typography variant="body1" color="textSecondary">
                     <ul>
@@ -66,7 +66,7 @@ These are the release notes:
                   </Typography>
             </ChildCard>
             <ChildCard>
-                  <Typography variant="h6">v0.66 beta</Typography>
+                  <Typography variant="h6">v0.6.6 beta</Typography>
 
                   <Typography variant="body1" color="textSecondary">
                     <ul>
@@ -76,7 +76,7 @@ These are the release notes:
                   </Typography>
             </ChildCard>
             <ChildCard>
-                  <Typography variant="h6">v0.65 beta</Typography>
+                  <Typography variant="h6">v0.6.5 beta</Typography>
 
                   <Typography variant="body1" color="textSecondary">
                     <ul>
@@ -89,7 +89,7 @@ These are the release notes:
                   </Typography>
             </ChildCard>
             <ChildCard>
-                  <Typography variant="h6">v0.60 beta</Typography>
+                  <Typography variant="h6">v0.6.0 beta</Typography>
 
                   <Typography variant="body1" color="textSecondary">
                     <ul>
@@ -101,7 +101,7 @@ These are the release notes:
                   </Typography>
             </ChildCard>
             <ChildCard>
-                  <Typography variant="h6">v0.51 beta</Typography>
+                  <Typography variant="h6">v0.5.1 beta</Typography>
 
                   <Typography variant="body1" color="textSecondary">
                     <ul>
@@ -112,7 +112,7 @@ These are the release notes:
                   </Typography>
             </ChildCard>
             <ChildCard>
-                  <Typography variant="h6">v0.50 beta</Typography>
+                  <Typography variant="h6">v0.5.0 beta</Typography>
 
                   <Typography variant="body1" color="textSecondary">
                     <ul>

@@ -32,6 +32,7 @@ import {
   IconFiles,
   IconBan,
   IconStar,
+  IconPalette,
   IconMoodSmile,
   IconBorderAll,
   IconBorderHorizontal,
@@ -82,13 +83,13 @@ const Menuitems: MenuitemsType[] = [
     id: uniqueId(),
     title: "Core NFTs",
     icon: IconTicket,
-    href: "/corenfts"
+    href: "/core"
   },
   {
     id: uniqueId(),
     title: "VTRU Suite NFTs",
     icon: IconStar,
-    href: "/vtrunfts"
+    href: "/vtrusuite"
   },
   {
     id: uniqueId(),
@@ -98,10 +99,16 @@ const Menuitems: MenuitemsType[] = [
   },
   {
     id: uniqueId(),
-    title: "Boosters",
+    title: "Booster NFTs",
     icon: IconBox,
-    href: "/boosters"
+    href: "/booster"
   },
+  // {
+  //   id: uniqueId(),
+  //   title: "Creators",
+  //   icon: IconPalette,
+  //   href: "/creators"
+  // },
   {
     id: uniqueId(),
     title: "About",

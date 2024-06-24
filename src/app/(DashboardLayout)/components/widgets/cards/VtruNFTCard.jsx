@@ -5,6 +5,7 @@ import {
 
 const VtruNFTCard = ({ nft }) => {
 
+  if (!Object.hasOwn(nft, 'previewUrl')) return <></>;
   return (
         <Grid item   
         xs={12}

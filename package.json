@@ -1,6 +1,6 @@
 {
-  "name": "modernize-next-starterkit",
-  "version": "2.1.0",
+  "name": "vtru-scope",
+  "version": "0.7.2",
   "private": true,
   "scripts": {
     "dev": "next dev",
