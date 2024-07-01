@@ -2,7 +2,7 @@
 import React from "react";
 import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
-import RTL from "@/app/(DashboardLayout)/layout/shared/customizer/RTL";
+import RTL from "@/app/(pages)/layout/shared/customizer/RTL";
 import { ThemeSettings } from "@/utils/theme/Theme";
 import { store } from "@/store/store";
 import { useSelector } from "@/store/hooks";

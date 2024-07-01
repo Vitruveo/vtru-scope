@@ -42,10 +42,10 @@ const DarkThemeColors = [
     name: 'PURPLE_THEME',
     palette: {
       primary: {
-        main: '#763EBD',
-        light: '#26153C',
+        main: '#B7A8FD',
+        light: '#763EBD',
         dark: '#6E35B7',
-        contrastText: '#ffffff',
+        contrastText: '#000',
       },
       secondary: {
         main: '#95CFD5',

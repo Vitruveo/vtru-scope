@@ -5,8 +5,8 @@ import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import Link from 'next/link';
-import Logo from '@/app/(DashboardLayout)/layout/shared/logo/Logo';
-import PageContainer from '@/app/(DashboardLayout)/components/container/PageContainer';
+import Logo from '@/app/(pages)/layout/shared/logo/Logo';
+import PageContainer from '@/app/(pages)/components/container/PageContainer';
 import AuthRegister from '../../authForms/AuthRegister';
 
 export default function Register2() {

@@ -6,10 +6,10 @@ import FormGroup from '@mui/material/FormGroup';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import Link from "next/link";
-import { loginType } from "@/app/(DashboardLayout)/types/auth/auth";
-import CustomCheckbox from "@/app/(DashboardLayout)/components/forms/theme-elements/CustomCheckbox";
-import CustomTextField from "@/app/(DashboardLayout)/components/forms/theme-elements/CustomTextField";
-import CustomFormLabel from "@/app/(DashboardLayout)/components/forms/theme-elements/CustomFormLabel";
+import { loginType } from "@/app/(pages)/types/auth/auth";
+import CustomCheckbox from "@/app/(pages)/components/forms/theme-elements/CustomCheckbox";
+import CustomTextField from "@/app/(pages)/components/forms/theme-elements/CustomTextField";
+import CustomFormLabel from "@/app/(pages)/components/forms/theme-elements/CustomFormLabel";
 import AuthSocialButtons from "./AuthSocialButtons";
 
 const AuthLogin = ({ title, subtitle, subtext }: loginType) => (

@@ -4,8 +4,8 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
-import PageContainer from '@/app/(DashboardLayout)/components/container/PageContainer';
-import Logo from '@/app/(DashboardLayout)/layout/shared/logo/Logo';
+import PageContainer from '@/app/(pages)/components/container/PageContainer';
+import Logo from '@/app/(pages)/layout/shared/logo/Logo';
 import AuthLogin from '../../authForms/AuthLogin';
 import Image from 'next/image';
 

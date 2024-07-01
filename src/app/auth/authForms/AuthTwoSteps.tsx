@@ -2,8 +2,8 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Link from "next/link";
-import CustomTextField from "@/app/(DashboardLayout)/components/forms/theme-elements/CustomTextField";
-import CustomFormLabel from "@/app/(DashboardLayout)/components/forms/theme-elements/CustomFormLabel";
+import CustomTextField from "@/app/(pages)/components/forms/theme-elements/CustomTextField";
+import CustomFormLabel from "@/app/(pages)/components/forms/theme-elements/CustomFormLabel";
 import { Stack } from "@mui/system";
 
 const AuthTwoSteps = () => (

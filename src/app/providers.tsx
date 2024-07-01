@@ -81,9 +81,9 @@ const appInfo = {
 const connectors = connectorsForWallets([
   ...wallets,
 ]);
-const myTheme = merge(lightTheme(), {
+const myTheme = merge(darkTheme(), {
   colors: {
-    accentColor: '#763EBD',
+    accentColor: '#ffffff',
   },
 } as Theme);
 
