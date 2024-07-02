@@ -83,7 +83,7 @@ const connectors = connectorsForWallets([
 ]);
 const myTheme = merge(darkTheme(), {
   colors: {
-    accentColor: '#ffffff',
+    accentColor: '#763EBD',
   },
 } as Theme);
 
