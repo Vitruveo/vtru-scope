@@ -90,12 +90,12 @@ export default function Nfts() {
               const json = JSON.parse(atob(tokenURI.split(',')[1]));
               json.key = `X${t}`;
               json.id = token.tokenId;
-
+              const vibes = json.vibe === true ? 1 : 0;
               switch(json.rarity) {
-                case 'Common': setCommonNfts(commonNfts => [...commonNfts, json]); break;
-                case 'Rare': setRareNfts(rareNfts => [...rareNfts, json]); break;
-                case 'Ultra': setUltraNfts(ultraNfts => [...ultraNfts, json]); break;
-                case 'Epic': setEpicNfts(epicNfts => [...epicNfts, json]); break;
+                case 'Common': setCommonNfts(commonNfts => [...commonNfts, json]); json.vibecount = json.id <= 25000 ? 1 : vibes; break;
+                case 'Rare': setRareNfts(rareNfts => [...rareNfts, json]); json.vibecount = json.id <= 25000 ? 2 : vibes;  break;
+                case 'Ultra': setUltraNfts(ultraNfts => [...ultraNfts, json]); json.vibecount = json.id <= 25000 ? 3 : vibes;  break;
+                case 'Epic': setEpicNfts(epicNfts => [...epicNfts, json]); json.vibecount = json.id <= 25000 ? 4 : vibes;  break;
               }
            
             } catch(e) {

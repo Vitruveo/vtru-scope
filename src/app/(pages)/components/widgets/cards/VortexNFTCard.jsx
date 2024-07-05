@@ -57,6 +57,15 @@ const VortexNFTCard = ({ nft }) => {
               <Chip label={`${nft.rarity}`} size="large" color="primary" ></Chip>
               &nbsp;&nbsp;
               <Chip label={`${nft.glyphName}`} size="large" color="primary"></Chip>
+              {
+                nft.vibecount > 0 ?
+                <>
+                &nbsp;&nbsp;
+                <Chip label={`VIBE x ${nft.vibecount}`} size="large" color="primary"></Chip>
+                </>
+                :
+                <></>
+              }
           </CardContent>
         </>
       </BlankCard>

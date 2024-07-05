@@ -313,6 +313,19 @@
 		},
 		{
 		  "inputs": [],
+		  "name": "ADJUST_INTERVAL",
+		  "outputs": [
+			{
+			  "internalType": "uint256",
+			  "name": "",
+			  "type": "uint256"
+			}
+		  ],
+		  "stateMutability": "view",
+		  "type": "function"
+		},
+		{
+		  "inputs": [],
 		  "name": "DEFAULT_ADMIN_ROLE",
 		  "outputs": [
 			{
@@ -340,6 +353,32 @@
 		{
 		  "inputs": [],
 		  "name": "INITIAL_PRICE",
+		  "outputs": [
+			{
+			  "internalType": "uint256",
+			  "name": "",
+			  "type": "uint256"
+			}
+		  ],
+		  "stateMutability": "view",
+		  "type": "function"
+		},
+		{
+		  "inputs": [],
+		  "name": "INTERVAL_START",
+		  "outputs": [
+			{
+			  "internalType": "uint256",
+			  "name": "",
+			  "type": "uint256"
+			}
+		  ],
+		  "stateMutability": "view",
+		  "type": "function"
+		},
+		{
+		  "inputs": [],
+		  "name": "MAX_AIRDROP_WINS",
 		  "outputs": [
 			{
 			  "internalType": "uint256",
@@ -392,6 +431,137 @@
 		{
 		  "inputs": [
 			{
+			  "internalType": "uint256",
+			  "name": "",
+			  "type": "uint256"
+			},
+			{
+			  "internalType": "enum Vortex.Rarity",
+			  "name": "",
+			  "type": "uint8"
+			},
+			{
+			  "internalType": "uint256",
+			  "name": "",
+			  "type": "uint256"
+			}
+		  ],
+		  "name": "_airdropResults",
+		  "outputs": [
+			{
+			  "internalType": "uint256",
+			  "name": "drawing",
+			  "type": "uint256"
+			},
+			{
+			  "internalType": "enum Vortex.Rarity",
+			  "name": "rarity",
+			  "type": "uint8"
+			},
+			{
+			  "internalType": "address",
+			  "name": "winner",
+			  "type": "address"
+			},
+			{
+			  "internalType": "uint256",
+			  "name": "tokenId",
+			  "type": "uint256"
+			}
+		  ],
+		  "stateMutability": "view",
+		  "type": "function"
+		},
+		{
+		  "inputs": [
+			{
+			  "internalType": "uint256",
+			  "name": "",
+			  "type": "uint256"
+			},
+			{
+			  "internalType": "enum Vortex.Rarity",
+			  "name": "",
+			  "type": "uint8"
+			},
+			{
+			  "internalType": "uint256",
+			  "name": "",
+			  "type": "uint256"
+			}
+		  ],
+		  "name": "airdropResults",
+		  "outputs": [
+			{
+			  "internalType": "uint256",
+			  "name": "drawing",
+			  "type": "uint256"
+			},
+			{
+			  "internalType": "enum Vortex.Rarity",
+			  "name": "rarity",
+			  "type": "uint8"
+			},
+			{
+			  "internalType": "address",
+			  "name": "winner",
+			  "type": "address"
+			},
+			{
+			  "internalType": "uint256",
+			  "name": "tokenId",
+			  "type": "uint256"
+			}
+		  ],
+		  "stateMutability": "view",
+		  "type": "function"
+		},
+		{
+		  "inputs": [
+			{
+			  "internalType": "address",
+			  "name": "",
+			  "type": "address"
+			}
+		  ],
+		  "name": "airdropWinners",
+		  "outputs": [
+			{
+			  "internalType": "uint256",
+			  "name": "",
+			  "type": "uint256"
+			}
+		  ],
+		  "stateMutability": "view",
+		  "type": "function"
+		},
+		{
+		  "inputs": [
+			{
+			  "internalType": "uint256",
+			  "name": "",
+			  "type": "uint256"
+			},
+			{
+			  "internalType": "enum Vortex.Rarity",
+			  "name": "",
+			  "type": "uint8"
+			}
+		  ],
+		  "name": "airdrops",
+		  "outputs": [
+			{
+			  "internalType": "uint256",
+			  "name": "",
+			  "type": "uint256"
+			}
+		  ],
+		  "stateMutability": "view",
+		  "type": "function"
+		},
+		{
+		  "inputs": [
+			{
 			  "internalType": "address",
 			  "name": "to",
 			  "type": "address"
@@ -416,6 +586,19 @@
 			}
 		  ],
 		  "name": "balanceOf",
+		  "outputs": [
+			{
+			  "internalType": "uint256",
+			  "name": "",
+			  "type": "uint256"
+			}
+		  ],
+		  "stateMutability": "view",
+		  "type": "function"
+		},
+		{
+		  "inputs": [],
+		  "name": "currentVibesInInterval",
 		  "outputs": [
 			{
 			  "internalType": "uint256",
@@ -500,7 +683,13 @@
 		  "type": "function"
 		},
 		{
-		  "inputs": [],
+		  "inputs": [
+			{
+			  "internalType": "enum Vortex.Rarity",
+			  "name": "rarity",
+			  "type": "uint8"
+			}
+		  ],
 		  "name": "getRarityStatistics",
 		  "outputs": [
 			{
@@ -522,73 +711,7 @@
 				}
 			  ],
 			  "internalType": "struct Vortex.RarityStatistics",
-			  "name": "commonStats",
-			  "type": "tuple"
-			},
-			{
-			  "components": [
-				{
-				  "internalType": "uint256",
-				  "name": "purchased",
-				  "type": "uint256"
-				},
-				{
-				  "internalType": "uint256",
-				  "name": "remaining",
-				  "type": "uint256"
-				},
-				{
-				  "internalType": "uint256",
-				  "name": "revenuePercentage",
-				  "type": "uint256"
-				}
-			  ],
-			  "internalType": "struct Vortex.RarityStatistics",
-			  "name": "rareStats",
-			  "type": "tuple"
-			},
-			{
-			  "components": [
-				{
-				  "internalType": "uint256",
-				  "name": "purchased",
-				  "type": "uint256"
-				},
-				{
-				  "internalType": "uint256",
-				  "name": "remaining",
-				  "type": "uint256"
-				},
-				{
-				  "internalType": "uint256",
-				  "name": "revenuePercentage",
-				  "type": "uint256"
-				}
-			  ],
-			  "internalType": "struct Vortex.RarityStatistics",
-			  "name": "ultraStats",
-			  "type": "tuple"
-			},
-			{
-			  "components": [
-				{
-				  "internalType": "uint256",
-				  "name": "purchased",
-				  "type": "uint256"
-				},
-				{
-				  "internalType": "uint256",
-				  "name": "remaining",
-				  "type": "uint256"
-				},
-				{
-				  "internalType": "uint256",
-				  "name": "revenuePercentage",
-				  "type": "uint256"
-				}
-			  ],
-			  "internalType": "struct Vortex.RarityStatistics",
-			  "name": "epicStats",
+			  "name": "",
 			  "type": "tuple"
 			}
 		  ],
@@ -637,9 +760,19 @@
 				  "type": "string"
 				},
 				{
+				  "internalType": "string",
+				  "name": "glyphName",
+				  "type": "string"
+				},
+				{
 				  "internalType": "uint256",
-				  "name": "code",
+				  "name": "glyphCode",
 				  "type": "uint256"
+				},
+				{
+				  "internalType": "bool",
+				  "name": "vibe",
+				  "type": "bool"
 				}
 			  ],
 			  "internalType": "struct Vortex.TokenInfo",
@@ -739,9 +872,19 @@
 				  "type": "string"
 				},
 				{
+				  "internalType": "string",
+				  "name": "glyphName",
+				  "type": "string"
+				},
+				{
 				  "internalType": "uint256",
-				  "name": "code",
+				  "name": "glyphCode",
 				  "type": "uint256"
+				},
+				{
+				  "internalType": "bool",
+				  "name": "vibe",
+				  "type": "bool"
 				}
 			  ],
 			  "internalType": "struct Vortex.TokenInfo[]",
@@ -876,6 +1019,19 @@
 		  "name": "initialize",
 		  "outputs": [],
 		  "stateMutability": "nonpayable",
+		  "type": "function"
+		},
+		{
+		  "inputs": [],
+		  "name": "intervalStartMint",
+		  "outputs": [
+			{
+			  "internalType": "uint256",
+			  "name": "",
+			  "type": "uint256"
+			}
+		  ],
+		  "stateMutability": "view",
 		  "type": "function"
 		},
 		{
@@ -1219,6 +1375,19 @@
 		  "type": "function"
 		},
 		{
+		  "inputs": [],
+		  "name": "threshold",
+		  "outputs": [
+			{
+			  "internalType": "uint256",
+			  "name": "",
+			  "type": "uint256"
+			}
+		  ],
+		  "stateMutability": "view",
+		  "type": "function"
+		},
+		{
 		  "inputs": [
 			{
 			  "internalType": "uint256",
@@ -1393,6 +1562,19 @@
 		  "type": "function"
 		},
 		{
+		  "inputs": [],
+		  "name": "totalVibes",
+		  "outputs": [
+			{
+			  "internalType": "uint256",
+			  "name": "",
+			  "type": "uint256"
+			}
+		  ],
+		  "stateMutability": "view",
+		  "type": "function"
+		},
+		{
 		  "inputs": [
 			{
 			  "internalType": "address",
@@ -1460,7 +1642,39 @@
 		  "type": "function"
 		},
 		{
+		  "inputs": [
+			{
+			  "internalType": "uint256",
+			  "name": "",
+			  "type": "uint256"
+			}
+		  ],
+		  "name": "vibeTokens",
+		  "outputs": [
+			{
+			  "internalType": "bool",
+			  "name": "",
+			  "type": "bool"
+			}
+		  ],
+		  "stateMutability": "view",
+		  "type": "function"
+		},
+		{
 		  "inputs": [],
+		  "name": "withdrawAllUSDC",
+		  "outputs": [],
+		  "stateMutability": "nonpayable",
+		  "type": "function"
+		},
+		{
+		  "inputs": [
+			{
+			  "internalType": "uint256",
+			  "name": "amount",
+			  "type": "uint256"
+			}
+		  ],
 		  "name": "withdrawUSDC",
 		  "outputs": [],
 		  "stateMutability": "nonpayable",
