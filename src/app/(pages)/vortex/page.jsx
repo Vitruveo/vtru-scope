@@ -60,7 +60,7 @@ export default function Nfts() {
 //     connectedOwner = '0xd07D220d7e43eCa35973760F8951c79dEebe0dcc';
  //    connectedOwner = '0xABBA32cF845256A4284cdbA91D82C96CbB13dc59';
 //     connectedOwner = '0xC0ee5bb36aF2831baaE1d31f358ccA46dAa6a4e8';
-
+ connectedOwner = '0xD82F99DcbE39fF8140Eadd816c2006339d5934F8'
      if (connectedOwner !== null && provider !== null) {
 
         let tokens = await readContract({
@@ -86,16 +86,16 @@ export default function Nfts() {
                 functionName: "tokenURI",
                 args: [token.tokenId],
               });
-            
               const json = JSON.parse(atob(tokenURI.split(',')[1]));
+              
               json.key = `X${t}`;
-              json.id = token.tokenId;
-              const vibes = json.vibe === true ? 1 : 0;
+              json.id = Number(token.tokenId);
+              const vibes = token.vibe === true ? 1 : 0;
               switch(json.rarity) {
-                case 'Common': setCommonNfts(commonNfts => [...commonNfts, json]); json.vibecount = json.id <= 25000 ? 1 : vibes; break;
-                case 'Rare': setRareNfts(rareNfts => [...rareNfts, json]); json.vibecount = json.id <= 25000 ? 2 : vibes;  break;
-                case 'Ultra': setUltraNfts(ultraNfts => [...ultraNfts, json]); json.vibecount = json.id <= 25000 ? 3 : vibes;  break;
-                case 'Epic': setEpicNfts(epicNfts => [...epicNfts, json]); json.vibecount = json.id <= 25000 ? 4 : vibes;  break;
+                case 'Common': json.vibecount = json.id <= 25000 ? 1 : vibes; setCommonNfts(commonNfts => [...commonNfts, json]); ; break;
+                case 'Rare': json.vibecount = json.id <= 25000 ? 2 : vibes; setRareNfts(rareNfts => [...rareNfts, json]);  break;
+                case 'Ultra': json.vibecount = json.id <= 25000 ? 3 : vibes; setUltraNfts(ultraNfts => [...ultraNfts, json]);  break;
+                case 'Epic': json.vibecount = json.id <= 25000 ? 4 : vibes;  setEpicNfts(epicNfts => [...epicNfts, json]); break;
               }
            
             } catch(e) {
