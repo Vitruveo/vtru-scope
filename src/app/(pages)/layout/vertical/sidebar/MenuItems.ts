@@ -16,6 +16,7 @@ interface MenuitemsType {
 }
 import {
   IconAward,
+  IconEngine,
   IconBoxMultiple,
   IconPoint,
   IconAlertCircle,
@@ -87,6 +88,18 @@ const Menuitems: MenuitemsType[] = [
   },
   {
     id: uniqueId(),
+    title: "VIBE NFTs",
+    icon: IconEngine,
+    href: "/vibe"
+  },
+  {
+    id: uniqueId(),
+    title: "Booster NFTs",
+    icon: IconBox,
+    href: "/booster"
+  },
+  {
+    id: uniqueId(),
     title: "VTRU Suite NFTs",
     icon: IconStar,
     href: "/vtrusuite"
@@ -96,12 +109,6 @@ const Menuitems: MenuitemsType[] = [
     title: "Vortex NFTs",
     icon: IconAperture,
     href: "/vortex"
-  },
-  {
-    id: uniqueId(),
-    title: "Booster NFTs",
-    icon: IconBox,
-    href: "/booster"
   },
   // {
   //   id: uniqueId(),
