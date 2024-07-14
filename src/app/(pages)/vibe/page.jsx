@@ -22,9 +22,9 @@ export default function Nfts() {
   const [contract, setContract] = useState(null);
   const [account, setAccount] = useState(null);
   const [claimed, setClaimed] = useState(0);
+  const [nfts, setNfts] = useState(0);
   const [vibes, setVibes] = useState(0);
   const [unclaimed, setUnclaimed] = useState(0);
-  const [nfts, setNfts] = useState([]);
   const [revenue, setRevenue] = useState(0);
   const [buttonMessage, setButtonMessage] = useState('CLAIM  (Coming Soon)');
   const [buttonEnabled, setButtonEnabled] = useState(unclaimed > 0);
@@ -91,13 +91,13 @@ export default function Nfts() {
         console.log('Revenue',Number(stats[4])/10^18)
         setRevenue(Number(stats[4])/ Math.pow(10, 18));
 
-        const vibeCount = await readContract({
+        const nftCount = await readContract({
           address: vaultConfig.vibe[network],
           abi: vaultConfig.vibe.abi,
           functionName: "balanceOf",
           args: [connectedOwner],
         });
-        setVibes(vibeCount);
+        setNfts(nftCount);
 
         const revShare = await readContract({
           address: vaultConfig.vibe[network],
@@ -121,6 +121,7 @@ export default function Nfts() {
         });  
 
 
+        let totalVibes = 0;
         for(let t=0; t<tokens.length; t++) {
       
             try {
@@ -148,14 +149,15 @@ export default function Nfts() {
                 case 5: setx5Nfts(x5Nfts => [...x5Nfts, json]); ; break;
                 case 1: setx1Nfts(x1Nfts => [...x1Nfts, json]); ; break;
               }
-           
-              setNfts(nfts => [...nfts, json]);
+              totalVibes += json.denomination;
            
             } catch(e) {
 
             }
 
         }
+        setVibes(totalVibes);
+
          
       } else {
         setx1000Nfts((arr) => []);
@@ -193,8 +195,8 @@ export default function Nfts() {
 
   const tabPanels = [
     {
-      title: "VIBEs",
-      content: Number(vibes),
+      title: "VIBE Tokens / VIBE Shares",
+      content: `${Number(nfts)} / ${Number(vibes)}`,
       bgcolor: "primary",
     },
     {
@@ -206,6 +208,11 @@ export default function Nfts() {
       title: "Unclaimed $VTRU",
       content: formatBigNum(unclaimed),
       bgcolor: "primary",
+    },
+    {
+      title: "CLAIM_BUTTON",
+      content: "0",
+      bgcolor: "white",
     },
   ];
 
@@ -262,6 +269,7 @@ export default function Nfts() {
          
          <Grid container spacing={1} style={{marginBottom: '30px'}} direction="column" alignItems="center" justifyContent="center">
            <Grid item xs={12} sm={12} md={12} lg={12}>
+           <p>VIBE Contract Total Revenue in $VTRU divided equally between 1 million VIBE shares</p>
            <FlapDisplay
               className={"XL darkBordered"}
               chars={Presets.NUM + ','}
@@ -273,7 +281,7 @@ export default function Nfts() {
 
           <Grid container spacing={1} style={{marginBottom: '30px'}}>
             {tabPanels.map((panel, panelIndex) => (
-            <Grid item xs={12} sm={12} md={4} lg={4} key={panelIndex}>
+            <Grid item xs={12} sm={12} md={3} lg={3} key={panelIndex}>
               <Box bgcolor={panel.bgcolor + ".light"} textAlign="center">
                 <CardContent px={1}>
                   { renderTabContent(panel) }     
@@ -287,7 +295,7 @@ export default function Nfts() {
           <Grid container spacing={3} style={{marginBottom: '50px'}}>
             {
               x1000Nfts.length == 0 ?
-              "No 1000 denomination NFTs."
+              <p style={{marginLeft: '50px'}}>No 1000 denomination NFTs.</p>
               :
               x1000Nfts.map((nft, index) => {
                 return <VibeNFTCard nft={nft} key={index} />;
@@ -299,7 +307,7 @@ export default function Nfts() {
           <Grid container spacing={3} style={{marginBottom: '50px'}}>
             {
               x100Nfts.length == 0 ?
-              "No 100 denomination NFTs."
+              <p style={{marginLeft: '50px'}}>No 100 denomination NFTs.</p>
               :
               x100Nfts.map((nft, index) => {
                 return <VibeNFTCard nft={nft} key={index} />;
@@ -312,7 +320,7 @@ export default function Nfts() {
           <Grid container spacing={3} style={{marginBottom: '50px'}}>
             {
               x50Nfts.length == 0 ?
-              "No 50 denomination NFTs."
+              <p style={{marginLeft: '50px'}}>No 50 denomination NFTs.</p>
               :
               x50Nfts.map((nft, index) => {
                 return <VibeNFTCard nft={nft} key={index} />;
@@ -324,7 +332,7 @@ export default function Nfts() {
           <Grid container spacing={3} style={{marginBottom: '50px'}}>
             {
               x20Nfts.length == 0 ?
-              "No 20 denomination NFTs."
+              <p style={{marginLeft: '50px'}}>No 20 denomination NFTs.</p>
               :
               x20Nfts.map((nft, index) => {
                 return <VibeNFTCard nft={nft} key={index} />;
@@ -336,7 +344,7 @@ export default function Nfts() {
           <Grid container spacing={3} style={{marginBottom: '50px'}}>
             {
               x10Nfts.length == 0 ?
-              "No 10 denomination NFTs."
+              <p style={{marginLeft: '50px'}}>No 10 denomination NFTs.</p>
               :
               x10Nfts.map((nft, index) => {
                 return <VibeNFTCard nft={nft} key={index} />;
@@ -348,7 +356,7 @@ export default function Nfts() {
           <Grid container spacing={3} style={{marginBottom: '50px'}}>
             {
               x5Nfts.length == 0 ?
-              "No 5 denomination NFTs."
+              <p style={{marginLeft: '50px'}}>No 5 denomination NFTs.</p>
               :
               x5Nfts.map((nft, index) => {
                 return <VibeNFTCard nft={nft} key={index} />;
@@ -361,7 +369,7 @@ export default function Nfts() {
           <Grid container spacing={3} style={{marginBottom: '50px'}}>
             {
               x1Nfts.length == 0 ?
-              "No 1 denomination NFTs."
+              <p style={{marginLeft: '50px'}}>No 1 denomination NFTs.</p>
               :
               x1Nfts.map((nft, index) => {
                 return <VibeNFTCard nft={nft} key={index} />;
