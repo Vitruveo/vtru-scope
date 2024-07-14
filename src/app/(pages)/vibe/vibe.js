@@ -49,11 +49,11 @@ class Vibe extends React.Component {
     this.state = { text: "Welcome!" };
   }
 
-  componentWillMount() {
-    this.setState({
-      text: "GeeksforGeeks",
-    });
-  }
+//   componentWillMount() {
+//     this.setState({
+//       text: "GeeksforGeeks",
+//     });
+//   }
 
   render() {
     return <h1>{this.state.text}</h1>;

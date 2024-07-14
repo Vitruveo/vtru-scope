@@ -1,0 +1,34 @@
+"use client"
+import React, { useState } from 'react';
+import axios from 'axios';
+
+const RunicGrid = () => {
+  const [loading, setLoading] = useState(false);
+
+  const handleCreateGrid = async () => {
+    setLoading(true);
+    try {
+      const response = await axios.post('/api/bingo', {}, { responseType: 'blob' });
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', 'runic_grid.pdf');
+      document.body.appendChild(link);
+      link.click();
+    } catch (error) {
+      console.error('Error creating PDF', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div>
+      <button onClick={handleCreateGrid} disabled={loading}>
+        {loading ? 'Generating...' : 'Generate Runic Symbols Grid'}
+      </button>
+    </div>
+  );
+};
+
+export default RunicGrid;

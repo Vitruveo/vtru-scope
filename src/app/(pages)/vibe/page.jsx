@@ -169,7 +169,7 @@ export default function Nfts() {
     } 
 
     getTokens(account);
-  }, [contract, account]);
+  }, [contract, account, network, provider]);
 
 
 
