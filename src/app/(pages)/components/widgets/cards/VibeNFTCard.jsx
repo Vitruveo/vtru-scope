@@ -22,9 +22,9 @@ const VibeNFTCard = ({ nft }) => {
           <img src={`${nft.image}`} alt={`${nft.denomination}`} style={{width: '100%' }} id={`img-${nft.key}`} />
         </div>
           <CardContent>
-              <Chip label={`${nft.id}`} size="large" color="primary"></Chip>
+              <Chip label={`ID: ${nft.id}`} size="large" color="primary"></Chip>
               &nbsp;&nbsp;&nbsp;&nbsp;
-              <Chip label={`Claimed: ${(nft.claimed/10**18).toFixed(4)}`} size="large" color="primary" ></Chip>
+              <Chip label={`$VTRU Claimed: ${(nft.claimed/10**18).toFixed(4)}`} size="large" color="primary" ></Chip>
           </CardContent>
         </>
       </BlankCard>
