@@ -195,8 +195,8 @@ export default function Nfts() {
 
   const tabPanels = [
     {
-      title: "VIBE Tokens / VIBE Shares",
-      content: `${Number(nfts)} / ${Number(vibes)}`,
+      title: "VIBE Shares (NFTs)",
+      content: `${Number(vibes)} (${Number(nfts)})`,
       bgcolor: "primary",
     },
     {
@@ -274,7 +274,7 @@ export default function Nfts() {
               className={"XL darkBordered"}
               chars={Presets.NUM + ','}
               length={13}
-              value={Number(revenue).toLocaleString()}
+              value={Number(revenue.toFixed(0)).toLocaleString()}
             />
             </Grid>
          </Grid>
