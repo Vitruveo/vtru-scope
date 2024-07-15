@@ -24,7 +24,7 @@ const VibeNFTCard = ({ nft }) => {
           <CardContent>
               <Chip label={`ID: ${nft.id}`} size="large" color="primary"></Chip>
               &nbsp;&nbsp;&nbsp;&nbsp;
-              <Chip label={`$VTRU Claimed: ${(nft.claimed/10**18).toFixed(4)}`} size="large" color="primary" ></Chip>
+              <Chip label={`$VTRU Claimed: ${(nft.claimed/Math.pow(10,18)).toFixed(4)}`} size="large" color="primary" ></Chip>
           </CardContent>
         </>
       </BlankCard>
