@@ -61,7 +61,7 @@ const VortexNFTCard = ({ nft }) => {
                 nft.vibecount > 0 && Number(nft.id) > 25000 ?
                 <>
                 &nbsp;&nbsp;
-                <Chip label={`VIBE x ${nft.vibecount}`} size="large" color="primary"></Chip>
+                <Chip label={`VIBE Eligible x ${nft.vibecount}`} size="large" color="primary"></Chip>
                 </>
                 :
                 <></>
