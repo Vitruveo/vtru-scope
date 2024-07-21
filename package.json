@@ -54,6 +54,7 @@
     "typescript": "^5.2.2",
     "viem": "^1.21.4",
     "wagmi": "^1.4.13",
+    "web3": "^4.11.0",
     "yup": "^0.32.11"
   },
   "devDependencies": {
