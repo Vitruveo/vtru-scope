@@ -155,9 +155,12 @@ export default function Stake () {
                       functionName: "getCoreTokenInfo",
                       args: [token]
                     });
-        const granted = Number(nft.grantAmount)/Math.pow(10,18);
-        const claimed = Number(nft.claimedGrantAmount)/Math.pow(10,18);
-        total += Math.max(granted-claimed);
+                    
+        if ((Number(nft.classId) !== 3) && (Number(nft.classId) !== 6)) {
+          const granted = Number(nft.grantAmount)/Math.pow(10,18);
+          const claimed = Number(nft.claimedGrantAmount)/Math.pow(10,18);
+          total += Math.max(granted-claimed);  
+        }
       }
       setLockedBalance(total);
 
