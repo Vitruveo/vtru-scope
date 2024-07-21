@@ -3,6 +3,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import Breadcrumb from '@/app/(pages)/layout/shared/breadcrumb/Breadcrumb';
 import PageContainer from '@/app/(pages)/components/container/PageContainer';
+import { parseEther } from 'viem';
 
 import BlankCard from '@/app/(pages)/components/shared/BlankCard';
 import StakeInputForm from '@/app/(pages)/components/widgets/cards/StakeInputForm';
@@ -28,10 +29,12 @@ export default function Stake () {
   const [blocksRemaining, setBlocksRemaining] = useState(0);
   const [provider, setProvider] = useState(null);
   let processing = false;
+  const [buttonMessage, setButtonMessage] = useState('GO');
+  const [buttonEnabled, setButtonEnabled] = useState(true);
 
-  const isTestnet = process.env.NEXT_PUBLIC_IS_TESTNET === true;
+  const isTestnet = false;//Boolean(process.env.NEXT_PUBLIC_IS_TESTNET) === true;
   const network = isTestnet === true ? 'testnet' : 'mainnet';
-
+  
   useEffect(() => {
       function updateBlock() {
         if (provider !== null) {
@@ -122,31 +125,46 @@ export default function Stake () {
     return blockNumber;
   }
 
-  async function handleClaim(tokenId) {
-  //   if (processing) return;
-  //   processing = true;
-  //   // Send transaction
-  //   try {
-  //       await writeContract({
-  //           address: config.core[network],
-  //           abi: config.core.abi,
-  //           functionName: "claim",
-  //           args: [tokenId]
-  //           });
-  //       setTimeout(() => {
-  //           window.location.reload()
-  //       }, 5000)
+  async function handleStake() {
+    if (processing) return;
+    processing = true;
+
+    let total = 0;
+    for(let t=0;t<vtru.unlocked.length;t++) {
+      total += vtru.unlocked[t];
+    }
+    const inputs = [
+      account,
+      vaultConfig.vibe[network],
+      vtru.unlocked,
+      nfts,
+      vtru.locked
+    ]
+    // Send transaction
+    try {
+        await writeContract({
+            address: vaultConfig.core[network],
+            abi: vaultConfig.core.abi,
+            functionName: "stake",
+            gas: 1_200_000,
+            value: parseEther(String(total)),
+            args: inputs
+            });
+        setTimeout(() => {
+            window.location.reload()
+        }, 6000)
     
-  //   } catch(e) {
-  //       console.log('***************',e);
-  //       processing = false;
+    } catch(e) {
+        console.log('***************',e);
+        processing = false;
     
-  //   } 
+    } 
   }
 
   async function getAccountNfts(tokens) {
     try {
       let total = 0;
+      let tokenIds = [];
       for(let t=0; t<tokens.length; t++) {
         let token = tokens[t];
         const nft = await readContract({
@@ -155,15 +173,15 @@ export default function Stake () {
                       functionName: "getCoreTokenInfo",
                       args: [token]
                     });
-                    
         if ((Number(nft.classId) !== 3) && (Number(nft.classId) !== 6)) {
           const granted = Number(nft.grantAmount)/Math.pow(10,18);
           const claimed = Number(nft.claimedGrantAmount)/Math.pow(10,18);
           total += Math.max(granted-claimed);  
+          tokenIds.push(nft.id);
         }
       }
       setLockedBalance(total);
-
+      setNfts(nfts => [...tokenIds]);
     } catch (error) {
         console.log(error);
     }
@@ -240,13 +258,17 @@ export default function Stake () {
     return {vtru: actualVtru, vibe: actualVibe};
   }
 
+  function buttonState(enabled) {
+    setButtonEnabled(enabled);
+    setButtonMessage('Wait...');
+  }
 
   const mainNumberStyle = {color: '#763EBD', fontFamily: 'Courier', fontSize: '30px', lineHeight: '34px'};
   const mainHeadingStyle = {width: '110px', display: 'inline-block', fontSize: '20px', lineHeight: '24px'};
 
   return (
     <PageContainer title="VTRU Scope" description="Stake VTRU">
-      <Breadcrumb title="VTRU Stake/Swap for VIBE (Preview — Staking NOT Enabled)" items={breadcrumb} />
+      <Breadcrumb title="VTRU Stake/Swap for VIBE" items={breadcrumb} />
             <Grid container spacing={3}>
                 <Grid item xs={12} sm={12} md={3} lg={3} key={1}>
                   <Box bgcolor={"primary.main"} textAlign="center">
@@ -317,7 +339,10 @@ export default function Stake () {
                 <Grid item xs={12} sm={12} md={3} lg={3} key={4}>
                   <Box textAlign="center">
                     <CardContent px={1}>
-                  
+                    <Button color="primary" size="large" disabled={ !buttonEnabled } style={{marginTop: '10px'}} fullWidth onClick={ () => { buttonState(false); handleStake(); } }>
+                      { buttonMessage }
+                    </Button>
+{/*                   
                             <Typography
                               color={"primary.main"} 
                               variant="subtitle1"
@@ -338,7 +363,7 @@ export default function Stake () {
                               fontWeight={600}
                             >
                               Blocks Remaining
-                            </Typography>
+                            </Typography> */}
                       </CardContent>
                   </Box>
                 </Grid>

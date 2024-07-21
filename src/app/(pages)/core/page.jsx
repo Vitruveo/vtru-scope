@@ -38,7 +38,7 @@ export default function CoreNft () {
     }
   }, [provider]);
 
-  const config = process.env.NEXT_PUBLIC_IS_TESTNET == "true" ? testConfig : prodConfig; 
+  const config = prodConfig; //process.env.NEXT_PUBLIC_IS_TESTNET == "true" ? testConfig : prodConfig; 
 
   useAccount({
     

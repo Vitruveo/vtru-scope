@@ -43,7 +43,7 @@ export default function Nfts() {
   );
 
   const [provider, setProvider] = useState(null);
-  const isTestnet = process.env.NEXT_PUBLIC_IS_TESTNET === true;
+  const isTestnet = false; //Boolean(process.env.NEXT_PUBLIC_IS_TESTNET) === true;
   const network = isTestnet === true ? 'testnet' : 'mainnet';
 
   useAccount({
