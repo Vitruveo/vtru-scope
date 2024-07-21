@@ -146,7 +146,7 @@ export default function Stake () {
             address: vaultConfig.core[network],
             abi: vaultConfig.core.abi,
             functionName: "stake",
-            gas: 1_200_000,
+            gas: 2_500_000,
             value: parseEther(String(total)),
             args: inputs
             });
