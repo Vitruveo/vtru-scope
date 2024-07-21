@@ -65,7 +65,8 @@ export default function Stake () {
       const rpcUrl = connector.chains[0].rpcUrls['default']['http'][0];
       setNfts(arr => []);
       setAccount(address);
-      setProvider(new ethers.JsonRpcProvider(rpcUrl));      
+      setProvider(new ethers.JsonRpcProvider(rpcUrl));     
+       
     },
     onDisconnect() {
       setAccount(null);
@@ -125,6 +126,43 @@ export default function Stake () {
     return blockNumber;
   }
 
+  const [stats, setStats] = useState({ remaining: 0, staked: 0, shares: 0, tokens: 0});
+
+  async function getStats() {
+    stats.remaining = Number(await readContract({
+      address: vaultConfig.vibe[network],
+      abi: vaultConfig.vibe.abi,
+      functionName: "stakeQuota",
+      args: []
+    })).toLocaleString();
+
+    const locked = await readContract({
+      address: vaultConfig.core[network],
+      abi: vaultConfig.core.abi,
+      functionName: "stakeLockedTotal",
+      args: []
+    });
+
+    const unlocked = await readContract({
+      address: vaultConfig.core[network],
+      abi: vaultConfig.core.abi,
+      functionName: "stakeUnlockedTotal",
+      args: []
+    });
+    stats.staked = Number(locked + unlocked).toLocaleString();
+
+    const info = await readContract({
+      address: vaultConfig.vibe[network],
+      abi: vaultConfig.vibe.abi,
+      functionName: "stats",
+      args: []
+    });
+    
+    stats.tokens = Number(info[0]).toLocaleString();
+    stats.shares = Number(info[1]).toLocaleString();
+    setStats((stats) => { return {...stats} });
+  }
+
   async function handleStake() {
     if (processing) return;
     processing = true;
@@ -182,6 +220,7 @@ export default function Stake () {
       }
       setLockedBalance(total);
       setNfts(nfts => [...tokenIds]);
+      await getStats();
     } catch (error) {
         console.log(error);
     }
@@ -269,6 +308,102 @@ export default function Stake () {
   return (
     <PageContainer title="VTRU Scope" description="Stake VTRU">
       <Breadcrumb title="VTRU Stake/Swap for VIBE" items={breadcrumb} />
+      <Grid container spacing={3} style={{marginBottom: '30px'}}>
+                <Grid item xs={12} sm={12} md={3} lg={3} key={1}>
+                  <Box bgcolor={"info.light"} textAlign="center">
+                    <CardContent px={1}>
+                  
+                            <Typography
+                              color={"info.main"}
+                              variant="subtitle1"
+                              fontWeight={600}
+                            >
+                              VIBE Quota Remaining
+                            </Typography>
+                            <Typography
+                              color={"info.main"}
+                              variant="h1"
+                              fontWeight={600}
+                            >
+                              {stats.remaining}                            
+                            </Typography>
+                      </CardContent>
+                  </Box>
+                </Grid>
+
+                <Grid item xs={12} sm={12} md={3} lg={3} key={2}>
+                  <Box bgcolor={"info.light"} textAlign="center">
+                    <CardContent px={1}>
+                  
+                            <Typography
+                              color={"info.main"}
+                              variant="subtitle1"
+                              fontWeight={600}
+                            >
+                              VTRU Staked
+                            </Typography>
+                            <Typography
+                              color={"info.main"}
+                              variant="h1"
+                              fontWeight={600}
+                            >
+                              {stats.staked}                            
+                            </Typography>
+                      </CardContent>
+                  </Box>
+                </Grid>
+
+                <Grid item xs={12} sm={12} md={3} lg={3} key={3}>
+                  <Box bgcolor={"info.light"} textAlign="center">
+                    <CardContent px={1}>
+                  
+                            <Typography
+                              color={"info.main"}
+                              variant="subtitle1"
+                              fontWeight={600}
+                            >
+                              VIBE Tokens
+                            </Typography>
+                            <Typography
+                              color={"info.main"}
+                              variant="h1"
+                              fontWeight={600}
+                            >
+                              {stats.tokens}                            
+                            </Typography>
+                      </CardContent>
+                  </Box>
+                </Grid>
+
+                <Grid item xs={12} sm={12} md={3} lg={3} key={4}>
+                  <Box bgcolor={"info.light"} textAlign="center">
+                    <CardContent px={1}>
+                  
+                            <Typography
+                              color={"info.main"}
+                              variant="subtitle1"
+                              fontWeight={600}
+                            >
+                              VIBE Shares
+                            </Typography>
+                            <Typography
+                              color={"info.main"}
+                              variant="h1"
+                              fontWeight={600}
+                            >
+                              {stats.shares}                            
+                            </Typography>
+                      </CardContent>
+                  </Box>
+                </Grid>
+                
+
+
+
+            </Grid>
+
+
+
             <Grid container spacing={3}>
                 <Grid item xs={12} sm={12} md={3} lg={3} key={1}>
                   <Box bgcolor={"primary.main"} textAlign="center">
