@@ -21,6 +21,7 @@ import {
   IconPoint,
   IconAlertCircle,
   IconNotes,
+  IconTools,
   IconCalendar,
   IconMail,
   IconTicket,
@@ -57,6 +58,7 @@ import {
   IconBox,
   IconShoppingCart,
   IconAperture,
+  IconClockDollar,
   IconLayout,
   IconSettings,
   IconHelp,
@@ -79,6 +81,12 @@ const Menuitems: MenuitemsType[] = [
     icon: IconApps,
     href: "/",
     chipColor: "secondary",
+  },
+  {
+    id: uniqueId(),
+    title: "Stake for VIBE",
+    icon: IconClockDollar,
+    href: "/stake"
   },
   {
     id: uniqueId(),

@@ -22,7 +22,7 @@ const ParentCard = ({ title, children, footer }: Props) => {
       elevation={customizer.isCardShadow ? 9 : 0}
       variant={!customizer.isCardShadow ? 'outlined' : undefined}
     >
-      <CardHeader title={title} />
+      <CardHeader title={title}/>
       <Divider />
 
       <CardContent>{children}</CardContent>

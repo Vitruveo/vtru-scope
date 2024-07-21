@@ -60,12 +60,12 @@ export default function CoreNft () {
   useEffect(() => {
 
     async function getTokens(connectedOwner) {
-     //connectedOwner=''
+    
       if (connectedOwner !== null) {
         const transfers = contract?.filters?.Transfer(null, connectedOwner, null);
         if (transfers) {
           const logEvents = await contract.queryFilter(transfers);
-          const tokens = [];
+          const tokens = new Set([]);
           for(let l=0; l<logEvents.length; l++) {
             const log = logEvents[l];
             const info = contract.interface.parseLog(log);
@@ -77,10 +77,10 @@ export default function CoreNft () {
                                     args: [tokenId]
                                   });
             if (currentOwner.toLowerCase() == connectedOwner.toLowerCase()) {
-              tokens.push(Number(tokenId));
+              tokens.add(Number(tokenId));
             }
           }
-          await getAccountNfts(tokens);
+          await getAccountNfts(Array.from(tokens));
         }  
       } else {
         setNfts(arr => []);
