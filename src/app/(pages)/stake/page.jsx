@@ -37,7 +37,7 @@ export default function Stake () {
         if (provider !== null) {
           provider.getBlockNumber().then((block) => { 
             setBlockNumber(block);
-            const remaining = Math.max(4653047 - blockNumber, 0);
+            const remaining = Math.max(4654487 - blockNumber, 0);
             setBlocksRemaining(remaining);            
           });
         }
