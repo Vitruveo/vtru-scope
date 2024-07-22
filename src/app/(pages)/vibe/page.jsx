@@ -26,8 +26,8 @@ export default function Nfts() {
   const [vibes, setVibes] = useState(0);
   const [unclaimed, setUnclaimed] = useState(0);
   const [revenue, setRevenue] = useState(0);
-  const [buttonMessage, setButtonMessage] = useState('CLAIM  (Coming Soon)');
-  const [buttonEnabled, setButtonEnabled] = useState(unclaimed > 0);
+  const [buttonMessage, setButtonMessage] = useState('CLAIM');
+  const [buttonEnabled, setButtonEnabled] = useState(true);
 
   const [x1000Nfts, setx1000Nfts] = useState([]);
   const [x100Nfts, setx100Nfts] = useState([]);
@@ -45,7 +45,8 @@ export default function Nfts() {
   const [provider, setProvider] = useState(null);
   const isTestnet = false; //Boolean(process.env.NEXT_PUBLIC_IS_TESTNET) === true;
   const network = isTestnet === true ? 'testnet' : 'mainnet';
-
+  let processing = false;
+  
   useAccount({
     onConnect({ address, connector, isReconnected }) {
       const rpcUrl = connector.chains[0].rpcUrls["default"]["http"][0];
@@ -173,7 +174,28 @@ export default function Nfts() {
     getTokens(account);
   }, [contract, account, network, provider]);
 
+  async function handleClaim() {
+    if (processing) return;
+    processing = true;
 
+    try {
+        await writeContract({
+            address: vaultConfig.vibe[network],
+            abi: vaultConfig.vibe.abi,
+            functionName: "claimRevenueShareByOwner",
+            gas: 1_500_000,
+            args: []
+            });
+        setTimeout(() => {
+            window.location.reload()
+        }, 6000)
+    
+    } catch(e) {
+        console.log('***************',e);
+        processing = false;
+    
+    } 
+  }
 
   const breadcrumb = [
     {
@@ -217,12 +239,16 @@ export default function Nfts() {
   ];
 
 
-  
+  function buttonState(enabled) {
+    setButtonEnabled(enabled);
+    setButtonMessage('Wait...');
+  }
+
   function renderTabContent(panel) {
     switch(panel.title) {
       case 'CLAIM_BUTTON':
         return  (
-          <Button color="primary" size="large" disabled={ true } fullWidth onClick={ () => { buttonState(false); handleClaim("xxxxx"); } }>
+          <Button color="primary" size="large" disabled={ !buttonEnabled } fullWidth onClick={ () => { buttonState(false); handleClaim(); } }>
             { buttonMessage }
           </Button>
         );
