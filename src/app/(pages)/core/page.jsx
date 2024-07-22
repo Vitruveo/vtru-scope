@@ -132,7 +132,7 @@ export default function CoreNft () {
           address: config?.contractAddress,
           abi: config?.abi,
           functionName: "calculateGrantClaimAmounts",
-          args: [token, true]
+          args: [token, false]
         });
         const tokenUri = await readContract({
           address: config?.contractAddress,
