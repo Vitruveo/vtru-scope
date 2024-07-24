@@ -19,7 +19,7 @@ import {
   IconEngine,
   IconBoxMultiple,
   IconPoint,
-  IconAlertCircle,
+  IconScript,
   IconNotes,
   IconTools,
   IconCalendar,
@@ -117,6 +117,12 @@ const Menuitems: MenuitemsType[] = [
     title: "Vortex NFTs",
     icon: IconAperture,
     href: "/vortex"
+  },
+  {
+    id: uniqueId(),
+    title: "Smart Contracts",
+    icon: IconScript,
+    href: "/contracts"
   },
   // {
   //   id: uniqueId(),
