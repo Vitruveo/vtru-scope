@@ -134,6 +134,55 @@ export default function Contracts () {
 
             </Grid>
 
+            <Grid container spacing={3} style={{marginBottom: '30px'}}>
+
+          <Grid item xs={12} sm={12} md={6} lg={6} key={2}>
+                <Box bgcolor={"grey.100"} textAlign="center">
+                    <CardContent px={1}>                  
+                            <Typography
+                              color={"info.main"}
+                              variant="subtitle1"
+                              fontWeight={600}
+                              style={titleStyle}
+                            >
+                              USDC.pol
+                            </Typography>
+                            <Typography
+                              color={"info.main"}
+                              fontWeight={600}
+                            >
+                              <p>USDC.pol contract by Circle</p>
+                              <a style={linkStyle} href="https://explorer.vitruveo.xyz/address/0xbCfB3FCa16b12C7756CD6C24f1cC0AC0E38569CF" target="_new">0xbCfB3FCa16b12C7756CD6C24f1cC0AC0E38569CF</a>                            
+                            </Typography>
+                      </CardContent>
+                  </Box>
+                </Grid>
+
+                <Grid item xs={12} sm={12} md={6} lg={6} key={1}>
+                  <Box bgcolor={"grey.100"} textAlign="center">
+                    <CardContent px={1}>                  
+                            <Typography
+                              color={"info.main"}
+                              variant="subtitle1"
+                              fontWeight={600}
+                              style={titleStyle}
+                            >
+                              CoreVest NFT
+                            </Typography>
+                            <Typography
+                              color={"info.main"}
+                              fontWeight={600}
+                            >
+                              <p>Core vesting NFT contract for VTRU grants</p>
+                              <a style={linkStyle} href="https://explorer.vitruveo.xyz/address/0xaEf0a72A661B82CB1d871FCA5117486C664EeF13" target="_new">0xaEf0a72A661B82CB1d871FCA5117486C664EeF13</a>                            
+                            </Typography>
+                      </CardContent>
+                  </Box>
+                </Grid>
+
+
+            </Grid>
+
     </PageContainer>
   ); 
 };
