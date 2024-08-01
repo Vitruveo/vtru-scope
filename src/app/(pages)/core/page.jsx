@@ -184,7 +184,6 @@ export default function CoreNft () {
               )
             :
             <>
-              <Typography variant="h4" sx={{mx: 2}} style={{marginBottom: '20px', color: 'red' }}>All Claims are currently disabled.</Typography>
               <Grid container spacing={3}>
                   {
                     nfts.map((nft) => {
