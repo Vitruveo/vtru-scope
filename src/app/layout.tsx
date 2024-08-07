@@ -14,6 +14,7 @@ import Box from "@mui/material/Box";
 import "@/app/api/index";
 import "@/utils/i18n";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Analytics } from "@vercel/analytics/react"
 import { NextAppDirEmotionCacheProvider } from "@/utils/theme/EmotionCache";
 import Head from "next/head";
 import '@rainbow-me/rainbowkit/styles.css';
@@ -31,8 +32,9 @@ export const MyApp = ({ children }: { children: React.ReactNode }) => {
       <NextAppDirEmotionCacheProvider options={{ key: 'modernize' }}>
       <ThemeProvider theme={theme}>
         <RTL direction={customizer.activeDir}>
-          {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
           <CssBaseline />
+          <Analytics />
+          <SpeedInsights />
           <Providers>{children}</Providers>
         </RTL>
       </ThemeProvider>
