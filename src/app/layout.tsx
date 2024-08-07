@@ -13,6 +13,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
 import "@/app/api/index";
 import "@/utils/i18n";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { NextAppDirEmotionCacheProvider } from "@/utils/theme/EmotionCache";
 import Head from "next/head";
 import '@rainbow-me/rainbowkit/styles.css';
