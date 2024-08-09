@@ -239,9 +239,11 @@ export default function Stake () {
 
   const [lockedBalance, setLockedBalance] = useState(0);
   const [unlockedBalance, setUnlockedBalance] = useState(0);
+  const [airdropBalance, setAirdropBalance] = useState(0);
 
   const [lockedAllocated, setLockedAllocated] = useState(0);
   const [unlockedAllocated, setUnlockedAllocated] = useState(0);
+  const [airdropAllocated, setAirdropAllocated] = useState(0);
 
   const [vtru, setVtru] = useState({ locked: [0,0,0,0,0,0], unlocked: [0,0,0,0,0,0]});
   const [vibe, setVibe] = useState({ locked: [0,0,0,0,0,0], unlocked: [0,0,0,0,0,0]});
@@ -507,25 +509,36 @@ export default function Stake () {
 
             </Grid>
           <Grid container spacing={3} style={{marginTop: '10px'}}>
-              <Grid item xs={12} lg={6}>
+              <Grid item xs={12} lg={4}>
                 <BlankCard>
                     <div style={{padding: '20px', paddingTop: 0}}>
                       <h1 style={{textAlign: 'center'}}>UNLOCKED VTRU</h1>
                       <h2 style={{textAlign: 'center', fontWeight: 100, fontSize: '16px', marginBottom: '40px'}}>Stake: 50/VIBE, Swap: 15/VIBE</h2>
                       <h2><span style={mainHeadingStyle}>Balance:</span> <span style={mainNumberStyle}>{Number(parseInt(unlockedBalance)).toFixed(0)}</span></h2>
                       <h2><span style={mainHeadingStyle}>Allocated:</span> <span style={mainNumberStyle}>{Number(parseInt(unlockedAllocated)).toFixed(0)}</span></h2>
-                      <StakeInputForm locked={false} balance={parseInt(unlockedBalance)} stakeRatio={50} swapRatio={15} onChange={changeHandler}  />
+                      <StakeInputForm locked={false} full={true} balance={parseInt(unlockedBalance)} stakeRatio={50} swapRatio={15} onChange={changeHandler}  />
                       </div>
                   </BlankCard>
               </Grid>        
-              <Grid item xs={12} lg={6}>
+              <Grid item xs={12} lg={4}>
                 <BlankCard>
                   <div style={{padding: '20px', paddingTop: 0}}>
                     <h1 style={{textAlign: 'center'}}>LOCKED VTRU</h1>
                     <h2 style={{textAlign: 'center', fontWeight: 100, fontSize: '16px', marginBottom: '40px'}}>Stake: 150/VIBE, Swap: 20/VIBE</h2>
                     <h2><span style={mainHeadingStyle}>Balance:</span> <span style={mainNumberStyle}>{Number(parseInt(lockedBalance)).toFixed(0)}</span></h2>
                     <h2><span style={mainHeadingStyle}>Allocated:</span> <span style={mainNumberStyle}>{Number(parseInt(lockedAllocated)).toFixed(0)}</span></h2>
-                    <StakeInputForm locked={true} balance={parseInt(lockedBalance)} stakeRatio={150} swapRatio={20} onChange={changeHandler} />
+                    <StakeInputForm locked={true} full={true} balance={parseInt(lockedBalance)} stakeRatio={150} swapRatio={20} onChange={changeHandler} />
+                  </div>
+                </BlankCard>
+              </Grid>
+              <Grid item xs={12} lg={4}>
+                <BlankCard>
+                  <div style={{padding: '20px', paddingTop: 0}}>
+                    <h1 style={{textAlign: 'center'}}>STAKED VTRU</h1>
+                    <h2 style={{textAlign: 'center', fontWeight: 100, fontSize: '16px', marginBottom: '40px'}}>Stake: 150/VIBE, Swap: 20/VIBE</h2>
+                    <h2><span style={mainHeadingStyle}>Balance:</span> <span style={mainNumberStyle}>{Number(parseInt(airdropBalance)).toFixed(0)}</span></h2>
+                    <h2><span style={mainHeadingStyle}>Allocated:</span> <span style={mainNumberStyle}>{Number(parseInt(airdropAllocated)).toFixed(0)}</span></h2>
+                    <StakeInputForm locked={true} full={false} balance={parseInt(airdropBalance)} stakeRatio={150} swapRatio={20} onChange={changeHandler} />
                   </div>
                 </BlankCard>
               </Grid>
