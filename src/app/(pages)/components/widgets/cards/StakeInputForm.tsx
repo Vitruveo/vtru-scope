@@ -62,14 +62,14 @@ const StakeInputForm = (props:any) => {
               <CustomNumberField id="bl-1y" placeholder="0"  onChange={(value:any) => inputHandler(1, value)}  />
               <h3 style={vibeLabelStyle}>{display(1)}</h3>
             </Grid>
-
-            <Grid item xs={12}>
-              <span style={periodStyle}>Swap:</span>
-              <CustomNumberField id="bl-1y" placeholder="0"  onChange={(value:any) =>  inputHandler(0, value)}  />
-              <h3 style={vibeLabelStyle}>{display(0)}</h3>
-            </Grid>
         </>
         }
+
+        <Grid item xs={12}>
+          <span style={periodStyle}>Swap:</span>
+          <CustomNumberField id="bl-1y" placeholder="0"  onChange={(value:any) =>  inputHandler(0, value)}  />
+          <h3 style={vibeLabelStyle}>{display(0)}</h3>
+        </Grid>
       </Grid>
     </div>
   );
