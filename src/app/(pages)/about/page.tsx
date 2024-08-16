@@ -48,6 +48,16 @@ These are the release notes:
               </Typography>
             </FormLabel>
             <ChildCard>
+                  <Typography variant="h6">v0.7.8</Typography>
+
+                  <Typography variant="body1" color="textSecondary">
+                    <ul>
+                      <li>VTRU Suite NFT preview and performance enhancements</li>
+                    </ul>
+                  </Typography>
+            </ChildCard>
+
+            <ChildCard>
                   <Typography variant="h6">v0.7.7</Typography>
 
                   <Typography variant="body1" color="textSecondary">
