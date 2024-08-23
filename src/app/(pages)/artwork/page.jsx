@@ -2,7 +2,15 @@
 
 import React, { useEffect, useState, useMemo } from "react";
 import Box from "@mui/material/Box";
-import { Grid, Typography, Pagination } from "@mui/material";
+import {
+  Grid,
+  Typography,
+  Pagination,
+  Select,
+  MenuItem,
+  FormControl,
+  InputLabel,
+} from "@mui/material";
 import Breadcrumb from "@/app/(pages)/layout/shared/breadcrumb/Breadcrumb";
 import PageContainer from "@/app/(pages)/components/container/PageContainer";
 import VtruNFTCard from "@/app/(pages)/components/widgets/cards/VtruNFTCard";
@@ -15,7 +23,7 @@ const PER_PAGE = 24;
 export default function Nfts() {
   const [account, setAccount] = useState(null);
   const [nfts, setNfts] = useState([]);
-
+  const [order, setOrder] = useState("mintNewToOld");
   const [currentPage, setCurrentPage] = useState(1);
 
   const [provider, setProvider] = useState(null);
@@ -45,7 +53,7 @@ export default function Nfts() {
       // connectedOwner = "0x1e8F9510e9A599204Db4dA3f352a7e73111f050C";
 
       // const assetUrl = `https://studio-api.vtru.dev/assets/scope/nft/${connectedOwner}`;
-      const assetUrl = `https://studio-api.vitruveo.xyz/assets/scope/nft/${connectedOwner}`;
+      const assetUrl = `https://studio-api.vitruveo.xyz/assets/scope/nft/${connectedOwner}?sort=${order}`;
 
       try {
         const resp = await fetch(assetUrl);
@@ -59,7 +67,7 @@ export default function Nfts() {
     }
 
     if (account) getTokens(account);
-  }, [account, network, provider]);
+  }, [account, network, provider, order]);
 
   const breadcrumb = [
     {
@@ -85,9 +93,26 @@ export default function Nfts() {
   );
 
   return (
-    <PageContainer title="VTRU Scope" description="View all account digital assets">
+    <PageContainer
+      title="VTRU Scope"
+      description="View all account digital assets"
+    >
       <Breadcrumb title="VTRU Suite Digital Assets" items={breadcrumb} />
-
+      <FormControl sx={{ minWidth: "240px", marginBottom: 2 }}>
+        <InputLabel>Order</InputLabel>
+        <Select
+          label="Order"
+          defaultValue="mintNewToOld"
+          onChange={(e) => setOrder(e.target.value)}
+        >
+          <MenuItem value="mintNewToOld">Latest</MenuItem>
+          <MenuItem value="mintOldToNew">Oldest</MenuItem>
+          <MenuItem value="creatorAZ">Creator – A-Z</MenuItem>
+          <MenuItem value="creatorZA">Creator – Z-A</MenuItem>
+          <MenuItem value="titleAZ">Title – A-Z</MenuItem>
+          <MenuItem value="titleZA">Title – Z-A</MenuItem>
+        </Select>
+      </FormControl>
       {nfts.length == 0 && account == null ? (
         <Typography variant="h4" sx={{ mx: 2 }}>
           Connect account to view digital assets.
