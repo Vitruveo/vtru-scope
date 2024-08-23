@@ -7,6 +7,7 @@ import { parseEther } from 'viem';
 
 import BlankCard from '@/app/(pages)/components/shared/BlankCard';
 import StakeInputForm from '@/app/(pages)/components/widgets/cards/StakeInputForm';
+import SwapInputForm from '@/app/(pages)/components/widgets/cards/SwapInputForm';
 import {
   CardContent,
   Grid,
@@ -30,7 +31,7 @@ export default function Stake () {
   const [provider, setProvider] = useState(null);
   let processing = false;
   const [buttonMessage, setButtonMessage] = useState('GO');
-  const [buttonEnabled, setButtonEnabled] = useState(true);
+  const [buttonEnabled, setButtonEnabled] = useState(false);
 
   const isTestnet = false;//Boolean(process.env.NEXT_PUBLIC_IS_TESTNET) === true;
   const network = isTestnet === true ? 'testnet' : 'mainnet';
@@ -87,6 +88,32 @@ export default function Stake () {
 
   useEffect(() => {
 
+    async function getStakes(connectedOwner) {
+//      connectedOwner = "0x41f07238C5096Eb7eb68c50FE8AE5AdDECBBF5C2";
+      await getStats();
+      console.log(connectedOwner)
+      let currentStakes = [];
+      let totalStaked = BigInt(0);
+      if (connectedOwner !== null) {
+        try {
+          currentStakes = await readContract({
+            address: vaultConfig.coreStake[network],
+            abi: vaultConfig.coreStake.abi,
+            functionName: "getUserStakesInfo",
+            args: [connectedOwner]
+          });
+          currentStakes.forEach((stakeInfo) => {
+            totalStaked += BigInt(stakeInfo.unstakeAmount);
+          });
+          console.log('@@@@INFO', vaultConfig.coreStake[network], connectedOwner, currentStakes)
+        } catch(e) {
+
+        }
+      }
+      setAirdropBalance(Number(totalStaked)/Math.pow(10,18));
+      console.log(currentStakes.length, Number(totalStaked)/Math.pow(10,18));
+    }
+
     async function getTokens(connectedOwner) {
     //     connectedOwner = '0xd07D220d7e43eCa35973760F8951c79dEebe0dcc';
     // connectedOwner = '0xABBA32cF845256A4284cdbA91D82C96CbB13dc59';
@@ -118,7 +145,9 @@ export default function Stake () {
       }
     }
 
-    getTokens(account);
+//    getTokens(account);
+    
+    getStakes(account);
 
   }, [contract, account ])
 
@@ -199,6 +228,7 @@ export default function Stake () {
     } 
   }
 
+
   async function getAccountNfts(tokens) {
     try {
       let total = 0;
@@ -245,20 +275,20 @@ export default function Stake () {
   const [unlockedAllocated, setUnlockedAllocated] = useState(0);
   const [airdropAllocated, setAirdropAllocated] = useState(0);
 
-  const [vtru, setVtru] = useState({ locked: [0,0,0,0,0,0], unlocked: [0,0,0,0,0,0]});
-  const [vibe, setVibe] = useState({ locked: [0,0,0,0,0,0], unlocked: [0,0,0,0,0,0]});
+  const [vtru, setVtru] = useState({ airdrop: [0,0,0,0,0,0]});
+  const [vibe, setVibe] = useState({ airdrop: [0,0,0,0,0,0]});
   const [staked, setStaked] = useState(0);
   const [swapped, setSwapped] = useState(0);
   const [totalVibe, setTotalVibe] = useState(0);
 
-  const changeHandler = (isLocked, period, vtruInput, current) => {
-    const balance = parseInt(isLocked === true ? lockedBalance : unlockedBalance);
+  const changeHandler = (isLocked, period, vtruInput) => {
+    const balance = parseInt(airdropBalance);
 
-    const cost = isLocked === true ? (period === 0 ? 20 : 150) : (period === 0 ? 15 : 50);
+    const cost = period === 0 ? 20 : 150;
     const actualVtru = parseInt(vtruInput / cost) * cost;
     const actualVibe = (actualVtru/cost) * (period === 0 ? 1 : period);
 
-    const key = isLocked === true ? 'locked' : 'unlocked';
+    const key = 'airdrop';
 
     let before = 0;
     vtru[key].forEach(i => before += i);
@@ -274,14 +304,14 @@ export default function Stake () {
 
     let staked = 0;
     for(let l=1; l<6; l++) {
-      staked += vtru['locked'][l] + vtru['unlocked'][l];
+      staked += vtru['airdrop'][l];
     }
 
-    let swapped = vtru['locked'][0] + vtru['unlocked'][0];
+    let swapped = vtru['airdrop'][0];
 
     let totalVibe = 0;
     for(let l=0; l<6; l++) {
-      totalVibe += vibe['locked'][l] + vibe['unlocked'][l];
+      totalVibe += vibe['airdrop'][l];
     }
 
     setVtru({...vtru });
@@ -289,12 +319,8 @@ export default function Stake () {
     setStaked(staked);
     setSwapped(swapped);
     setTotalVibe(totalVibe);
-
-    if (isLocked === true) {
-      setLockedAllocated(allocated);
-    } else {
-      setUnlockedAllocated(allocated);
-    }
+    
+    setAirdropAllocated(allocated);
 
     return {vtru: actualVtru, vibe: actualVibe};
   }
@@ -512,29 +538,29 @@ export default function Stake () {
               <Grid item xs={12} lg={4}>
                 <BlankCard>
                     <div style={{padding: '20px', paddingTop: 0}}>
-                      <h1 style={{textAlign: 'center'}}>UNLOCKED VTRU</h1>
-                      <h2 style={{textAlign: 'center', fontWeight: 100, fontSize: '16px', marginBottom: '40px'}}>Stake: 50/VIBE, Swap: 15/VIBE</h2>
+                      <h1 style={{textAlign: 'center'}}>GENERAL</h1><h1 style={{textAlign: 'center'}}>EQUITY POOL</h1>
+                      <h2 style={{textAlign: 'center', fontWeight: 100, fontSize: '16px', marginBottom: '40px'}}>Eligible</h2>
                       <h2><span style={mainHeadingStyle}>Balance:</span> <span style={mainNumberStyle}>{Number(parseInt(unlockedBalance)).toFixed(0)}</span></h2>
                       <h2><span style={mainHeadingStyle}>Allocated:</span> <span style={mainNumberStyle}>{Number(parseInt(unlockedAllocated)).toFixed(0)}</span></h2>
-                      <StakeInputForm locked={false} full={true} balance={parseInt(unlockedBalance)} stakeRatio={50} swapRatio={15} onChange={changeHandler}  />
+                      <SwapInputForm locked={false} full={true} balance={parseInt(unlockedBalance)} stakeRatio={50} swapRatio={15} onChange={changeHandler}  />
                       </div>
                   </BlankCard>
               </Grid>        
               <Grid item xs={12} lg={4}>
                 <BlankCard>
                   <div style={{padding: '20px', paddingTop: 0}}>
-                    <h1 style={{textAlign: 'center'}}>LOCKED VTRU</h1>
-                    <h2 style={{textAlign: 'center', fontWeight: 100, fontSize: '16px', marginBottom: '40px'}}>Stake: 150/VIBE, Swap: 20/VIBE</h2>
-                    <h2><span style={mainHeadingStyle}>Balance:</span> <span style={mainNumberStyle}>{Number(parseInt(lockedBalance)).toFixed(0)}</span></h2>
-                    <h2><span style={mainHeadingStyle}>Allocated:</span> <span style={mainNumberStyle}>{Number(parseInt(lockedAllocated)).toFixed(0)}</span></h2>
-                    <StakeInputForm locked={true} full={true} balance={parseInt(lockedBalance)} stakeRatio={150} swapRatio={20} onChange={changeHandler} />
+                  <h1 style={{textAlign: 'center'}}>CREATOR</h1><h1 style={{textAlign: 'center'}}>EQUITY POOL</h1>
+                    <h2 style={{textAlign: 'center', fontWeight: 100, fontSize: '16px', marginBottom: '40px'}}>Ineligible</h2>
+                    <h2><span style={mainHeadingStyle}>Balance:</span> <span style={mainNumberStyle}>{Number(parseInt(unlockedBalance)).toFixed(0)}</span></h2>
+                    <h2><span style={mainHeadingStyle}>Allocated:</span> <span style={mainNumberStyle}>{Number(parseInt(unlockedAllocated)).toFixed(0)}</span></h2>
+                    <SwapInputForm locked={true} full={true} balance={parseInt(unlockedBalance)} stakeRatio={150} swapRatio={20} onChange={changeHandler} />
                   </div>
                 </BlankCard>
               </Grid>
               <Grid item xs={12} lg={4}>
                 <BlankCard>
                   <div style={{padding: '20px', paddingTop: 0}}>
-                    <h1 style={{textAlign: 'center'}}>STAKED VTRU</h1>
+                  <h1 style={{textAlign: 'center'}}>STAKED</h1><h1 style={{textAlign: 'center'}}>VTRU</h1>
                     <h2 style={{textAlign: 'center', fontWeight: 100, fontSize: '16px', marginBottom: '40px'}}>Stake: 150/VIBE, Swap: 20/VIBE</h2>
                     <h2><span style={mainHeadingStyle}>Balance:</span> <span style={mainNumberStyle}>{Number(parseInt(airdropBalance)).toFixed(0)}</span></h2>
                     <h2><span style={mainHeadingStyle}>Allocated:</span> <span style={mainNumberStyle}>{Number(parseInt(airdropAllocated)).toFixed(0)}</span></h2>

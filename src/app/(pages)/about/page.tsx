@@ -48,6 +48,18 @@ These are the release notes:
               </Typography>
             </FormLabel>
             <ChildCard>
+                  <Typography variant="h6">v0.7.9</Typography>
+
+                  <Typography variant="body1" color="textSecondary">
+                    <ul>
+                      <li>Support for airdrop staking for VIBE</li>
+                      <li>Equity Pools forms</li>
+                      <li>Added CoreStake to contracts</li>
+                    </ul>
+                  </Typography>
+            </ChildCard>
+
+            <ChildCard>
                   <Typography variant="h6">v0.7.8</Typography>
 
                   <Typography variant="body1" color="textSecondary">

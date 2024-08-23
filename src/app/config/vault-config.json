@@ -1,4 +1,844 @@
 {
+    "coreStake": {
+      "testnet": "0xE1a3D4C954D9a140C626BA2DEA0375D93bfa7Df9",
+      "mainnet": "0xf793A4faD64241c7273b9329FE39e433c2D45d71",
+      "abi": [
+        {
+          "type": "event",
+          "anonymous": false,
+          "name": "AdminChanged",
+          "inputs": [
+            {
+              "type": "address",
+              "name": "previousAdmin",
+              "indexed": false
+            },
+            {
+              "type": "address",
+              "name": "newAdmin",
+              "indexed": false
+            }
+          ]
+        },
+        {
+          "type": "event",
+          "anonymous": false,
+          "name": "BeaconUpgraded",
+          "inputs": [
+            {
+              "type": "address",
+              "name": "beacon",
+              "indexed": true
+            }
+          ]
+        },
+        {
+          "type": "event",
+          "anonymous": false,
+          "name": "Initialized",
+          "inputs": [
+            {
+              "type": "uint8",
+              "name": "version",
+              "indexed": false
+            }
+          ]
+        },
+        {
+          "type": "event",
+          "anonymous": false,
+          "name": "Paused",
+          "inputs": [
+            {
+              "type": "address",
+              "name": "account",
+              "indexed": false
+            }
+          ]
+        },
+        {
+          "type": "event",
+          "anonymous": false,
+          "name": "RoleAdminChanged",
+          "inputs": [
+            {
+              "type": "bytes32",
+              "name": "role",
+              "indexed": true
+            },
+            {
+              "type": "bytes32",
+              "name": "previousAdminRole",
+              "indexed": true
+            },
+            {
+              "type": "bytes32",
+              "name": "newAdminRole",
+              "indexed": true
+            }
+          ]
+        },
+        {
+          "type": "event",
+          "anonymous": false,
+          "name": "RoleGranted",
+          "inputs": [
+            {
+              "type": "bytes32",
+              "name": "role",
+              "indexed": true
+            },
+            {
+              "type": "address",
+              "name": "account",
+              "indexed": true
+            },
+            {
+              "type": "address",
+              "name": "sender",
+              "indexed": true
+            }
+          ]
+        },
+        {
+          "type": "event",
+          "anonymous": false,
+          "name": "RoleRevoked",
+          "inputs": [
+            {
+              "type": "bytes32",
+              "name": "role",
+              "indexed": true
+            },
+            {
+              "type": "address",
+              "name": "account",
+              "indexed": true
+            },
+            {
+              "type": "address",
+              "name": "sender",
+              "indexed": true
+            }
+          ]
+        },
+        {
+          "type": "event",
+          "anonymous": false,
+          "name": "Staked",
+          "inputs": [
+            {
+              "type": "address",
+              "name": "user",
+              "indexed": true
+            },
+            {
+              "type": "uint256",
+              "name": "amount",
+              "indexed": false
+            },
+            {
+              "type": "uint256",
+              "name": "stakeTermID",
+              "indexed": false
+            },
+            {
+              "type": "uint256",
+              "name": "startBlock",
+              "indexed": false
+            }
+          ]
+        },
+        {
+          "type": "event",
+          "anonymous": false,
+          "name": "Unpaused",
+          "inputs": [
+            {
+              "type": "address",
+              "name": "account",
+              "indexed": false
+            }
+          ]
+        },
+        {
+          "type": "event",
+          "anonymous": false,
+          "name": "Unstaked",
+          "inputs": [
+            {
+              "type": "address",
+              "name": "user",
+              "indexed": true
+            },
+            {
+              "type": "uint256",
+              "name": "amount",
+              "indexed": false
+            },
+            {
+              "type": "uint256",
+              "name": "reward",
+              "indexed": false
+            }
+          ]
+        },
+        {
+          "type": "event",
+          "anonymous": false,
+          "name": "Upgraded",
+          "inputs": [
+            {
+              "type": "address",
+              "name": "implementation",
+              "indexed": true
+            }
+          ]
+        },
+        {
+          "type": "function",
+          "name": "DAYS_IN_YEAR",
+          "constant": true,
+          "stateMutability": "view",
+          "payable": false,
+          "inputs": [],
+          "outputs": [
+            {
+              "type": "uint256",
+              "name": ""
+            }
+          ]
+        },
+        {
+          "type": "function",
+          "name": "DEFAULT_ADMIN_ROLE",
+          "constant": true,
+          "stateMutability": "view",
+          "payable": false,
+          "inputs": [],
+          "outputs": [
+            {
+              "type": "bytes32",
+              "name": ""
+            }
+          ]
+        },
+        {
+          "type": "function",
+          "name": "ONE_EPOCH",
+          "constant": true,
+          "stateMutability": "view",
+          "payable": false,
+          "inputs": [],
+          "outputs": [
+            {
+              "type": "uint256",
+              "name": ""
+            }
+          ]
+        },
+        {
+          "type": "function",
+          "name": "REDEEMER_ROLE",
+          "constant": true,
+          "stateMutability": "view",
+          "payable": false,
+          "inputs": [],
+          "outputs": [
+            {
+              "type": "bytes32",
+              "name": ""
+            }
+          ]
+        },
+        {
+          "type": "function",
+          "name": "UPGRADER_ROLE",
+          "constant": true,
+          "stateMutability": "view",
+          "payable": false,
+          "inputs": [],
+          "outputs": [
+            {
+              "type": "bytes32",
+              "name": ""
+            }
+          ]
+        },
+        {
+          "type": "function",
+          "name": "activeStakes",
+          "constant": true,
+          "stateMutability": "view",
+          "payable": false,
+          "inputs": [],
+          "outputs": [
+            {
+              "type": "uint256",
+              "name": ""
+            }
+          ]
+        },
+        {
+          "type": "function",
+          "name": "addStakeTerm",
+          "constant": false,
+          "payable": false,
+          "inputs": [
+            {
+              "type": "uint256",
+              "name": "epochs"
+            },
+            {
+              "type": "uint256",
+              "name": "aprBasisPoints"
+            }
+          ],
+          "outputs": []
+        },
+        {
+          "type": "function",
+          "name": "calculateFullReward",
+          "constant": true,
+          "stateMutability": "view",
+          "payable": false,
+          "inputs": [
+            {
+              "type": "uint256",
+              "name": "amount"
+            },
+            {
+              "type": "uint256",
+              "name": "startBlock"
+            },
+            {
+              "type": "uint256",
+              "name": "stakeTermID"
+            }
+          ],
+          "outputs": [
+            {
+              "type": "bool",
+              "name": ""
+            },
+            {
+              "type": "uint256",
+              "name": ""
+            },
+            {
+              "type": "uint256",
+              "name": ""
+            }
+          ]
+        },
+        {
+          "type": "function",
+          "name": "calculatePartialReward",
+          "constant": true,
+          "stateMutability": "view",
+          "payable": false,
+          "inputs": [
+            {
+              "type": "uint256",
+              "name": "amount"
+            },
+            {
+              "type": "uint256",
+              "name": "startBlock"
+            },
+            {
+              "type": "uint256",
+              "name": "endBlock"
+            },
+            {
+              "type": "uint256",
+              "name": "stakeTermID"
+            }
+          ],
+          "outputs": [
+            {
+              "type": "uint256",
+              "name": ""
+            }
+          ]
+        },
+        {
+          "type": "function",
+          "name": "getRoleAdmin",
+          "constant": true,
+          "stateMutability": "view",
+          "payable": false,
+          "inputs": [
+            {
+              "type": "bytes32",
+              "name": "role"
+            }
+          ],
+          "outputs": [
+            {
+              "type": "bytes32",
+              "name": ""
+            }
+          ]
+        },
+        {
+          "type": "function",
+          "name": "getUserStakesInfo",
+          "constant": true,
+          "stateMutability": "view",
+          "payable": false,
+          "inputs": [
+            {
+              "type": "address",
+              "name": "account"
+            }
+          ],
+          "outputs": [
+            {
+              "type": "tuple[]",
+              "name": "",
+              "components": [
+                {
+                  "type": "uint256",
+                  "name": "stakeId"
+                },
+                {
+                  "type": "uint256",
+                  "name": "unstakeAmount"
+                },
+                {
+                  "type": "bool",
+                  "name": "eligibleToUnstake"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "function",
+          "name": "grantRole",
+          "constant": false,
+          "payable": false,
+          "inputs": [
+            {
+              "type": "bytes32",
+              "name": "role"
+            },
+            {
+              "type": "address",
+              "name": "account"
+            }
+          ],
+          "outputs": []
+        },
+        {
+          "type": "function",
+          "name": "hasRole",
+          "constant": true,
+          "stateMutability": "view",
+          "payable": false,
+          "inputs": [
+            {
+              "type": "bytes32",
+              "name": "role"
+            },
+            {
+              "type": "address",
+              "name": "account"
+            }
+          ],
+          "outputs": [
+            {
+              "type": "bool",
+              "name": ""
+            }
+          ]
+        },
+        {
+          "type": "function",
+          "name": "importUserStakes",
+          "constant": false,
+          "payable": false,
+          "inputs": [
+            {
+              "type": "address",
+              "name": "user"
+            },
+            {
+              "type": "uint256[]",
+              "name": "amounts"
+            },
+            {
+              "type": "uint256[]",
+              "name": "startBlocks"
+            },
+            {
+              "type": "uint256[]",
+              "name": "stakeTermIDs"
+            }
+          ],
+          "outputs": []
+        },
+        {
+          "type": "function",
+          "name": "initialize",
+          "constant": false,
+          "payable": false,
+          "inputs": [],
+          "outputs": []
+        },
+        {
+          "type": "function",
+          "name": "nextStakeTermId",
+          "constant": true,
+          "stateMutability": "view",
+          "payable": false,
+          "inputs": [],
+          "outputs": [
+            {
+              "type": "uint256",
+              "name": ""
+            }
+          ]
+        },
+        {
+          "type": "function",
+          "name": "pause",
+          "constant": false,
+          "payable": false,
+          "inputs": [],
+          "outputs": []
+        },
+        {
+          "type": "function",
+          "name": "paused",
+          "constant": true,
+          "stateMutability": "view",
+          "payable": false,
+          "inputs": [],
+          "outputs": [
+            {
+              "type": "bool",
+              "name": ""
+            }
+          ]
+        },
+        {
+          "type": "function",
+          "name": "proxiableUUID",
+          "constant": true,
+          "stateMutability": "view",
+          "payable": false,
+          "inputs": [],
+          "outputs": [
+            {
+              "type": "bytes32",
+              "name": ""
+            }
+          ]
+        },
+        {
+          "type": "function",
+          "name": "renounceRole",
+          "constant": false,
+          "payable": false,
+          "inputs": [
+            {
+              "type": "bytes32",
+              "name": "role"
+            },
+            {
+              "type": "address",
+              "name": "account"
+            }
+          ],
+          "outputs": []
+        },
+        {
+          "type": "function",
+          "name": "revokeRole",
+          "constant": false,
+          "payable": false,
+          "inputs": [
+            {
+              "type": "bytes32",
+              "name": "role"
+            },
+            {
+              "type": "address",
+              "name": "account"
+            }
+          ],
+          "outputs": []
+        },
+        {
+          "type": "function",
+          "name": "stake",
+          "constant": false,
+          "stateMutability": "payable",
+          "payable": true,
+          "inputs": [
+            {
+              "type": "uint256",
+              "name": "stakeTermID"
+            }
+          ],
+          "outputs": []
+        },
+        {
+          "type": "function",
+          "name": "stakeTerms",
+          "constant": true,
+          "stateMutability": "view",
+          "payable": false,
+          "inputs": [
+            {
+              "type": "uint256",
+              "name": ""
+            }
+          ],
+          "outputs": [
+            {
+              "type": "uint256",
+              "name": "epochs"
+            },
+            {
+              "type": "uint256",
+              "name": "aprBasisPoints"
+            }
+          ]
+        },
+        {
+          "type": "function",
+          "name": "stats",
+          "constant": true,
+          "stateMutability": "view",
+          "payable": false,
+          "inputs": [],
+          "outputs": [
+            {
+              "type": "uint256",
+              "name": "totalStakedAmount"
+            },
+            {
+              "type": "uint256",
+              "name": "totalRewardDist"
+            },
+            {
+              "type": "uint256",
+              "name": "totalStakes"
+            },
+            {
+              "type": "uint256",
+              "name": "activeStakesCount"
+            },
+            {
+              "type": "uint256",
+              "name": "totalUsersCount"
+            },
+            {
+              "type": "uint256",
+              "name": "totalStakingTerms"
+            }
+          ]
+        },
+        {
+          "type": "function",
+          "name": "supportsInterface",
+          "constant": true,
+          "stateMutability": "view",
+          "payable": false,
+          "inputs": [
+            {
+              "type": "bytes4",
+              "name": "interfaceId"
+            }
+          ],
+          "outputs": [
+            {
+              "type": "bool",
+              "name": ""
+            }
+          ]
+        },
+        {
+          "type": "function",
+          "name": "totalRewardDistributed",
+          "constant": true,
+          "stateMutability": "view",
+          "payable": false,
+          "inputs": [],
+          "outputs": [
+            {
+              "type": "uint256",
+              "name": ""
+            }
+          ]
+        },
+        {
+          "type": "function",
+          "name": "totalStaked",
+          "constant": true,
+          "stateMutability": "view",
+          "payable": false,
+          "inputs": [],
+          "outputs": [
+            {
+              "type": "uint256",
+              "name": ""
+            }
+          ]
+        },
+        {
+          "type": "function",
+          "name": "totalStakesCreated",
+          "constant": true,
+          "stateMutability": "view",
+          "payable": false,
+          "inputs": [],
+          "outputs": [
+            {
+              "type": "uint256",
+              "name": ""
+            }
+          ]
+        },
+        {
+          "type": "function",
+          "name": "totalUsers",
+          "constant": true,
+          "stateMutability": "view",
+          "payable": false,
+          "inputs": [],
+          "outputs": [
+            {
+              "type": "uint256",
+              "name": ""
+            }
+          ]
+        },
+        {
+          "type": "function",
+          "name": "unpause",
+          "constant": false,
+          "payable": false,
+          "inputs": [],
+          "outputs": []
+        },
+        {
+          "type": "function",
+          "name": "unstake",
+          "constant": false,
+          "payable": false,
+          "inputs": [],
+          "outputs": []
+        },
+        {
+          "type": "function",
+          "name": "unstakeAdmin",
+          "constant": false,
+          "payable": false,
+          "inputs": [
+            {
+              "type": "address",
+              "name": "user"
+            }
+          ],
+          "outputs": []
+        },
+        {
+          "type": "function",
+          "name": "unstakeRedeem",
+          "constant": false,
+          "payable": false,
+          "inputs": [
+            {
+              "type": "address",
+              "name": "user"
+            },
+            {
+              "type": "uint256",
+              "name": "amount"
+            }
+          ],
+          "outputs": []
+        },
+        {
+          "type": "function",
+          "name": "upgradeTo",
+          "constant": false,
+          "payable": false,
+          "inputs": [
+            {
+              "type": "address",
+              "name": "newImplementation"
+            }
+          ],
+          "outputs": []
+        },
+        {
+          "type": "function",
+          "name": "upgradeToAndCall",
+          "constant": false,
+          "stateMutability": "payable",
+          "payable": true,
+          "inputs": [
+            {
+              "type": "address",
+              "name": "newImplementation"
+            },
+            {
+              "type": "bytes",
+              "name": "data"
+            }
+          ],
+          "outputs": []
+        },
+        {
+          "type": "function",
+          "name": "userStakes",
+          "constant": true,
+          "stateMutability": "view",
+          "payable": false,
+          "inputs": [
+            {
+              "type": "address",
+              "name": ""
+            },
+            {
+              "type": "uint256",
+              "name": ""
+            }
+          ],
+          "outputs": [
+            {
+              "type": "uint256",
+              "name": "amount"
+            },
+            {
+              "type": "uint256",
+              "name": "startBlock"
+            },
+            {
+              "type": "uint256",
+              "name": "stakeTermID"
+            }
+          ]
+        },
+        {
+          "type": "function",
+          "name": "withdrawVtru",
+          "constant": false,
+          "payable": false,
+          "inputs": [],
+          "outputs": []
+        },
+        {
+          "type": "receive",
+          "stateMutability": "payable"
+        }
+      ]
+    },
     "core": {
       "testnet": "0xc5cC92E43100bD465bab7eEdAEd595bbC251E13A",
       "mainnet": "0xaEf0a72A661B82CB1d871FCA5117486C664EeF13",
