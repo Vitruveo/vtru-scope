@@ -122,7 +122,7 @@ export default function Nfts() {
       title: "Home",
     },
     {
-      title: "NFTs",
+      title: "Vortex",
     },
   ];
 
@@ -130,8 +130,8 @@ export default function Nfts() {
   const btnCols = 3;
 
   return (
-    <PageContainer title="VTRU Scope" description="View all account NFTs">
-      <Breadcrumb title="Vortex NFTs" items={breadcrumb} />
+    <PageContainer title="VTRU Scope" description="View all account Vortex digital assets">
+      <Breadcrumb title="Vortex Digital Assets" items={breadcrumb} />
 
       {commonNfts.length == 0 && rareNfts.length == 0 && ultraNfts.length == 0 && epicNfts.length == 0 ? (
         account == null ? (

@@ -166,19 +166,19 @@ export default function CoreNft () {
       title: 'Home',
     },
     {
-      title: 'Core NFTs',
+      title: 'Core',
     },
   ];
 
 
 
   return (
-    <PageContainer title="VTRU Scope" description="View all Core NFTs">
-      <Breadcrumb title="Core NFTs" items={breadcrumb} />
+    <PageContainer title="VTRU Scope" description="View all Core Digital Assets">
+      <Breadcrumb title="Core Digital Assets" items={breadcrumb} />
           {
             nfts.length == 0 ?
               (account == null ?
-                <Typography variant="h4" sx={{mx: 2}}>Connect account to view Core NFTs.</Typography>
+                <Typography variant="h4" sx={{mx: 2}}>Connect account to view Core digital assets.</Typography>
               :
                 <Typography variant="h4" sx={{mx: 2}}>{loadMessage}</Typography>
               )

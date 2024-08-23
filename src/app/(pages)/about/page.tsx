@@ -37,8 +37,7 @@ These are the release notes:
       <Breadcrumb title="About" items={breadcrumb} />
       <Box sx={{ height: { lg: 'calc(100vh - 250px)', sm: '100vh' }, maxHeight: '700px' }}>
         <Typography  variant="subtitle2">
-          VTRU Scope is the focal point for all your Vitruveo assets. In a single app you can view and manage coins and tokens. The initial release of the 
-          app has functionality for Core NFTs. Future releases will have additional functionality including analytics and calculators.
+          VTRU Scope is the focal point for all your Vitruveo assets. In a single app you can view and manage coins and tokens.
         </Typography>
 
           <Box p={3}>

@@ -202,13 +202,13 @@ export default function Boosters() {
   const btnCols = boostNftId ? 3 : 2;
 
   return (
-    <PageContainer title="VTRU Scope" description="View all Core NFTs">
-      <Breadcrumb title="Booster NFTs" items={breadcrumb} />
+    <PageContainer title="VTRU Scope" description="View all Booster Digital Assets">
+      <Breadcrumb title="Booster Digital Assets" items={breadcrumb} />
 
       {nfts.length == 0 ? (
         account == null ? (
           <Typography variant="h4" sx={{ mx: 2 }}>
-            Connect account to view Booster NFTs.
+            Connect account to view Booster digital assets.
           </Typography>
         ) : (
           <Typography variant="h4" sx={{ mx: 2 }}>

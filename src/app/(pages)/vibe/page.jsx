@@ -39,7 +39,7 @@ export default function Nfts() {
 
 
   const [loadMessage, setLoadMessage] = useState(
-    "Scanning account for NFTs..."
+    "Scanning account for digital assets..."
   );
 
   const [provider, setProvider] = useState(null);
@@ -217,7 +217,7 @@ export default function Nfts() {
 
   const tabPanels = [
     {
-      title: "VIBE Shares (NFTs)",
+      title: "VIBE Shares (Digital Assets)",
       content: `${Number(vibes)} (${Number(nfts)})`,
       bgcolor: "primary",
     },
@@ -277,13 +277,13 @@ export default function Nfts() {
 
 
   return (
-    <PageContainer title="VTRU Scope" description="View all account NFTs">
+    <PageContainer title="VTRU Scope" description="View all VIBE Digital Assets">
       <Breadcrumb title="VIBE (Vitruveo Income Building Engine)" items={breadcrumb} />
 
       {nfts.length == 0 ? (
         account == null ? (
           <Typography variant="h4" sx={{ mx: 2 }}>
-            Connect account to view NFTs.
+            Connect account to view digital assets.
           </Typography>
         ) : (
           <Typography variant="h4" sx={{ mx: 2 }}>

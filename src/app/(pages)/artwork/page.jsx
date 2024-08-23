@@ -67,7 +67,7 @@ export default function Nfts() {
       title: "Home",
     },
     {
-      title: "NFTs",
+      title: "Artworks",
     },
   ];
 
@@ -85,19 +85,19 @@ export default function Nfts() {
   );
 
   return (
-    <PageContainer title="VTRU Scope" description="View all account NFTs">
-      <Breadcrumb title="VTRU Suite NFTs" items={breadcrumb} />
+    <PageContainer title="VTRU Scope" description="View all account digital assets">
+      <Breadcrumb title="VTRU Suite Digital Assets" items={breadcrumb} />
 
       {nfts.length == 0 && account == null ? (
         <Typography variant="h4" sx={{ mx: 2 }}>
-          Connect account to view NFTs.
+          Connect account to view digital assets.
         </Typography>
       ) : (
         <>
           <Grid container spacing={3}>
             {nfts.length == 0 ? (
               <Typography variant="h4" sx={{ mx: 2, p: 3 }}>
-                No NFTs found in account.
+                No digital assets found in account.
               </Typography>
             ) : (
               items.map((nft, index) => {

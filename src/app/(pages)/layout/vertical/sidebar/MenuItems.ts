@@ -83,59 +83,118 @@ const Menuitems: MenuitemsType[] = [
     chipColor: "secondary",
   },
   {
-    id: uniqueId(),
-    title: "Stake for VIBE",
-    icon: IconClockDollar,
-    href: "/stake"
+    id:uniqueId(),
+    title: "Digital Assets",
+    icon: IconPackage,
+    children: [
+      {
+        id: uniqueId(),
+        title: "Core",
+        icon: IconTicket,
+        href: "/core"
+      },
+      {
+        id: uniqueId(),
+        title: "Artwork",
+        icon: IconStar,
+        href: "/artwork"
+      },
+      {
+        id: uniqueId(),
+        title: "VIBE",
+        icon: IconEngine,
+        href: "/vibe"
+      },
+      {
+        id: uniqueId(),
+        title: "Vortex",
+        icon: IconAperture,
+        href: "/vortex"
+      },
+      {
+        id: uniqueId(),
+        title: "Booster",
+        icon: IconBox,
+        href: "/booster"
+      },
+
+    ]
   },
   {
-    id: uniqueId(),
-    title: "Core NFTs",
-    icon: IconTicket,
-    href: "/core"
+    id:uniqueId(),
+    title: "Staking",
+    icon: IconPackage,
+    children: [
+      {
+        id: uniqueId(),
+        title: "VIBE",
+        icon: IconClockDollar,
+        href: "/stake"
+      }
+    ]
   },
   {
-    id: uniqueId(),
-    title: "VIBE NFTs",
-    icon: IconEngine,
-    href: "/vibe"
-  },
-  {
-    id: uniqueId(),
-    title: "Booster NFTs",
-    icon: IconBox,
-    href: "/booster"
-  },
-  {
-    id: uniqueId(),
-    title: "VTRU Suite NFTs",
-    icon: IconStar,
-    href: "/vtrusuite"
-  },
-  {
-    id: uniqueId(),
-    title: "Vortex NFTs",
-    icon: IconAperture,
-    href: "/vortex"
-  },
-  {
-    id: uniqueId(),
-    title: "Smart Contracts",
-    icon: IconScript,
-    href: "/contracts"
-  },
+    id:uniqueId(),
+    title: "Information",
+    icon: IconPackage,
+    children: [
+      {
+        id: uniqueId(),
+        title: "Smart Contracts",
+        icon: IconScript,
+        href: "/contracts"
+      },
+      {
+        id: uniqueId(),
+        title: "About",
+        icon: IconNotes,
+        href: "/about"
+      }
+    ]
+  }
   // {
   //   id: uniqueId(),
   //   title: "Creators",
   //   icon: IconPalette,
   //   href: "/creators"
   // },
-  {
-    id: uniqueId(),
-    title: "About",
-    icon: IconNotes,
-    href: "/about"
-  },
+  
 ];
 
 export default Menuitems;
+
+/*
+
+{
+    id: uniqueId(),
+    title: "Ecommerce",
+    icon: IconBasket,
+    href: "/apps/ecommerce/",
+    children: [
+      {
+        id: uniqueId(),
+        title: "Shop",
+        icon: IconPoint,
+        href: "/apps/ecommerce/shop",
+      },
+      {
+        id: uniqueId(),
+        title: "Detail",
+        icon: IconPoint,
+        href: "/apps/ecommerce/detail/1",
+      },
+      {
+        id: uniqueId(),
+        title: "List",
+        icon: IconPoint,
+        href: "/apps/ecommerce/list",
+      },
+      {
+        id: uniqueId(),
+        title: "Checkout",
+        icon: IconPoint,
+        href: "/apps/ecommerce/checkout",
+      },
+    ],
+  },
+*/
