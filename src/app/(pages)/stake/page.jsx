@@ -31,7 +31,7 @@ export default function Stake () {
   const [provider, setProvider] = useState(null);
   let processing = false;
   const [buttonMessage, setButtonMessage] = useState('GO');
-  const [buttonEnabled, setButtonEnabled] = useState(false);
+  const [buttonEnabled, setButtonEnabled] = useState(true);
 
   const isTestnet = false;//Boolean(process.env.NEXT_PUBLIC_IS_TESTNET) === true;
   const network = isTestnet === true ? 'testnet' : 'mainnet';
@@ -100,12 +100,11 @@ export default function Stake () {
             address: vaultConfig.coreStake[network],
             abi: vaultConfig.coreStake.abi,
             functionName: "getUserStakesInfo",
-            args: [connectedOwner]
+            args: [connectedOwner, true]
           });
           currentStakes.forEach((stakeInfo) => {
             totalStaked += BigInt(stakeInfo.unstakeAmount);
           });
-          console.log('@@@@INFO', vaultConfig.coreStake[network], connectedOwner, currentStakes)
         } catch(e) {
 
         }
@@ -196,16 +195,9 @@ export default function Stake () {
     if (processing) return;
     processing = true;
 
-    let total = 0;
-    for(let t=0;t<vtru.unlocked.length;t++) {
-      total += vtru.unlocked[t];
-    }
     const inputs = [
       account,
-      vaultConfig.vibe[network],
-      vtru.unlocked,
-      nfts,
-      vtru.locked
+      vtru.airdrop
     ]
     // Send transaction
     try {
@@ -214,7 +206,6 @@ export default function Stake () {
             abi: vaultConfig.core.abi,
             functionName: "stake",
             gas: 2_500_000,
-            value: parseEther(String(total)),
             args: inputs
             });
         setTimeout(() => {
