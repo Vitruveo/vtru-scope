@@ -195,28 +195,34 @@ export default function Stake () {
     if (processing) return;
     processing = true;
 
-    const inputs = [
-      account,
-      vtru.airdrop
-    ]
-    // Send transaction
-    try {
-        await writeContract({
-            address: vaultConfig.core[network],
-            abi: vaultConfig.core.abi,
-            functionName: "stake",
-            gas: 2_500_000,
-            args: inputs
-            });
-        setTimeout(() => {
-            window.location.reload()
-        }, 6000)
-    
-    } catch(e) {
-        console.log('***************',e);
-        processing = false;
-    
-    } 
+    let total = 0;
+    for(let t=0;t<vtru.airdrop.length;t++) {
+      total += vtru.airdrop[t];
+    }
+    if (total > 0) {
+      const inputs = [
+        account,
+        vtru.airdrop
+      ]
+      // Send transaction
+      try {
+          await writeContract({
+              address: vaultConfig.core[network],
+              abi: vaultConfig.core.abi,
+              functionName: "stake",
+              gas: 2_500_000,
+              args: inputs
+              });
+          setTimeout(() => {
+              window.location.reload()
+          }, 6000)
+      
+      } catch(e) {
+          console.log('***************',e);
+          processing = false;
+      
+      } 
+    }
   }
 
 
