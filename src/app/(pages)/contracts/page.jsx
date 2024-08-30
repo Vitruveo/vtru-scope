@@ -178,6 +178,8 @@ export default function Contracts () {
                             </Typography>
                       </CardContent>
                   </Box>
+
+                  
                 </Grid>
 
 
@@ -209,7 +211,27 @@ export default function Contracts () {
                 </Grid>
 
 
-
+                <Grid item xs={12} sm={12} md={6} lg={6} key={2}>
+                <Box bgcolor={"grey.100"} textAlign="center">
+                    <CardContent px={1}>                  
+                            <Typography
+                              color={"info.main"}
+                              variant="subtitle1"
+                              fontWeight={600}
+                              style={titleStyle}
+                            >
+                              VUSD
+                            </Typography>
+                            <Typography
+                              color={"info.main"}
+                              fontWeight={600}
+                            >
+                              <p>Vitruveo stablecoin</p>
+                              <a style={linkStyle} href="https://explorer.vitruveo.xyz/address/0x1D607d8c617A09c638309bE2Ceb9b4afF42236dA" target="_new">0x1D607d8c617A09c638309bE2Ceb9b4afF42236dA</a>                            
+                            </Typography>
+                      </CardContent>
+                  </Box>
+                </Grid>
 
             </Grid>
     </PageContainer>
