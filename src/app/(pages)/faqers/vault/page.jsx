@@ -130,7 +130,7 @@ export default function Faqers_Vault() {
     <PageContainer title="VTRU Scope" description="Interactive FAQ Answers">
       <Breadcrumb title="Interactive FAQ Answers" items={breadcrumb} />
 
-      <p style={{marginBottom: '30px', marginLeft: '10px'}}>This FAQer provides information on account Grant Limits for a Creator Vault. Grant limits for a Vault are account-specific.<br/><br/>The Vault address for a Creator can be found on any Store listing page by following the link labeled "Consigned to Vault."</p>
+      <p style={{marginBottom: '30px', marginLeft: '10px'}}>This FAQer provides information on account Grant Limits for a Creator Vault. Grant limits for a Vault are account-specific.<br/><br/>The Vault address for a Creator can be found on any Store listing page by following the link labeled &ldquo;Consigned to Vault.&rdquo;</p>
 
       <Grid container spacing={3} style={{ marginBottom: "30px" }}>
         <Grid item xs={12} sm={12} md={3} lg={3} key={1}>
