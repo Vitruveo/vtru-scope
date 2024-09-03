@@ -20,7 +20,7 @@ import { ethers } from "ethers";
 
 const PER_PAGE = 24;
 
-export default function Nfts() {
+export default function Artwork() {
   const [account, setAccount] = useState(null);
   const [nfts, setNfts] = useState([]);
   const [order, setOrder] = useState("mintNewToOld");
@@ -45,14 +45,6 @@ export default function Nfts() {
 
   useEffect(() => {
     async function getTokens(connectedOwner) {
-      // connectedOwner = '0xd07D220d7e43eCa35973760F8951c79dEebe0dcc';
-      // connectedOwner = "0xABBA32cF845256A4284cdbA91D82C96CbB13dc59";
-      // connectedOwner = '0xC0ee5bb36aF2831baaE1d31f358ccA46dAa6a4e8';
-      // connectedOwner = '0xaD78De2EFaAb615956f7c4Cb26ADeB108199F86a';
-
-      // connectedOwner = "0x1e8F9510e9A599204Db4dA3f352a7e73111f050C";
-
-      // const assetUrl = `https://studio-api.vtru.dev/assets/scope/nft/${connectedOwner}`;
       const assetUrl = `https://studio-api.vitruveo.xyz/assets/scope/nft/${connectedOwner}?sort=${order}`;
 
       try {
@@ -146,4 +138,4 @@ export default function Nfts() {
   );
 }
 
-Nfts.layout = "Blank";
+Artwork.layout = "Blank";

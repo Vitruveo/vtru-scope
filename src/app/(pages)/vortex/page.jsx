@@ -57,9 +57,6 @@ export default function Nfts() {
   
   useEffect(() => {
     async function getTokens(connectedOwner) {
-//     connectedOwner = '0xd07D220d7e43eCa35973760F8951c79dEebe0dcc';
- //    connectedOwner = '0xABBA32cF845256A4284cdbA91D82C96CbB13dc59';
-//     connectedOwner = '0xC0ee5bb36aF2831baaE1d31f358ccA46dAa6a4e8';
      if (connectedOwner !== null && provider !== null) {
 
         let tokens = await readContract({

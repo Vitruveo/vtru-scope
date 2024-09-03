@@ -47,6 +47,16 @@ These are the release notes:
               </Typography>
             </FormLabel>
             <ChildCard>
+                  <Typography variant="h6">v0.8.0</Typography>
+
+                  <Typography variant="body1" color="textSecondary">
+                    <ul>
+                      <li>Added Creator Vault FAQer</li>
+                    </ul>
+                  </Typography>
+            </ChildCard>
+
+            <ChildCard>
                   <Typography variant="h6">v0.7.9</Typography>
 
                   <Typography variant="body1" color="textSecondary">

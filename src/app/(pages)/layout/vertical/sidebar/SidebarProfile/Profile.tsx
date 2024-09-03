@@ -25,7 +25,7 @@ export const Profile = () => {
         <>
 
           <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center"}} px={0}>
-            <Typography>v0.7.9</Typography>
+            <Typography>v0.8.0</Typography>
             <img src="/images/logo.png" style={{marginLeft: '10px', width: '120px'}} />
           </Box>
         </>

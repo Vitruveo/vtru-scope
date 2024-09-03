@@ -3,8 +3,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import Breadcrumb from '@/app/(pages)/layout/shared/breadcrumb/Breadcrumb';
 import PageContainer from '@/app/(pages)/components/container/PageContainer';
-
-import BlankCard from '@/app/(pages)/components/shared/BlankCard';
 import {
   CardContent,
   Grid,

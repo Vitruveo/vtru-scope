@@ -15,58 +15,18 @@ interface MenuitemsType {
   external?: boolean;
 }
 import {
-  IconAward,
   IconEngine,
-  IconBoxMultiple,
-  IconPoint,
   IconScript,
   IconNotes,
-  IconTools,
-  IconCalendar,
-  IconMail,
   IconTicket,
-  IconEdit,
-  IconGitMerge,
-  IconCurrencyDollar,
   IconApps,
-  IconFileDescription,
-  IconFileDots,
-  IconFiles,
-  IconBan,
-  IconStar,
-  IconPalette,
-  IconMoodSmile,
-  IconBorderAll,
-  IconBorderHorizontal,
-  IconBorderInner,
-  IconBorderVertical,
-  IconBorderTop,
-  IconUserCircle,
   IconPackage,
-  IconMessage2,
-  IconBasket,
-  IconChartLine,
-  IconChartArcs,
-  IconChartCandle,
-  IconChartArea,
-  IconChartDots,
-  IconChartDonut3,
-  IconChartRadar,
-  IconLogin,
-  IconUserPlus,
-  IconRotate,
   IconBox,
-  IconShoppingCart,
   IconAperture,
   IconClockDollar,
-  IconLayout,
-  IconSettings,
   IconHelp,
-  IconZoomCode,
-  IconBoxAlignBottom,
-  IconBoxAlignLeft,
-  IconBorderStyle2,
-  IconAppWindow,
+  IconBrush,
+  IconCircleKey,
 } from "@tabler/icons-react";
 
 const Menuitems: MenuitemsType[] = [
@@ -96,7 +56,7 @@ const Menuitems: MenuitemsType[] = [
       {
         id: uniqueId(),
         title: "Artwork",
-        icon: IconStar,
+        icon: IconBrush,
         href: "/artwork"
       },
       {
@@ -131,6 +91,26 @@ const Menuitems: MenuitemsType[] = [
         icon: IconClockDollar,
         href: "/stake"
       }
+    ]
+  },
+  {
+    id:uniqueId(),
+    title: "FAQers",
+    icon: IconPackage,
+    children: [
+      // {
+      //   id: uniqueId(),
+      //   title: "General",
+      //   icon: IconHelp,
+      //   href: "/faqers/general"
+      // },
+      {
+        id: uniqueId(),
+        title: "Vault",
+        icon: IconCircleKey,
+        href: "/faqers/vault"
+      }
+
     ]
   },
   {
