@@ -15,6 +15,9 @@ import Breadcrumb from "@/app/(pages)/layout/shared/breadcrumb/Breadcrumb";
 import PageContainer from "@/app/(pages)/components/container/PageContainer";
 import VtruNFTCard from "@/app/(pages)/components/widgets/cards/VtruNFTCard";
 
+import { readContract } from "@wagmi/core";
+import vaultConfig from "@/app/config/vault-config.json";
+
 import { useAccount } from "wagmi";
 import { ethers } from "ethers";
 
@@ -23,7 +26,7 @@ const PER_PAGE = 24;
 export default function Artwork() {
   const [account, setAccount] = useState(null);
   const [nfts, setNfts] = useState([]);
-  const [order, setOrder] = useState("mintNewToOld");
+  // const [order, setOrder] = useState("mintNewToOld");
   const [currentPage, setCurrentPage] = useState(1);
 
   const [provider, setProvider] = useState(null);
@@ -45,21 +48,43 @@ export default function Artwork() {
 
   useEffect(() => {
     async function getTokens(connectedOwner) {
-      const assetUrl = `https://studio-api.vitruveo.xyz/assets/scope/nft/${connectedOwner}?sort=${order}`;
+      if (connectedOwner !== null && provider !== null) {
+        let tokens = await readContract({
+          address: vaultConfig.licenseRegistry[network],
+          abi: vaultConfig.licenseRegistry.abi,
+          functionName: "getTokens",
+          args: [connectedOwner],
+        });
 
-      try {
-        const resp = await fetch(assetUrl);
-        const json = await resp.json();
+        await Promise.all(
+          tokens.reverse().map(async (token, index) => {
+            let tokenURI = await readContract({
+              address: token.vault,
+              abi: vaultConfig.creatorVault.abi,
+              functionName: "tokenURI",
+              args: [token.tokenId],
+            });
 
-        setNfts(json);
-      } catch (error) {
-        console.log("Error fetching NFTs: ", error);
-        // do nothing
+            const frags = tokenURI.split("/");
+            const assetKey = frags[frags.length - 1];
+            const assetUrl = `https://studio-api.vitruveo.xyz/assets/scope/${assetKey}`;
+
+            const resp = await fetch(assetUrl);
+            const json = await resp.json();
+            // console.log(assetKey, assetUrl, json);
+            json.key = `X${index}`;
+
+            setNfts((nfts) => [...nfts, json]);
+          })
+        );
+      } else {
+        setNfts((arr) => []);
       }
     }
 
     if (account) getTokens(account);
-  }, [account, network, provider, order]);
+    else setNfts((arr) => []);
+  }, [account, network, provider]);
 
   const breadcrumb = [
     {
@@ -90,7 +115,7 @@ export default function Artwork() {
       description="View all account digital assets"
     >
       <Breadcrumb title="VTRU Suite Digital Assets" items={breadcrumb} />
-      <FormControl sx={{ minWidth: "240px", marginBottom: 2 }}>
+      {/* <FormControl sx={{ minWidth: "240px", marginBottom: 2 }}>
         <InputLabel>Order</InputLabel>
         <Select
           label="Order"
@@ -104,7 +129,7 @@ export default function Artwork() {
           <MenuItem value="titleAZ">Title – A-Z</MenuItem>
           <MenuItem value="titleZA">Title – Z-A</MenuItem>
         </Select>
-      </FormControl>
+      </FormControl> */}
       {nfts.length == 0 && account == null ? (
         <Typography variant="h4" sx={{ mx: 2 }}>
           Connect account to view digital assets.
