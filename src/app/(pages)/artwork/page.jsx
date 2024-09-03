@@ -57,9 +57,7 @@ export default function Artwork() {
         });
 
         await Promise.all(
-          tokens.map(async (item, index) => {
-            const token = tokens[tokens.length - 1 - index];
-
+          tokens.reverse().map(async (token, index) => {
             let tokenURI = await readContract({
               address: token.vault,
               abi: vaultConfig.creatorVault.abi,
