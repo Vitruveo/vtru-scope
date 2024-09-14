@@ -531,8 +531,6 @@ export default function Stake () {
           </Box>
         </Grid>
 
-
-
     </Grid>
   <Grid container spacing={3} style={{marginTop: '10px'}}>
       <Grid item xs={12} lg={4}>
