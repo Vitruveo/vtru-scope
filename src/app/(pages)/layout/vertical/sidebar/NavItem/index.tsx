@@ -59,14 +59,14 @@ export default function NavItem  ({ item, level, pathDirect, hideMenu, onClick }
       level > 1 && pathDirect === item?.href
         ? `${theme.palette.primary.main}!important`
         : theme.palette.text.secondary,
-    paddingLeft: hideMenu ? '10px' : level > 2 ? `${level * 15}px` : '10px',
+    paddingLeft: hideMenu ? '10px' : level > 1 ? `${level * 15}px` : '10px',
     '&:hover': {
       backgroundColor: theme.palette.primary.light,
       color: theme.palette.primary.main,
     },
     '&.Mui-selected': {
       color: 'white',
-      backgroundColor: theme.palette.primary.main,
+      backgroundColor: theme.palette.primary.dark,
       '&:hover': {
         backgroundColor: theme.palette.primary.main,
         color: 'white',

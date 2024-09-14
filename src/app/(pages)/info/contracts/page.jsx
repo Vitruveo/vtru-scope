@@ -20,6 +20,9 @@ export default function Contracts () {
       title: 'Home',
     },
     {
+      title: "Info"
+    },
+    {
       title: 'Contracts',
     },
   ];
@@ -232,6 +235,35 @@ export default function Contracts () {
                 </Grid>
 
             </Grid>
+
+
+            <Grid container spacing={3} style={{marginBottom: '30px'}}>
+
+<Grid item xs={12} sm={12} md={6} lg={6} key={2}>
+      <Box bgcolor={"grey.100"} textAlign="center">
+          <CardContent px={1}>                  
+                  <Typography
+                    color={"info.main"}
+                    variant="subtitle1"
+                    fontWeight={600}
+                    style={titleStyle}
+                  >
+                    VEO
+                  </Typography>
+                  <Typography
+                    color={"info.main"}
+                    fontWeight={600}
+                  >
+                    <p>Vitruveo Ecosystem Ownership (VEO) Bundle</p>
+                    <a style={linkStyle} href="https://explorer.vitruveo.xyz/address/0x4D5B24179c656A88087eF4369887fD58AB5e8EF3" target="_new">0x4D5B24179c656A88087eF4369887fD58AB5e8EF3</a>                            
+                  </Typography>
+            </CardContent>
+        </Box>
+      </Grid>
+
+
+
+  </Grid>
     </PageContainer>
   ); 
 };

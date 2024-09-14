@@ -23,8 +23,8 @@ import {
   IconPackage,
   IconBox,
   IconAperture,
-  IconClockDollar,
-  IconHelp,
+  IconClockStar,
+  IconClockStop,
   IconBrush,
   IconCircleKey,
 } from "@tabler/icons-react";
@@ -51,31 +51,31 @@ const Menuitems: MenuitemsType[] = [
         id: uniqueId(),
         title: "Core",
         icon: IconTicket,
-        href: "/core"
+        href: "/assets/core"
       },
       {
         id: uniqueId(),
         title: "Artwork",
         icon: IconBrush,
-        href: "/artwork"
+        href: "/assets/artwork"
       },
       {
         id: uniqueId(),
         title: "VIBE",
         icon: IconEngine,
-        href: "/vibe"
+        href: "/assets/vibe"
       },
       {
         id: uniqueId(),
         title: "Vortex",
         icon: IconAperture,
-        href: "/vortex"
+        href: "/assets/vortex"
       },
       {
         id: uniqueId(),
         title: "Booster",
         icon: IconBox,
-        href: "/booster"
+        href: "/assets/booster"
       },
 
     ]
@@ -85,11 +85,17 @@ const Menuitems: MenuitemsType[] = [
     title: "Staking",
     icon: IconPackage,
     children: [
+      // {
+      //   id: uniqueId(),
+      //   title: "VTRU",
+      //   icon: IconClockStar,
+      //   href: "/staking/vtru"
+      // },
       {
         id: uniqueId(),
         title: "VIBE",
-        icon: IconClockDollar,
-        href: "/stake"
+        icon: IconClockStop,
+        href: "/staking/vibe"
       }
     ]
   },
@@ -115,20 +121,20 @@ const Menuitems: MenuitemsType[] = [
   },
   {
     id:uniqueId(),
-    title: "Information",
+    title: "Info",
     icon: IconPackage,
     children: [
       {
         id: uniqueId(),
         title: "Smart Contracts",
         icon: IconScript,
-        href: "/contracts"
+        href: "/info/contracts"
       },
       {
         id: uniqueId(),
         title: "About",
         icon: IconNotes,
-        href: "/about"
+        href: "/info/about"
       }
     ]
   }

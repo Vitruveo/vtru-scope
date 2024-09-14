@@ -17,6 +17,9 @@ export default function CoreNft () {
       title: 'Home',
     },
     {
+      title: "Info"
+    },
+    {
       title: 'About',
     },
   ];

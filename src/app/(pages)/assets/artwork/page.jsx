@@ -92,6 +92,9 @@ export default function Artwork() {
       title: "Home",
     },
     {
+      title: "Digital Assets"
+    },
+    {
       title: "Artworks",
     },
   ];

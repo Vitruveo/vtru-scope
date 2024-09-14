@@ -203,6 +203,9 @@ export default function Nfts() {
       title: "Home",
     },
     {
+      title: "Digital Assets"
+    },
+    {
       title: "VIBE",
     },
   ];

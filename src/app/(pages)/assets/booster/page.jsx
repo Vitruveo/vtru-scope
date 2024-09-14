@@ -11,6 +11,7 @@ import BoosterNFTCard from "@/app/(pages)/components/widgets/cards/BoosterNFTCar
 import { useSearchParams } from "next/navigation";
 
 import { readContract, writeContract  } from "@wagmi/core";
+
 import * as testConfig from "@/app/config/boosters_test.json";
 import * as prodConfig from "@/app/config/boosters_prod.json";
 import * as testCoreConfig  from "@/app/config/corevest_test.json";
@@ -192,6 +193,9 @@ export default function Boosters() {
     {
       to: "/",
       title: "Home",
+    },
+    {
+      title: "Digital Assets"
     },
     {
       title: "Boosters",

@@ -166,6 +166,9 @@ export default function CoreNft () {
       title: 'Home',
     },
     {
+      title: "Digital Assets"
+    },
+    {
       title: 'Core',
     },
   ];

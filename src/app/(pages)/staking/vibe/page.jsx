@@ -260,7 +260,10 @@ export default function Stake () {
       title: 'Home',
     },
     {
-      title: 'Stake',
+      title: "Staking"
+    },
+    {
+      title: 'VIBE',
     },
   ];
 
@@ -425,147 +428,147 @@ export default function Stake () {
 
 
 
-            </Grid>
+      </Grid>
 
 
 
-            <Grid container spacing={3}>
-                <Grid item xs={12} sm={12} md={3} lg={3} key={1}>
-                  <Box bgcolor={"primary.main"} textAlign="center">
-                    <CardContent px={1}>
-                  
-                            <Typography
-                              color={"grey.900"}
-                              variant="subtitle1"
-                              fontWeight={600}
-                            >
-                              VTRU Stake Request
-                            </Typography>
-                            <Typography
-                              color={"grey.900"}
-                              variant="h1"
-                              fontWeight={600}
-                            >
-                              {staked}                            
-                            </Typography>
-                      </CardContent>
-                  </Box>
-                </Grid>
+    <Grid container spacing={3}>
+        <Grid item xs={12} sm={12} md={3} lg={3} key={1}>
+          <Box bgcolor={"primary.main"} textAlign="center">
+            <CardContent px={1}>
+          
+                    <Typography
+                      color={"grey.900"}
+                      variant="subtitle1"
+                      fontWeight={600}
+                    >
+                      VTRU Stake Request
+                    </Typography>
+                    <Typography
+                      color={"grey.900"}
+                      variant="h1"
+                      fontWeight={600}
+                    >
+                      {staked}                            
+                    </Typography>
+              </CardContent>
+          </Box>
+        </Grid>
 
-                <Grid item xs={12} sm={12} md={3} lg={3} key={2}>
-                  <Box bgcolor={"primary.main"} textAlign="center">
-                    <CardContent px={1}>
-                  
-                            <Typography
-                              color={"grey.900"}
-                              variant="subtitle1"
-                              fontWeight={600}
-                            >
-                              VTRU Swap Request
-                            </Typography>
-                            <Typography
-                              color={"grey.900"}
-                              variant="h1"
-                              fontWeight={600}
-                            >
-                              {swapped}                            
-                            </Typography>
-                      </CardContent>
-                  </Box>
-                </Grid>
+        <Grid item xs={12} sm={12} md={3} lg={3} key={2}>
+          <Box bgcolor={"primary.main"} textAlign="center">
+            <CardContent px={1}>
+          
+                    <Typography
+                      color={"grey.900"}
+                      variant="subtitle1"
+                      fontWeight={600}
+                    >
+                      VTRU Swap Request
+                    </Typography>
+                    <Typography
+                      color={"grey.900"}
+                      variant="h1"
+                      fontWeight={600}
+                    >
+                      {swapped}                            
+                    </Typography>
+              </CardContent>
+          </Box>
+        </Grid>
 
-                <Grid item xs={12} sm={12} md={3} lg={3} key={3}>
-                  <Box bgcolor={"success.main"} textAlign="center">
-                    <CardContent px={1}>
-                  
-                            <Typography
-                              color={"grey.900"}
-                              variant="subtitle1"
-                              fontWeight={600}
-                            >
-                              VIBE Share Request
-                            </Typography>
-                            <Typography
-                              color={"grey.900"}
-                              variant="h1"
-                              fontWeight={600}
-                            >
-                              {totalVibe}                            
-                            </Typography>
-                      </CardContent>
-                  </Box>
-                </Grid>
+        <Grid item xs={12} sm={12} md={3} lg={3} key={3}>
+          <Box bgcolor={"success.main"} textAlign="center">
+            <CardContent px={1}>
+          
+                    <Typography
+                      color={"grey.900"}
+                      variant="subtitle1"
+                      fontWeight={600}
+                    >
+                      VIBE Share Request
+                    </Typography>
+                    <Typography
+                      color={"grey.900"}
+                      variant="h1"
+                      fontWeight={600}
+                    >
+                      {totalVibe}                            
+                    </Typography>
+              </CardContent>
+          </Box>
+        </Grid>
 
-                <Grid item xs={12} sm={12} md={3} lg={3} key={4}>
-                  <Box textAlign="center">
-                    <CardContent px={1}>
-                    <Button color="primary" size="large" disabled={ !buttonEnabled } style={{marginTop: '10px'}} fullWidth onClick={ () => { buttonState(false); handleStake(); } }>
-                      { buttonMessage }
-                    </Button>
+        <Grid item xs={12} sm={12} md={3} lg={3} key={4}>
+          <Box textAlign="center">
+            <CardContent px={1}>
+            <Button color="primary" size="large" disabled={ !buttonEnabled } style={{marginTop: '10px'}} fullWidth onClick={ () => { buttonState(false); handleStake(); } }>
+              { buttonMessage }
+            </Button>
 {/*                   
-                            <Typography
-                              color={"primary.main"} 
-                              variant="subtitle1"
-                              fontWeight={600}
-                            >
-                              {blockNumber}
-                            </Typography>
-                            <Typography
-                              color={"white"}
-                              variant="h1"
-                              fontWeight={600}
-                            >
-                              {blocksRemaining}                             
-                            </Typography>
-                            <Typography
-                              color={"primary.main"} 
-                              variant="subtitle1"
-                              fontWeight={600}
-                            >
-                              Blocks Remaining
-                            </Typography> */}
-                      </CardContent>
-                  </Box>
-                </Grid>
+                    <Typography
+                      color={"primary.main"} 
+                      variant="subtitle1"
+                      fontWeight={600}
+                    >
+                      {blockNumber}
+                    </Typography>
+                    <Typography
+                      color={"white"}
+                      variant="h1"
+                      fontWeight={600}
+                    >
+                      {blocksRemaining}                             
+                    </Typography>
+                    <Typography
+                      color={"primary.main"} 
+                      variant="subtitle1"
+                      fontWeight={600}
+                    >
+                      Blocks Remaining
+                    </Typography> */}
+              </CardContent>
+          </Box>
+        </Grid>
 
 
 
-            </Grid>
-          <Grid container spacing={3} style={{marginTop: '10px'}}>
-              <Grid item xs={12} lg={4}>
-                <BlankCard>
-                    <div style={{padding: '20px', paddingTop: 0}}>
-                      <h1 style={{textAlign: 'center'}}>GENERAL</h1><h1 style={{textAlign: 'center'}}>EQUITY POOL</h1>
-                      <h2 style={{textAlign: 'center', fontWeight: 100, fontSize: '16px', marginBottom: '40px'}}>Eligible</h2>
-                      <h2><span style={mainHeadingStyle}>Balance:</span> <span style={mainNumberStyle}>{Number(parseInt(unlockedBalance)).toFixed(0)}</span></h2>
-                      <h2><span style={mainHeadingStyle}>Allocated:</span> <span style={mainNumberStyle}>{Number(parseInt(unlockedAllocated)).toFixed(0)}</span></h2>
-                      <SwapInputForm locked={false} full={true} balance={parseInt(unlockedBalance)} stakeRatio={50} swapRatio={15} onChange={changeHandler}  />
-                      </div>
-                  </BlankCard>
-              </Grid>        
-              <Grid item xs={12} lg={4}>
-                <BlankCard>
-                  <div style={{padding: '20px', paddingTop: 0}}>
-                  <h1 style={{textAlign: 'center'}}>CREATOR</h1><h1 style={{textAlign: 'center'}}>EQUITY POOL</h1>
-                    <h2 style={{textAlign: 'center', fontWeight: 100, fontSize: '16px', marginBottom: '40px'}}>Ineligible</h2>
-                    <h2><span style={mainHeadingStyle}>Balance:</span> <span style={mainNumberStyle}>{Number(parseInt(unlockedBalance)).toFixed(0)}</span></h2>
-                    <h2><span style={mainHeadingStyle}>Allocated:</span> <span style={mainNumberStyle}>{Number(parseInt(unlockedAllocated)).toFixed(0)}</span></h2>
-                    <SwapInputForm locked={true} full={true} balance={parseInt(unlockedBalance)} stakeRatio={150} swapRatio={20} onChange={changeHandler} />
-                  </div>
-                </BlankCard>
-              </Grid>
-              <Grid item xs={12} lg={4}>
-                <BlankCard>
-                  <div style={{padding: '20px', paddingTop: 0}}>
-                  <h1 style={{textAlign: 'center'}}>STAKED</h1><h1 style={{textAlign: 'center'}}>VTRU</h1>
-                    <h2 style={{textAlign: 'center', fontWeight: 100, fontSize: '16px', marginBottom: '40px'}}>Stake: 150/VIBE, Swap: 20/VIBE</h2>
-                    <h2><span style={mainHeadingStyle}>Balance:</span> <span style={mainNumberStyle}>{Number(parseInt(airdropBalance)).toFixed(0)}</span></h2>
-                    <h2><span style={mainHeadingStyle}>Allocated:</span> <span style={mainNumberStyle}>{Number(parseInt(airdropAllocated)).toFixed(0)}</span></h2>
-                    <StakeInputForm locked={true} full={false} balance={parseInt(airdropBalance)} stakeRatio={150} swapRatio={20} onChange={changeHandler} />
-                  </div>
-                </BlankCard>
-              </Grid>
-            </Grid>
+    </Grid>
+  <Grid container spacing={3} style={{marginTop: '10px'}}>
+      <Grid item xs={12} lg={4}>
+        <BlankCard>
+            <div style={{padding: '20px', paddingTop: 0}}>
+              <h1 style={{textAlign: 'center'}}>GENERAL</h1><h1 style={{textAlign: 'center'}}>EQUITY POOL</h1>
+              <h2 style={{textAlign: 'center', fontWeight: 100, fontSize: '16px', marginBottom: '40px'}}>Eligible</h2>
+              <h2><span style={mainHeadingStyle}>Balance:</span> <span style={mainNumberStyle}>{Number(parseInt(unlockedBalance)).toFixed(0)}</span></h2>
+              <h2><span style={mainHeadingStyle}>Allocated:</span> <span style={mainNumberStyle}>{Number(parseInt(unlockedAllocated)).toFixed(0)}</span></h2>
+              <SwapInputForm locked={false} full={true} balance={parseInt(unlockedBalance)} stakeRatio={50} swapRatio={15} onChange={changeHandler}  />
+              </div>
+          </BlankCard>
+      </Grid>        
+      <Grid item xs={12} lg={4}>
+        <BlankCard>
+          <div style={{padding: '20px', paddingTop: 0}}>
+          <h1 style={{textAlign: 'center'}}>CREATOR</h1><h1 style={{textAlign: 'center'}}>EQUITY POOL</h1>
+            <h2 style={{textAlign: 'center', fontWeight: 100, fontSize: '16px', marginBottom: '40px'}}>Ineligible</h2>
+            <h2><span style={mainHeadingStyle}>Balance:</span> <span style={mainNumberStyle}>{Number(parseInt(unlockedBalance)).toFixed(0)}</span></h2>
+            <h2><span style={mainHeadingStyle}>Allocated:</span> <span style={mainNumberStyle}>{Number(parseInt(unlockedAllocated)).toFixed(0)}</span></h2>
+            <SwapInputForm locked={true} full={true} balance={parseInt(unlockedBalance)} stakeRatio={150} swapRatio={20} onChange={changeHandler} />
+          </div>
+        </BlankCard>
+      </Grid>
+      <Grid item xs={12} lg={4}>
+        <BlankCard>
+          <div style={{padding: '20px', paddingTop: 0}}>
+          <h1 style={{textAlign: 'center'}}>STAKED</h1><h1 style={{textAlign: 'center'}}>VTRU</h1>
+            <h2 style={{textAlign: 'center', fontWeight: 100, fontSize: '16px', marginBottom: '40px'}}>Stake: 150/VIBE, Swap: 20/VIBE</h2>
+            <h2><span style={mainHeadingStyle}>Balance:</span> <span style={mainNumberStyle}>{Number(parseInt(airdropBalance)).toFixed(0)}</span></h2>
+            <h2><span style={mainHeadingStyle}>Allocated:</span> <span style={mainNumberStyle}>{Number(parseInt(airdropAllocated)).toFixed(0)}</span></h2>
+            <StakeInputForm locked={true} full={false} balance={parseInt(airdropBalance)} stakeRatio={150} swapRatio={20} onChange={changeHandler} />
+          </div>
+        </BlankCard>
+      </Grid>
+    </Grid>
     </PageContainer>
   ); 
 };
