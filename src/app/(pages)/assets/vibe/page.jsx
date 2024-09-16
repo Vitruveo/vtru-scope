@@ -295,7 +295,7 @@ export default function Nfts() {
         )
       ) : (
         <>
-        <h1 style={{fontSize: '36px', color: 'red'}}>VIBE is currently under maintenance and will be back shortly</h1>
+        <h1 style={{fontSize: '30px', color: 'red'}}>VIBE is currently under maintenance and will be back shortly</h1>
          <Grid container spacing={1} style={{marginBottom: '30px'}} direction="column" alignItems="center" justifyContent="center">
            <Grid item xs={12} sm={12} md={12} lg={12}>
            <p>VIBE Contract Total Revenue in $VTRU divided equally between 1 million VIBE shares</p>
