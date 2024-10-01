@@ -60,7 +60,7 @@ export default function Stake () {
 
   const [blockNumber, setBlockNumber] = useState(0);
 
-  const [buttonMessage, setButtonMessage] = useState('GO');
+  const [buttonMessage, setButtonMessage] = useState('UNSTAKE');
   const [buttonEnabled, setButtonEnabled] = useState(false);
 
   const [stakes, setStakes] = useState([]);
@@ -70,7 +70,8 @@ export default function Stake () {
     reward: '',
     rebase: '',
     all: '',
-    unstakeable: ''
+    unstakeable: '',
+    enabled: false
   });
 
   const [stats, setStats] = useState({
@@ -240,7 +241,8 @@ export default function Stake () {
             reward:  Math.trunc(Number(total.reward/DIVISOR)).toLocaleString(),
             rebase:  Math.trunc(Number(total.rebase/DIVISOR)).toLocaleString(),
             all:  Math.trunc(Number(total.all/DIVISOR)).toLocaleString(),
-            unstakeable:  Math.trunc(Number(total.unstakeable/DIVISOR)).toLocaleString()
+            unstakeable:  Math.trunc(Number(total.unstakeable/DIVISOR)).toLocaleString(),
+            enabled: total.unstakeable > 0
           })
         } catch(e) {
           console.log('getStakes Error', e)
@@ -530,7 +532,7 @@ export default function Stake () {
         </Grid>
 
         <Grid item xs={12} sm={12} md={3} lg={3} key={3}>
-          <Box bgcolor={Number(userTotal.unstakeable) > 0 ? "success.main" : "grey.700"} textAlign="center">
+          <Box bgcolor={userTotal.enabled === true ? "success.main" : "grey.700"} textAlign="center">
             <CardContent px={1}>
           
                     <Typography
@@ -538,7 +540,7 @@ export default function Stake () {
                       variant="subtitle1"
                       fontWeight={600}
                     >
-                      Ready to Unstake
+                      Available to Unstake
                     </Typography>
                     <Typography
                       color={"grey.900"}
