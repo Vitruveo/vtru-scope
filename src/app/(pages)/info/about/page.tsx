@@ -25,16 +25,6 @@ export default function CoreNft () {
   ];
 
 
-  const releaseNotes = [
-    {
-      version: "v0.5 Beta (March 3, 2024)",
-      notes: 
-`
-These are the release notes:
-
-`
-    }
-  ]
   return (
     <PageContainer title="About" description="Release information about VTRU Scope">
       <Breadcrumb title="About" items={breadcrumb} />
@@ -49,12 +39,23 @@ These are the release notes:
                 Release Notes
               </Typography>
             </FormLabel>
+
+            <ChildCard>
+                  <Typography variant="h6">v0.8.1</Typography>
+
+                  <Typography variant="body1" color="textSecondary">
+                    <ul>
+                      <li>VTRU Staking</li>
+                    </ul>
+                  </Typography>
+            </ChildCard>
+
             <ChildCard>
                   <Typography variant="h6">v0.8.0</Typography>
 
                   <Typography variant="body1" color="textSecondary">
                     <ul>
-                      <li>Added Creator Vault FAQer</li>
+                      <li>Creator Vault FAQer</li>
                     </ul>
                   </Typography>
             </ChildCard>
