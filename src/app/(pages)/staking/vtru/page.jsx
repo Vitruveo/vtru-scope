@@ -40,7 +40,7 @@ export default function Stake () {
   const CURRENT_REBASE = BigInt(100329124);
 
   const columns = [
-    { id: 'stake', label: 'Stake', minWidth: 100 },
+    { id: 'stake', label: 'VTRU Staked', minWidth: 100 },
     { id: 'term', label: 'Term/APR', minWidth: 100 },
     { id: 'reward', label: 'Reward', minWidth: 100 },
     { id: 'rebase', label: 'Rebase', minWidth: 100 },
@@ -234,7 +234,6 @@ export default function Stake () {
             } 
             return Number(a.endBlock) - Number(b.endBlock);       
           });
-
           setStakes(tmpStakes);
           setUserTotal({
             stake: Math.trunc(Number(total.stake/DIVISOR)).toLocaleString(),
@@ -243,7 +242,8 @@ export default function Stake () {
             all:  Math.trunc(Number(total.all/DIVISOR)).toLocaleString(),
             unstakeable:  Math.trunc(Number(total.unstakeable/DIVISOR)).toLocaleString(),
             enabled: total.unstakeable > 0
-          })
+          });
+          setButtonEnabled(userTotal.enabled);
         } catch(e) {
           console.log('getStakes Error', e)
         }
@@ -286,28 +286,19 @@ export default function Stake () {
 
   }, [contract])
 
-  async function handleStake() {
+  async function handleUnstake() {
     if (processing) return;
     processing = true;
 
-    let total = 0;
-    for(let t=0;t<vtru.airdrop.length;t++) {
-      total += vtru.airdrop[t];
-    }
-    if (total > 0) {
-      const inputs = [
-        account,
-        vtru.airdrop
-      ]
       // Send transaction
       try {
           await writeContract({
-              address: vaultConfig.core[network],
-              abi: vaultConfig.core.abi,
-              functionName: "stake",
-              gas: 2_500_000,
-              args: inputs
-              });
+            address: config[network].CoreStake,
+            abi: config.abi.CoreStake,
+            functionName: "unstake",
+            args: [],
+            gas: 2_500_000
+          });
           setTimeout(() => {
               window.location.reload()
           }, 6000)
@@ -317,7 +308,6 @@ export default function Stake () {
           processing = false;
       
       } 
-    }
   }
 
   const breadcrumb = [
@@ -556,7 +546,7 @@ export default function Stake () {
         <Grid item xs={12} sm={12} md={3} lg={3} key={4}>
           <Box textAlign="center">
             <CardContent px={1}>
-              <Button color="primary" size="large" disabled={ !buttonEnabled } style={{marginTop: '10px'}} fullWidth onClick={ () => { buttonState(false); handleStake(); } }>
+              <Button color="primary" size="large" disabled={ !buttonEnabled } style={{marginTop: '10px'}} fullWidth onClick={ () => { buttonState(false); handleUnstake(); } }>
                 { buttonMessage }
               </Button>
             </CardContent>

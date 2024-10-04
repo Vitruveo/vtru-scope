@@ -85,18 +85,18 @@ const Menuitems: MenuitemsType[] = [
     title: "Staking",
     icon: IconPackage,
     children: [
-      // {
-      //   id: uniqueId(),
-      //   title: "VTRU",
-      //   icon: IconClockStar,
-      //   href: "/staking/vtru"
-      // },
       {
         id: uniqueId(),
-        title: "VIBE",
-        icon: IconClockStop,
-        href: "/staking/vibe"
-      }
+        title: "VTRU",
+        icon: IconClockStar,
+        href: "/staking/vtru"
+      },
+      // {
+      //   id: uniqueId(),
+      //   title: "VIBE",
+      //   icon: IconClockStop,
+      //   href: "/staking/vibe"
+      // }
     ]
   },
   {
