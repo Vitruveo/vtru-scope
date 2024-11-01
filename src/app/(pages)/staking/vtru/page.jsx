@@ -3,12 +3,14 @@
 import React, { useEffect, useState, useRef } from "react";
 import Breadcrumb from '@/app/(pages)/layout/shared/breadcrumb/Breadcrumb';
 import PageContainer from '@/app/(pages)/components/container/PageContainer';
+import CustomSelect from '@/app/(pages)/components/forms/theme-elements/CustomSelect';
 
 import {
   Typography,
   Box,
   Avatar,
   LinearProgress,
+  MenuItem,
   IconButton,
   Table,
   TableBody,
@@ -16,6 +18,7 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  Slider,
   CardContent,
   Grid,
   Button
@@ -63,6 +66,9 @@ export default function Stake () {
   const [buttonMessage, setButtonMessage] = useState('UNSTAKE');
   const [buttonEnabled, setButtonEnabled] = useState(false);
 
+  const [button2Message, setButton2Message] = useState('STAKE');
+  const [button2Enabled, setButton2Enabled] = useState(false);
+
   const [stakes, setStakes] = useState([]);
   const [stakeTerms, setStakeTerms] = useState({});
   const [userTotal, setUserTotal] = useState({
@@ -82,6 +88,7 @@ export default function Stake () {
   })
   const [loadMessage, setLoadMessage] = useState('Scanning account for staking information...');
 
+  const [unlockedBalance, setUnlockedBalance] = useState(0);
   
   useEffect(() => {
       function updateBlock() {
@@ -124,10 +131,56 @@ export default function Stake () {
     },
   });
 
+          
+  const termList = [
+    {
+      value: '6',
+      label: '1Y / 15.00%',
+    },
+    {
+      value: '7',
+      label: '2Y / 22.50%',
+    },
+    {
+      value: '8',
+      label: '3Y / 30.00%',
+    },
+    {
+      value: '9',
+      label: '4Y / 45.00%',
+    },
+    {
+      value: '10',
+      label: '5Y / 60.00%',
+    },
+  ];
+
  const balance = useBalance({
     address: account,
     cacheTime: 15_000,
   });
+
+  useEffect(() => { 
+    setUnlockedBalance(Number(Math.trunc(Number(balance?.data?.value)/Math.pow(10,18))));
+  }, [balance]);
+  const [termsList, setTermsList] = useState([]);
+  const [terms, setTerms] = useState('6');
+
+  const handleTermsChange = (event) => {
+    setTerms(event.target.value);
+  };
+
+  const [stakeAmount, setStakeAmount] = useState(0);
+  const [stakeReward, setStakeReward] = useState(0);
+  const [slider, setSlider] = useState(0);
+
+  const handleSliderChange = (event) => {
+    const percentage = event.target.value;
+    setSlider(percentage);
+    if (unlockedBalance > 0) {
+      setStakeAmount(Number(Math.trunc((unlockedBalance * percentage)/100)));
+    }
+  };
 
   useEffect(() => {
 
@@ -277,6 +330,7 @@ export default function Stake () {
           }
         }
         setStakeTerms(termInfo);
+
       } catch(e) {
         console.log('getStakeTerms Error', e)
       }
@@ -285,6 +339,33 @@ export default function Stake () {
     getStakeTerms();
 
   }, [contract])
+
+
+  async function handleStake() {
+    if (processing) return;
+    processing = true;
+
+      // Send transaction
+      try {
+          await writeContract({
+            address: config[network].CoreStake,
+            abi: config.abi.CoreStake,
+            functionName: "stake",
+            args: [Number(terms)],
+            gas: 2_500_000,
+            value: BigInt(stakeAmount) * DIVISOR
+          });
+          setTimeout(() => {
+              window.location.reload()
+          }, 6000)
+      
+      } catch(e) {
+          console.log('***************',e);
+          processing = false;
+      
+      } 
+  }
+
 
   async function handleUnstake() {
     if (processing) return;
@@ -374,8 +455,14 @@ export default function Stake () {
     setButtonMessage('Wait...');
   }
 
+  function button2State(enabled) {
+    setButton2Enabled(enabled);
+    setButton2Message('Wait...');
+  }
+
   const mainNumberStyle = {color: '#763EBD', fontFamily: 'Courier', fontSize: '30px', lineHeight: '34px'};
   const mainHeadingStyle = {width: '110px', display: 'inline-block', fontSize: '20px', lineHeight: '24px'};
+  
 
   return (
     <PageContainer title="VTRU Scope" description="Stake VTRU">
@@ -475,6 +562,92 @@ export default function Stake () {
       </Grid>
 
 
+      <Grid container spacing={3}  style={stakes.length == 0 ? {display: 'none'} : {marginBottom: '30px'}}>
+        <Grid item xs={12} sm={12} md={3} lg={3} key={1}>
+          <Box bgcolor={"secondary.main"} textAlign="center">
+            <CardContent px={1}>
+          
+                    <Typography
+                      color={"grey.900"}
+                      variant="subtitle1"
+                      fontWeight={600}
+                    >
+                      Stake
+                    </Typography>
+                    <Typography
+                      color={"grey.900"}
+                      variant="h1"
+                      fontWeight={600}
+                    >
+                       {Number(stakeAmount).toLocaleString()}                         
+                    </Typography>
+              </CardContent>
+          </Box>
+        </Grid>
+
+        <Grid item xs={12} sm={12} md={3} lg={3} key={2}>
+          <Box bgcolor={"secondary.main"} textAlign="center">
+            <CardContent px={1}>
+          
+                    <Typography
+                      color={"grey.900"}
+                      variant="subtitle1"
+                      fontWeight={600}
+                    >
+                      Stake {slider}% of {Math.trunc(Number(unlockedBalance)).toLocaleString()}
+                    </Typography>
+                    <Slider
+                      defaultValue={0}
+                      step={1}
+                      min={0}
+                      max={100}
+                      onChange={handleSliderChange}
+                    />
+              </CardContent>
+          </Box>
+        </Grid>
+
+        <Grid item xs={12} sm={12} md={3} lg={3} key={3}>
+          <Box bgcolor={"secondary.main"} textAlign="center">
+            <CardContent px={1}>
+          
+                    <Typography
+                      color={"grey.900"}
+                      variant="subtitle1"
+                      fontWeight={600}
+                    >
+                      Term/APR
+                    </Typography>
+                    <CustomSelect
+                      value={terms}
+                      onChange={handleTermsChange}
+                      fullWidth
+                      variant="outlined"
+                      sx={{ color: "grey.900"}}
+                    >
+                      {termList.map((option) => (
+                        <MenuItem key={option.value} value={option.value}>
+                          {option.label}
+                        </MenuItem>
+                      ))}
+                    </CustomSelect>
+              </CardContent>
+          </Box>
+        </Grid>
+
+        <Grid item xs={12} sm={12} md={3} lg={3} key={4}>
+          <Box textAlign="center">
+            <CardContent px={1}>
+              <Button color="primary" size="large" disabled={ stakeAmount == 0 } style={{marginTop: '10px'}} fullWidth onClick={ () => { button2State(false); handleStake(); } }>
+                { button2Message }
+              </Button>
+            </CardContent>
+          </Box>
+        </Grid>
+
+
+
+    </Grid>
 
     <Grid container spacing={3}  style={stakes.length == 0 ? {display: 'none'} : {}}>
         <Grid item xs={12} sm={12} md={3} lg={3} key={1}>
@@ -556,6 +729,7 @@ export default function Stake () {
 
 
     </Grid>
+
 
             <TableContainer
               sx={{
