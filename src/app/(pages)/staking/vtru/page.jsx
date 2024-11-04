@@ -602,6 +602,7 @@ export default function Stake () {
                       min={0}
                       max={100}
                       onChange={handleSliderChange}
+                      sx={{color: "grey.900"}}
                     />
               </CardContent>
           </Box>
