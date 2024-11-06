@@ -308,7 +308,7 @@ export default function Nfts() {
             </Grid>
          </Grid>
 
-         <h1 style={{marginTop: '20px', marginBottom: '20px', lineHeight: '40px', color: '#2CFF05'}}>Scope is currently undergoing maintenance and information below may not be accurate. Don't worry, your tokens are safe! Thanks for your patience while we fix this issue.</h1>
+         <h1 style={{marginTop: '20px', marginBottom: '20px', lineHeight: '40px', color: '#2CFF05'}}>Scope is currently undergoing maintenance and information below may not be accurate. Don&apos;t worry, your tokens are safe! Thanks for your patience while we fix this issue.</h1>
 
           <Grid container spacing={1} style={{marginBottom: '30px'}}>
             {tabPanels.map((panel, panelIndex) => (
