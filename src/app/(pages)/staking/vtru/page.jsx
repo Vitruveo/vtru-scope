@@ -170,6 +170,8 @@ export default function Stake () {
     setTerms(event.target.value);
   };
 
+  const [stakeAmountSlider, setStakeAmountSlider] = useState(0);
+  const [stakeAmountInput, setStakeAmountInput] = useState(0);
   const [stakeAmount, setStakeAmount] = useState(0);
   const [stakeReward, setStakeReward] = useState(0);
   const [slider, setSlider] = useState(0);
@@ -178,9 +180,21 @@ export default function Stake () {
     const percentage = event.target.value;
     setSlider(percentage);
     if (unlockedBalance > 0) {
-      setStakeAmount(Number(Math.trunc((unlockedBalance * percentage)/100)));
+      const amount = Number(Math.trunc((unlockedBalance * percentage)/100));
+      setStakeAmountInput(amount);
+      setStakeAmount(amount);
     }
   };
+
+  
+  const handleStakeAmountInputChange = (event) => {
+    const amount = event.target.value;
+    if (amount <= Math.trunc(Number(unlockedBalance))) {
+      setStakeAmountInput(amount);
+      setStakeAmount(amount);  
+      console.log(amount);
+    }
+  }
 
   useEffect(() => {
 
@@ -460,6 +474,7 @@ export default function Stake () {
     setButton2Message('Wait...');
   }
 
+
   const mainNumberStyle = {color: '#763EBD', fontFamily: 'Courier', fontSize: '30px', lineHeight: '34px'};
   const mainHeadingStyle = {width: '110px', display: 'inline-block', fontSize: '20px', lineHeight: '24px'};
   
@@ -564,7 +579,7 @@ export default function Stake () {
 
       <Grid container spacing={3}  style={{marginBottom: '30px'}}>
         <Grid item xs={12} sm={12} md={3} lg={3} key={1}>
-          <Box bgcolor={"secondary.main"} textAlign="center">
+          <Box bgcolor={"secondary.main"} textAlign="center" style={{height: '120px'}}>
             <CardContent px={1}>
           
                     <Typography
@@ -574,19 +589,21 @@ export default function Stake () {
                     >
                       Stake
                     </Typography>
+
                     <Typography
                       color={"grey.900"}
                       variant="h1"
                       fontWeight={600}
                     >
-                       {Number(stakeAmount).toLocaleString()}                         
+                       <input type="number" value={stakeAmountInput} onChange={handleStakeAmountInputChange} style={{ textAlign: 'center', marginLeft: '10px', padding: '2px', fontSize: '30px', width: '90%', fontFamily: 'monospace'}} />
+                
                     </Typography>
               </CardContent>
           </Box>
         </Grid>
 
         <Grid item xs={12} sm={12} md={3} lg={3} key={2}>
-          <Box bgcolor={"secondary.main"} textAlign="center">
+          <Box bgcolor={"secondary.main"} textAlign="center" style={{height: '120px'}}>
             <CardContent px={1}>
           
                     <Typography
@@ -609,7 +626,7 @@ export default function Stake () {
         </Grid>
 
         <Grid item xs={12} sm={12} md={3} lg={3} key={3}>
-          <Box bgcolor={"secondary.main"} textAlign="center">
+          <Box bgcolor={"secondary.main"} textAlign="center" style={{height: '120px'}}>
             <CardContent px={1}>
           
                     <Typography
