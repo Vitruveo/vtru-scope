@@ -91,12 +91,12 @@ const Menuitems: MenuitemsType[] = [
         icon: IconClockStar,
         href: "/staking/vtru"
       },
-      // {
-      //   id: uniqueId(),
-      //   title: "VIBE",
-      //   icon: IconClockStop,
-      //   href: "/staking/vibe"
-      // }
+      {
+        id: uniqueId(),
+        title: "VTRU (Vesting)",
+        icon: IconClockStop,
+        href: "/staking/vtruvest"
+      }
     ]
   },
   {

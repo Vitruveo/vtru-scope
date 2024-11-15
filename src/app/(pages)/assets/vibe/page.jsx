@@ -90,7 +90,7 @@ export default function Nfts() {
           functionName: "stats",
           args: [],
         });
-        console.log('Revenue',Number(stats[4])/10^18)
+       //console.log('Revenue',Number(stats[4])/10^18)
         setRevenue(Number(stats[4])/ Math.pow(10, 18));
 
         const nftCount = await readContract({
