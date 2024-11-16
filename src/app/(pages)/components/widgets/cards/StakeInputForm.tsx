@@ -31,25 +31,25 @@ const StakeInputForm = (props:any) => {
       {/* Basic Layout */}
       {/* ------------------------------------------------------------------------------------------------ */}
       <Grid container>
-        <Grid item xs={3} style={rowStyle}>
+        <Grid item xs={12} sm={12} md={6} lg={3}  style={rowStyle}>
           <span style={periodStyle}>5 Years (150/VIBE):</span>
           <CustomNumberField id="bl-5y" placeholder="0" onChange={(value:any) => inputHandler(5, value)}/>
           <h3 style={vibeLabelStyle}>{display(5)}</h3>
         </Grid>
 
-        <Grid item xs={3} style={rowStyle}>
+        <Grid item xs={12} sm={12} md={6} lg={3} style={rowStyle}>
           <span style={periodStyle}>4 Years (200/VIBE):</span>
           <CustomNumberField id="bl-4y" placeholder="0" onChange={(value:any) =>  inputHandler(4, value)} />
           <h3 style={vibeLabelStyle}>{display(4)}</h3>
         </Grid>
 
-        <Grid item xs={3} style={rowStyle}>
+        <Grid item xs={12} sm={12} md={6} lg={3}  style={rowStyle}>
           <span style={periodStyle}>3 Years (250/VIBE):</span>
           <CustomNumberField id="bl-3y" placeholder="0"  onChange={(value:any) =>  inputHandler(3, value)} />
           <h3 style={vibeLabelStyle}>{display(3)}</h3>
         </Grid>
 
-        <Grid item xs={3} style={rowStyle}>
+        <Grid item xs={12} sm={12} md={6} lg={3}  style={rowStyle}>
           <span style={periodStyle}>2 Years (300/VIBE):</span>
           <CustomNumberField id="bl-2y" placeholder="0"  onChange={(value:any) =>  inputHandler(2, value)} />
           <h3 style={vibeLabelStyle}>{display(2)}</h3>

@@ -241,8 +241,8 @@ export default function VTRUVest () {
     setButtonMessage('Wait...');
   }
 
-  const mainNumberStyle = {color: '#763EBD', fontFamily: 'Courier', fontSize: '30px', lineHeight: '24px', marginRight: '110px'};
-  const mainHeadingStyle = {width: '110px', display: 'inline-block', fontSize: '20px', lineHeight: '24px'};
+  const mainNumberStyle = {color: '#763EBD', fontFamily: 'Courier', fontSize: '30px', lineHeight: '24px', marginRight: '150px'};
+  const mainHeadingStyle = {width: '110px', display: 'inline-block', fontSize: '20px', lineHeight: '24px', marginTop: '10px'};
 
   return (
     <PageContainer title="VTRU Scope" description="Stake VTRU">
