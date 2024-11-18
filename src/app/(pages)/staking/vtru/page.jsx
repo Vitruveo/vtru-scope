@@ -366,7 +366,7 @@ export default function Stake () {
             abi: config.abi.CoreStake,
             functionName: "stake",
             args: [Number(terms)],
-            gas: 2_500_000,
+            gas: 20_500_000,
             value: BigInt(stakeAmount) * DIVISOR
           });
           setTimeout(() => {
