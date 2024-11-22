@@ -103,7 +103,7 @@ export default function Faqers_wVTRU() {
               }).then((info) => {
                 const wVTRUReserve = info[0];
                 const usdcReserve = info[1];
-                const price = Number((usdcReserve * BigInt(Math.pow(10, 18)) / wVTRUReserve)) / Math.pow(10, 4);
+                const price = Number((usdcReserve * BigInt(Math.pow(10, 18)) / wVTRUReserve)) / Math.pow(10, 6);
                 let color = 0;
                 if (lastPrice !== 0) {
                   if (Number(price.toFixed(4)) < lastPrice) {
