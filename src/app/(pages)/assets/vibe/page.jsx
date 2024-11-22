@@ -22,6 +22,7 @@ export default function Nfts() {
   const [contract, setContract] = useState(null);
   const [account, setAccount] = useState(null);
   const [claimed, setClaimed] = useState(0);
+  const [shares, setShares] = useState(0);
   const [nfts, setNfts] = useState(0);
   const [vibes, setVibes] = useState(0);
   const [unclaimed, setUnclaimed] = useState(0);
@@ -81,7 +82,7 @@ export default function Nfts() {
  //    connectedOwner = '0xABBA32cF845256A4284cdbA91D82C96CbB13dc59';
 //     connectedOwner = '0xC0ee5bb36aF2831baaE1d31f358ccA46dAa6a4e8';
 //connectedOwner = '0xaD78De2EFaAb615956f7c4Cb26ADeB108199F86a';
-//connectedOwner = '0x7320344050245e55d217E16Aa24CF03358cB0451';
+//connectedOwner = '0x735BF35eeE4B9B38dee01740376f0a384e12Dbc4';
      if (connectedOwner !== null && provider !== null) {
 
         const stats = await readContract({
@@ -91,6 +92,7 @@ export default function Nfts() {
           args: [],
         });
        //console.log('Revenue',Number(stats[4])/10^18)
+        setShares(Number(stats[1]) + 100000);
         setRevenue(Number(stats[4])/ Math.pow(10, 18));
 
         const nftCount = await readContract({
@@ -296,15 +298,36 @@ export default function Nfts() {
         )
       ) : (
         <>
-         <Grid container spacing={1} style={{marginBottom: '30px'}} direction="column" alignItems="center" justifyContent="center">
-           <Grid item xs={12} sm={12} md={12} lg={12}>
-           <p>VIBE Contract Total Revenue in $VTRU divided equally between 1 million VIBE shares</p>
-           <FlapDisplay
-              className={"XL darkBordered"}
-              chars={Presets.NUM + ','}
-              length={13}
-              value={Number(revenue.toFixed(0)).toLocaleString()}
-            />
+         <Grid container spacing={1} style={{marginBottom: '30px'}} >
+           <Grid item xs={12} sm={12} md={9} lg={9} key={1}>
+            <p>VIBE Contract Total Revenue in $VTRU divided equally between 1 million VIBE shares</p>
+              <FlapDisplay
+                className={"XL darkBordered"}
+                chars={Presets.NUM + ','}
+                length={12}
+                value={Number(revenue.toFixed(0)).toLocaleString()}
+              />
+            </Grid>
+
+            <Grid item xs={12} sm={12} md={3} lg={3} key={2}>
+              <Box bgcolor={"info.light"} textAlign="center">
+                <CardContent px={1} style={{marginTop: '50px', height: '125px'}}>
+                <Typography
+                  color={"white"}
+                  variant="subtitle3"
+                  fontWeight={800}
+                >
+                  Issued Shares (Max 1M)
+                </Typography>
+                <Typography
+                  color={"white"}
+                  variant="h1"
+                  fontWeight={600}
+                >
+                  { shares.toLocaleString() }                               
+                </Typography>  
+                </CardContent>
+              </Box>
             </Grid>
          </Grid>
 
