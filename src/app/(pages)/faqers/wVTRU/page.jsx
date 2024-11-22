@@ -40,7 +40,6 @@ const useTokenPrices = (N) => {
 };
 
 export default function Faqers_wVTRU() {
-  const [provider, setProvider] = useState(null);
   const [blockNumber, setBlockNumber] = useState(0);
   const [lastPrice, setLastPrice] = useState(0);
   const [delay, setDelay] = useState(1000);
@@ -72,6 +71,7 @@ export default function Faqers_wVTRU() {
     }
   ];
 
+  const provider = new ethers.JsonRpcProvider('https://rpc.vitruveo.xyz');
 
   function formatPrice(price) {
     return (price ? Intl.NumberFormat("en-US", {
@@ -85,13 +85,14 @@ export default function Faqers_wVTRU() {
 
   let processing = false;
 
+
   useEffect(() => {
     // Increment progress every second
     const interval = setInterval(() => {
       setProgress((prevProgress) => {
         if (prevProgress >= 100) {
           if (delay == 1000) setDelay(15000);
-          if (provider !== null && !processing) {
+          if (!processing) {
             processing = true;
             provider.getBlockNumber().then((block) => {
               setBlockNumber(block);
@@ -125,20 +126,8 @@ export default function Faqers_wVTRU() {
     }, delay/10);
 
     return () => clearInterval(interval); // Cleanup interval on component unmount
-  }, [blockNumber, delay, lastPrice, provider]);
+  }, [blockNumber, delay, lastPrice]);
 
-
-
-  useAccount({
-    onConnect({ address, connector, isReconnected }) {
-      const rpcUrl = connector.chains[0].rpcUrls["default"]["http"][0];
-      setProvider(new ethers.JsonRpcProvider(rpcUrl));
-//      setAccount(address);
-    },
-    onDisconnect() {
-//      setAccount(null);
-    },
-  });
 
   const [prices, addPrice] = useTokenPrices(10); // Keep last 10 prices
 
