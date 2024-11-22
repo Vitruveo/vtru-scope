@@ -112,6 +112,12 @@ const Menuitems: MenuitemsType[] = [
       // },
       {
         id: uniqueId(),
+        title: "wVTRU",
+        icon: IconCircleKey,
+        href: "/faqers/wVTRU"
+      },
+      {
+        id: uniqueId(),
         title: "Vault",
         icon: IconCircleKey,
         href: "/faqers/vault"
