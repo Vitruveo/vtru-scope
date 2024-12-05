@@ -83,17 +83,18 @@ export default function Nfts() {
 //     connectedOwner = '0xC0ee5bb36aF2831baaE1d31f358ccA46dAa6a4e8';
 //connectedOwner = '0xaD78De2EFaAb615956f7c4Cb26ADeB108199F86a';
 //connectedOwner = '0x735BF35eeE4B9B38dee01740376f0a384e12Dbc4';
-     if (connectedOwner !== null && provider !== null) {
+    const stats = await readContract({
+      address: vaultConfig.vibe[network],
+      abi: vaultConfig.vibe.abi,
+      functionName: "stats",
+      args: [],
+    });
+    //console.log('Revenue',Number(stats[4])/10^18)
+    setShares(Math.min(1000000, Number(stats[1]) + 100000));
+    setRevenue(Number(stats[4])/ Math.pow(10, 18));
 
-        const stats = await readContract({
-          address: vaultConfig.vibe[network],
-          abi: vaultConfig.vibe.abi,
-          functionName: "stats",
-          args: [],
-        });
-       //console.log('Revenue',Number(stats[4])/10^18)
-        setShares(Number(stats[1]) + 100000);
-        setRevenue(Number(stats[4])/ Math.pow(10, 18));
+    if (connectedOwner !== null && provider !== null) {
+
 
         const nftCount = await readContract({
           address: vaultConfig.vibe[network],
