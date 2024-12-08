@@ -621,13 +621,13 @@ export default function Stake () {
                       onChange={handleSliderChange}
                       sx={{color: "grey.900"}}
                     />
-                                        <Typography
+                    {/* <Typography
                       color={"grey.900"}
                       variant="subtitle1"
                       fontWeight={600}
                     >
                       Airdrop: {Math.trunc(stakeAmount/150)} VIBE (150 each)
-                    </Typography>
+                    </Typography> */}
               </CardContent>
           </Box>
         </Grid>
