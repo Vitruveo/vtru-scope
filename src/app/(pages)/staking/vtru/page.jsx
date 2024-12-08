@@ -163,6 +163,19 @@ export default function Stake () {
   useEffect(() => { 
     setUnlockedBalance(Number(Math.trunc(Number(balance?.data?.value)/Math.pow(10,18))));
   }, [balance]);
+
+
+  const [currentStaked, setCurrentStaked] = useState(0);
+  const contractBalance = useBalance({
+    address: config[network].CoreStake,
+    cacheTime: 15_000,
+  });
+
+  useEffect(() => { 
+    setCurrentStaked(Number(Math.trunc(Number(contractBalance?.data?.value)/Math.pow(10,18))).toLocaleString());
+  }, [contractBalance]);
+
+
   const [termsList, setTermsList] = useState([]);
   const [terms, setTerms] = useState('6');
 
@@ -483,6 +496,52 @@ export default function Stake () {
     <PageContainer title="VTRU Scope" description="Stake VTRU">
       <Breadcrumb title="VTRU Staking" items={breadcrumb} />
       <Grid container spacing={3} style={{marginBottom: '30px'}}>
+
+
+                <Grid item xs={12} sm={12} md={3} lg={3} key={2}>
+                  <Box bgcolor={"info.light"} textAlign="center">
+                    <CardContent px={1}>
+                  
+                            <Typography
+                              color={"info.main"}
+                              variant="subtitle1"
+                              fontWeight={600}
+                            >
+                              Currently Staked Amount
+                            </Typography>
+                            <Typography
+                              color={"info.main"}
+                              variant="h1"
+                              fontWeight={600}
+                            >
+                              {currentStaked}                           
+                            </Typography>
+                      </CardContent>
+                  </Box>
+                </Grid>
+
+                <Grid item xs={12} sm={12} md={3} lg={3} key={3}>
+                  <Box bgcolor={"info.light"} textAlign="center">
+                    <CardContent px={1}>
+                  
+                            <Typography
+                              color={"info.main"}
+                              variant="subtitle1"
+                              fontWeight={600}
+                            >
+                              Currently Active Stakes
+                            </Typography>
+                            <Typography
+                              color={"info.main"}
+                              variant="h1"
+                              fontWeight={600}
+                            >
+                              {stats.activeStakes}                          
+                            </Typography>
+                      </CardContent>
+                  </Box>
+                </Grid>
+
                 <Grid item xs={12} sm={12} md={3} lg={3} key={1}>
                   <Box bgcolor={"info.light"} textAlign="center">
                     <CardContent px={1}>
@@ -505,7 +564,7 @@ export default function Stake () {
                   </Box>
                 </Grid>
 
-                <Grid item xs={12} sm={12} md={3} lg={3} key={2}>
+                <Grid item xs={12} sm={12} md={3} lg={3} key={4}>
                   <Box bgcolor={"info.light"} textAlign="center">
                     <CardContent px={1}>
                   
@@ -521,51 +580,7 @@ export default function Stake () {
                               variant="h1"
                               fontWeight={600}
                             >
-                              {stats.totalStakes}                           
-                            </Typography>
-                      </CardContent>
-                  </Box>
-                </Grid>
-
-                <Grid item xs={12} sm={12} md={3} lg={3} key={3}>
-                  <Box bgcolor={"info.light"} textAlign="center">
-                    <CardContent px={1}>
-                  
-                            <Typography
-                              color={"info.main"}
-                              variant="subtitle1"
-                              fontWeight={600}
-                            >
-                              Active Stakes
-                            </Typography>
-                            <Typography
-                              color={"info.main"}
-                              variant="h1"
-                              fontWeight={600}
-                            >
-                              {stats.activeStakes}                          
-                            </Typography>
-                      </CardContent>
-                  </Box>
-                </Grid>
-
-                <Grid item xs={12} sm={12} md={3} lg={3} key={4}>
-                  <Box bgcolor={"info.light"} textAlign="center">
-                    <CardContent px={1}>
-                  
-                            <Typography
-                              color={"info.main"}
-                              variant="subtitle1"
-                              fontWeight={600}
-                            >
-                              Rewards Distributed
-                            </Typography>
-                            <Typography
-                              color={"info.main"}
-                              variant="h1"
-                              fontWeight={600}
-                            >
-                              {stats.totalRewards}                        
+                              {stats.totalStakes}                        
                             </Typography>
                       </CardContent>
                   </Box>
