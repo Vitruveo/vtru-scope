@@ -20,14 +20,14 @@ export default function Dashboard () {
   const Capitalize = (str) => str.charAt(0).toUpperCase() + str.slice(1);
 
   const DIVISOR = BigInt(String(Math.pow(10,18)));
-  const TOTAL_SUPPLY = 250_000_000;
-  const INITIAL_CIRCULATING_SUPPLY = 60_000_000;
+  const MAX_SUPPLY = 250_000_000;
+  const TOTAL_SUPPLY = 60_000_000;
   const network = 'mainnet';
 
   let processing = false;
 
   const provider = new ethers.JsonRpcProvider('https://rpc.vitruveo.xyz');
-  const [circulatingSupply] = useState(INITIAL_CIRCULATING_SUPPLY);
+  const [totalSupply] = useState(TOTAL_SUPPLY);
   const [blockNumber, setBlockNumber] = useState(0);
 
   const PANCAKE_ABI = [
@@ -66,7 +66,7 @@ export default function Dashboard () {
   const [partnerBalance, setPartnerBalance] = useState(0);
   const [boosterBalance, setBoosterBalance] = useState(0);
   const [treasuryBalance, setTreasuryBalance] = useState(0);
-  const [activeSupply, setActiveSupply] = useState(0);
+  const [circulatingSupply, setCirculatingSupply] = useState(0);
   const [whaleCount, setWhaleCount] = useState(0);
   const [whaleTotal, setWhaleTotal] = useState(0);
   const [whaleMax, setWhaleMax] = useState(0);
@@ -156,8 +156,8 @@ export default function Dashboard () {
   
   useEffect(() => {
     setTvl((stakedBalance + vestingBalance) * lastPrice);
-    setMcap(INITIAL_CIRCULATING_SUPPLY * lastPrice);
-  }, [lastPrice, stakedBalance, vestingBalance])
+    setMcap(circulatingSupply * lastPrice);
+  }, [lastPrice, stakedBalance, vestingBalance, circulatingSupply])
   
   useEffect(() => {
 
@@ -231,12 +231,15 @@ export default function Dashboard () {
       await getStats();
 
       if (targets.length == KNOWN) {
-        let currentActiveSupply = circulatingSupply - (
-                    wvtruBalance + veoBalance + vibeBalance + vusdBalance 
-                  + vestingBalance + stakedBalance + perksBalance + vipBalance
-                  + partnerBalance + boosterBalance + treasuryBalance
-                )
-        setActiveSupply(currentActiveSupply);
+        let reserved = (
+                            wvtruBalance + veoBalance + vibeBalance + vusdBalance 
+                          + vestingBalance + stakedBalance + perksBalance + vipBalance
+                          + partnerBalance + boosterBalance + treasuryBalance
+                        );
+        if (reserved > 0) {
+          let currentCirculatingSupply = totalSupply - reserved;
+          setCirculatingSupply(currentCirculatingSupply);  
+        }
       }
 
     }
@@ -368,14 +371,14 @@ export default function Dashboard () {
                               variant="subtitle1"
                               fontWeight={600}
                             >
-                              Total Supply
+                              Max Supply
                             </Typography>
                             <Typography
                               color={"grey.900"}
                               variant="h2"
                               fontWeight={600}
                             >
-                              {display(TOTAL_SUPPLY)}                           
+                              {display(MAX_SUPPLY)}                           
                             </Typography>
                       </CardContent>
                   </Box>
@@ -390,14 +393,14 @@ export default function Dashboard () {
                               variant="subtitle1"
                               fontWeight={600}
                             >
-                              Circulating Supply
+                              Total Supply
                             </Typography>
                             <Typography
                               color={"grey.900"}
                               variant="h2"
                               fontWeight={600}
                             >
-                             {display(circulatingSupply)}                        
+                             {display(totalSupply)}                        
                             </Typography>
                       </CardContent>
                   </Box>
@@ -412,21 +415,21 @@ export default function Dashboard () {
                               variant="subtitle1"
                               fontWeight={600}
                             >
-                              Active Supply (= in wallets)
+                              Circulating Supply (= in wallets)
                             </Typography>
                             <Typography
                               color={"grey.900"}
                               variant="h2"
                               fontWeight={600}
                             >
-                              {display(activeSupply)}                          
+                              {display(circulatingSupply)}                          
                             </Typography>
                       </CardContent>
                   </Box>
                 </Grid>
 
       </Grid>
-      <h4 style={{color: 'white'}}>Note: Active Supply = Circulating Supply - (Treasury + Staked + Vesting + Contract Balances + Reserved Balances). It includes new claims from VIBE and Vesting contracts, Validator VIP airdrops and Creator Vault balances.</h4>
+      <h4 style={{color: 'white'}}>Note: Circulating Supply = Total Supply - (Treasury + Staked + Vesting + Contract Balances + Reserved Balances). It includes new claims from VIBE and Vesting contracts, Validator VIP airdrops and Creator Vault balances.</h4>
 
       <h1 style={{fontSize: '30px', color: '#fff', marginTop: '40px'}}>Staked/Vesting/Treasury</h1>
       <Grid container spacing={3} style={{marginBottom: '30px'}}>
