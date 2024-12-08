@@ -492,7 +492,7 @@ export default function Stake () {
                               variant="subtitle1"
                               fontWeight={600}
                             >
-                              Total Staked Amount
+                              All-time Staked Amount
                             </Typography>
                             <Typography
                               color={"info.main"}
@@ -514,7 +514,7 @@ export default function Stake () {
                               variant="subtitle1"
                               fontWeight={600}
                             >
-                              Total Stakes
+                              All-time Stakes
                             </Typography>
                             <Typography
                               color={"info.main"}

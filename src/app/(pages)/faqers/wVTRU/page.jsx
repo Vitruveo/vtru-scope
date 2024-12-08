@@ -228,9 +228,9 @@ export default function Faqers_wVTRU() {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {prices.map((row) => {
+                  {prices.map((row, index) => {
                     return (
-                      <TableRow hover key={row.id}>
+                      <TableRow hover key={index}>
 
                         <TableCell>
                           <Stack spacing={2} direction="row" alignItems="center">
