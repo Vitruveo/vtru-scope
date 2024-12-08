@@ -266,7 +266,7 @@ export default function Dashboard () {
                               variant="subtitle1"
                               fontWeight={600}
                             >
-                              Block
+                              Current Block
                             </Typography>
                             <Typography
                               color={"grey.900"}
