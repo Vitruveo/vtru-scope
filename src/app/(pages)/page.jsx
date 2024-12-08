@@ -412,7 +412,7 @@ export default function Dashboard () {
                               variant="subtitle1"
                               fontWeight={600}
                             >
-                              Active Supply
+                              Active Supply (= in wallets)
                             </Typography>
                             <Typography
                               color={"grey.900"}
