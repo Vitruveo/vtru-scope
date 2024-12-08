@@ -441,7 +441,7 @@ export default function Dashboard () {
                               variant="subtitle1"
                               fontWeight={600}
                             >
-                              Current Staked Amount &#x2B08;
+                              Current Staked &#x2B08;
                             </Typography>
                             <Typography
                               color={"grey.900"}
@@ -485,7 +485,7 @@ export default function Dashboard () {
                               variant="subtitle1"
                               fontWeight={600}
                             >
-                              Vesting Amount &#x2B08;
+                              Current Vesting &#x2B08;
                             </Typography>
                             <Typography
                               color={"grey.900"}
