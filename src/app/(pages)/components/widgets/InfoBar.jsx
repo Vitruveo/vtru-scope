@@ -1,5 +1,5 @@
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Typography,
   Box,
@@ -10,6 +10,16 @@ import {
 
 
 const InfoBar = ({ items }) => {
+  const [isRendered, setIsRendered] = useState(false);
+
+  useEffect(() => {
+    // Defer visibility to the next render cycle
+    const timeout = setTimeout(() => {
+      setIsRendered(true);
+    }, 1000); // Wait until the next render
+
+    return () => clearTimeout(timeout); // Cleanup on unmount
+  }, [items]);
 
   const palette = [
     "#AF52DE", // Purple
@@ -23,7 +33,9 @@ const InfoBar = ({ items }) => {
     "#C7C7CC"  // Light Gray
   ];
 
+  
   function formatNumber(num, locale = "en-US") {
+
     if (num >= 1_000_000) {
       // Format with two decimals for M
       return (
@@ -50,19 +62,26 @@ const InfoBar = ({ items }) => {
 
   let total = items.reduce((a, b) => a + b.amount, 0);
 
-  items.map((a, index) => {
+  const getRadius = (index) => {
     switch(index) {
-      case 0: a.radius = '8px 0px 0px 8px'; break;
-      case items.length-1: a.radius = '0px 8px 8px 0px'; break;
-      default: a.radius = '0px'; break;
+      case 0: return '8px 0px 0px 8px';
+      case items.length-1: return'0px 8px 8px 0px'; 
+      default: return '0px'; 
     }
-  });
+  };
+  
   items.sort((a,b) => b.amount - a.amount);
-
+  
   return (
     <Box textAlign="center">
     <CardContent px={1} style={{padding: 0}}>   
-      <div style={{ display: "flex", width: "100%", height: "108.5px"}}>
+      <div style={{ 
+          visibility: isRendered ? "visible" : "hidden",
+          transition: "visibility 0s linear 0.3s, opacity 0.3s ease-in-out",
+          opacity: isRendered ? 1 : 0,
+          display: "flex", 
+          width: "100%", 
+          height: "108.5px"}}>
         {items.map((item, index) => (
           <div
             key={index}
@@ -78,6 +97,7 @@ const InfoBar = ({ items }) => {
               padding: "0px",
               boxSizing: "border-box",
               cursor: "pointer",
+              borderRadius: getRadius(index)
               
             }}
             onClick={() => handleClick(item.address)}
