@@ -78,7 +78,7 @@ const InfoBar = ({ items }) => {
               padding: "0px",
               boxSizing: "border-box",
               cursor: "pointer",
-              borderRadius: item.radius
+              
             }}
             onClick={() => handleClick(item.address)}
           >
