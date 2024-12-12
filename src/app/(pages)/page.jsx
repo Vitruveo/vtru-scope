@@ -57,35 +57,39 @@ export default function Dashboard () {
       "type": "function"
     }
   ];
+
+  const [balances, setBalances] = useState([]);
+
   const [stakedBalance, setStakedBalance] = useState(0);
   const [vestingBalance, setVestingBalance] = useState(0);
+
   const [vibeBalance, setVibeBalance] = useState(0);
   const [veoBalance, setVeoBalance] = useState(0);
   const [vusdBalance, setVusdBalance] = useState(0);
   const [wvtruBalance, setWvtruBalance] = useState(0);
+  
   const [perksBalance, setPerksBalance] = useState(0);
   const [vipBalance, setVipBalance] = useState(0);
   const [partnerBalance, setPartnerBalance] = useState(0);
   const [boosterBalance, setBoosterBalance] = useState(0);
+
   const [treasuryBalance, setTreasuryBalance] = useState(0);
   const [circulatingSupply, setCirculatingSupply] = useState(0);
+
   const [whaleCount, setWhaleCount] = useState(0);
   const [whaleTotal, setWhaleTotal] = useState(0);
   const [whaleMax, setWhaleMax] = useState(0);
   const [whaleMin, setWhaleMin] = useState(0);
+
   const [lastVTRUPrice, setlastVTRUPrice] = useState(0);
   const [vtruPriceColor, setvtruPriceColor] = useState(0);
+
   const [lastVTROPrice, setlastVTROPrice] = useState(0);
   const [vtroPriceColor, setvtroPriceColor] = useState(0);
+
   const [tvl, setTvl] = useState(0);
   const [mcap, setMcap] = useState(0);
 
-  const [stats, setStats] = useState({
-    totalStaked: 0,
-    totalStakes: 0,
-    activeStakes: 0,
-    totalRewards: 0
-  })
 
   useEffect(() => {
       function updateBlock() {
@@ -195,21 +199,6 @@ export default function Dashboard () {
   
   useEffect(() => {
 
-    async function getStats() {
-      const stats = await readContract({
-        address: config[network].CoreStake,
-        abi: config.abi.CoreStake,
-        functionName: "stats",
-        args: []
-      });
-      setStats({
-        totalStaked: Math.trunc(Number(stats[0]/DIVISOR)),
-        totalStakes: Math.trunc(Number(stats[2])),
-        activeStakes: Math.trunc(Number(stats[3])),
-        totalRewards: Math.trunc(Number(stats[1]/DIVISOR))
-      })
-    }
-
     async function fetchBalances() {
       const response = await fetch('https://explorer.vitruveo.xyz/api/v2/addresses?page=1');
       const data = await response.json();
@@ -261,8 +250,6 @@ export default function Dashboard () {
       setWhaleMax(tempWhaleMax);
       setWhaleMin(tempWhaleMin);
 
-      await getStats();
-
       if (targets.length == KNOWN) {
         let reserved = (
                             wvtruBalance + veoBalance + vibeBalance + vusdBalance 
@@ -274,7 +261,6 @@ export default function Dashboard () {
           setCirculatingSupply(currentCirculatingSupply);  
         }
       }
-
     }
 
     fetchBalances();
@@ -694,7 +680,7 @@ export default function Dashboard () {
       </Grid>
 
 
-      <h1 style={{fontSize: '30px', color: '#fff', marginTop: '40px'}}>Whales</h1>
+      <h1 style={{fontSize: '30px', color: '#fff', marginTop: '40px'}}>Wallet Balance &gt;50K</h1>
       <Grid container spacing={3} style={{marginBottom: '30px'}}>
                 <Grid item xs={12} sm={12} md={4} lg={4} key={1}>
                   <Box bgcolor={"grey.700"} textAlign="center">
@@ -705,7 +691,7 @@ export default function Dashboard () {
                               variant="subtitle1"
                               fontWeight={600}
                             >
-                              Count (&gt; 50K)
+                              Count
                             </Typography>
                             <Typography
                               color={"grey.900"}
