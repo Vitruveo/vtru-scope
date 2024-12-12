@@ -533,7 +533,7 @@ export default function Dashboard () {
                 </Grid>
 
       </Grid>
-      <h4 style={{color: 'white'}}>Note: Circulating Supply = Total Supply - (Treasury + Staked + Vesting + Contract Balances + Reserved Balances). It includes new claims from VIBE and Vesting contracts, Validator VIP airdrops and Creator Vault balances.</h4>
+      {/* <h4 style={{color: 'white'}}>Note: Circulating Supply = Total Supply - (Treasury + Staked + Vesting + Contract Balances + Reserved Balances). It includes new claims from VIBE and Vesting contracts, Validator VIP airdrops and Creator Vault balances.</h4> */}
 
       <h1 style={{fontSize: '30px', color: '#fff', marginTop: '40px'}}>Locked Balances</h1>
       <Grid container spacing={3} style={{marginBottom: '30px'}}>
