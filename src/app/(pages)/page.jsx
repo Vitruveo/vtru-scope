@@ -350,10 +350,10 @@ export default function Dashboard () {
                     <CardContent px={1}>                                       
                             <Typography
                               color={"grey.900"}
-                              variant="h1"
+                              variant="h2"
                               fontWeight={600}
                             >
-                              <Link href="https://pancakeswap.finance/?inputCurrency=0xb08504D245713Ca9692C8fA605E76A0A11Ed4955&outputCurrency=BNB">PancakeSwap</Link>                          
+                              <Link href="https://pancakeswap.finance/?inputCurrency=0xb08504D245713Ca9692C8fA605E76A0A11Ed4955&outputCurrency=0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d">PancakeSwap VTRU/USDC</Link>                          
                             </Typography>
                       </CardContent>
                   </Box>
@@ -364,10 +364,10 @@ export default function Dashboard () {
                   <CardContent px={1}>                                       
                             <Typography
                               color={"grey.900"}
-                              variant="h1"
+                              variant="h2"
                               fontWeight={600}
                             >
-                              <Link href="https://dexscreener.com/bsc/0x57766c9ad65fd69c8f025e805874fce713fc81fb">DEX Screener</Link>                          
+                              <Link href="https://www.dextools.io/app/en/bnb/pair-explorer/0xdfe0bb30db18ddece8d183b0c0676ba8bf2d2236?t=1734302801798">DEX Tools</Link>                          
                             </Typography>
                       </CardContent>
                   </Box>
