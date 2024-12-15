@@ -2,6 +2,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import PageContainer from '@/app/(pages)/components/container/PageContainer';
 import CustomSelect from '@/app/(pages)/components/forms/theme-elements/CustomSelect';
+import Link from 'next/link';
 
 import {
   Typography,
@@ -340,7 +341,41 @@ export default function Dashboard () {
   return (
     <PageContainer title="VTRU Scope" description="VTRU Scope by Vitruveo">
 
-<h1 style={{fontSize: '30px', color: '#fff', marginTop: '40px'}}>Current</h1>
+<h1 style={{fontSize: '30px', color: '#fff', marginTop: '40px'}}>Trading</h1>
+      <Grid container spacing={3} style={{marginBottom: '30px'}}>
+
+
+              <Grid item xs={12} sm={12} md={6} lg={6} key={1}>
+                  <Box bgcolor={"primary.main"} textAlign="center">
+                    <CardContent px={1}>                                       
+                            <Typography
+                              color={"grey.900"}
+                              variant="h1"
+                              fontWeight={600}
+                            >
+                              <Link href="https://pancakeswap.finance/?inputCurrency=0xb08504D245713Ca9692C8fA605E76A0A11Ed4955&outputCurrency=BNB">PancakeSwap</Link>                          
+                            </Typography>
+                      </CardContent>
+                  </Box>
+                </Grid>
+
+                <Grid item xs={12} sm={12} md={6} lg={6} key={2}>
+                  <Box bgcolor={"primary.main"} textAlign="center">
+                  <CardContent px={1}>                                       
+                            <Typography
+                              color={"grey.900"}
+                              variant="h1"
+                              fontWeight={600}
+                            >
+                              <Link href="https://dexscreener.com/bsc/0x57766c9ad65fd69c8f025e805874fce713fc81fb">DEX Screener</Link>                          
+                            </Typography>
+                      </CardContent>
+                  </Box>
+                </Grid>
+
+      </Grid>
+
+    <h1 style={{fontSize: '30px', color: '#fff', marginTop: '40px'}}>Current</h1>
       <Grid container spacing={3} style={{marginBottom: '30px'}}>
 
 
