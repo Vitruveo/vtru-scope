@@ -47,14 +47,14 @@ export default function Contracts () {
                               fontWeight={600}
                               style={titleStyle}
                             >
-                              Wrapped VTRU
+                              VTRU Token
                             </Typography>
                             <Typography
                               color={"info.main"}
                               fontWeight={600}
                             >
-                              <p>Offical wrapped VTRU token for all exchanges</p>
-                              <a style={linkStyle} href="https://explorer.vitruveo.xyz/address/0x3ccc3F22462cAe34766820894D04a40381201ef9" target="_new">0x3ccc3F22462cAe34766820894D04a40381201ef9</a>                            
+                              <p>VTRU token on Binance Smart Chain</p>
+                              <a style={linkStyle} href="https://bscscan.com/address/0xb08504d245713ca9692c8fa605e76a0a11ed4955" target="_new">0xb08504d245713ca9692c8fa605e76a0a11ed4955</a>                            
                             </Typography>
                       </CardContent>
                   </Box>
@@ -70,7 +70,7 @@ export default function Contracts () {
                               fontWeight={600}
                               style={titleStyle}
                             >
-                              VTRO
+                              VTRO Token
                             </Typography>
                             <Typography
                               color={"info.main"}
@@ -260,7 +260,27 @@ export default function Contracts () {
             </CardContent>
         </Box>
       </Grid>
-
+      <Grid item xs={12} sm={12} md={6} lg={6} key={1}>
+                  <Box bgcolor={"grey.100"} textAlign="center">
+                    <CardContent px={1}>                  
+                            <Typography
+                              color={"info.main"}
+                              variant="subtitle1"
+                              fontWeight={600}
+                              style={titleStyle}
+                            >
+                              Wrapped VTRU Token
+                            </Typography>
+                            <Typography
+                              color={"info.main"}
+                              fontWeight={600}
+                            >
+                              <p>Offical VTRU token for all exchanges</p>
+                              <a style={linkStyle} href="https://explorer.vitruveo.xyz/address/0x3ccc3F22462cAe34766820894D04a40381201ef9" target="_new">0x3ccc3F22462cAe34766820894D04a40381201ef9</a>                            
+                            </Typography>
+                      </CardContent>
+                  </Box>
+                </Grid>
 
 
   </Grid>
