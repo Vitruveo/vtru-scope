@@ -523,8 +523,8 @@ useEffect(() => {
 
         <Grid item xs={12} sm={12} md={3} lg={3} key={3}>
           <h2 style={{textAlign: 'center'}}>5Y Growth Projection</h2>
-          <GrowthCard item={{defaultValue: 5, unit: '$', title: 'VTRU Price', max: 50, step: 1, default: 5, handleSliderChange: (e) => updateGrowth('vtruprice', e)}} key={1}/>
-          <GrowthCard item={{defaultValue: 1, unit: '$', title: 'VTRO Price', max: 20, step: 1, default: 5, handleSliderChange: (e) => updateGrowth('vtroprice', e)}}   key={2}/>
+          <GrowthCard item={{defaultValue: 10, unit: '$', title: 'VTRU Price', max: 50, step: 1, default: 10, handleSliderChange: (e) => updateGrowth('vtruprice', e)}} key={1}/>
+          <GrowthCard item={{defaultValue: 5, unit: '$', title: 'VTRO Price', max: 20, step: 1, default: 5, handleSliderChange: (e) => updateGrowth('vtroprice', e)}}   key={2}/>
           <GrowthCard item={{defaultValue: 200, unit: '%', title: 'Arts Revenue', max: 1000, step: 10, default: 200, handleSliderChange: (e) => updateGrowth('artsrevenue', e)}}   key={3}/>
           <GrowthCard item={{defaultValue: 200, unit: '%', title: 'Gaming Revenue', max: 1000, step: 10, default: 200, handleSliderChange: (e) => updateGrowth('gamingrevenue', e)}}   key={4}/>
           <GrowthCard item={{defaultValue: 200, unit: '%', title: 'Entertainment Revenue', max: 1000, step: 10, default: 200, handleSliderChange: (e) => updateGrowth('entertainmentrevenue', e)}}   key={5}/>
