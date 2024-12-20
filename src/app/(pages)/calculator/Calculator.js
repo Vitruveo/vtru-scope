@@ -105,9 +105,9 @@ calculateInterimPriceValues(start, finalPrice) {
 
     for (let year = 0; year < 5; year++) {
 
-      const vtruPrice = this.roundToDecimals(prices.vtru[year], 4);
+      const vtruPrice = this.roundToDecimals(prices.vtru[year], 0);
 
-      const vtroPrice = this.roundToDecimals(prices.vtro[year], 4);
+      const vtroPrice = this.roundToDecimals(prices.vtro[year], 0);
 
       const vibeIncome = this.roundToDecimals(this.calculateVibeIncome(revenues, year, holdings.vibe), 0);
       endWalletVTRU += vibeIncome;

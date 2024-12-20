@@ -32,7 +32,7 @@ const GrowthCard = ({ item }) => {
             <Slider
               defaultValue={item.default}
               step={item.step}
-              min={0}
+              min={item.min}
               max={item.max}
               onChange={handleSlider}
               sx={{color: "grey.900"}}
