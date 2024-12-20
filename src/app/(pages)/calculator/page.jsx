@@ -158,8 +158,8 @@ const [assumptionsModel, setAssumptionsModel] = useState({
     entertainment: { start: 50_000_000, growth: 200, revShare: 0.10 },
   },
   price: {
-    vtru: { start: 0.20, growth: 500 },
-    vtro: { start: 0.02, growth: 500 },
+    vtru: { start: 0.20, growth: 10 },
+    vtro: { start: 0.02, growth: 5 },
   },
   supply: {
     verse: {start: 250_000_000, growth: 300 }
