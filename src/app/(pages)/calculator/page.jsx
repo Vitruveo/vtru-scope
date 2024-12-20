@@ -522,7 +522,7 @@ useEffect(() => {
 
 
         <Grid item xs={12} sm={12} md={3} lg={3} key={3}>
-          <h2 style={{textAlign: 'center'}}>Growth Projection</h2>
+          <h2 style={{textAlign: 'center'}}>5Y Growth Projection</h2>
           <GrowthCard item={{defaultValue: 500, title: 'VTRU Price', max: 5000, step: 50, default: 500, handleSliderChange: (e) => updateGrowth('vtruprice', e)}} key={1}/>
           <GrowthCard item={{defaultValue: 500, title: 'VTRO Price', max: 2000, step: 10, default: 500, handleSliderChange: (e) => updateGrowth('vtroprice', e)}}   key={2}/>
           <GrowthCard item={{defaultValue: 200, title: 'Arts Revenue', max: 1000, step: 10, default: 200, handleSliderChange: (e) => updateGrowth('artsrevenue', e)}}   key={3}/>
