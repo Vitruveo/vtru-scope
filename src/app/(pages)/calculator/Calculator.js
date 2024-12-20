@@ -26,11 +26,22 @@ class Calculator {
   calculateInterimValues(start, finalPercentage) {
     const values = [];
     this.curve.forEach((value, index) => {
-        const weightedValue = (value * start) *(finalPercentage/100);
+        const weightedValue = (value * start) * (finalPercentage/100);
         values.push(index == 0 ? start + weightedValue : values[index-1] + weightedValue);
     });
 
     return values;
+}
+
+calculateInterimPriceValues(start, finalPrice) {
+  const values = [];
+  const growth = finalPrice - start;
+  this.curve.forEach((value, index) => {
+      const weightedValue = (growth * value);
+      values.push(index == 0 ? start + weightedValue : values[index-1] + weightedValue);
+  });
+
+  return values;
 }
 
   roundToDecimals(num, decimals) {
@@ -123,11 +134,6 @@ class Calculator {
 
       projectionData.push({
 
-          income: ['', '', '', '', ''],
-          vibeIncome,
-          verseIncome,
-          stakingIncome,
-
           price: ['', '', '', '', ''],
           vtruPrice,
           vtroPrice,
@@ -141,6 +147,12 @@ class Calculator {
           vtro: ['', '', '', '', ''],
           walletVTRO,
           walletVTROUSD,
+
+          income: ['', '', '', '', ''],
+          vibeIncome,
+          verseIncome,
+          stakingIncome,
+
 
           rebased: ['', '', '', '', ''],
           rebasedWalletVTRU,
@@ -181,8 +193,8 @@ class Calculator {
   }
 
   calculateAnnualPrices(priceAssumptions) {
-    const vtru = this.calculateInterimValues(priceAssumptions.vtru.start, priceAssumptions.vtru.growth);
-    const vtro = this.calculateInterimValues(priceAssumptions.vtro.start, priceAssumptions.vtro.growth);
+    const vtru = this.calculateInterimPriceValues(priceAssumptions.vtru.start, priceAssumptions.vtru.growth);
+    const vtro = this.calculateInterimPriceValues(priceAssumptions.vtro.start, priceAssumptions.vtro.growth);
 
     return {vtru, vtro}
   }

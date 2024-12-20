@@ -27,7 +27,7 @@ const GrowthCard = ({ item }) => {
               variant="h4"
               fontWeight={600}
             >
-              {Math.trunc(Number(val)).toLocaleString()}%
+              {Math.trunc(Number(val)).toLocaleString()} ({item.unit})
             </Typography>
             <Slider
               defaultValue={item.default}
