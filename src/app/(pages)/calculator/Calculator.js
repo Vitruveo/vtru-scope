@@ -100,7 +100,6 @@ calculateInterimPriceValues(start, finalPrice) {
     let prices = this.calculateAnnualPrices( assumptions.price );
     let supply = this.calculateAnnualSupply(assumptions.supply );
 
-    console.log('Prices',assumptions.price, prices)
     const projectionData = [];
 
     for (let year = 0; year < 5; year++) {
@@ -138,25 +137,23 @@ calculateInterimPriceValues(start, finalPrice) {
           vtruPrice,
           vtroPrice,
 
-          vtru: ['', '', '', '', ''],
-
-          startWalletVTRU,
-          unstakedVTRU,
-          endWalletVTRU,
-
-          vtro: ['', '', '', '', ''],
-          walletVTRO,
-          walletVTROUSD,
-
           income: ['', '', '', '', ''],
           vibeIncome,
           verseIncome,
           stakingIncome,
 
+          vtru: ['', '', '', '', ''],
+          startWalletVTRU,
+          unstakedVTRU,
+          endWalletVTRU,
 
           rebased: ['', '', '', '', ''],
           rebasedWalletVTRU,
           rebasedWalletVTRUUSD,
+
+          vtro: ['', '', '', '', ''],
+          walletVTRO,
+          walletVTROUSD,
 
           total: ['', '', '', '', ''],
           totalWalletUSD,

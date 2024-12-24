@@ -47,12 +47,20 @@ export default function CalculatorApp () {
   const [vtruBalance, setVtruBalance] = useState(null);
   const [vtroBalance, setVtroBalance] = useState(null);
   const [vibeBalance, setVibeBalance] = useState(null);
-  const [verseBalance, setVerseBalance] = useState(1000);
-  const [stake1, setStake1] = useState(null);
-  const [stake2, setStake2] = useState(null);
-  const [stake3, setStake3] = useState(null);
-  const [stake4, setStake4] = useState(null);
-  const [stake5, setStake5] = useState(null);
+  const [verseBalance, setVerseBalance] = useState(null);
+  const [stake1, setStake1] = useState(0);
+  const [stake2, setStake2] = useState(0);
+  const [stake3, setStake3] = useState(0);
+  const [stake4, setStake4] = useState(0);
+  const [stake5, setStake5] = useState(0);
+
+  const [defaultValues, setDefaultValues] = useState({
+    vtru: null,
+    vtro: null,
+    vibe: null,
+    verse: null,
+    vtruStaked: [null, null, null, null, null]
+  });
 
   const [projections, setProjections] = useState(null);
 
@@ -166,6 +174,7 @@ const [assumptionsModel, setAssumptionsModel] = useState({
   }
 });
 
+
 const updateGrowth = (key, value) => {
 
   const model = {...assumptionsModel }; 
@@ -220,9 +229,19 @@ useEffect(() => {
   
     setVibeBalance(Number(vibeShares));
 
-    //setVerseBalance(0);
+    setVerseBalance(0);
 
     getStakes();
+
+    setDefaultValues({
+      vtru: vtruBalance,
+      vtro: vtroBalance,
+      vibe: vibeBalance,
+      verse: verseBalance,
+      vtruStaked: [stake1, stake2, stake3, stake4, stake5]
+    });
+  
+
   }
 
   if (vtroContract !== null && vibeContract !== null && stakeContract !== null && account !== null && provider !== null) {
@@ -251,29 +270,29 @@ useEffect(() => {
   ];
 
   const labels = {
-    revenue: 'REVENUE $',
+    revenue: 'REVENUE',
     artsRevenue: 'Arts',
     gamingRevenue: 'Gaming',
     entertainmentRevenue: 'Entertainment',
     income: 'INCOME',
     vibeIncome: 'VIBE',
     verseIncome: 'VERSE',
-    stakingIncome: 'Staking',
-    price: 'PRICE ($)',
+    stakingIncome: 'Staking Reward',
+    price: 'PRICE',
     vtruPrice: 'VTRU',
     vtroPrice: 'VTRO',
-    vtru: 'VTRU',
-    startWalletVTRU: 'Wallet (Start)',
-    unstakedVTRU: 'Unstaked',
-    endWalletVTRU: 'Wallet (End)',
-    vtro: 'VTRO',
-    walletVTRO: 'Wallet VTRO',
-    walletVTROUSD: 'Wallet VTRO $',
-    rebased: 'REBASED',
-    rebasedWalletVTRU: 'Wallet VTRU',
-    rebasedWalletVTRUUSD: 'Wallet VTRU $',
+    vtru: 'WALLET VTRU',
+    startWalletVTRU: 'VTRU Initial Balance',
+    unstakedVTRU: 'VTRU Unstaked',
+    endWalletVTRU: 'VTRU Final Balance',
+    vtro: 'WALLET VTRO',
+    walletVTRO: 'VTRO',
+    walletVTROUSD: 'VTRO $',
+    rebased: 'WALLET REBASED',
+    rebasedWalletVTRU: 'VTRU',
+    rebasedWalletVTRUUSD: 'VTRU $',
     total: 'TOTAL',
-    totalWalletUSD: 'Wallet $'
+    totalWalletUSD: 'VTRU $ + VTRO $'
   }
 
   const updatePage = () => {
@@ -290,19 +309,49 @@ useEffect(() => {
   setProjections(results);
 }
   
+const updateWhatIf = (key, value) => {
+  console.log(key, value)
+    switch(key) {
+      case 'vtru': setVtruBalance(value); break;
+      case 'vtro': setVtroBalance(value); break;
+      case 'vibe': setVibeBalance(value); break;
+      case 'verse': setVerseBalance(value); break;
+      case 'stake1': setStake1(value); break;
+      case 'stake2': setStake2(value); break;
+      case 'stake3': setStake3(value); break;
+      case 'stake4': setStake4(value); break;
+      case 'stake5': setStake5(value); break;
+    }  
+}
+
 useEffect(() => {
 
   updatePage();
                   
 }, [assumptionsModel]);
 
-  useEffect(() => {
+useEffect(() => {
 
-    updatePage();
-                                            
-  }, [vtruBalance, vtroBalance, vibeBalance, verseBalance, stake1, stake2, stake3, stake4, stake5]);
- 
 
+  updatePage();
+                                          
+}, [vtruBalance, vtroBalance, vibeBalance, verseBalance, stake1, stake2, stake3, stake4, stake5]);
+
+
+const formatNumber = (key, amount) => {
+  if (key.indexOf('Revenue') > 0 || key.indexOf('Price') > 0 || key.indexOf('USD') > 0) {
+    return (amount ? Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "USD",
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    }).format(amount) :
+    '');
+  } else {
+    return (typeof amount == 'number' ? amount.toLocaleString() : '');
+
+  }
+}
 
   const breadcrumb = [
     {
@@ -413,30 +462,40 @@ useEffect(() => {
 
       </Grid> */}
 
-      <h1 style={{color: '#cc0000', marginBottom: '35px'}}>BETA RELEASE! Values not accurate. Currently only for testing and feedback!</h1>
       <h2>Current Portfolio</h2>
       <Grid container spacing={3}  style={{marginBottom: '10px'}}>
         <Grid item xs={12} sm={12} md={3} lg={3} key={1}>
-          <InputCard value={vtruBalance} item={{defaultValue: vtruBalance, title: 'VTRU', handleInputChange: (e) => console.log(e.target.value)}} />
+          <InputCard value={vtruBalance ?? ''} item={{defaultValue: defaultValues.vtruBalance, title: 'VTRU', handleInputChange: updateWhatIf, key: 'vtru'}} />
         </Grid>
 
         <Grid item xs={12} sm={12} md={3} lg={3} key={2}>
-          <InputCard value={vtroBalance} item={{defaultValue: vtroBalance, title: 'VTRO', handleInputChange: (e) => console.log(e.target.value)}} />
+          <InputCard value={vtroBalance ?? ''} item={{defaultValue: defaultValues.vtroBalance, title: 'VTRO', handleInputChange: updateWhatIf, key: 'vtro'}} />
         </Grid>
 
         <Grid item xs={12} sm={12} md={3} lg={3} key={3}>
-          <InputCard value={vibeBalance} item={{defaultValue: vibeBalance, title: 'VIBE', handleInputChange: (e) => console.log(e.target.value)}} />
+          <InputCard value={vibeBalance ?? ''} item={{defaultValue: defaultValues.vibeBalance, title: 'VIBE', handleInputChange: updateWhatIf, key: 'vibe'}} />
         </Grid>
 
         <Grid item xs={12} sm={12} md={3} lg={3} key={4}>
-          <InputCard value={verseBalance} item={{defaultValue: 0, title: 'VERSE', handleInputChange: (e) => console.log(e.target.value)}} />
+          <InputCard value={verseBalance ?? ''} item={{defaultValue: defaultValues.verseBalance, title: 'VERSE', handleInputChange: updateWhatIf, key: 'verse'}} />
         </Grid>
 
       </Grid>
 
 
+      <Grid container spacing={3}  style={{marginBottom: '10px'}}>
+          <h2 style={{paddingLeft: '20px'}}>VTRU Stakes</h2>
+          <div style={{display: 'flex', justifyContent: 'space-between', paddingLeft: '20px'}}>
+            <InputCard value={stake1 ?? ''} item={{defaultValue: defaultValues.stake1, title: '1Y / 15%', handleInputChange: updateWhatIf, key: 'stake1'}} key={1}/>
+            <InputCard value={stake2 ?? ''} item={{defaultValue: defaultValues.stake2, title: '2Y / 15%', handleInputChange: updateWhatIf, key: 'stake2'}} key={2} />
+            <InputCard value={stake3 ?? ''} item={{defaultValue: defaultValues.stake3, title: '3Y / 23%', handleInputChange: updateWhatIf, key: 'stake3'}} key={3} />
+            <InputCard value={stake4 ?? ''} item={{defaultValue: defaultValues.stake4, title: '4Y/ 45%', handleInputChange:  updateWhatIf, key: 'stake4'}} key={4} />
+            <InputCard value={stake5 ?? ''} item={{defaultValue: defaultValues.stake5, title: '5Y / 60%', handleInputChange: updateWhatIf, key: 'stake5'}} key={5} />
+          </div>
+      </Grid>
+
       <Grid container spacing={3}  style={{marginBottom: '30px'}}>
-        <Grid item xs={12} sm={12} md={9} lg={7} key={1}>
+        <Grid item xs={12} sm={12} md={9} lg={9} key={1}>
           <h2>Projected Holdings and Income</h2>
           
           <TableContainer
@@ -453,7 +512,7 @@ useEffect(() => {
                         key={column.id}
                         style={{ backgroundColor: '#95CFD5', color: '#000', minWidth: column.minWidth }}
                       >
-                        <Typography variant="h4" fontWeight="900">
+                        <Typography variant="h4" fontWeight="900" style={{width: '100%', textAlign: 'right'}}>
                           {column.label}
                         </Typography>
                       </TableCell>
@@ -468,38 +527,38 @@ useEffect(() => {
                     return (
                       <TableRow hover key={index}>
                         <TableCell style={typeof projections[row][0] == 'number' ? {} : {color: '#000', backgroundColor: '#B7A8FD'}}>
-                          <Stack spacing={2} direction="row" alignItems="center">
-                              <Typography variant="h6">{labels[row]}</Typography>
+                          <Stack spacing={1} direction="row" alignItems="center">
+                              <Typography variant="h6" style={{fontSize: '14px', width: '100%'}}>{labels[row]}</Typography>
                           </Stack>
                         </TableCell>
 
                         <TableCell style={typeof projections[row][0] == 'number' ? {} : {color: '#000', backgroundColor: '#B7A8FD'}}>
-                          <Stack spacing={2} direction="row" alignItems="center">
-                              <Typography variant="h6">{typeof projections[row][0] == 'number' ? projections[row][0].toLocaleString() : projections[row][0]}</Typography>
+                          <Stack spacing={1} direction="row" alignItems="center">
+                              <Typography variant="h6" style={{fontSize: '14px', width: '100%', textAlign: 'right'}}>{formatNumber(row, projections[row][0])}</Typography>
+                          </Stack>
+                        </TableCell>
+
+                        <TableCell style={typeof projections[row][0] == 'number' ? {} : {color: '#000', backgroundColor: '#B7A8FD'}}>
+                          <Stack spacing={1} direction="row" alignItems="center">
+                              <Typography variant="h6" style={{fontSize: '14px', width: '100%', textAlign: 'right'}}>{formatNumber(row, projections[row][1])}</Typography>
+                          </Stack>
+                        </TableCell>
+
+                        <TableCell style={typeof projections[row][0] == 'number' ? {} : {color: '#000', backgroundColor: '#B7A8FD'}}>
+                          <Stack spacing={1} direction="row" alignItems="center">
+                              <Typography variant="h6" style={{fontSize: '14px', width: '100%', textAlign: 'right'}}>{formatNumber(row, projections[row][2])}</Typography>
+                          </Stack>
+                        </TableCell>
+
+                        <TableCell style={typeof projections[row][0] == 'number' ? {} : {color: '#000', backgroundColor: '#B7A8FD'}}>
+                          <Stack spacing={1} direction="row" alignItems="center">
+                              <Typography variant="h6" style={{fontSize: '14px', width: '100%', textAlign: 'right'}}>{formatNumber(row, projections[row][3])}</Typography>
                           </Stack>
                         </TableCell>
 
                         <TableCell style={typeof projections[row][0] == 'number' ? {} : {color: '#000', backgroundColor: '#B7A8FD'}}>
                           <Stack spacing={1}>
-                              <Typography variant="h6">{typeof projections[row][1] == 'number' ? projections[row][1].toLocaleString() : projections[row][1]}</Typography>
-                          </Stack>
-                        </TableCell>
-
-                        <TableCell style={typeof projections[row][0] == 'number' ? {} : {color: '#000', backgroundColor: '#B7A8FD'}}>
-                          <Stack spacing={2} direction="row" alignItems="center">
-                              <Typography variant="h6">{typeof projections[row][2] == 'number' ? projections[row][2].toLocaleString() : projections[row][2]}</Typography>
-                          </Stack>
-                        </TableCell>
-
-                        <TableCell style={typeof projections[row][0] == 'number' ? {} : {color: '#000', backgroundColor: '#B7A8FD'}}>
-                          <Stack spacing={2} direction="row" alignItems="center">
-                              <Typography variant="h6">{typeof projections[row][3] == 'number' ? projections[row][3].toLocaleString() : projections[row][3]}</Typography>
-                          </Stack>
-                        </TableCell>
-
-                        <TableCell style={typeof projections[row][0] == 'number' ? {} : {color: '#000', backgroundColor: '#B7A8FD'}}>
-                          <Stack spacing={1}>
-                            <Typography variant="h6">{typeof projections[row][4] == 'number' ? projections[row][4].toLocaleString() : projections[row][4]}</Typography>
+                            <Typography variant="h6" style={{fontSize: '14px', width: '100%', textAlign: 'right'}}>{formatNumber(row, projections[row][4])}</Typography>
                           </Stack>
                         </TableCell>
 
@@ -509,15 +568,6 @@ useEffect(() => {
                 </TableBody>
               </Table>
             </TableContainer>
-        </Grid>
-
-        <Grid item xs={12} sm={12} md={9} lg={2} key={2}>
-          <h2 style={{textAlign: 'center'}}>VTRU Stakes</h2>
-          <InputCard value={stake1} item={{defaultValue: stake1, title: '1Y / 15%', handleInputChange: (e) => console.log(e.target.value)}}  key={1}/>
-          <InputCard value={stake2} item={{defaultValue: stake2, title: '2Y / 15%', handleInputChange: (e) => console.log(e.target.value)}} key={2} />
-          <InputCard value={stake3} item={{defaultValue: stake3, title: '3Y / 23%', handleInputChange: (e) => console.log(e.target.value)}}  key={3}/>
-          <InputCard value={stake4} item={{defaultValue: stake4, title: '4Y/ 45%', handleInputChange: (e) => console.log(e.target.value)}}  key={4}/>
-          <InputCard value={stake5} item={{defaultValue: stake5, title: '5Y / 60%', handleInputChange: (e) => console.log(e.target.value)}}  key={5}/>
         </Grid>
 
 

@@ -10,33 +10,34 @@ import {
 
 const InputCard = ({ value, item }) => {
 
-  const inputRef = useRef(null);
-
   const handleReset = () => {
-    if (inputRef.current) {
-      // Reset the input value to defaultValue
-      inputRef.current.value = item.defaultValue;
-
       // Notify the parent component of the reset value
-      item.handleInputChange({ target: { value: item.defaultValue } });
-    }
+      if (item.defaultValue != null) {
+        item.handleInputChange(item.key, item.defaultValue);
+      }
+  };
+
+  const handleEdit = (e) => {
+      // Notify the parent component of the changed value
+      item.handleInputChange(item.key, Number(e.target.value));
   };
 
   return (
-    <Box bgcolor={"secondary.main"} textAlign="center">
+    <Box bgcolor={item.key.indexOf('stake') > -1 ? "info.light" : "secondary.main"} textAlign="center" style={item.key.indexOf('stake') > -1 ? {width: '18.5%'}: {}}>
       <CardContent px={1} style={{padding: '15px', marginBottom: '10px', height: '110px'}}>
           
 
           <Typography
-            color={"grey.900"}
+            color={item.key.indexOf('stake') > -1 ? "info.main" : "grey.900"}
             variant="h1"
             fontWeight={600}
           >
-             <input type="number" disabled={true} ref={inputRef} value={value} onChange={item.handleInputChange} style={{ textAlign: 'center', padding: '2px', fontSize: '18px', width: '80%', fontFamily: 'monospace'}} /> <span onClick={handleReset} style={{cursor: 'pointer', fontSize: '18px'}}>&#9851;</span>
+              <input type="number" value={value} onChange={handleEdit} style={{ textAlign: 'center', padding: '2px', fontSize: '18px', width: '80%', fontFamily: 'monospace'}} /> 
+              {/* <span onClick={handleReset} style={{cursor: 'pointer', fontSize: '18px'}}>&#9851;</span> */}
           </Typography>
 
           <Typography
-              color={"grey.900"}
+              color={item.key.indexOf('stake') > -1 ? "info.main" : "grey.900"}
               variant="h5"
               fontWeight={600}
               style={{marginTop: '5px'}}
