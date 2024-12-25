@@ -16,16 +16,13 @@ export const Profile = () => {
 
   return (
     <Box
-      display={'flex'}
-      alignItems="center"
-      gap={2}
       sx={{ m: 3, p: 1 }}
     >
       {!hideMenu ? (
         <>
-
-          <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center"}} px={0}>
-            <Typography>v0.8.1</Typography>
+          <h2 style={{marginBottom: '40px', fontSize: '20px', textAlign: 'center'}}>The focal point for your Vitruveo assets</h2>
+          <Box sx={{display: "flex", justifyContent: "center", alignItems: "center"}} px={0}>
+            <Typography>v0.8.3</Typography>
             <img src="/images/logo.png" style={{marginLeft: '10px', width: '120px'}} />
           </Box>
         </>

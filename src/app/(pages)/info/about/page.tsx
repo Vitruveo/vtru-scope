@@ -39,6 +39,26 @@ export default function CoreNft () {
                 Release Notes
               </Typography>
             </FormLabel>
+            
+            <ChildCard>
+                  <Typography variant="h6">v0.8.3</Typography>
+
+                  <Typography variant="body1" color="textSecondary">
+                    <ul>
+                      <li>Income Projection Calculator</li>
+                    </ul>
+                  </Typography>
+            </ChildCard>
+
+            <ChildCard>
+                  <Typography variant="h6">v0.8.2</Typography>
+
+                  <Typography variant="body1" color="textSecondary">
+                    <ul>
+                      <li>wVTRU FAQer</li>
+                    </ul>
+                  </Typography>
+            </ChildCard>
 
             <ChildCard>
                   <Typography variant="h6">v0.8.1</Typography>

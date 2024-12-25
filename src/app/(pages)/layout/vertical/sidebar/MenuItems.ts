@@ -21,6 +21,7 @@ import {
   IconTicket,
   IconApps,
   IconPackage,
+  IconCalculator,
   IconBox,
   IconAperture,
   IconClockStar,
@@ -40,6 +41,13 @@ const Menuitems: MenuitemsType[] = [
     title: "Dashboard",
     icon: IconApps,
     href: "/",
+    chipColor: "secondary",
+  },
+  {
+    id: uniqueId(),
+    title: "Calculator",
+    icon: IconCalculator,
+    href: "/calculator",
     chipColor: "secondary",
   },
   {
