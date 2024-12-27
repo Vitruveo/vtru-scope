@@ -55,7 +55,7 @@ export default function CalculatorApp () {
   const [stake3, setStake3] = useState(0);
   const [stake4, setStake4] = useState(0);
   const [stake5, setStake5] = useState(0);
-  const [growthCurve, setGrowthCurve] = useState([40, 30, 15, 10, 5]);
+  const [growthCurve, setGrowthCurve] = useState([2, 7, 15, 30, 46]);
 
   const [defaultValues, setDefaultValues] = useState({
     vtru: null,
