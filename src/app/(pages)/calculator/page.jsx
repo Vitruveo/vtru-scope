@@ -4,6 +4,8 @@ import Breadcrumb from '@/app/(pages)/layout/shared/breadcrumb/Breadcrumb';
 import PageContainer from '@/app/(pages)/components/container/PageContainer';
 import CustomSelect from '@/app/(pages)/components/forms/theme-elements/CustomSelect';
 import GrowthCard from '../components/calculator/GrowthCard';
+import GrowthChart from '../components/calculator/GrowthChart';
+
 import InputCard from '../components/calculator/InputCard';
 
 import {
@@ -53,6 +55,7 @@ export default function CalculatorApp () {
   const [stake3, setStake3] = useState(0);
   const [stake4, setStake4] = useState(0);
   const [stake5, setStake5] = useState(0);
+  const [growthCurve, setGrowthCurve] = useState([40, 30, 15, 10, 5]);
 
   const [defaultValues, setDefaultValues] = useState({
     vtru: null,
@@ -304,7 +307,8 @@ useEffect(() => {
         verse: verseBalance,
         vtruStaked: [stake1, stake2, stake3, stake4, stake5],
       },
-      assumptionsModel
+      assumptionsModel,
+      growthCurve
   );
   setProjections(results);
 }
@@ -328,7 +332,7 @@ useEffect(() => {
 
   updatePage();
                   
-}, [assumptionsModel]);
+}, [assumptionsModel, growthCurve]);
 
 useEffect(() => {
 
@@ -337,6 +341,9 @@ useEffect(() => {
                                           
 }, [vtruBalance, vtroBalance, vibeBalance, verseBalance, stake1, stake2, stake3, stake4, stake5]);
 
+function growthCurveHandler(curve) {
+  setGrowthCurve(curve);
+}
 
 const formatNumber = (key, amount) => {
   if (key.indexOf('Revenue') > 0 || key.indexOf('Price') > 0 || key.indexOf('USD') > 0) {
@@ -582,6 +589,11 @@ const formatNumber = (key, amount) => {
       </Grid>
 
 
+      <Grid container spacing={3}  style={{marginBottom: '10px'}}>
+          <Grid item xs={12} sm={12} md={9} lg={9} key={1} style={{height: '350px'}}>
+              <GrowthChart curve={growthCurve} growthHandler={growthCurveHandler}></GrowthChart>
+          </Grid>
+      </Grid>
 
     </PageContainer>
   ); 

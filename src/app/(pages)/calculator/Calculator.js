@@ -21,7 +21,6 @@ class Calculator {
   rebaseRate = [1.15, 1.23, 1.30, 1.45, 1.50];
   stakingAPR = [.15, .23, .30, .45, .50];
   stakingDays = [365, 730, 1095, 1460, 1825];
-  curve = [0.4, 0.3, 0.15, 0.10, 0.05];
 
   calculateInterimValues(start, finalPercentage) {
     const values = [];
@@ -55,11 +54,6 @@ calculateInterimPriceValues(start, finalPrice) {
     });
   }
 
-  calculateGrowth(max) {
-    const curve = [0.4, 0.3, 0.15, 0.10, 0.05];
-    return [max * curve[0], max * curve[1], max * curve[2], max * curve[3], max * curve[4]];
-  }
-
   pivotData(data, startYear) {
     if (!data || data.length === 0) {
       return {};
@@ -88,10 +82,9 @@ calculateInterimPriceValues(start, finalPrice) {
   constructor() {
   }
 
-  calculateProjections(startYear, holdings, assumptions) {
-
+  calculateProjections(startYear, holdings, assumptions, growthCurve) {
     this.holdings = holdings;
-
+    this.curve = growthCurve.map((c) => c/100);
     let startWalletVTRU = this.roundToDecimals(holdings.vtru, 2);
     let endWalletVTRU = this.roundToDecimals(startWalletVTRU, 2);
     let walletVTRO = holdings.vtro;
