@@ -45,7 +45,7 @@ const Menuitems: MenuitemsType[] = [
   },
   {
     id: uniqueId(),
-    title: "Calculator",
+    title: "What-if Calculator",
     icon: IconCalculator,
     href: "/calculator",
     chipColor: "secondary",

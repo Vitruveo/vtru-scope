@@ -366,15 +366,15 @@ const formatNumber = (key, amount) => {
       title: 'Home',
     },
     {
-      title: "Calculator"
+      title: "What-if Calculator"
     },
   ];
 
   const gap = '24px';
 
   return (
-<PageContainer title="VTRU Scope" description="Calculator">
-      <Breadcrumb title="Calculator" items={breadcrumb} />
+<PageContainer title="VTRU Scope" description="What-if Calculator">
+      <Breadcrumb title="What-if Calculator" items={breadcrumb} />
       {/* <Grid container spacing={3} style={{marginBottom: '30px'}}>
                 <Grid item xs={12} sm={12} md={3} lg={3} key={1}>
                   <Box bgcolor={"info.light"} textAlign="center">
