@@ -251,7 +251,7 @@ useEffect(() => {
           <p style={{fontSize: '1.3em', marginBottom: '10px'}}>Vitruveo is a Rebasing protocol. VTRU coin balances in Wallets and Contracts automatically earn a compounded 32% APR Interest on Epochs (days) 
             that a Rebase occurs. This happens if the Epoch transaction goal is met. The goal is initially 500 transactions, and increases by 500 each time a Rebase happens.</p>
           <p style={{fontSize: '1.3em', marginBottom: '30px'}}>VTRU coins stored in your Wallet Rebase in your wallet.
-          VTRU coins stored in a Contract on your behalf (example: staking) also Rebase, but it's up to the Contract creator to let you claim the Rebase.
+          VTRU coins stored in a Contract on your behalf (example: staking) also Rebase, but it&apos;s up to the Contract creator to let you claim the Rebase.
           VTRU tokens (which are actually bridged VTRU coins) do not Rebase.</p>
         </Grid>
       </Grid>
