@@ -28,6 +28,7 @@ import {
   IconClockStop,
   IconBrush,
   IconCircleKey,
+  IconCoins,
 } from "@tabler/icons-react";
 
 const Menuitems: MenuitemsType[] = [
@@ -48,6 +49,13 @@ const Menuitems: MenuitemsType[] = [
     title: "What-if Calculator",
     icon: IconCalculator,
     href: "/calculator",
+    chipColor: "secondary",
+  },
+  {
+    id: uniqueId(),
+    title: "Rebase Projector",
+    icon: IconCoins,
+    href: "/rebase",
     chipColor: "secondary",
   },
   {

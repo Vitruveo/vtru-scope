@@ -39,7 +39,16 @@ export default function CoreNft () {
                 Release Notes
               </Typography>
             </FormLabel>
-            
+            <ChildCard>
+                  <Typography variant="h6">v0.8.4</Typography>
+
+                  <Typography variant="body1" color="textSecondary">
+                    <ul>
+                      <li>Rebase Projector</li>
+                    </ul>
+                  </Typography>
+            </ChildCard>
+
             <ChildCard>
                   <Typography variant="h6">v0.8.3</Typography>
 

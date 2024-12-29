@@ -314,7 +314,6 @@ useEffect(() => {
 }
   
 const updateWhatIf = (key, value) => {
-  console.log(key, value)
     switch(key) {
       case 'vtru': setVtruBalance(value); break;
       case 'vtro': setVtroBalance(value); break;
