@@ -388,24 +388,36 @@ export default function Dashboard() {
         Trading
       </h1>
       <Grid container spacing={3} style={{ marginBottom: "30px" }}>
-        <Grid item xs={12} sm={12} md={6} lg={6} key={1}>
+        <Grid item xs={12} sm={12} md={4} lg={4} key={1}>
           <Box bgcolor={"primary.main"} textAlign="center">
             <CardContent px={1}>
               <Typography color={"grey.900"} variant="h3" fontWeight={600}>
-                <Link style={linkStyle} href="https://pancakeswap.finance/?chain=bsc&inputCurrency=0xb08504D245713Ca9692C8fA605E76A0A11Ed4955&outputCurrency=0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d&fee=10000">
-                  PancakeSwap VTRU/USDC (BSC)
+                <Link style={linkStyle} href="https://pancakeswap.finance/?chain=bsc&inputCurrency=0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d&outputCurrency=0xb08504D245713Ca9692C8fA605E76A0A11Ed4955&fee=10000">
+                  PancakeSwap USDC/VTRU (BSC)
                 </Link>
               </Typography>
             </CardContent>
           </Box>
         </Grid>
 
-        <Grid item xs={12} sm={12} md={6} lg={6} key={2}>
+        <Grid item xs={12} sm={12} md={4} lg={4} key={1}>
           <Box bgcolor={"primary.main"} textAlign="center">
             <CardContent px={1}>
               <Typography color={"grey.900"} variant="h3" fontWeight={600}>
-                <Link style={linkStyle}  href="https://app.uniswap.org/swap?chain=mainnet&inputCurrency=0x7070f01a2040bd06109c6fc478cd139b323459af&outputCurrency=0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48&fee=10000">
-                Uniswap VTRU/USDC (Ethereum)
+                <Link style={linkStyle} href="https://pancakeswap.finance/?chain=bsc&inputCurrency=BNB&outputCurrency=0xb08504D245713Ca9692C8fA605E76A0A11Ed4955&fee=10000">
+                  PancakeSwap BNB/VTRU (BSC)
+                </Link>
+              </Typography>
+            </CardContent>
+          </Box>
+        </Grid>
+
+        <Grid item xs={12} sm={12} md={4} lg={4} key={2}>
+          <Box bgcolor={"primary.main"} textAlign="center">
+            <CardContent px={1}>
+              <Typography color={"grey.900"} variant="h3" fontWeight={600}>
+                <Link style={linkStyle}  href="https://app.uniswap.org/swap?chain=mainnet&inputCurrency=0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48&outputCurrency=0x7070f01a2040bd06109c6fc478cd139b323459af&fee=10000">
+                Uniswap USDC/VTRU (Ethereum)
                 </Link>
               </Typography>
             </CardContent>
