@@ -62,6 +62,7 @@ export default function Dashboard() {
   const [veoBalance, setVeoBalance] = useState(0);
   const [vusdBalance, setVusdBalance] = useState(0);
   const [wvtruBalance, setWvtruBalance] = useState(0);
+  const [bridgeBalance, setBridgeBalance] = useState(0);
 
   const [perksBalance, setPerksBalance] = useState(0);
   const [vipBalance, setVipBalance] = useState(0);
@@ -70,6 +71,7 @@ export default function Dashboard() {
 
   const [treasuryBalance, setTreasuryBalance] = useState(0);
   const [circulatingSupply, setCirculatingSupply] = useState(0);
+  const [tradingSupply, setTradingSupply] = useState(0);
 
   const [whaleCount, setWhaleCount] = useState(0);
   const [whaleTotal, setWhaleTotal] = useState(0);
@@ -235,6 +237,10 @@ export default function Dashboard() {
             setWvtruBalance(item.balance);
             targets.push(i);
             break;
+          case lower(config[network].VTRU):
+            setBridgeBalance(item.balance);
+            targets.push(i);
+            break;
           case lower("0xCA01dDbEacFcEF7456C4f291BE2F216F8fd81Ea6"):
             setTreasuryBalance(item.balance);
             targets.push(i);
@@ -258,7 +264,7 @@ export default function Dashboard() {
         }
       }
 
-      const KNOWN = 11;
+      const KNOWN = 12;
 
       for (let t = 0; t < KNOWN; t++) {
         balances[targets[t]] = null;
@@ -289,6 +295,7 @@ export default function Dashboard() {
       if (targets.length == KNOWN) {
         let reserved =
           wvtruBalance +
+          bridgeBalance + 
           veoBalance +
           vibeBalance +
           vusdBalance +
@@ -303,6 +310,7 @@ export default function Dashboard() {
           let currentCirculatingSupply = totalSupply - reserved;
           setCirculatingSupply(currentCirculatingSupply);
         }
+        setTradingSupply(wvtruBalance + bridgeBalance);
       }
     }
 
@@ -333,6 +341,11 @@ export default function Dashboard() {
       label: "wVTRU",
       amount: wvtruBalance,
       address: "0x3ccc3F22462cAe34766820894D04a40381201ef9",
+    },
+    {
+      label: "Bridge",
+      amount: bridgeBalance,
+      address: "0x931AC5400ba4BD2d882Ef6Bc3C5714113f2a4d29",
     },
   ];
 
@@ -400,7 +413,7 @@ export default function Dashboard() {
           </Box>
         </Grid>
 
-        <Grid item xs={12} sm={12} md={4} lg={4} key={1}>
+        <Grid item xs={12} sm={12} md={4} lg={4} key={2}>
           <Box bgcolor={"primary.main"} textAlign="center">
             <CardContent px={1}>
               <Typography color={"grey.900"} variant="h3" fontWeight={600}>
@@ -412,7 +425,7 @@ export default function Dashboard() {
           </Box>
         </Grid>
 
-        <Grid item xs={12} sm={12} md={4} lg={4} key={2}>
+        <Grid item xs={12} sm={12} md={4} lg={4} key={3}>
           <Box bgcolor={"primary.main"} textAlign="center">
             <CardContent px={1}>
               <Typography color={"grey.900"} variant="h3" fontWeight={600}>
@@ -585,7 +598,7 @@ export default function Dashboard() {
         Supply
       </h1>
       <Grid container spacing={3} style={{ marginBottom: "30px" }}>
-        <Grid item xs={12} sm={12} md={4} lg={4} key={1}>
+        <Grid item xs={12} sm={12} md={3} lg={3} key={1}>
           <Box bgcolor={"secondary.main"} textAlign="center">
             <CardContent px={1}>
               <Typography
@@ -602,7 +615,7 @@ export default function Dashboard() {
           </Box>
         </Grid>
 
-        <Grid item xs={12} sm={12} md={4} lg={4} key={2}>
+        <Grid item xs={12} sm={12} md={3} lg={3} key={2}>
           <Box bgcolor={"secondary.main"} textAlign="center">
             <CardContent px={1}>
               <Typography
@@ -619,7 +632,7 @@ export default function Dashboard() {
           </Box>
         </Grid>
 
-        <Grid item xs={12} sm={12} md={4} lg={4} key={3}>
+        <Grid item xs={12} sm={12} md={3} lg={3} key={3}>
           <Box bgcolor={"secondary.main"} textAlign="center">
             <CardContent px={1}>
               <Typography
@@ -627,7 +640,7 @@ export default function Dashboard() {
                 variant="subtitle1"
                 fontWeight={600}
               >
-                Circulating Supply (= in wallets)
+                Circulating Supply
               </Typography>
               <Typography color={"grey.900"} variant="h2" fontWeight={600}>
                 {display(circulatingSupply)}
@@ -635,6 +648,25 @@ export default function Dashboard() {
             </CardContent>
           </Box>
         </Grid>
+
+        
+        <Grid item xs={12} sm={12} md={3} lg={3} key={4}>
+          <Box bgcolor={"secondary.main"} textAlign="center">
+            <CardContent px={1}>
+              <Typography
+                color={"grey.900"}
+                variant="subtitle1"
+                fontWeight={600}
+              >
+                Trading Supply (Wrap + Bridge)
+              </Typography>
+              <Typography color={"grey.900"} variant="h2" fontWeight={600}>
+                {display(tradingSupply)}
+              </Typography>
+            </CardContent>
+          </Box>
+        </Grid>
+
       </Grid>
       {/* <h4 style={{color: 'white'}}>Note: Circulating Supply = Total Supply - (Treasury + Staked + Vesting + Contract Balances + Reserved Balances). It includes new claims from VIBE and Vesting contracts, Validator VIP airdrops and Creator Vault balances.</h4> */}
 
