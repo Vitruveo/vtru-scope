@@ -28,7 +28,7 @@ import {
 } from '@mui/material';
 import { Stack } from '@mui/system';
 
-import Calculator from './Calculator';
+import Calculator from './WhatIf';
 
 import { readContract, writeContract } from "@wagmi/core";
 import config from "@/app/config/vtru-contracts.json";

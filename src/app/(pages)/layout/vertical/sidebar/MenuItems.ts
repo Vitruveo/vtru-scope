@@ -22,6 +22,7 @@ import {
   IconApps,
   IconPackage,
   IconCalculator,
+  IconCalculatorFilled,
   IconBox,
   IconAperture,
   IconClockStar,
@@ -47,8 +48,15 @@ const Menuitems: MenuitemsType[] = [
   {
     id: uniqueId(),
     title: "What-if Calculator",
+    icon: IconCalculatorFilled,
+    href: "/whatif",
+    chipColor: "secondary",
+  },
+  {
+    id: uniqueId(),
+    title: "VERSE Projector",
     icon: IconCalculator,
-    href: "/calculator",
+    href: "/verse",
     chipColor: "secondary",
   },
   {
