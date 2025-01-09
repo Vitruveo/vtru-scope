@@ -246,7 +246,7 @@ useEffect(() => {
 const formatNumber = (key, amount) => {
   if (key.indexOf('Title') > 0) return '';
   if (amount == 0) return '';
-  if (key == 'revenueSharePerVerseUnit' || key.indexOf('cash') == 0 || key.indexOf('Cap') > -1 || key.indexOf('Funding') > -1 || key.indexOf('Price') > -1 || key.indexOf('operations') > -1 || key.indexOf('Revenue') > -1) {
+  if (key == 'revenueSharePerVerseUnit' || key.indexOf('total') == 0 || key.indexOf('cash') == 0 || key.indexOf('Cap') > -1 || key.indexOf('Funding') > -1 || key.indexOf('Price') > -1 || key.indexOf('operations') > -1 || key.indexOf('Revenue') > -1) {
     return (amount ? Intl.NumberFormat("en-US", {
       style: "currency",
       currency: "USD",
