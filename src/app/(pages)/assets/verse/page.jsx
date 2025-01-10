@@ -535,7 +535,7 @@ export default function Stake () {
                     variant="subtitle1"
                     fontWeight={600}
                   >
-                    Stake VTRU for VERSE
+                    Stake 1 VTRU for 1 VERSE
                   </Typography>
 
                   <Typography
@@ -625,7 +625,7 @@ export default function Stake () {
                     variant="subtitle1"
                     fontWeight={600}
                   >
-                    Swap VTRO for VERSE
+                    Swap 10 VTRO for 1 VERSE
                   </Typography>
 
                   <Typography
