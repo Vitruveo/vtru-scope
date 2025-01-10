@@ -598,39 +598,6 @@ export default function Dashboard() {
         Supply
       </h1>
       <Grid container spacing={3} style={{ marginBottom: "30px" }}>
-        <Grid item xs={12} sm={12} md={3} lg={3} key={1}>
-          <Box bgcolor={"secondary.main"} textAlign="center">
-            <CardContent px={1}>
-              <Typography
-                color={"grey.900"}
-                variant="subtitle1"
-                fontWeight={600}
-              >
-                Max Supply
-              </Typography>
-              <Typography color={"grey.900"} variant="h2" fontWeight={600}>
-                {display(MAX_SUPPLY)}
-              </Typography>
-            </CardContent>
-          </Box>
-        </Grid>
-
-        <Grid item xs={12} sm={12} md={3} lg={3} key={2}>
-          <Box bgcolor={"secondary.main"} textAlign="center">
-            <CardContent px={1}>
-              <Typography
-                color={"grey.900"}
-                variant="subtitle1"
-                fontWeight={600}
-              >
-                Total Supply
-              </Typography>
-              <Typography color={"grey.900"} variant="h2" fontWeight={600}>
-                {display(totalSupply)}
-              </Typography>
-            </CardContent>
-          </Box>
-        </Grid>
 
         <Grid item xs={12} sm={12} md={3} lg={3} key={3}>
           <Box bgcolor={"secondary.main"} textAlign="center">
@@ -649,6 +616,41 @@ export default function Dashboard() {
           </Box>
         </Grid>
 
+
+        <Grid item xs={12} sm={12} md={3} lg={3} key={2}>
+          <Box bgcolor={"secondary.main"} textAlign="center">
+            <CardContent px={1}>
+              <Typography
+                color={"grey.900"}
+                variant="subtitle1"
+                fontWeight={600}
+              >
+                Total Supply
+              </Typography>
+              <Typography color={"grey.900"} variant="h2" fontWeight={600}>
+                {display(totalSupply)}
+              </Typography>
+            </CardContent>
+          </Box>
+        </Grid>
+
+
+        <Grid item xs={12} sm={12} md={3} lg={3} key={1}>
+          <Box bgcolor={"secondary.main"} textAlign="center">
+            <CardContent px={1}>
+              <Typography
+                color={"grey.900"}
+                variant="subtitle1"
+                fontWeight={600}
+              >
+                Max Supply
+              </Typography>
+              <Typography color={"grey.900"} variant="h2" fontWeight={600}>
+                {display(MAX_SUPPLY)}
+              </Typography>
+            </CardContent>
+          </Box>
+        </Grid>
         
         <Grid item xs={12} sm={12} md={3} lg={3} key={4}>
           <Box bgcolor={"secondary.main"} textAlign="center">
@@ -667,6 +669,7 @@ export default function Dashboard() {
           </Box>
         </Grid>
 
+        
       </Grid>
       {/* <h4 style={{color: 'white'}}>Note: Circulating Supply = Total Supply - (Treasury + Staked + Vesting + Contract Balances + Reserved Balances). It includes new claims from VIBE and Vesting contracts, Validator VIP airdrops and Creator Vault balances.</h4> */}
 
@@ -674,6 +677,28 @@ export default function Dashboard() {
         Locked Balances
       </h1>
       <Grid container spacing={3} style={{ marginBottom: "30px" }}>
+
+        <Grid item xs={12} sm={12} md={3} lg={3} key={2}>
+          <Box bgcolor={"primary.main"} textAlign="center">
+            <CardContent px={1}>
+              <Typography
+                color={"grey.900"}
+                variant="subtitle1"
+                fontWeight={600}
+              >
+                Total
+              </Typography>
+              <Typography color={"grey.900"} variant="h2" fontWeight={600}>
+                {display(lockedBarItems.reduce((a, b) => a + b.amount, 0))}
+              </Typography>
+            </CardContent>
+          </Box>
+        </Grid>
+
+        <Grid item xs={12} sm={12} md={6} lg={6} key={3}>
+          <InfoBar items={lockedBarItems} />
+        </Grid>
+
         <Grid item xs={12} sm={12} md={3} lg={3} key={1}>
           <Box
             bgcolor={"primary.main"}
@@ -698,26 +723,6 @@ export default function Dashboard() {
           </Box>
         </Grid>
 
-        <Grid item xs={12} sm={12} md={3} lg={3} key={2}>
-          <Box bgcolor={"primary.main"} textAlign="center">
-            <CardContent px={1}>
-              <Typography
-                color={"grey.900"}
-                variant="subtitle1"
-                fontWeight={600}
-              >
-                Total
-              </Typography>
-              <Typography color={"grey.900"} variant="h2" fontWeight={600}>
-                {display(lockedBarItems.reduce((a, b) => a + b.amount, 0))}
-              </Typography>
-            </CardContent>
-          </Box>
-        </Grid>
-
-        <Grid item xs={12} sm={12} md={6} lg={6} key={3}>
-          <InfoBar items={lockedBarItems} />
-        </Grid>
 
         {/* 
                 <Grid item xs={12} sm={12} md={3} lg={3} key={4}>
