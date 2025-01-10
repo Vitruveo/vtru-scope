@@ -67,7 +67,7 @@ export default function Contracts() {
           </Box>
         </Grid>
 
-        <Grid item xs={12} sm={12} md={6} lg={6} key={1}>
+        <Grid item xs={12} sm={12} md={6} lg={6} key={2}>
           <Box bgcolor={"grey.100"} textAlign="center">
             <CardContent px={1}>
               <Typography
@@ -147,7 +147,7 @@ export default function Contracts() {
 
 
       <Grid container spacing={3} style={{ marginBottom: "30px" }}>
-        <Grid item xs={12} sm={12} md={6} lg={6} key={2}>
+        <Grid item xs={12} sm={12} md={6} lg={6} key={1}>
           <Box bgcolor={"grey.100"} textAlign="center">
             <CardContent px={1}>
               <Typography
@@ -312,16 +312,16 @@ export default function Contracts() {
                 fontWeight={600}
                 style={titleStyle}
               >
-                VEO
+                VERSE
               </Typography>
               <Typography color={"info.main"} fontWeight={600}>
-                <p>Vitruveo Ecosystem Ownership (VEO) Bundle</p>
+                <p>Vitruveo Entertainment Revenue Sharing Engine </p>
                 <a
                   style={linkStyle}
-                  href="https://explorer.vitruveo.xyz/address/0x4D5B24179c656A88087eF4369887fD58AB5e8EF3"
+                  href="https://explorer.vitruveo.xyz/token/0x72D2bFb14b3351d17A63Cd4c8085E034e313c54c"
                   target="_new"
                 >
-                  0x4D5B24179c656A88087eF4369887fD58AB5e8EF3
+                  0x72D2bFb14b3351d17A63Cd4c8085E034e313c54c
                 </a>
               </Typography>
             </CardContent>

@@ -30,6 +30,7 @@ import {
   IconBrush,
   IconCircleKey,
   IconCoins,
+  IconMovie,
 } from "@tabler/icons-react";
 
 const Menuitems: MenuitemsType[] = [
@@ -88,6 +89,12 @@ const Menuitems: MenuitemsType[] = [
         title: "VIBE",
         icon: IconEngine,
         href: "/assets/vibe"
+      },
+      {
+        id: uniqueId(),
+        title: "VERSE",
+        icon: IconMovie,
+        href: "/assets/verse"
       },
       {
         id: uniqueId(),

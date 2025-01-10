@@ -60,6 +60,7 @@ export default function Dashboard() {
 
   const [vibeBalance, setVibeBalance] = useState(0);
   const [veoBalance, setVeoBalance] = useState(0);
+  const [verseBalance, setVerseBalance] = useState(0);
   const [vusdBalance, setVusdBalance] = useState(0);
   const [wvtruBalance, setWvtruBalance] = useState(0);
   const [bridgeBalance, setBridgeBalance] = useState(0);
@@ -229,6 +230,10 @@ export default function Dashboard() {
             setVeoBalance(item.balance);
             targets.push(i);
             break;
+          case lower(config[network].VERSE):
+              setVerseBalance(item.balance);
+              targets.push(i);
+              break;
           case lower(config[network].VUSD):
             setVusdBalance(item.balance);
             targets.push(i);
@@ -264,7 +269,7 @@ export default function Dashboard() {
         }
       }
 
-      const KNOWN = 12;
+      const KNOWN = 13;
 
       for (let t = 0; t < KNOWN; t++) {
         balances[targets[t]] = null;
@@ -331,6 +336,11 @@ export default function Dashboard() {
       label: "VEO",
       amount: veoBalance,
       address: "0x4D5B24179c656A88087eF4369887fD58AB5e8EF3",
+    },
+    {
+      label: "VERSE",
+      amount: verseBalance,
+      address: "0x72D2bFb14b3351d17A63Cd4c8085E034e313c54c",
     },
     {
       label: "VUSD",
@@ -651,7 +661,7 @@ export default function Dashboard() {
             </CardContent>
           </Box>
         </Grid>
-        
+
         <Grid item xs={12} sm={12} md={3} lg={3} key={4}>
           <Box bgcolor={"secondary.main"} textAlign="center">
             <CardContent px={1}>

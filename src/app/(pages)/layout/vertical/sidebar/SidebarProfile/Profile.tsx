@@ -22,7 +22,7 @@ export const Profile = () => {
         <>
           <h2 style={{marginBottom: '40px', fontSize: '20px', textAlign: 'center'}}>The focal point for your Vitruveo assets</h2>
           <Box sx={{display: "flex", justifyContent: "center", alignItems: "center"}} px={0}>
-            <Typography>v0.8.4</Typography>
+            <Typography>v0.8.5</Typography>
             <img src="/images/logo.png" style={{marginLeft: '10px', width: '120px'}} />
           </Box>
         </>

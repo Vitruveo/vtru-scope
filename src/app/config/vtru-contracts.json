@@ -19,7 +19,8 @@
     "BlockList": "0x31fAB18311C9CCAf40312CF954F49A88be5b1Ab2",
     "Boosters": "0x8246eb7D32416888aBeB23b1E715ee5A156d3aBe",
     "VTROStake": "0x27436fccC5b1B3Ff50Bd74c413a9DCfEd4bA2d0b",
-    "VTRU": "0x931AC5400ba4BD2d882Ef6Bc3C5714113f2a4d29"
+    "VTRU": "0x931AC5400ba4BD2d882Ef6Bc3C5714113f2a4d29",
+    "VERSE": "0x72D2bFb14b3351d17A63Cd4c8085E034e313c54c"
   },
   "testnet": {
     "AssetRegistry": "0xeC84C281396C4E971586E0707FA39585073E6403",
@@ -38,7 +39,7 @@
     "VEO": "0x5f12F8f9B6A2feAB838B72CAc8Be3C1bCCCfac55",
     "ValidatorRegistry": "0x307faC58E575b18449f986f7083452F4bA5ed73a",
     "truLevel": "0x85402b929AD7BcD293d02EB13735a20E23175CC8",
-    "VERSE": "0x0BaFB74c1a993CFc87f9a75BA8d75fFE4dB64b1a",
+    "VERSE": "0x091b646c9697Cb9058884f33FA91b1FFa723ACFe",
     "VTRU": "0x718540FCfaaeDb19DE2D9622E38f507011934C65",
     "VTRUBridged": "0x43c6914E7f966Ce203C47D22F743d476Ed066881"
   },
@@ -1881,19 +1882,6 @@
       },
       {
         "type": "function",
-        "name": "boost",
-        "constant": false,
-        "payable": false,
-        "inputs": [
-          {
-            "type": "uint256",
-            "name": "boosterId"
-          }
-        ],
-        "outputs": []
-      },
-      {
-        "type": "function",
         "name": "calculateGrantClaimAmounts",
         "constant": true,
         "stateMutability": "view",
@@ -2581,6 +2569,19 @@
       },
       {
         "type": "function",
+        "name": "revokeCoreNFT",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "uint256",
+            "name": "tokenId"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "type": "function",
         "name": "revokeRole",
         "constant": false,
         "payable": false,
@@ -2655,19 +2656,6 @@
           {
             "type": "bool",
             "name": "approved"
-          }
-        ],
-        "outputs": []
-      },
-      {
-        "type": "function",
-        "name": "setBlocksInMonth",
-        "constant": false,
-        "payable": false,
-        "inputs": [
-          {
-            "type": "uint256",
-            "name": "blocks"
           }
         ],
         "outputs": []
@@ -2900,27 +2888,6 @@
         "constant": false,
         "payable": false,
         "inputs": [],
-        "outputs": []
-      },
-      {
-        "type": "function",
-        "name": "updateCoreClass",
-        "constant": false,
-        "payable": false,
-        "inputs": [
-          {
-            "type": "uint256",
-            "name": "id"
-          },
-          {
-            "type": "bool",
-            "name": "isTransferable"
-          },
-          {
-            "type": "bool",
-            "name": "allowMultiple"
-          }
-        ],
         "outputs": []
       },
       {
@@ -19841,28 +19808,6 @@
       {
         "type": "event",
         "anonymous": false,
-        "name": "VerseFundsClaimed",
-        "inputs": [
-          {
-            "type": "address",
-            "name": "account",
-            "indexed": true
-          },
-          {
-            "type": "uint256",
-            "name": "tokenId",
-            "indexed": true
-          },
-          {
-            "type": "uint256",
-            "name": "claimed",
-            "indexed": false
-          }
-        ]
-      },
-      {
-        "type": "event",
-        "anonymous": false,
         "name": "VerseMinted",
         "inputs": [
           {
@@ -19915,8 +19860,49 @@
         ]
       },
       {
+        "type": "event",
+        "anonymous": false,
+        "name": "VerseUnitsTransferred",
+        "inputs": [
+          {
+            "type": "address",
+            "name": "account",
+            "indexed": false
+          },
+          {
+            "type": "uint256",
+            "name": "sourceTokenId",
+            "indexed": true
+          },
+          {
+            "type": "uint256",
+            "name": "targetTokenId",
+            "indexed": true
+          },
+          {
+            "type": "uint256",
+            "name": "units",
+            "indexed": false
+          }
+        ]
+      },
+      {
         "type": "function",
         "name": "BLOCK_LIST_CONTRACT",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "address",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "CORE_STAKE_CONTRACT",
         "constant": true,
         "stateMutability": "view",
         "payable": false,
@@ -19980,6 +19966,20 @@
         "outputs": [
           {
             "type": "bytes32",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "VTRO_TOKEN_CONTRACT",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "address",
             "name": ""
           }
         ]
@@ -20101,51 +20101,6 @@
       },
       {
         "type": "function",
-        "name": "getVerseNFTBatch",
-        "constant": true,
-        "stateMutability": "view",
-        "payable": false,
-        "inputs": [
-          {
-            "type": "uint256",
-            "name": "startTokenId"
-          },
-          {
-            "type": "uint256",
-            "name": "endTokenId"
-          }
-        ],
-        "outputs": [
-          {
-            "type": "address[]",
-            "name": ""
-          },
-          {
-            "type": "tuple[]",
-            "name": "",
-            "components": [
-              {
-                "type": "uint256",
-                "name": "tokenId"
-              },
-              {
-                "type": "uint8",
-                "name": "mode"
-              },
-              {
-                "type": "uint256",
-                "name": "units"
-              },
-              {
-                "type": "uint256",
-                "name": "claimed"
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "type": "function",
         "name": "getVerseNFTByOwner",
         "constant": true,
         "stateMutability": "view",
@@ -20156,38 +20111,6 @@
             "name": "account"
           }
         ],
-        "outputs": [
-          {
-            "type": "tuple",
-            "name": "",
-            "components": [
-              {
-                "type": "uint256",
-                "name": "tokenId"
-              },
-              {
-                "type": "uint8",
-                "name": "mode"
-              },
-              {
-                "type": "uint256",
-                "name": "units"
-              },
-              {
-                "type": "uint256",
-                "name": "claimed"
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "type": "function",
-        "name": "getVerseNFTByOwner",
-        "constant": true,
-        "stateMutability": "view",
-        "payable": false,
-        "inputs": [],
         "outputs": [
           {
             "type": "tuple",
@@ -20308,7 +20231,7 @@
       },
       {
         "type": "function",
-        "name": "mintVerseNFT",
+        "name": "mintAdmin",
         "constant": false,
         "payable": false,
         "inputs": [
@@ -20329,20 +20252,36 @@
       },
       {
         "type": "function",
-        "name": "mintVerseNFTBatch",
+        "name": "mintStake",
         "constant": false,
-        "payable": false,
+        "stateMutability": "payable",
+        "payable": true,
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "mintStakeVault",
+        "constant": false,
+        "stateMutability": "payable",
+        "payable": true,
         "inputs": [
           {
-            "type": "address[]",
-            "name": "accounts"
-          },
+            "type": "address",
+            "name": "account"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "mintSwap",
+        "constant": false,
+        "stateMutability": "payable",
+        "payable": true,
+        "inputs": [
           {
-            "type": "uint8[]",
-            "name": "modes"
-          },
-          {
-            "type": "uint256[]",
+            "type": "uint256",
             "name": "units"
           }
         ],
@@ -20419,14 +20358,6 @@
       },
       {
         "type": "function",
-        "name": "recoverVTRU",
-        "constant": false,
-        "payable": false,
-        "inputs": [],
-        "outputs": []
-      },
-      {
-        "type": "function",
         "name": "renounceRole",
         "constant": false,
         "payable": false,
@@ -20471,6 +20402,29 @@
           }
         ],
         "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "roundAmount",
+        "constant": true,
+        "stateMutability": "pure",
+        "payable": false,
+        "inputs": [
+          {
+            "type": "uint256",
+            "name": "amount"
+          }
+        ],
+        "outputs": [
+          {
+            "type": "uint256",
+            "name": ""
+          },
+          {
+            "type": "uint256",
+            "name": ""
+          }
+        ]
       },
       {
         "type": "function",
@@ -20771,6 +20725,22 @@
             "name": ""
           }
         ]
+      },
+      {
+        "type": "function",
+        "name": "withdrawVTRO",
+        "constant": false,
+        "payable": false,
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "withdrawVTRU",
+        "constant": false,
+        "payable": false,
+        "inputs": [],
+        "outputs": []
       },
       {
         "type": "receive",
@@ -21813,6 +21783,19 @@
       },
       {
         "type": "function",
+        "name": "addItem",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "address",
+            "name": "item"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "type": "function",
         "name": "allowance",
         "constant": true,
         "stateMutability": "view",
@@ -22236,6 +22219,19 @@
           {
             "type": "uint256",
             "name": "_amount"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "removeItem",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "address",
+            "name": "item"
           }
         ],
         "outputs": []
