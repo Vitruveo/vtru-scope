@@ -9,7 +9,7 @@ import NavCollapse from './NavCollapse';
 import NavGroup from './NavGroup/NavGroup';
 import { AppState } from '@/store/store'
 import { toggleMobileSidebar } from '@/store/customizer/CustomizerSlice';
-
+import Link from 'next/link';
 
 const SidebarItems = () => {
   const  pathname  = usePathname();
@@ -50,6 +50,8 @@ const SidebarItems = () => {
           }
         })}
       </List>
+      <Link href="/assets/verse"><img src="/images/gotverse.png" style={{width: "100%"}} /></Link>
+
     </Box>
   );
 };
