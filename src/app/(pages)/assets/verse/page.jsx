@@ -184,12 +184,16 @@ export default function Stake () {
     allocatedUnits: 5_000_000,
     eternalUnits: 0,
     elasticUnits:0,
-    availableUnits: 5_000_000
-  })
+    availableUnits: 5_000_000,
+    vtruStakedUnits: 0
+  });
+
   const [loadMessage, setLoadMessage] = useState('Scanning account for tokens...');
 
   const [unlockedVtruBalance, setUnlockedVtruBalance] = useState(0);  
   const [vtroBalance, setVtroBalance] = useState(0);  
+  const [vtroUnits, setVtroUnits] = useState(0);
+
   const [nft, setNft] = useState(null);
 
 
@@ -214,9 +218,9 @@ export default function Stake () {
   });
 
   useEffect(() => {
-
+  
     async function getStats() {
-      if (verseContract == null) return;
+      if (verseContract == null || vtroUnits == 0) return;
 
       const rawStats = await verseContract.stats();
 
@@ -224,25 +228,29 @@ export default function Stake () {
         allocatedUnits: 5_000_000,
         eternalUnits: Number(rawStats[1]),
         elasticUnits:0,
-        availableUnits: 5_000_000 - Number(rawStats[1])
+        availableUnits: 5_000_000 - Number(rawStats[1]),
+        vtruStakedUnits: Number(rawStats[1]) - vtroUnits
       })
     }
 
     getStats();
 
-  }, [provider, verseContract]);
+  }, [provider, verseContract, vtroUnits]);
 
   useEffect(() => {
 
-    async function getVtroBalance() {
+    async function getVtroBalances() {
       if (vtroContract == null) return;
 
-      const rawBalance = await vtroContract.balanceOf(account);
+      const rawAccountBalance = await vtroContract.balanceOf(account);
+      setVtroBalance(Number(rawAccountBalance) / Math.pow(10, 18));
 
-      setVtroBalance(Number(rawBalance) / Math.pow(10, 18));
+      const rawContractBalance = await vtroContract.balanceOf(config[network].VERSE);
+      const contractVTROBalance = Number(rawContractBalance) / Math.pow(10, 18);
+      setVtroUnits(contractVTROBalance / 10);
     }
 
-    getVtroBalance();
+    getVtroBalances();
 
   }, [account, vtroContract]);
 
@@ -454,6 +462,29 @@ export default function Stake () {
                   </Box>
                 </Grid>
 
+                <Grid item xs={12} sm={12} md={3} lg={3} key={1}>
+                  <Box bgcolor={"info.light"} textAlign="center">
+                    <CardContent px={1}>
+                  
+                            <Typography
+                              color={"info.main"}
+                              variant="subtitle1"
+                              fontWeight={600}
+                            >
+                             Remaining Units
+                            </Typography>
+                            <Typography
+                              color={"info.main"}
+                              variant="h1"
+                              fontWeight={600}
+                            >
+                              {stats.availableUnits.toLocaleString()}                           
+                            </Typography>
+                      </CardContent>
+                  </Box>
+                </Grid>
+
+
                 <Grid item xs={12} sm={12} md={3} lg={3} key={3}>
                   <Box bgcolor={"info.light"} textAlign="center">
                     <CardContent px={1}>
@@ -476,28 +507,6 @@ export default function Stake () {
                   </Box>
                 </Grid>
 
-                <Grid item xs={12} sm={12} md={3} lg={3} key={1}>
-                  <Box bgcolor={"info.light"} textAlign="center">
-                    <CardContent px={1}>
-                  
-                            <Typography
-                              color={"info.main"}
-                              variant="subtitle1"
-                              fontWeight={600}
-                            >
-                             Elastic Units Minted
-                            </Typography>
-                            <Typography
-                              color={"info.main"}
-                              variant="h1"
-                              fontWeight={600}
-                            >
-                              {0}                           
-                            </Typography>
-                      </CardContent>
-                  </Box>
-                </Grid>
-
                 <Grid item xs={12} sm={12} md={3} lg={3} key={4}>
                   <Box bgcolor={"info.light"} textAlign="center">
                     <CardContent px={1}>
@@ -507,14 +516,14 @@ export default function Stake () {
                               variant="subtitle1"
                               fontWeight={600}
                             >
-                              Remaining Units
+                              VTRU Staked for VERSE
                             </Typography>
                             <Typography
                               color={"info.main"}
                               variant="h1"
                               fontWeight={600}
                             >
-                              {stats.availableUnits.toLocaleString()}                        
+                              {stats.vtruStakedUnits.toLocaleString()}                        
                             </Typography>
                       </CardContent>
                   </Box>
