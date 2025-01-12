@@ -178,6 +178,7 @@ export default function CoreNft () {
   return (
     <PageContainer title="VTRU Scope" description="View all Core Digital Assets">
       <Breadcrumb title="Core Digital Assets" items={breadcrumb} />
+      <h3 style={{marginTop: '10px', marginBottom: '30px'}}>CoreNFTs that had no claims have been revoked in order to eliminate dormant wallets. If you previously had a CoreNFT and it no longer appears below, please contact a moderator on <a href="https://discord.gg/Vitruveo" target="_new" style={{color: 'white'}}>Vitruveo Discord</a></h3>
           {
             nfts.length == 0 ?
               (account == null ?

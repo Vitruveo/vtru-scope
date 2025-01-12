@@ -69,6 +69,8 @@ export default function Dashboard() {
   const [vipBalance, setVipBalance] = useState(0);
   const [partnerBalance, setPartnerBalance] = useState(0);
   const [boosterBalance, setBoosterBalance] = useState(0);
+  const [communityVibeBalance, setCommunityVibeBalance] = useState(0);
+  const [perksPoolBalance, setPerksPoolBalance] = useState(0);
 
   const [treasuryBalance, setTreasuryBalance] = useState(0);
   const [circulatingSupply, setCirculatingSupply] = useState(0);
@@ -262,10 +264,18 @@ export default function Dashboard() {
             setBoosterBalance(item.balance);
             targets.push(i);
             break;
+          case lower("0xACED10A8b06fa98Eb729d13D9F24870864f754b3"):
+            setCommunityVibeBalance(item.balance);
+            targets.push(i);
+            break;
+          case lower("0xec274828B11338A5fa5A0f83F60DaD7be429F15C"):
+            setPerksPoolBalance(item.balance);
+            targets.push(i);
+            break;
         }
       }
 
-      const KNOWN = 12;
+      const KNOWN = 14;
 
       for (let t = 0; t < KNOWN; t++) {
         balances[targets[t]] = null;
@@ -306,7 +316,9 @@ export default function Dashboard() {
           vipBalance +
           partnerBalance +
           boosterBalance +
-          treasuryBalance;
+          treasuryBalance +
+          communityVibeBalance +
+          perksPoolBalance;
         if (reserved > 0) {
           let currentCirculatingSupply = totalSupply - reserved;
           setCirculatingSupply(currentCirculatingSupply);
@@ -353,7 +365,7 @@ export default function Dashboard() {
   const reservedBarItems = [
     {
       label: "Perks",
-      amount: perksBalance,
+      amount: perksBalance + perksPoolBalance,
       address: "0xCA0216cE0F48c0b9595597634B17a3C7Ef12F4d4",
     },
     {
@@ -375,6 +387,11 @@ export default function Dashboard() {
       label: "Treasury",
       amount: treasuryBalance,
       address: "0xCA01dDbEacFcEF7456C4f291BE2F216F8fd81Ea6",
+    },
+    {
+      label: "VIBE Gift",
+      amount: communityVibeBalance,
+      address: "0xACED10A8b06fa98Eb729d13D9F24870864f754b3",
     },
   ];
 
@@ -731,7 +748,7 @@ export default function Dashboard() {
         </Grid>
 
       </Grid>
-      
+
       <h1 style={{ fontSize: "30px", color: "#fff", marginTop: "40px" }}>
         Contract Balances
       </h1>
