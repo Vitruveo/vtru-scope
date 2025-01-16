@@ -152,15 +152,12 @@ export default function Stake() {
 
   let processing = false;
 
-  const [provider, setProvider] = useState(null);
-  const [verseContract, setVerseContract] = useState(null);
-  const [vtroContract, setVtroContract] = useState(null);
   const [account, setAccount] = useState(null);
 
-  const [buttonStakeMessage, setButtonStakeMessage] = useState("STAKE");
+  const [buttonStakeMessage, setButtonStakeMessage] = useState("STAKE VTRU");
   const [buttonStakeEnabled, setButtonStakeEnabled] = useState(false);
 
-  const [buttonSwapMessage, setButtonSwapMessage] = useState("SWAP");
+  const [buttonSwapMessage, setButtonSwapMessage] = useState("STAKE VTRO");
   const [buttonSwapEnabled, setButtonSwapEnabled] = useState(false);
 
   const [loadMessage, setLoadMessage] = useState(
@@ -177,29 +174,26 @@ export default function Stake() {
   const [swapAmount, setSwapAmount] = useState(0);
   const [nft, setNft] = useState(null);
 
-  useEffect(() => {
-    if (provider !== null) {
-      setVerseContract(new ethers.Contract(config[network].VERSE, config.abi.VERSE, provider));
-      setVtroContract(new ethers.Contract(vtroAddress, vtroAbi, provider));
-    }
-  }, [provider]);
+  const rpcUrl = 'https://rpc.vitruveo.xyz';
+  const provider = new ethers.JsonRpcProvider(rpcUrl);
+  const verseContract = new ethers.Contract(config[network].VERSE, config.abi.VERSE, provider);
+  const vtroContract = new ethers.Contract(vtroAddress, vtroAbi, provider);
+
+
 
   useAccount({
     onConnect({ address, connector, isReconnected }) {
       setAccount(address);
-      const rpcUrl = connector.chains[0].rpcUrls["default"]["http"][0];
-      setProvider(new ethers.JsonRpcProvider(rpcUrl));
     },
     onDisconnect() {
       setAccount(null);
       setLoadMessage("Account disconnected.");
-      setProvider(null);
     },
   });
 
   useEffect(() => {
     async function getVtroBalance() {
-      if (vtroContract == null) return;
+      if (account == null || vtroContract == null) return;
         const rawAccountBalance = await vtroContract.balanceOf(account);
         setVtroBalance(Number(rawAccountBalance) / Math.pow(10, 18));
     }
@@ -381,241 +375,249 @@ function buttonSwapState(enabled) {
 
       <VerseStats provider={provider} verseAddress={config[network].VERSE} verseAbi={config.abi.VERSE} />
 
-      <Grid container spacing={3} style={{ marginBottom: "30px" }} key={1}>
-        <Grid item xs={12} sm={12} md={3} lg={3} key={1}>
-          <Box
-            bgcolor={"primary.main"}
-            textAlign="center"
-            style={{ height: "120px" }}
-          >
-            <CardContent px={1}>
-              <Typography
-                color={"grey.900"}
-                variant="subtitle1"
-                fontWeight={600}
-              >
-                Stake 1 VTRU for 1 VERSE
-              </Typography>
+      {
 
-              <Typography color={"grey.900"} variant="h1" fontWeight={600}>
-                <input
-                  type="number"
-                  value={stakeAmountInput}
-                  onChange={handleStakeAmountInputChange}
-                  style={{
-                    textAlign: "center",
-                    marginLeft: "10px",
-                    padding: "2px",
-                    fontSize: "30px",
-                    width: "90%",
-                    fontFamily: "monospace",
-                  }}
+        account ?
+      <>
+        <Grid container spacing={3} style={{ marginBottom: "30px" }} key={1}>
+          <Grid item xs={12} sm={12} md={3} lg={3} key={1}>
+            <Box
+              bgcolor={"primary.main"}
+              textAlign="center"
+              style={{ height: "120px" }}
+            >
+              <CardContent px={1}>
+                <Typography
+                  color={"grey.900"}
+                  variant="subtitle1"
+                  fontWeight={600}
+                >
+                  Stake 1 VTRU for 1 VERSE
+                </Typography>
+
+                <Typography color={"grey.900"} variant="h1" fontWeight={600}>
+                  <input
+                    type="number"
+                    value={stakeAmountInput}
+                    onChange={handleStakeAmountInputChange}
+                    style={{
+                      textAlign: "center",
+                      marginLeft: "10px",
+                      padding: "2px",
+                      fontSize: "30px",
+                      width: "90%",
+                      fontFamily: "monospace",
+                    }}
+                  />
+                </Typography>
+              </CardContent>
+            </Box>
+          </Grid>
+
+          <Grid item xs={12} sm={12} md={3} lg={3} key={2}>
+            <Box
+              bgcolor={"primary.main"}
+              textAlign="center"
+              style={{ height: "120px" }}
+            >
+              <CardContent px={1}>
+                <Typography
+                  color={"grey.900"}
+                  variant="subtitle1"
+                  fontWeight={600}
+                >
+                  Stake {stakeAmountSlider}% of{" "}
+                  {Math.trunc(Number(unlockedVtruBalance)).toLocaleString()}
+                </Typography>
+                <Slider
+                  defaultValue={0}
+                  step={1}
+                  min={0}
+                  max={100}
+                  onChange={handleStakeSliderChange}
+                  sx={{ color: "grey.900" }}
                 />
-              </Typography>
-            </CardContent>
-          </Box>
-        </Grid>
+                {/* <Typography
+                      color={"grey.900"}
+                      variant="subtitle1"
+                      fontWeight={600}
+                    >
+                      Airdrop: {Math.trunc(stakeAmount/150)} VIBE (150 each)
+                    </Typography> */}
+              </CardContent>
+            </Box>
+          </Grid>
 
-        <Grid item xs={12} sm={12} md={3} lg={3} key={2}>
-          <Box
-            bgcolor={"primary.main"}
-            textAlign="center"
-            style={{ height: "120px" }}
-          >
-            <CardContent px={1}>
-              <Typography
-                color={"grey.900"}
-                variant="subtitle1"
-                fontWeight={600}
-              >
-                Stake {stakeAmountSlider}% of{" "}
-                {Math.trunc(Number(unlockedVtruBalance)).toLocaleString()}
-              </Typography>
-              <Slider
-                defaultValue={0}
-                step={1}
-                min={0}
-                max={100}
-                onChange={handleStakeSliderChange}
-                sx={{ color: "grey.900" }}
-              />
-              {/* <Typography
-                    color={"grey.900"}
-                    variant="subtitle1"
-                    fontWeight={600}
-                  >
-                    Airdrop: {Math.trunc(stakeAmount/150)} VIBE (150 each)
-                  </Typography> */}
-            </CardContent>
-          </Box>
-        </Grid>
+          <Grid item xs={12} sm={12} md={3} lg={3} key={3}>
+            <Box
+              bgcolor={"primary.main"}
+              textAlign="center"
+              style={{ height: "120px" }}
+            >
+              <CardContent px={1}>
+                <Typography
+                  color={"grey.900"}
+                  variant="subtitle1"
+                  fontWeight={600}
+                >
+                  VERSE Units from Stake
+                </Typography>
+                <Typography
+                  color={"grey.900"}
+                  variant={"h1"}
+                  fontWeight={600}
+                  style={{ marginTop: "5px" }}
+                >
+                  {stakeAmountInput}
+                </Typography>
+              </CardContent>
+            </Box>
+          </Grid>
 
-        <Grid item xs={12} sm={12} md={3} lg={3} key={3}>
-          <Box
-            bgcolor={"primary.main"}
-            textAlign="center"
-            style={{ height: "120px" }}
-          >
-            <CardContent px={1}>
-              <Typography
-                color={"grey.900"}
-                variant="subtitle1"
-                fontWeight={600}
-              >
-                VERSE Units from Stake
-              </Typography>
-              <Typography
-                color={"grey.900"}
-                variant={"h1"}
-                fontWeight={600}
-                style={{ marginTop: "5px" }}
-              >
-                {stakeAmountInput}
-              </Typography>
-            </CardContent>
-          </Box>
-        </Grid>
-
-        <Grid item xs={12} sm={12} md={3} lg={3} key={4}>
-          <Box textAlign="center">
-            <CardContent px={1}>
-              <Button
-                color="primary"
-                size="large"
-                disabled={stakeAmountInput == 0}
-                style={{ fontWeight: "900", marginTop: "15px" }}
-                fullWidth
-                onClick={() => {
-                  buttonStakeState(false);
-                  handleStake();
-                }}
-              >
-                {buttonStakeMessage}
-              </Button>
-            </CardContent>
-          </Box>
-        </Grid>
-      </Grid>
-
-      <Grid container spacing={3} style={{ marginBottom: "30px" }} key={2}>
-        <Grid item xs={12} sm={12} md={3} lg={3} key={1}>
-          <Box
-            bgcolor={"secondary.main"}
-            textAlign="center"
-            style={{ height: "120px" }}
-          >
-            <CardContent px={1}>
-              <Typography
-                color={"grey.900"}
-                variant="subtitle1"
-                fontWeight={600}
-              >
-                Swap 10 VTRO for 1 VERSE
-              </Typography>
-
-              <Typography color={"grey.900"} variant="h1" fontWeight={600}>
-                <input
-                  type="number"
-                  value={swapAmountInput}
-                  onChange={handleSwapAmountInputChange}
-                  style={{
-                    textAlign: "center",
-                    marginLeft: "10px",
-                    padding: "2px",
-                    fontSize: "30px",
-                    width: "90%",
-                    fontFamily: "monospace",
+          <Grid item xs={12} sm={12} md={3} lg={3} key={4}>
+            <Box textAlign="center">
+              <CardContent px={1}>
+                <Button
+                  color="primary"
+                  size="large"
+                  disabled={stakeAmountInput == 0}
+                  style={{ fontWeight: "900", marginTop: "15px" }}
+                  fullWidth
+                  onClick={() => {
+                    buttonStakeState(false);
+                    handleStake();
                   }}
+                >
+                  {buttonStakeMessage}
+                </Button>
+              </CardContent>
+            </Box>
+          </Grid>
+        </Grid>
+
+        <Grid container spacing={3} style={{ marginBottom: "30px" }} key={2}>
+          <Grid item xs={12} sm={12} md={3} lg={3} key={1}>
+            <Box
+              bgcolor={"secondary.main"}
+              textAlign="center"
+              style={{ height: "120px" }}
+            >
+              <CardContent px={1}>
+                <Typography
+                  color={"grey.900"}
+                  variant="subtitle1"
+                  fontWeight={600}
+                >
+                  Stake 10 VTRO for 1 VERSE
+                </Typography>
+
+                <Typography color={"grey.900"} variant="h1" fontWeight={600}>
+                  <input
+                    type="number"
+                    value={swapAmountInput}
+                    onChange={handleSwapAmountInputChange}
+                    style={{
+                      textAlign: "center",
+                      marginLeft: "10px",
+                      padding: "2px",
+                      fontSize: "30px",
+                      width: "90%",
+                      fontFamily: "monospace",
+                    }}
+                  />
+                </Typography>
+              </CardContent>
+            </Box>
+          </Grid>
+
+          <Grid item xs={12} sm={12} md={3} lg={3} key={2}>
+            <Box
+              bgcolor={"secondary.main"}
+              textAlign="center"
+              style={{ height: "120px" }}
+            >
+              <CardContent px={1}>
+                <Typography
+                  color={"grey.900"}
+                  variant="subtitle1"
+                  fontWeight={600}
+                >
+                  Stake {swapAmountSlider}% of{" "}
+                  {Math.trunc(Number(vtroBalance)).toLocaleString()}
+                </Typography>
+                <Slider
+                  defaultValue={0}
+                  step={1}
+                  min={0}
+                  max={100}
+                  onChange={handleSwapSliderChange}
+                  sx={{ color: "grey.900" }}
                 />
-              </Typography>
-            </CardContent>
-          </Box>
+                {/* <Typography
+                      color={"grey.900"}
+                      variant="subtitle1"
+                      fontWeight={600}
+                    >
+                      Airdrop: {Math.trunc(stakeAmount/150)} VIBE (150 each)
+                    </Typography> */}
+              </CardContent>
+            </Box>
+          </Grid>
+
+          <Grid item xs={12} sm={12} md={3} lg={3} key={3}>
+            <Box
+              bgcolor={"secondary.main"}
+              textAlign="center"
+              style={{ height: "120px" }}
+            >
+              <CardContent px={1}>
+                <Typography
+                  color={"grey.900"}
+                  variant="subtitle1"
+                  fontWeight={600}
+                >
+                  VERSE Units from Stake
+                </Typography>
+                <Typography
+                  color={"grey.900"}
+                  variant={"h1"}
+                  fontWeight={600}
+                  style={{ marginTop: "5px" }}
+                >
+                  {Math.trunc(swapAmountInput / 10).toLocaleString()}
+                </Typography>
+              </CardContent>
+            </Box>
+          </Grid>
+
+          <Grid item xs={12} sm={12} md={3} lg={3} key={4}>
+            <Box textAlign="center">
+              <CardContent px={1}>
+                <Button
+                  color="primary"
+                  size="large"
+                  disabled={swapAmountInput == 0}
+                  style={{ fontWeight: "900", marginTop: "15px" }}
+                  fullWidth
+                  onClick={() => {
+                    buttonSwapState(false);
+                    handleSwap();
+                  }}
+                >
+                  {buttonSwapMessage}
+                </Button>
+              </CardContent>
+            </Box>
+          </Grid>
         </Grid>
 
-        <Grid item xs={12} sm={12} md={3} lg={3} key={2}>
-          <Box
-            bgcolor={"secondary.main"}
-            textAlign="center"
-            style={{ height: "120px" }}
-          >
-            <CardContent px={1}>
-              <Typography
-                color={"grey.900"}
-                variant="subtitle1"
-                fontWeight={600}
-              >
-                Swap {swapAmountSlider}% of{" "}
-                {Math.trunc(Number(vtroBalance)).toLocaleString()}
-              </Typography>
-              <Slider
-                defaultValue={0}
-                step={1}
-                min={0}
-                max={100}
-                onChange={handleSwapSliderChange}
-                sx={{ color: "grey.900" }}
-              />
-              {/* <Typography
-                    color={"grey.900"}
-                    variant="subtitle1"
-                    fontWeight={600}
-                  >
-                    Airdrop: {Math.trunc(stakeAmount/150)} VIBE (150 each)
-                  </Typography> */}
-            </CardContent>
-          </Box>
+        <Grid container spacing={3}>
+          {nft == null ? <></> : <VerseNFTCard nft={nft} key={nft.id} />}
         </Grid>
-
-        <Grid item xs={12} sm={12} md={3} lg={3} key={3}>
-          <Box
-            bgcolor={"secondary.main"}
-            textAlign="center"
-            style={{ height: "120px" }}
-          >
-            <CardContent px={1}>
-              <Typography
-                color={"grey.900"}
-                variant="subtitle1"
-                fontWeight={600}
-              >
-                VERSE Units from Swap
-              </Typography>
-              <Typography
-                color={"grey.900"}
-                variant={"h1"}
-                fontWeight={600}
-                style={{ marginTop: "5px" }}
-              >
-                {Math.trunc(swapAmountInput / 10).toLocaleString()}
-              </Typography>
-            </CardContent>
-          </Box>
-        </Grid>
-
-        <Grid item xs={12} sm={12} md={3} lg={3} key={4}>
-          <Box textAlign="center">
-            <CardContent px={1}>
-              <Button
-                color="primary"
-                size="large"
-                disabled={swapAmountInput == 0}
-                style={{ fontWeight: "900", marginTop: "15px" }}
-                fullWidth
-                onClick={() => {
-                  buttonSwapState(false);
-                  handleSwap();
-                }}
-              >
-                {buttonSwapMessage}
-              </Button>
-            </CardContent>
-          </Box>
-        </Grid>
-      </Grid>
-
-      <Grid container spacing={3}>
-        {nft == null ? <></> : <VerseNFTCard nft={nft} key={nft.id} />}
-      </Grid>
+      </>
+      :
+      <></>
+      }
     </PageContainer>
   );
 }

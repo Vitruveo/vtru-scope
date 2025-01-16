@@ -48,9 +48,9 @@ const Menuitems: MenuitemsType[] = [
   },
   {
     id: uniqueId(),
-    title: "What-if Calculator",
-    icon: IconCalculatorFilled,
-    href: "/whatif",
+    title: "Stake for VERSE",
+    icon: IconMovie,
+    href: "/assets/verse",
     chipColor: "secondary",
   },
   {
@@ -62,7 +62,14 @@ const Menuitems: MenuitemsType[] = [
   },
   {
     id: uniqueId(),
-    title: "Rebase Projector",
+    title: "What-if Calculator",
+    icon: IconCalculatorFilled,
+    href: "/whatif",
+    chipColor: "secondary",
+  },
+  {
+    id: uniqueId(),
+    title: "Rebase Calculator",
     icon: IconCoins,
     href: "/rebase",
     chipColor: "secondary",

@@ -123,13 +123,13 @@ useEffect(() => {
       title: 'Home',
     },
     {
-      title: "Rebase Projector"
+      title: "Rebase Calculator"
     },
   ];
 
   return (
-<PageContainer title="VTRU Scope" description="Rebase Projector">
-      <Breadcrumb title="Rebase Projector" items={breadcrumb} />
+<PageContainer title="VTRU Scope" description="Rebase Calculator">
+      <Breadcrumb title="Rebase Calculator" items={breadcrumb} />
       
       
       <h1 style={{ fontSize: "30px", color: "#fff", marginTop: "40px" }}>
