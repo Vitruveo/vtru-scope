@@ -76,6 +76,14 @@ export default function Dashboard() {
   const [circulatingSupply, setCirculatingSupply] = useState(0);
   const [tradingSupply, setTradingSupply] = useState(0);
 
+  const [goal, setGoal] = useState({
+    jan12: 0,
+    jan19: 0,
+    jan26: 0,
+    balance: 0,
+    wallet: 0
+  });
+
   const [nkBalance, setNkBalance] = useState(0);
   const [mpBalance, setMpBalance] = useState(0);
   const [apBalance, setApBalance] = useState(0);
@@ -181,6 +189,23 @@ export default function Dashboard() {
         : "";
     }
   }
+
+  function targetPerWeek(goal, weeks = 3) {
+    const today = new Date();
+    const dayOfWeek = today.getDay(); // Day of the week (0 = Sunday, 6 = Saturday)
+    const daysRemainingInWeek1 = 7 - dayOfWeek; // Remaining days in Week 1
+    const totalDays = weeks * 7; // Total days in the 3-week period
+  
+    const week1Target = (goal * daysRemainingInWeek1) / totalDays;
+    const remainingGoal = goal - week1Target; // Remaining goal after Week 1
+    const perFullWeekTarget = remainingGoal / (weeks - 1); // Equal targets for full weeks
+  
+    return [
+      Math.ceil(week1Target), // Week 1 target
+      Math.ceil(perFullWeekTarget), // Week 2 target
+      Math.ceil(perFullWeekTarget), // Week 3 target
+    ];
+  };
 
   function lower(a) {
     return a.toLowerCase();
@@ -326,6 +351,19 @@ export default function Dashboard() {
         if (reserved > 0) {
           let currentCirculatingSupply = totalSupply - reserved;
           setCirculatingSupply(currentCirculatingSupply);
+
+          // Goal calculations
+          const goalBalance = 20_000_000 - stakedBalance;
+          const walletMin = goalBalance / 30_000;
+          const days = Math.max(0, Math.ceil((new Date(new Date().getFullYear(), 1, 1) - new Date()) / (1000 * 60 * 60 * 24)));
+          const weekly = targetPerWeek(goalBalance, 3);
+          setGoal({
+            balance: goalBalance,
+            jan12: weekly[0],
+            jan19: weekly[1],
+            jan26: weekly[2],
+            wallet: walletMin
+          });
         }
         setTradingSupply(wvtruBalance + bridgeBalance);
       }
@@ -412,7 +450,7 @@ export default function Dashboard() {
     },
     { 
       label: "Remaining ⏳",
-      amount: 20_000_000 - stakedBalance,
+      amount: goal.balance,
       address: "0xf793A4faD64241c7273b9329FE39e433c2D45d71"
     }
   ]
@@ -631,13 +669,70 @@ export default function Dashboard() {
                 Individual Wallet Stake Minimum
               </Typography>
               <Typography color={"grey.900"} variant="h2" fontWeight={600}>
-                {((20_000_000 - stakedBalance)/30_000).toFixed(0)}
+                {goal.wallet.toFixed(0)}
               </Typography>
             </CardContent>
           </Box>
         </Grid>
 
       </Grid>
+
+
+      <Grid container spacing={3} style={{ marginBottom: "30px" }}>
+
+
+        <Grid item xs={12} sm={12} md={4} lg={4} key={2}>
+          <Box bgcolor={"primary.main"} textAlign="center">
+            <CardContent px={1}>
+              <Typography
+                color={"grey.900"}
+                variant="subtitle1"
+                fontWeight={600}
+              >
+                Jan. 12 Week Goal
+              </Typography>
+              <Typography color={"grey.900"} variant="h2" fontWeight={600}>
+                {display(goal.jan12)}
+              </Typography>
+            </CardContent>
+          </Box>
+        </Grid>
+
+        <Grid item xs={12} sm={12} md={4} lg={4} key={1}>
+          <Box bgcolor={"primary.main"} textAlign="center">
+            <CardContent px={1}>
+              <Typography
+                color={"grey.900"}
+                variant="subtitle1"
+                fontWeight={600}
+              >
+                Jan. 19 Week Goal
+              </Typography>
+              <Typography color={"grey.900"} variant="h2" fontWeight={600}>
+                {display(goal.jan19)}
+              </Typography>
+            </CardContent>
+          </Box>
+        </Grid>
+
+        <Grid item xs={12} sm={12} md={4} lg={4} key={4}>
+          <Box bgcolor={"primary.main"} textAlign="center">
+            <CardContent px={1}>
+              <Typography
+                color={"grey.900"}
+                variant="subtitle1"
+                fontWeight={600}
+              >
+                Jan. 26 Week Goal
+              </Typography>
+              <Typography color={"grey.900"} variant="h2" fontWeight={600}>
+                {display(goal.jan26)}
+              </Typography>
+            </CardContent>
+          </Box>
+        </Grid>
+      </Grid>
+
 
       <h1 style={{ fontSize: "30px", color: "#fff", marginTop: "40px" }}>
         VERSE Stats
