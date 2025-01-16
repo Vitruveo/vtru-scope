@@ -102,6 +102,8 @@ export default function Dashboard() {
   const [tvl, setTvl] = useState(0);
   const [mcap, setMcap] = useState(0);
 
+  const vaultsBalance = 382693;
+
   useEffect(() => {
     function updateBlock() {
       if (!processing) {
@@ -192,13 +194,14 @@ export default function Dashboard() {
 
   function targetPerWeek(goal, weeks = 3) {
     const today = new Date();
-    const dayOfWeek = today.getDay(); // Day of the week (0 = Sunday, 6 = Saturday)
-    const daysRemainingInWeek1 = 7 - dayOfWeek; // Remaining days in Week 1
-    const totalDays = weeks * 7; // Total days in the 3-week period
+    const dayOfWeek = today.getDay(); // 0 (Sunday) to 6 (Saturday)
+    const daysElapsedInWeek1 = dayOfWeek; // Days passed since Sunday of Week 1
+    const daysRemainingInWeek1 = 7 - daysElapsedInWeek1; // Remaining days in Week 1
+    const totalDays = weeks * 7; // Total days in the goal period
   
     const week1Target = (goal * daysRemainingInWeek1) / totalDays;
     const remainingGoal = goal - week1Target; // Remaining goal after Week 1
-    const perFullWeekTarget = remainingGoal / (weeks - 1); // Equal targets for full weeks
+    const perFullWeekTarget = remainingGoal / (weeks - 1); // Equal targets for Weeks 2 and 3
   
     return [
       Math.ceil(week1Target), // Week 1 target
@@ -347,7 +350,8 @@ export default function Dashboard() {
           boosterBalance +
           treasuryBalance +
           communityVibeBalance +
-          perksPoolBalance;
+          perksPoolBalance +
+          vaultsBalance;
         if (reserved > 0) {
           let currentCirculatingSupply = totalSupply - reserved;
           setCirculatingSupply(currentCirculatingSupply);
@@ -466,6 +470,11 @@ export default function Dashboard() {
       amount: stakedBalance,
       address: "0xf793A4faD64241c7273b9329FE39e433c2D45d71",
     },
+    {
+      label: "Creator Vaults",
+      amount: vaultsBalance,
+      address: "0xDFda76C704515d19C737C54cFf523E45ab01d90A",
+    },
   ];
 
   const linkStyle = {
@@ -578,7 +587,7 @@ export default function Dashboard() {
       <h1 style={{ fontSize: "30px", color: "#fff", marginTop: "40px" }}>
         Supply
       </h1>
-      <Grid container spacing={3} style={{ marginBottom: "30px" }}>
+      <Grid container spacing={3} style={{  }}>
         <Grid item xs={12} sm={12} md={3} lg={3} key={3}>
           <Box bgcolor={"secondary.main"} textAlign="center">
             <CardContent px={1}>
@@ -587,7 +596,7 @@ export default function Dashboard() {
                 variant="subtitle1"
                 fontWeight={600}
               >
-                Circulating Supply
+                Circulating Supply<sup>1</sup>
               </Typography>
               <Typography color={"grey.900"} variant="h2" fontWeight={600}>
                 {display(circulatingSupply)}
@@ -647,7 +656,7 @@ export default function Dashboard() {
           </Box>
         </Grid>
       </Grid>
-      {/* <h4 style={{color: 'white'}}>Note: Circulating Supply = Total Supply - (Treasury + Staked + Vesting + Contract Balances + Reserved Balances). It includes new claims from VIBE and Vesting contracts, Validator VIP airdrops and Creator Vault balances.</h4> */}
+      <h4 style={{color: 'white', marginBottom: "30px"}}><sup>1</sup> Excludes total balance of all Creator Vaults of { display(vaultsBalance) } which is locked and can only be staked.</h4>
 
       <h1 style={{ fontSize: "30px", color: "#fff", marginTop: "40px" }}>
         20M Community Staking Challenge
