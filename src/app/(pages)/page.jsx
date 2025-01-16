@@ -285,7 +285,7 @@ export default function Dashboard() {
         balances[targets[t]] = null;
       }
 
-      const WHALE_BALANCE = 5_000;
+      const WHALE_BALANCE = 50_000;
 
       let tempWhaleTotal = 0;
       let tempWhaleCount = 0;
@@ -334,7 +334,7 @@ export default function Dashboard() {
     fetchBalances();
   }, [blockNumber, stakedBalance]);
 
-  
+
 
   const handleClick = function (account) {
     window.open(`https://explorer.vitruveo.xyz/address/${account}`);
