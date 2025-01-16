@@ -76,6 +76,10 @@ export default function Dashboard() {
   const [circulatingSupply, setCirculatingSupply] = useState(0);
   const [tradingSupply, setTradingSupply] = useState(0);
 
+  const [nkBalance, setNkBalance] = useState(0);
+  const [mpBalance, setMpBalance] = useState(0);
+  const [apBalance, setApBalance] = useState(0);
+
   const [whaleCount, setWhaleCount] = useState(0);
   const [whaleTotal, setWhaleTotal] = useState(0);
   const [whaleMax, setWhaleMax] = useState(0);
@@ -281,7 +285,7 @@ export default function Dashboard() {
         balances[targets[t]] = null;
       }
 
-      const WHALE_BALANCE = 50_000;
+      const WHALE_BALANCE = 5_000;
 
       let tempWhaleTotal = 0;
       let tempWhaleCount = 0;
@@ -329,6 +333,8 @@ export default function Dashboard() {
 
     fetchBalances();
   }, [blockNumber, stakedBalance]);
+
+  
 
   const handleClick = function (account) {
     window.open(`https://explorer.vitruveo.xyz/address/${account}`);

@@ -50,7 +50,7 @@ const SidebarItems = () => {
           }
         })}
       </List>
-      <Link href="/assets/verse"><img src="/images/gotverse.png" style={{width: "100%"}} /></Link>
+     
 
     </Box>
   );

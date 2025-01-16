@@ -1,7 +1,7 @@
 class Calculator {
 
   assumptions = {
-    beginningUnits: 20_000_000,
+    beginningUnits: 2_000_000,
     unitPrices: [0.5, 4, 8, 12, 20],
     vtruStaked: 10000,
     vtroSwapped: 0,
@@ -78,7 +78,7 @@ roundObjectValuesInPlace(obj, decimals) {
       const operations = year == 0 ? projects * assumptions.operationsMultiplier :  Math.round(detailedProjections[year-1].operations * 1.25);
 
       const publicFunding = year == 0 ? (Math.round((projectFunding + operations)/500_000) * 500_000) + 1_000_000 : (year == 1 ? Math.round(detailedProjections[year-1].publicFunding * 3) : 0);
-      const publicSaleUnits = publicFunding / unitPrice;
+      const publicSaleUnits = year == 0 ? 5_000_000 : 1_000_000; //publicFunding / unitPrice;
       const totalExpenses = projectFunding + operations;
 
 
@@ -129,8 +129,8 @@ roundObjectValuesInPlace(obj, decimals) {
           endingUnits,
 
           marketCapTitle: [''],
-          unitPrice,
-          marketCap,
+          // unitPrice,
+          // marketCap,
           publicFunding,
 
 

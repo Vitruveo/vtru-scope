@@ -84,7 +84,7 @@ export default function CalculatorApp () {
 const trunc18 = (n) => Math.trunc(Number(n)/Math.pow(10,18));
 
 const [assumptionsModel, setAssumptionsModel] = useState({
-  beginningUnits: 20_000_000,
+  beginningUnits: 2_000_000,
   unitPrices: [0.5, 4, 8, 12, 20],
   vtruStaked: 10_000,
   vtroSwapped: 0,
@@ -172,7 +172,7 @@ useEffect(() => {
 
   const labels = {
     verseUnitsTitle: 'VERSE UNITS',
-    marketCapTitle: 'MARKET CAP/FUNDING',
+    marketCapTitle: 'FUNDING',
     projectFundingTitle: 'MOVIE PROJECTS CAPITAL',
     projectSuccessRateTitle: 'PROJECT SUCCESS RATE',
     revenueTitle: 'REVENUES',
@@ -181,13 +181,13 @@ useEffect(() => {
     revenueShareTitle: 'REVENUE SHARE',
     cashFlowTitle: 'CASH FLOW',
     beginningUnits: 'Beginning Units',
-    unitPrice: 'VERSE Unit Price',
+    //unitPrice: 'VERSE Unit Price',
     publicSaleUnits: '+ Public Sale Units',
     publicFunding: 'Funding',
     newCommunityUnits: '+ Community Units',
     newProjectUnits: '+ Project Units',
     endingUnits: 'Ending Units',
-    marketCap: 'Market Cap',
+    //marketCap: 'Market Cap',
     projects: 'Projects',
     averageFunding: 'Average Capital',
     failProjects: 'Fail Projects',
