@@ -71,6 +71,7 @@ export default function Dashboard() {
   const [boosterBalance, setBoosterBalance] = useState(0);
   const [communityVibeBalance, setCommunityVibeBalance] = useState(0);
   const [perksPoolBalance, setPerksPoolBalance] = useState(0);
+  const [sabongMktBalance, setSabongMktBalance] = useState(0);
 
   const [treasuryBalance, setTreasuryBalance] = useState(0);
   const [circulatingSupply, setCirculatingSupply] = useState(0);
@@ -304,10 +305,13 @@ export default function Dashboard() {
             setPerksPoolBalance(item.balance);
             targets.push(i);
             break;
+          case lower("0x2403077B6609AE13a7832A33e65271b981734d42"):
+            setSabongMktBalance(item.balance);
+            break;
         }
       }
 
-      const KNOWN = 14;
+      const KNOWN = 15;
 
       for (let t = 0; t < KNOWN; t++) {
         balances[targets[t]] = null;
@@ -351,7 +355,8 @@ export default function Dashboard() {
           treasuryBalance +
           communityVibeBalance +
           perksPoolBalance +
-          vaultsBalance;
+          vaultsBalance + 
+          sabongMktBalance;
         if (reserved > 0) {
           let currentCirculatingSupply = totalSupply - reserved;
           setCirculatingSupply(currentCirculatingSupply);
@@ -443,6 +448,11 @@ export default function Dashboard() {
       label: "VIBE Gift",
       amount: communityVibeBalance,
       address: "0xACED10A8b06fa98Eb729d13D9F24870864f754b3",
+    },
+    {
+      label: "SEVO Mktg",
+      amount: sabongMktBalance,
+      address: "0x2403077B6609AE13a7832A33e65271b981734d42",
     },
   ];
 

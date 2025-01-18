@@ -28,8 +28,8 @@ const InfoBar = ({ items }) => {
     "#4CD964", // Green
     "#FFD60A", // Yellow
     "#FF9500", // Orange
-    "#8E8E93", // Grey
     "#34C759", // Bright Green
+    "#8E8E93", // Grey
     "#C7C7CC"  // Light Gray
   ];
 
