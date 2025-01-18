@@ -307,6 +307,7 @@ export default function Dashboard() {
             break;
           case lower("0x2403077B6609AE13a7832A33e65271b981734d42"):
             setSabongMktBalance(item.balance);
+            targets.push(i);
             break;
         }
       }
