@@ -223,9 +223,9 @@ export default function Dashboard() {
     if (today >= week1Start && today <= week1End) {
       //console.log("We are in Week 1");
       // During Week 1
-      week1Target = goal - 2500000; // Remaining goal for Week 1 
+      week1Target = 0; // Remaining goal for Week 1 
       //console.log(week1Target, Math.max(0, 2500000 - goal))
-      week2Target = 1250000 - Math.max(0, 2500000 - goal); // Adjust Week 2 target
+      week2Target = goal - 1250000; // Adjust Week 2 target
       week3Target = 1250000; // Fixed Week 3 target
     } else if (today >= week2Start && today <= week2End) {
       console.log("We are in Week 2");
