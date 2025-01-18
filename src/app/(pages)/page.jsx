@@ -193,23 +193,61 @@ export default function Dashboard() {
     }
   }
 
-  function targetPerWeek(goal, weeks = 3) {
-    const today = new Date();
-    const dayOfWeek = today.getDay(); // 0 (Sunday) to 6 (Saturday)
-    const daysElapsedInWeek1 = dayOfWeek; // Days passed since Sunday of Week 1
-    const daysRemainingInWeek1 = 7 - daysElapsedInWeek1; // Remaining days in Week 1
-    const totalDays = weeks * 7; // Total days in the goal period
+  function targetPerWeek(goal) {
+    // Ensure today is treated as a UTC date
+    const today = new Date(Date.UTC(
+      new Date().getUTCFullYear(),
+      new Date().getUTCMonth(),
+      new Date().getUTCDate()
+    ));
   
-    const week1Target = 84553;
-    const remainingGoal = goal - week1Target; // Remaining goal after Week 1
-    const perFullWeekTarget = remainingGoal / (weeks - 1); // Equal targets for Weeks 2 and 3
+    // Define the start and end dates of each week in UTC
+    const week1Start = new Date(Date.UTC(2025, 0, 12)); // Jan 12, 2025
+    const week1End = new Date(Date.UTC(2025, 0, 18, 23, 59, 59)); // Jan 18, 2025
+    const week2Start = new Date(Date.UTC(2025, 0, 19)); // Jan 19, 2025
+    const week2End = new Date(Date.UTC(2025, 0, 25, 23, 59, 59)); // Jan 25, 2025
+    const week3Start = new Date(Date.UTC(2025, 0, 26)); // Jan 26, 2025
+    const week3End = new Date(Date.UTC(2025, 0, 31, 23, 59, 59)); // Jan 31, 2025
+  
+    // Logs for debugging date ranges
+    // console.log("Today (UTC):", today.toISOString());
+    // console.log("Week 1 Range (UTC):", week1Start.toISOString(), "-", week1End.toISOString());
+    // console.log("Week 2 Range (UTC):", week2Start.toISOString(), "-", week2End.toISOString());
+    // console.log("Week 3 Range (UTC):", week3Start.toISOString(), "-", week3End.toISOString());
+  
+    // Initialize week targets
+    let week1Target = 0;
+    let week2Target = 0;
+    let week3Target = 0;
+  
+    if (today >= week1Start && today <= week1End) {
+      //console.log("We are in Week 1");
+      // During Week 1
+      week1Target = goal - 2500000; // Remaining goal for Week 1
+      week2Target = 1250000 + Math.max(0, 2500000 - goal); // Adjust Week 2 target
+      week3Target = 1250000; // Fixed Week 3 target
+    } else if (today >= week2Start && today <= week2End) {
+      //console.log("We are in Week 2");
+      // During Week 2
+      week1Target = 0; // Week 1 is complete
+      week2Target = goal - 1250000; // Remaining goal for Week 2
+      week3Target = 1250000; // Fixed Week 3 target
+    } else if (today >= week3Start && today <= week3End) {
+      //console.log("We are in Week 3");
+      // During Week 3
+      week1Target = 0; // Week 1 is complete
+      week2Target = 0; // Week 2 is complete
+      week3Target = goal; // Remaining goal for Week 3
+    } else {
+      //console.log("Today is outside the defined week ranges");
+    }
   
     return [
-      Math.ceil(week1Target), // Week 1 target
-      Math.ceil(perFullWeekTarget), // Week 2 target
-      Math.ceil(perFullWeekTarget), // Week 3 target
+      Math.ceil(week1Target),
+      Math.ceil(week2Target),
+      Math.ceil(week3Target),
     ];
-  };
+  }
 
   function lower(a) {
     return a.toLowerCase();
