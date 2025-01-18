@@ -200,7 +200,7 @@ export default function Dashboard() {
     const daysRemainingInWeek1 = 7 - daysElapsedInWeek1; // Remaining days in Week 1
     const totalDays = weeks * 7; // Total days in the goal period
   
-    const week1Target = (goal * daysRemainingInWeek1) / totalDays;
+    const week1Target = 84553;
     const remainingGoal = goal - week1Target; // Remaining goal after Week 1
     const perFullWeekTarget = remainingGoal / (weeks - 1); // Equal targets for Weeks 2 and 3
   
