@@ -255,7 +255,7 @@ export default function Dashboard() {
 
   function display(n, isCurrency) {
     if (typeof n === "number") {
-      return n > 0
+      return n >= 0
         ? isCurrency == true
           ? formatCurrency(n)
           : Number(n).toLocaleString()
