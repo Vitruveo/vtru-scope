@@ -502,7 +502,7 @@ export default function Dashboard() {
       address: "0xf793A4faD64241c7273b9329FE39e433c2D45d71",
     },
     { 
-      label: "Remaining ⏳",
+      label: "Remaining 🫣",
       amount: goal.balance,
       address: "0xf793A4faD64241c7273b9329FE39e433c2D45d71"
     }
