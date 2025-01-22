@@ -1,0 +1,43 @@
+{
+    "wallets": {
+        "nk": {
+            "addresses": [
+                "0x14977b0dBE7e155F9907effECbB70c9b7a05e737",
+                "0xACED10A8b06fa98Eb729d13D9F24870864f754b3"
+            ],
+            "notes": "Entire balance committed to community VIBE Grant and not included in Circulating Supply"
+        },
+        "mp": {
+            "addresses": [
+                "0xd162B388218303282F80c2575de533A88878e2d8"
+            ],
+            "notes": ""
+        },
+        "ap": {
+            "addresses": [
+                "0xbAa4fa142FE5b20C328a3c70038493F411d85a35",
+                "0x725A4b6be3dC89f1C503977FA2E414E6243eAb8d",
+                "0x972564D01d368Efb954b8968A66AB4caC091FE66",
+                "0x151e04b07FBE1f2E39b2dB0d871B07E32b41C52E",
+                "0x8718237b5899e00071012D5c3Cf74973346607A7",
+                "0x113CE0e883a54Fc875626E195f053498F37B9E74",
+                "0xcccCB1d424fFC325E699128cE3Ffd422d70c2E49",
+                "0x2cC40cAB7ff4a2D221713c96ffB7093F59543Aa4",
+                "0xd54F302854A9866C5CAb5CC3ADa77468bF9Ca0A7",
+                "0x3f1Eda647A5FabaDfa4da444563A80c3B93eCD0c",
+
+                "0x364C12dB2CeE99ce7E68121e478CfBFA19bf15ea",
+                "0x1f14a30B068856667241A96482Cb5860575E2179",
+                "0x794Ab4d05A98b3C47aC2a3a19300fb8f0A4bd253",
+                "0x3D15C9eE5a673f268b332d23A04E159E8006367c",
+                "0x3357ba5E226e122a0d7C0d62628819679D47c57C",
+                "0x3357ba5E226e122a0d7C0d62628819679D47c57C",
+                "0x2cC40cAB7ff4a2D221713c96ffB7093F59543Aa4",
+                "0x3357ba5E226e122a0d7C0d62628819679D47c57C",
+
+                "0x9797F7DCeee759AC0A025189d37a2E9Ca33bf0E2"
+            ],
+            "notes": "0x9797 is ePlays"
+        }
+    }
+}

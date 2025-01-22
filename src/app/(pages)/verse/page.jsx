@@ -305,12 +305,12 @@ const typeStyle = (key, col) => {
           <h2 style={{paddingLeft: '20px'}}>Projector Inputs</h2>
           <div style={{display: 'flex', justifyContent: 'space-between', paddingLeft: '20px'}}>
             <InputCard value={assumptionsModel.vtruStaked ?? ''} item={{defaultValue: assumptionsModel.vtruStaked, title: '1 Staked VTRU \n= 1 VERSE Unit', handleInputChange: updateWhatIf, key: 'vtruStaked'}} key={1}/>
-            <InputCard value={assumptionsModel.vtroSwapped ?? ''} item={{defaultValue: assumptionsModel.vtroSwapped, title: '10 Swapped VTRO \n= 1 VERSE Unit', handleInputChange: updateWhatIf, key: 'vtroSwapped'}} key={2} />
+            <InputCard value={assumptionsModel.vtroSwapped ?? ''} item={{defaultValue: assumptionsModel.vtroSwapped, title: '10 Staked VTRO \n= 1 VERSE Unit', handleInputChange: updateWhatIf, key: 'vtroSwapped'}} key={2} />
             <InputCard value={assumptionsModel.initialProjects ?? ''} item={{defaultValue: assumptionsModel.initialProjects, title: 'Initial Projects', handleInputChange: updateWhatIf, key: 'initialProjects'}} key={3} />
             <InputCard value={assumptionsModel.initialProjectFunding ?? ''} item={{defaultValue: assumptionsModel.initialProjectFunding, title: 'Initial Project Funding', handleInputChange:  updateWhatIf, key: 'initialProjectFunding'}} key={4} />
             <InputCard value={assumptionsModel.newCommunityUnits ?? ''} item={{defaultValue: assumptionsModel.newCommunityUnits, title: 'Community VERSE Units', handleInputChange: updateWhatIf, key: 'newCommunityUnits'}} key={5} />
           </div>
-          <h2 style={{marginLeft: '20px', marginTop: '10px', fontSize: '14px'}}>Note: Stake term for VTRU is 3 years, 0% APR. During the Stake term rebases can be claimed for the staked VTRU. VTRO is swapped and cannot be staked.</h2>
+          <h2 style={{marginLeft: '20px', marginTop: '10px', fontSize: '14px'}}>Note: Stake term for VTRU and VTRO is 3 years, 0% APR. During the Stake term rebases can be claimed for the staked VTRU.</h2>
       </Grid>
 
       <Grid container spacing={3}  style={{marginBottom: '30px'}} key={2}>
