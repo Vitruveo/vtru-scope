@@ -103,7 +103,7 @@ export default function Dashboard() {
   const [tvl, setTvl] = useState(0);
   const [mcap, setMcap] = useState(0);
 
-  const vaultsBalance = 382693;
+  const vaultsBalance = 374353;
 
   useEffect(() => {
     function updateBlock() {
