@@ -228,7 +228,7 @@ export default function Dashboard() {
       week2Target = goal - 1250000; // Adjust Week 2 target
       week3Target = 1250000; // Fixed Week 3 target
     } else if (today >= week2Start && today <= week2End) {
-      console.log("We are in Week 2");
+      //console.log("We are in Week 2");
       // During Week 2
       week1Target = 0; // Week 1 is complete
       week2Target = goal - 1250000; // Remaining goal for Week 2
@@ -290,69 +290,78 @@ export default function Dashboard() {
         switch (item.account) {
           case lower(config[network].CoreStake):
             setStakedBalance(item.balance);
+            //console.log(1)
             targets.push(i);
             break;
           case lower(config[network].CoreVestV2):
             setVestingBalance(item.balance);
+            //console.log(2)
             targets.push(i);
             break;
           case lower(config[network].VIBE):
             setVibeBalance(item.balance);
+            //console.log(3)
             targets.push(i);
             break;
           case lower(config[network].VEO):
             setVeoBalance(item.balance);
+            //console.log(4)
             targets.push(i);
             break;
           case lower(config[network].VUSD):
             setVusdBalance(item.balance);
+            //console.log(5)
             targets.push(i);
             break;
           case lower(config[network].wVTRU):
             setWvtruBalance(item.balance);
+            //console.log(6)
             targets.push(i);
             break;
           case lower(config[network].VTRU):
             setBridgeBalance(item.balance);
+            //console.log(7)
             targets.push(i);
             break;
           case lower("0xCA01dDbEacFcEF7456C4f291BE2F216F8fd81Ea6"):
             setTreasuryBalance(item.balance);
+            //console.log(8)
             targets.push(i);
             break;
           case lower("0xCA0216cE0F48c0b9595597634B17a3C7Ef12F4d4"):
             setPerksBalance(item.balance);
+            //console.log(9)
             targets.push(i);
             break;
           case lower("0xCA03830833702561926b34F65e9C822959B2Ccf5"):
             setVipBalance(item.balance);
+            //console.log(10)
             targets.push(i);
             break;
           case lower("0xCA0552B00450DC23EEe813486e75154c48791218"):
             setPartnerBalance(item.balance);
+            //console.log(11)
             targets.push(i);
             break;
           case lower("0xCA06ecC58c9EB5237270d3360bD36f3Bf04CcC9c"):
+            //console.log(12)
             setBoosterBalance(item.balance);
             targets.push(i);
             break;
           case lower("0xACED10A8b06fa98Eb729d13D9F24870864f754b3"):
             setCommunityVibeBalance(item.balance);
+            //console.log(13)
             targets.push(i);
             break;
           case lower("0xec274828B11338A5fa5A0f83F60DaD7be429F15C"):
             setPerksPoolBalance(item.balance);
-            targets.push(i);
-            break;
-          case lower("0x2403077B6609AE13a7832A33e65271b981734d42"):
-            setSabongMktBalance(item.balance);
+            //console.log(14)
             targets.push(i);
             break;
         }
       }
 
-      const KNOWN = 15;
-
+      const KNOWN = 14;
       for (let t = 0; t < KNOWN; t++) {
         balances[targets[t]] = null;
       }
@@ -379,6 +388,7 @@ export default function Dashboard() {
       setWhaleMax(tempWhaleMax);
       setWhaleMin(tempWhaleMin);
 
+      console.log(targets.length, '********')
       if (targets.length == KNOWN) {
         let reserved =
           wvtruBalance +
@@ -489,11 +499,6 @@ export default function Dashboard() {
       amount: communityVibeBalance,
       address: "0xACED10A8b06fa98Eb729d13D9F24870864f754b3",
     },
-    {
-      label: "SEVO Mktg",
-      amount: sabongMktBalance,
-      address: "0x2403077B6609AE13a7832A33e65271b981734d42",
-    },
   ];
 
   const challengeBarItems = [
@@ -534,7 +539,7 @@ export default function Dashboard() {
 
   return (
     <PageContainer title="VTRU Scope" description="VTRU Scope by Vitruveo">
-      <div style={{backgroundColor: '#cc0000', fontSize: '20px', border: '1px solid white', textAlign: 'center', margin: '20px 0', padding: '20px'}}>We are working on resolving errors on this page. Thank you for your patience.</div>
+      {/* <div style={{backgroundColor: '#cc0000', fontSize: '20px', border: '1px solid white', textAlign: 'center', margin: '20px 0', padding: '20px'}}>We are working on resolving errors on this page. Thank you for your patience.</div> */}
       <h1 style={{ fontSize: "30px", color: "#fff", marginTop: "40px" }}>
         Current
       </h1>
