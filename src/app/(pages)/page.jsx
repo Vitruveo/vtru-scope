@@ -424,7 +424,7 @@ export default function Dashboard() {
             wallet: walletMin
           });
         }
-        setTradingSupply(wvtruBalance + bridgeBalance);
+        setTradingSupply(wvtruBalance + bridgeBalance - 112_000);
       }
     }
 
