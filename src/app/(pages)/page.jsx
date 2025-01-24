@@ -539,7 +539,7 @@ export default function Dashboard() {
 
   return (
     <PageContainer title="VTRU Scope" description="VTRU Scope by Vitruveo">
-      {/* <div style={{backgroundColor: '#cc0000', fontSize: '20px', border: '1px solid white', textAlign: 'center', margin: '20px 0', padding: '20px'}}>We are working on resolving errors on this page. Thank you for your patience.</div> */}
+      <div style={{backgroundColor: '#cc0000', fontSize: '20px', border: '1px solid white', textAlign: 'center', margin: '20px 0', padding: '20px'}}>We are working on resolving errors on this page. Thank you for your patience.</div>
       <h1 style={{ fontSize: "30px", color: "#fff", marginTop: "40px" }}>
         Current
       </h1>
@@ -799,14 +799,14 @@ export default function Dashboard() {
       </Grid>
 
 
-      <h1 style={{ fontSize: "30px", color: "#fff", marginTop: "40px" }}>
+      {/* <h1 style={{ fontSize: "30px", color: "#fff", marginTop: "40px" }}>
         VERSE Stats
       </h1>
       <VerseStats
         provider={provider}
         verseAddress={config[network].VERSE}
         verseAbi={config.abi.VERSE}
-      />
+      /> */}
 
       <h1 style={{ fontSize: "30px", color: "#fff", marginTop: "40px" }}>
         Locked Balances
