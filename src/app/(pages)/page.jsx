@@ -743,7 +743,7 @@ export default function Dashboard() {
       </Grid>
 
 
-      <Grid container spacing={3} style={{ marginBottom: "30px" }}>
+      {/* <Grid container spacing={3} style={{ marginBottom: "30px" }}>
 
 
         <Grid item xs={12} sm={12} md={4} lg={4} key={2}>
@@ -796,7 +796,7 @@ export default function Dashboard() {
             </CardContent>
           </Box>
         </Grid>
-      </Grid>
+      </Grid> */}
 
 
       <h1 style={{ fontSize: "30px", color: "#fff", marginTop: "40px" }}>
