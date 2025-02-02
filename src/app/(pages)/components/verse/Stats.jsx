@@ -61,10 +61,10 @@ useEffect(() => {
       const rawStats = await verseContract.stats();
 
       setStats({
-        allocatedUnits: 5_000_000,
+        allocatedUnits: 5_600_000,
         eternalUnits: Number(rawStats[1]),
         elasticUnits: 0,
-        availableUnits: 5_000_000 - Number(rawStats[1]),
+        availableUnits: 5_600_000 - Number(rawStats[1]),
         vtruStakedUnits: Number(rawStats[1]) - vtroUnits,
       });
     }
@@ -94,7 +94,7 @@ return (
               variant="subtitle1"
               fontWeight={600}
             >
-              Total Allocated Units
+              Total Allocated Units<sup>1</sup>
             </Typography>
             <Typography color={"info.main"} variant="h1" fontWeight={600}>
               {stats.allocatedUnits.toLocaleString()}
@@ -154,6 +154,7 @@ return (
         </Box>
       </Grid>
     </Grid>
+
   );
 };
 

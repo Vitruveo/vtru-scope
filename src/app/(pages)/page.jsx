@@ -508,7 +508,7 @@ export default function Dashboard() {
       address: "0xf793A4faD64241c7273b9329FE39e433c2D45d71",
     },
     { 
-      label: "Remaining 🫣",
+      label: "Needed 🫣",
       amount: goal.balance,
       address: "0xf793A4faD64241c7273b9329FE39e433c2D45d71"
     }
@@ -731,10 +731,10 @@ export default function Dashboard() {
                 variant="subtitle1"
                 fontWeight={600}
               >
-                Individual Wallet Stake Minimum
+                Stakes Needed
               </Typography>
               <Typography color={"grey.900"} variant="h2" fontWeight={600}>
-                {goal.wallet.toFixed(0)}
+                {display(goal.balance)}
               </Typography>
             </CardContent>
           </Box>
@@ -807,6 +807,7 @@ export default function Dashboard() {
         verseAddress={config[network].VERSE}
         verseAbi={config.abi.VERSE}
       />
+      <h4 style={{color: 'white', marginTop: "-10px", marginBottom: "30px"}}><sup>1</sup> Additional {display(600000)} units allocated to Community from Team allocation.</h4>
 
       <h1 style={{ fontSize: "30px", color: "#fff", marginTop: "40px" }}>
         Locked Balances
