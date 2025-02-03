@@ -534,6 +534,35 @@ export default function Dashboard() {
   return (
     <PageContainer title="VTRU Scope" description="VTRU Scope by Vitruveo">
       {/* <div style={{backgroundColor: '#cc0000', fontSize: '20px', border: '1px solid white', textAlign: 'center', margin: '20px 0', padding: '20px'}}>We are working on resolving errors on this page. Thank you for your patience.</div> */}
+
+      <h1 style={{ fontSize: "30px", color: "#fff", marginTop: "40px" }}>
+        20M Staking Challenge — LET'S GO!
+      </h1>
+      <Grid container spacing={3} style={{ marginBottom: "30px" }}>      
+
+        <Grid item xs={12} sm={12} md={9} lg={9} key={9}>
+          <InfoBar items={challengeBarItems} />
+        </Grid>
+
+        <Grid item xs={12} sm={12} md={3} lg={3} key={3}>
+          <Box bgcolor={"secondary.main"} textAlign="center">
+            <CardContent px={1}>
+              <Typography
+                color={"grey.900"}
+                variant="subtitle1"
+                fontWeight={600}
+              >
+                Stakes Needed
+              </Typography>
+              <Typography color={"grey.900"} variant="h2" fontWeight={600}>
+                {display(goal.balance)}
+              </Typography>
+            </CardContent>
+          </Box>
+        </Grid>
+
+      </Grid>
+      
       <h1 style={{ fontSize: "30px", color: "#fff", marginTop: "40px" }}>
         Current
       </h1>
@@ -708,33 +737,6 @@ export default function Dashboard() {
       </Grid>
       <h4 style={{color: 'white', marginBottom: "30px"}}><sup>1</sup> Excludes total balance of all Creator Vaults of { display(vaultsBalance) } which is locked and can only be staked.</h4>
 
-      <h1 style={{ fontSize: "30px", color: "#fff", marginTop: "40px" }}>
-        20M Community Staking Challenge
-      </h1>
-      <Grid container spacing={3} style={{ marginBottom: "30px" }}>      
-
-        <Grid item xs={12} sm={12} md={9} lg={9} key={9}>
-          <InfoBar items={challengeBarItems} />
-        </Grid>
-
-        <Grid item xs={12} sm={12} md={3} lg={3} key={3}>
-          <Box bgcolor={"secondary.main"} textAlign="center">
-            <CardContent px={1}>
-              <Typography
-                color={"grey.900"}
-                variant="subtitle1"
-                fontWeight={600}
-              >
-                Stakes Needed
-              </Typography>
-              <Typography color={"grey.900"} variant="h2" fontWeight={600}>
-                {display(goal.balance)}
-              </Typography>
-            </CardContent>
-          </Box>
-        </Grid>
-
-      </Grid>
 
 
       {/* <Grid container spacing={3} style={{ marginBottom: "30px" }}>
