@@ -26,6 +26,7 @@ export default function Dashboard() {
   const provider = new ethers.JsonRpcProvider("https://rpc.vitruveo.xyz");
   const [totalSupply] = useState(TOTAL_SUPPLY);
   const [blockNumber, setBlockNumber] = useState(0);
+  const [fireworks, setFireworks] = useState(false);
 
   const PANCAKE_ABI = [
     {
@@ -411,7 +412,12 @@ export default function Dashboard() {
           setCirculatingSupply(currentCirculatingSupply);
 
           // Goal calculations
-          const goalBalance = 20_000_000 - stakedBalance;
+          
+          const goalBalance = Math.max(20_000_000 - stakedBalance, 0);
+
+          if ((goalBalance == 0) && (fireworks == false)) {
+            setFireworks(true);
+          }
           const walletMin = goalBalance / 30_000;
           const days = Math.max(0, Math.ceil((new Date(new Date().getFullYear(), 1, 1) - new Date()) / (1000 * 60 * 60 * 24)));
           const weekly = targetPerWeek(goalBalance, 3);
@@ -501,12 +507,15 @@ export default function Dashboard() {
       amount: stakedBalance,
       address: "0xf793A4faD64241c7273b9329FE39e433c2D45d71",
     },
-    { 
+  ]
+
+  if (fireworks == false) {
+    challengeBarItems.push({ 
       label: "Needed 🫣",
       amount: goal.balance,
       address: "0xf793A4faD64241c7273b9329FE39e433c2D45d71"
-    }
-  ]
+    });
+  }
 
   const lockedBarItems = [
     {
@@ -536,8 +545,11 @@ export default function Dashboard() {
       {/* <div style={{backgroundColor: '#cc0000', fontSize: '20px', border: '1px solid white', textAlign: 'center', margin: '20px 0', padding: '20px'}}>We are working on resolving errors on this page. Thank you for your patience.</div> */}
 
       <h1 style={{ fontSize: "30px", color: "#fff", marginTop: "40px" }}>
-        20M Staking Challenge — LET&apos;S GO!
+        20M Staking Challenge
       </h1>
+      <div style={{textAlign: "center", marginBottom: 10, display: fireworks == true ? "block" : "none"}}>
+        <img src="/images/fireworks.gif" style={{width: "100%"}} />
+      </div>
       <Grid container spacing={3} style={{ marginBottom: "30px" }}>      
 
         <Grid item xs={12} sm={12} md={9} lg={9} key={9}>
