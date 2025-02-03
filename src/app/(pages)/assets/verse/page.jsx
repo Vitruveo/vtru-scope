@@ -5,11 +5,13 @@ import Breadcrumb from "@/app/(pages)/layout/shared/breadcrumb/Breadcrumb";
 import PageContainer from "@/app/(pages)/components/container/PageContainer";
 import VerseNFTCard from "@/app/(pages)/components/widgets/cards/VerseNFTCard";
 import VerseStats from "@/app/(pages)/components/verse/Stats";
+import CustomSelect from '@/app/(pages)/components/forms/theme-elements/CustomSelect';
 
 import {
   Typography,
   Box,
   Slider,
+  MenuItem,
   CardContent,
   Grid,
   Button,
@@ -174,12 +176,70 @@ export default function Stake() {
   const [swapAmount, setSwapAmount] = useState(0);
   const [nft, setNft] = useState(null);
 
+  const [terms, setTerms] = useState(11);
+  const [verseUnits, setVerseUnits] = useState(1);
+  const [stakeMonths, setStakeMonths] = useState(36);
+
   const rpcUrl = 'https://rpc.vitruveo.xyz';
   const provider = new ethers.JsonRpcProvider(rpcUrl);
   const verseContract = new ethers.Contract(config[network].VERSE, config.abi.VERSE, provider);
   const vtroContract = new ethers.Contract(vtroAddress, vtroAbi, provider);
 
+         
+  //uint8[8] memory _months = [36, 30, 24, 18, 12, 9, 6, 3];
+  //uint8[8] memory vtruRequired = [1, 3, 5, 7, 10, 14, 19, 25];
 
+  const termList = [
+    {
+      id: 11,
+      months: 36,
+      vtru: 1,
+      value: '36 mths (1 VTRU/VERSE)'
+    },
+    {
+      id: 12,
+      months: 30,
+      vtru: 3,
+      value: '30 mths (3 VTRU/VERSE)'
+    },
+    {
+      id: 13,
+      months: 24,
+      vtru: 5,
+      value: '24 mths (5 VTRU/VERSE)'
+    },
+    {
+      id: 14,
+      months: 18,
+      vtru: 7,
+      value: '18 mths (7 VTRU/VERSE)'
+    },
+    {
+      id: 15,
+      months: 12,
+      vtru: 10,
+      value: '12 mths (10 VTRU/VERSE)'
+    },
+    {
+      id: 16,
+      months: 9,
+      vtru: 14,
+      value: '9 mths (14 VTRU/VERSE)'
+    },
+    {
+      id: 17,
+      months: 6,
+      vtru: 19,
+      value: '6 mths (19 VTRU/VERSE)'
+    },
+    {
+      id: 18,
+      months: 3,
+      vtru: 25,
+      value: '3 mths (25 VTRU/VERSE)'
+    },
+
+  ];
 
   useAccount({
     onConnect({ address, connector, isReconnected }) {
@@ -211,7 +271,6 @@ export default function Stake() {
           id: Number(rawNFT[0]),
           units: Number(rawNFT[2]),
         });
-        console.log(rawNFT);
       } catch (e) {}
     }
 
@@ -229,6 +288,12 @@ export default function Stake() {
     );
   }, [balance]);
 
+  useEffect(() => {
+    const index = termList.findIndex((t) => t.id == terms);
+    setVerseUnits(Math.trunc(stakeAmount/termList[index].vtru));
+    setStakeMonths(termList[index].months);
+  }, [terms, stakeAmount]);
+
   const handleStakeSliderChange = (event) => {
     const percentage = event.target.value;
     setStakeAmountSlider(percentage);
@@ -239,6 +304,10 @@ export default function Stake() {
       setStakeAmountInput(amount);
       setStakeAmount(amount);
     }
+  };
+
+  const handleTermsChange = (event) => {
+    setTerms(event.target.value);
   };
 
   const handleSwapSliderChange = (event) => {
@@ -279,7 +348,7 @@ export default function Stake() {
         address: config[network].VERSE,
         abi: config.abi.VERSE,
         functionName: "mintStake",
-        args: [],
+        args: [account, stakeMonths],
         gas: 20_500_000,
         value: BigInt(stakeAmount) * DECIMALS,
       });
@@ -392,7 +461,7 @@ function buttonSwapState(enabled) {
                   variant="subtitle1"
                   fontWeight={600}
                 >
-                  Stake 1 VTRU for 1 VERSE
+                  VTRU Stake = {verseUnits} VERSE
                 </Typography>
 
                 <Typography color={"grey.900"} variant="h1" fontWeight={600}>
@@ -447,32 +516,35 @@ function buttonSwapState(enabled) {
               </CardContent>
             </Box>
           </Grid>
+          
 
           <Grid item xs={12} sm={12} md={3} lg={3} key={3}>
-            <Box
-              bgcolor={"primary.main"}
-              textAlign="center"
-              style={{ height: "120px" }}
-            >
-              <CardContent px={1}>
-                <Typography
-                  color={"grey.900"}
-                  variant="subtitle1"
-                  fontWeight={600}
-                >
-                  VERSE Units from Stake
-                </Typography>
-                <Typography
-                  color={"grey.900"}
-                  variant={"h1"}
-                  fontWeight={600}
-                  style={{ marginTop: "5px" }}
-                >
-                  {stakeAmountInput}
-                </Typography>
+          <Box bgcolor={"primary.main"} textAlign="center" style={{height: '120px'}}>
+            <CardContent px={1}>
+          
+                    <Typography
+                      color={"grey.900"}
+                      variant="subtitle1"
+                      fontWeight={600}
+                    >
+                      Term (VTRU/VERSE)
+                    </Typography>
+                    <CustomSelect
+                      value={terms}
+                      onChange={handleTermsChange}
+                      fullWidth
+                      variant="outlined"
+                      sx={{ color: "grey.900"}}
+                    >
+                      {termList.map((option) => (
+                        <MenuItem key={option.id} value={option.id}>
+                          {option.value}
+                        </MenuItem>
+                      ))}
+                    </CustomSelect>
               </CardContent>
-            </Box>
-          </Grid>
+          </Box>
+        </Grid>
 
           <Grid item xs={12} sm={12} md={3} lg={3} key={4}>
             <Box textAlign="center">

@@ -41,6 +41,16 @@ export default function CoreNft () {
             </FormLabel>
 
             <ChildCard>
+                  <Typography variant="h6">v0.8.6</Typography>
+
+                  <Typography variant="body1" color="textSecondary">
+                    <ul>
+                      <li>VTRU Staking for VERSE</li>
+                    </ul>
+                  </Typography>
+            </ChildCard>
+
+            <ChildCard>
                   <Typography variant="h6">v0.8.5</Typography>
 
                   <Typography variant="body1" color="textSecondary">
