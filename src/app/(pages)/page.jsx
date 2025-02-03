@@ -550,13 +550,9 @@ export default function Dashboard() {
       <div style={{textAlign: "center", marginBottom: 10, display: fireworks == true ? "block" : "none"}}>
         <img src="/images/fireworks.gif" style={{width: "100%"}} />
       </div>
-      <Grid container spacing={3} style={{ marginBottom: "30px" }}>      
+      <Grid container spacing={3}>      
 
-        <Grid item xs={12} sm={12} md={9} lg={9} key={9}>
-          <InfoBar items={challengeBarItems} />
-        </Grid>
-
-        <Grid item xs={12} sm={12} md={3} lg={3} key={3}>
+      <Grid item xs={12} sm={12} md={3} lg={3} key={3}>
           <Box bgcolor={"secondary.main"} textAlign="center">
             <CardContent px={1}>
               <Typography
@@ -564,16 +560,24 @@ export default function Dashboard() {
                 variant="subtitle1"
                 fontWeight={600}
               >
-                Stakes Needed
+                Staked<sup>1</sup> 
               </Typography>
               <Typography color={"grey.900"} variant="h2" fontWeight={600}>
-                {display(goal.balance)}
+                {display(stakedBalance)}
               </Typography>
             </CardContent>
           </Box>
         </Grid>
 
+        <Grid item xs={12} sm={12} md={9} lg={9} key={9}>
+          <InfoBar items={challengeBarItems} />
+        </Grid>
+
+
+
       </Grid>
+      <h4 style={{color: 'white', marginBottom: "30px"}}><sup>1</sup> The Staking Challenge continues in increments of 500K VTRU. Next milestone: {display(20500000)} VTRU staked.</h4>
+
       
       <h1 style={{ fontSize: "30px", color: "#fff", marginTop: "40px" }}>
         Current
