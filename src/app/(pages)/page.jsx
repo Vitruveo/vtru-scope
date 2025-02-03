@@ -361,7 +361,7 @@ export default function Dashboard() {
         }
       }
 
-      const KNOWN = 14;
+      const KNOWN = 13;
       for (let t = 0; t < KNOWN; t++) {
         balances[targets[t]] = null;
       }
@@ -388,7 +388,6 @@ export default function Dashboard() {
       setWhaleMax(tempWhaleMax);
       setWhaleMin(tempWhaleMin);
 
-      console.log(targets.length, '********')
       if (targets.length == KNOWN) {
         let reserved =
           wvtruBalance +
@@ -493,11 +492,6 @@ export default function Dashboard() {
       label: "Treasury",
       amount: treasuryBalance,
       address: "0xCA01dDbEacFcEF7456C4f291BE2F216F8fd81Ea6",
-    },
-    {
-      label: "VIBE Gift",
-      amount: communityVibeBalance,
-      address: "0xACED10A8b06fa98Eb729d13D9F24870864f754b3",
     },
   ];
 
