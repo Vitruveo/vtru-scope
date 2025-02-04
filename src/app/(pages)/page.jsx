@@ -545,7 +545,7 @@ export default function Dashboard() {
       {/* <div style={{backgroundColor: '#cc0000', fontSize: '20px', border: '1px solid white', textAlign: 'center', margin: '20px 0', padding: '20px'}}>We are working on resolving errors on this page. Thank you for your patience.</div> */}
 
       <h1 style={{ fontSize: "30px", color: "#fff", marginTop: "40px" }}>
-        20M Staking Challenge
+        20.5M Staking Challenge
       </h1>
       <div style={{textAlign: "center", marginBottom: 10, display: fireworks == true ? "block" : "none"}}>
         <img src="/images/fireworks.gif" style={{width: "100%"}} />
