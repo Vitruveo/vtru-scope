@@ -576,7 +576,7 @@ export default function Dashboard() {
 
 
       </Grid>
-      <h4 style={{color: 'white', marginBottom: "30px"}}><sup>1</sup> The Staking Challenge continues in increments of 500K VTRU. Next milestone: {display(20500000)} VTRU staked.</h4>
+      <h4 style={{color: 'white', marginBottom: "30px"}}><sup>1</sup> The Staking Challenge continues in increments of 500K VTRU. Next milestone: {display(21000000)} VTRU staked.</h4>
 
       
       <h1 style={{ fontSize: "30px", color: "#fff", marginTop: "40px" }}>
