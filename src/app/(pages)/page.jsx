@@ -716,7 +716,7 @@ export default function Dashboard() {
           </Box>
         </Grid>
       </Grid>
-      <h4 style={{color: 'white', marginBottom: "30px"}}><sup>1</sup> Excludes total balance of all Creator Vaults of { display(vaultsBalance) } which is locked and can only be staked.</h4>
+      <h4 style={{color: 'white', marginBottom: "30px"}}><sup>1</sup> Excludes total balance of all Creator Vaults of { display(vaultsBalance) }</h4>
 
 
 
