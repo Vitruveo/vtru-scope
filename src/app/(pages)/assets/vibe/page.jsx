@@ -536,7 +536,7 @@ export default function Nfts() {
             ))}
           </Grid>
 
-          <h1>VIBE Credits (Available: <span style={{color: '#00CC00', fontWeight: 'bold'}}>{Number(availableCredits.credits)}</span> Units)</h1> 
+          <h1>VIBE Credits (Available: <span style={{color: '#00CC00', fontWeight: 'bold'}}>{Number(availableCredits.credits ?? 0)}</span> Units)</h1> 
           {
             creditMode == MODE_DEPOSIT ?
             <h3>Enter a token count for each denomination that you wish to deposit for VIBE Credit. <span style={{color: '#FFFF33'}}>If you get an error, reduce tokens per transaction.</span></h3>
