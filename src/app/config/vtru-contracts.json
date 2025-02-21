@@ -302,6 +302,28 @@
       {
         "type": "event",
         "anonymous": false,
+        "name": "VibeCreditIssued",
+        "inputs": [
+          {
+            "type": "address",
+            "name": "account",
+            "indexed": true
+          },
+          {
+            "type": "uint256",
+            "name": "amount",
+            "indexed": false
+          },
+          {
+            "type": "uint256",
+            "name": "claimed",
+            "indexed": false
+          }
+        ]
+      },
+      {
+        "type": "event",
+        "anonymous": false,
         "name": "VibeNFTFundsClaimed",
         "inputs": [
           {
@@ -434,6 +456,20 @@
       },
       {
         "type": "function",
+        "name": "SERVICE_ROLE",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "bytes32",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
         "name": "UPGRADER_ROLE",
         "constant": true,
         "stateMutability": "view",
@@ -442,6 +478,20 @@
         "outputs": [
           {
             "type": "bytes32",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "USDC_DECIMALS",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "uint256",
             "name": ""
           }
         ]
@@ -519,6 +569,36 @@
       },
       {
         "type": "function",
+        "name": "burnForCredit",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "uint256[]",
+            "name": "tokenIds"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "burnForCreditAdmin",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "address",
+            "name": "account"
+          },
+          {
+            "type": "uint256[]",
+            "name": "tokenIds"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "type": "function",
         "name": "calcDenominations",
         "constant": true,
         "stateMutability": "view",
@@ -592,6 +672,35 @@
           {
             "type": "address",
             "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "getMintCredits",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [
+          {
+            "type": "address",
+            "name": "account"
+          }
+        ],
+        "outputs": [
+          {
+            "type": "tuple",
+            "name": "",
+            "components": [
+              {
+                "type": "uint256",
+                "name": "credits"
+              },
+              {
+                "type": "uint256",
+                "name": "claims"
+              }
+            ]
           }
         ]
       },
@@ -935,6 +1044,132 @@
       },
       {
         "type": "function",
+        "name": "mintBatch",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "address",
+            "name": "account"
+          },
+          {
+            "type": "uint256",
+            "name": "amount"
+          },
+          {
+            "type": "uint256",
+            "name": "quantity"
+          },
+          {
+            "type": "address",
+            "name": "referrer"
+          }
+        ],
+        "outputs": [
+          {
+            "type": "bool",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "mintBundle",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "uint256",
+            "name": "quantity"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "mintCredits",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [
+          {
+            "type": "address",
+            "name": ""
+          }
+        ],
+        "outputs": [
+          {
+            "type": "uint256",
+            "name": "credits"
+          },
+          {
+            "type": "uint256",
+            "name": "claims"
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "mintFromCredit",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "uint256[]",
+            "name": "denomCounts"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "mintFromCreditAdmin",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "address",
+            "name": "account"
+          },
+          {
+            "type": "uint256[]",
+            "name": "denomCounts"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "mintVibe",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "uint256",
+            "name": "quantity"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "mintVibe",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "uint256",
+            "name": "quantity"
+          },
+          {
+            "type": "bool",
+            "name": "isBundle"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "type": "function",
         "name": "modTransferAllVibeNFT",
         "constant": false,
         "payable": false,
@@ -1069,6 +1304,20 @@
       },
       {
         "type": "function",
+        "name": "reserve",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "uint256",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
         "name": "revokeRole",
         "constant": false,
         "payable": false,
@@ -1159,6 +1408,33 @@
           }
         ],
         "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "setReserve",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "uint256",
+            "name": "amount"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "sharesBalance",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "uint256",
+            "name": ""
+          }
+        ]
       },
       {
         "type": "function",
@@ -1389,20 +1665,6 @@
           }
         ],
         "outputs": []
-      },
-      {
-        "type": "function",
-        "name": "veoSharesBalance",
-        "constant": true,
-        "stateMutability": "view",
-        "payable": false,
-        "inputs": [],
-        "outputs": [
-          {
-            "type": "uint256",
-            "name": ""
-          }
-        ]
       },
       {
         "type": "function",
@@ -3268,6 +3530,20 @@
       },
       {
         "type": "function",
+        "name": "VITRUVEO",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "uint256",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
         "name": "allowance",
         "constant": true,
         "stateMutability": "view",
@@ -4531,53 +4807,6 @@
       },
       {
         "type": "function",
-        "name": "changeAssetStatus",
-        "constant": false,
-        "payable": false,
-        "inputs": [
-          {
-            "type": "string",
-            "name": "assetKey"
-          },
-          {
-            "type": "uint8",
-            "name": "status"
-          }
-        ],
-        "outputs": []
-      },
-      {
-        "type": "function",
-        "name": "changeAssetTokenUri",
-        "constant": false,
-        "payable": false,
-        "inputs": [
-          {
-            "type": "string",
-            "name": "assetKey"
-          },
-          {
-            "type": "string",
-            "name": "uri"
-          }
-        ],
-        "outputs": []
-      },
-      {
-        "type": "function",
-        "name": "changeCreatorCreditsRequired",
-        "constant": false,
-        "payable": false,
-        "inputs": [
-          {
-            "type": "uint256",
-            "name": "credits"
-          }
-        ],
-        "outputs": []
-      },
-      {
-        "type": "function",
         "name": "consign",
         "constant": false,
         "stateMutability": "payable",
@@ -5493,7 +5722,28 @@
       },
       {
         "type": "function",
-        "name": "updateLicensePrice",
+        "name": "updateAssetHeader",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "string",
+            "name": "assetKey"
+          },
+          {
+            "type": "string",
+            "name": "title"
+          },
+          {
+            "type": "string",
+            "name": "description"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "updateAssetLicensePrice",
         "constant": false,
         "payable": false,
         "inputs": [
@@ -5514,7 +5764,41 @@
       },
       {
         "type": "function",
-        "name": "upgradeAsset",
+        "name": "updateAssetStatus",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "string",
+            "name": "assetKey"
+          },
+          {
+            "type": "uint8",
+            "name": "status"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "updateAssetTokenUri",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "string",
+            "name": "assetKey"
+          },
+          {
+            "type": "string",
+            "name": "uri"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "upgradeAssetToPremium",
         "constant": false,
         "stateMutability": "payable",
         "payable": true,
@@ -5917,23 +6201,6 @@
             "name": ""
           }
         ]
-      },
-      {
-        "type": "function",
-        "name": "changeAssetStatus",
-        "constant": false,
-        "payable": false,
-        "inputs": [
-          {
-            "type": "string",
-            "name": "assetKey"
-          },
-          {
-            "type": "uint8",
-            "name": "status"
-          }
-        ],
-        "outputs": []
       },
       {
         "type": "function",
@@ -7072,6 +7339,23 @@
           {
             "type": "uint256[]",
             "name": "tokenIds"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "updateAssetStatus",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "string",
+            "name": "assetKey"
+          },
+          {
+            "type": "uint8",
+            "name": "status"
           }
         ],
         "outputs": []
@@ -13645,6 +13929,19 @@
       },
       {
         "inputs": [],
+        "name": "VERSE_TOKEN_CONTRACT",
+        "outputs": [
+          {
+            "internalType": "address",
+            "name": "",
+            "type": "address"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [],
         "name": "_tokenId",
         "outputs": [
           {
@@ -13803,11 +14100,6 @@
           {
             "internalType": "uint256",
             "name": "stake5BasisPoints",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "vibeBasisPoints",
             "type": "uint256"
           }
         ],
@@ -17243,6 +17535,19 @@
         "type": "function"
       },
       {
+        "inputs": [],
+        "name": "VERSE_TOKEN_CONTRACT",
+        "outputs": [
+          {
+            "internalType": "address",
+            "name": "",
+            "type": "address"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
         "inputs": [
           {
             "internalType": "address",
@@ -17339,11 +17644,6 @@
           {
             "internalType": "uint256",
             "name": "stake5BasisPoints",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "vibeBasisPoints",
             "type": "uint256"
           }
         ],
@@ -25164,7 +25464,7 @@
       {
         "type": "event",
         "anonymous": false,
-        "name": "TradeBalanceUpdated",
+        "name": "TradeBalanceIncreased",
         "inputs": [
           {
             "type": "address",
@@ -25177,8 +25477,8 @@
             "indexed": false
           },
           {
-            "type": "string",
-            "name": "token",
+            "type": "uint256",
+            "name": "chainId",
             "indexed": false
           }
         ]
@@ -25199,8 +25499,8 @@
             "indexed": false
           },
           {
-            "type": "string",
-            "name": "token",
+            "type": "uint256",
+            "name": "sourceChainId",
             "indexed": false
           }
         ]
@@ -25221,8 +25521,8 @@
             "indexed": false
           },
           {
-            "type": "string",
-            "name": "token",
+            "type": "uint256",
+            "name": "destChainId",
             "indexed": false
           }
         ]
@@ -25281,6 +25581,20 @@
       },
       {
         "type": "function",
+        "name": "ETHEREUM",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "uint256",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
         "name": "GRANTER_ROLE",
         "constant": true,
         "stateMutability": "view",
@@ -25317,6 +25631,20 @@
         "outputs": [
           {
             "type": "bytes32",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "VITRUVEO",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "uint256",
             "name": ""
           }
         ]
@@ -25382,6 +25710,27 @@
       },
       {
         "type": "function",
+        "name": "increaseTradeBalance",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "address",
+            "name": "account"
+          },
+          {
+            "type": "uint256",
+            "name": "amount"
+          },
+          {
+            "type": "uint256",
+            "name": "chainId"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "type": "function",
         "name": "initialize",
         "constant": false,
         "payable": false,
@@ -25402,33 +25751,10 @@
           {
             "type": "uint256",
             "name": "amount"
-          }
-        ],
-        "outputs": [
-          {
-            "type": "bool",
-            "name": ""
-          }
-        ]
-      },
-      {
-        "type": "function",
-        "name": "isTradeAllowed",
-        "constant": true,
-        "stateMutability": "view",
-        "payable": false,
-        "inputs": [
-          {
-            "type": "address",
-            "name": "account"
           },
           {
             "type": "uint256",
-            "name": "amount"
-          },
-          {
-            "type": "bool",
-            "name": "wVtru"
+            "name": "chainId"
           }
         ],
         "outputs": [
@@ -25529,26 +25855,16 @@
       },
       {
         "type": "function",
-        "name": "tradeBalance",
-        "constant": true,
-        "stateMutability": "view",
+        "name": "swapTradeBalance",
+        "constant": false,
         "payable": false,
         "inputs": [
           {
             "type": "address",
             "name": "account"
-          },
-          {
-            "type": "bool",
-            "name": "wVtru"
           }
         ],
-        "outputs": [
-          {
-            "type": "uint256",
-            "name": ""
-          }
-        ]
+        "outputs": []
       },
       {
         "type": "function",
@@ -25560,6 +25876,10 @@
           {
             "type": "address",
             "name": "account"
+          },
+          {
+            "type": "uint256",
+            "name": "chainId"
           }
         ],
         "outputs": [
@@ -25582,27 +25902,10 @@
           {
             "type": "uint256",
             "name": "amount"
-          }
-        ],
-        "outputs": []
-      },
-      {
-        "type": "function",
-        "name": "tradeIn",
-        "constant": false,
-        "payable": false,
-        "inputs": [
-          {
-            "type": "address",
-            "name": "account"
           },
           {
             "type": "uint256",
-            "name": "amount"
-          },
-          {
-            "type": "bool",
-            "name": "wVtru"
+            "name": "sourceChainId"
           }
         ],
         "outputs": []
@@ -25622,25 +25925,8 @@
             "name": "amount"
           },
           {
-            "type": "bool",
-            "name": "wVtru"
-          }
-        ],
-        "outputs": []
-      },
-      {
-        "type": "function",
-        "name": "tradeOut",
-        "constant": false,
-        "payable": false,
-        "inputs": [
-          {
-            "type": "address",
-            "name": "account"
-          },
-          {
             "type": "uint256",
-            "name": "amount"
+            "name": "destChainId"
           }
         ],
         "outputs": []
@@ -25651,44 +25937,6 @@
         "constant": false,
         "payable": false,
         "inputs": [],
-        "outputs": []
-      },
-      {
-        "type": "function",
-        "name": "updateTradeBalance",
-        "constant": false,
-        "payable": false,
-        "inputs": [
-          {
-            "type": "address",
-            "name": "account"
-          },
-          {
-            "type": "uint256",
-            "name": "amount"
-          }
-        ],
-        "outputs": []
-      },
-      {
-        "type": "function",
-        "name": "updateTradeBalance",
-        "constant": false,
-        "payable": false,
-        "inputs": [
-          {
-            "type": "address",
-            "name": "account"
-          },
-          {
-            "type": "uint256",
-            "name": "amount"
-          },
-          {
-            "type": "bool",
-            "name": "wVtru"
-          }
-        ],
         "outputs": []
       },
       {
