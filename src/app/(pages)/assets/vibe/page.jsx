@@ -545,7 +545,7 @@ export default function Nfts() {
           }
           <Grid container spacing={3}  style={{marginBottom: '50px'}}>
             <Grid item xs={12} sm={12} md={2} lg={2} key={1}>
-            <div style={{ marginTop: 30, display: "flex", flexDirection: "column", gap: "10px", fontSize: "24px" }}>
+            <div style={{ marginTop: 20, display: "flex", flexDirection: "column", gap: "5px", fontSize: "24px" }}>
               <label style={{ display: "flex", alignItems: "center", gap: "8px", cursor: "pointer" }}>
                 <input
                   type="radio"
@@ -555,10 +555,10 @@ export default function Nfts() {
                   onChange={() => setCreditMode(MODE_DEPOSIT)}
                   style={{ width: "20px", height: "20px", cursor: "pointer", appearance: "none", border: creditMode === MODE_DEPOSIT ? "10px solid #763ebd" : "10px solid #ccc", borderRadius: "50%", backgroundColor: "white", transition: "all 0.2s ease-in-out" }}
                 />
-                Deposit
+                1️⃣ Deposit
               </label>
 
-              <label style={{ display: "flex", alignItems: "center", gap: "8px", cursor: "pointer" }}>
+              <label style={{ marginTop: 15, display: "flex", alignItems: "center", gap: "8px", cursor: "pointer" }}>
                 <input
                   type="radio"
                   name="creditMode"
@@ -567,7 +567,7 @@ export default function Nfts() {
                   onChange={() => setCreditMode(MODE_MINT)}
                   style={{ width: "20px", height: "20px", cursor: "pointer", appearance: "none", border: creditMode === MODE_MINT ? "10px solid #763ebd" : "10px solid #ccc", borderRadius: "50%", backgroundColor: "white", transition: "all 0.2s ease-in-out" }}
                 />
-                Mint
+                2️⃣ Mint
               </label>
             </div>
             </Grid>
