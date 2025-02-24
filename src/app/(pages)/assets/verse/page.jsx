@@ -442,13 +442,13 @@ function buttonSwapState(enabled) {
         items={breadcrumb}
       />
 
-      <VerseStats provider={provider} verseAddress={config[network].VERSE} verseAbi={config.abi.VERSE} />
+      {/* <VerseStats provider={provider} verseAddress={config[network].VERSE} verseAbi={config.abi.VERSE} /> */}
 
       {
 
         account ?
       <>
-        <Grid container spacing={3} style={{ marginBottom: "30px" }} key={1}>
+        {/* <Grid container spacing={3} style={{ marginBottom: "30px" }} key={1}>
           <Grid item xs={12} sm={12} md={3} lg={3} key={1}>
             <Box
               bgcolor={"primary.main"}
@@ -506,13 +506,7 @@ function buttonSwapState(enabled) {
                   onChange={handleStakeSliderChange}
                   sx={{ color: "grey.900" }}
                 />
-                {/* <Typography
-                      color={"grey.900"}
-                      variant="subtitle1"
-                      fontWeight={600}
-                    >
-                      Airdrop: {Math.trunc(stakeAmount/150)} VIBE (150 each)
-                    </Typography> */}
+
               </CardContent>
             </Box>
           </Grid>
@@ -625,13 +619,7 @@ function buttonSwapState(enabled) {
                   onChange={handleSwapSliderChange}
                   sx={{ color: "grey.900" }}
                 />
-                {/* <Typography
-                      color={"grey.900"}
-                      variant="subtitle1"
-                      fontWeight={600}
-                    >
-                      Airdrop: {Math.trunc(stakeAmount/150)} VIBE (150 each)
-                    </Typography> */}
+
               </CardContent>
             </Box>
           </Grid>
@@ -681,7 +669,7 @@ function buttonSwapState(enabled) {
               </CardContent>
             </Box>
           </Grid>
-        </Grid>
+        </Grid> */}
 
         <Grid container spacing={3}>
           {nft == null ? <></> : <VerseNFTCard nft={nft} key={nft.id} />}

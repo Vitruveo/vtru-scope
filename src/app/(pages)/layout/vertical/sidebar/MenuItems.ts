@@ -48,13 +48,6 @@ const Menuitems: MenuitemsType[] = [
   },
   {
     id: uniqueId(),
-    title: "Stake for VERSE",
-    icon: IconMovie,
-    href: "/assets/verse",
-    chipColor: "secondary",
-  },
-  {
-    id: uniqueId(),
     title: "VERSE Projector",
     icon: IconCalculator,
     href: "/verse",
