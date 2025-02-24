@@ -23,8 +23,8 @@ const InputCard = ({ value, item }) => {
   };
 
   return (
-    <Box bgcolor={"info.light"} textAlign="center" style={{width: '18.5%'}}>
-      <CardContent px={1} style={{padding: '15px', marginBottom: '10px', height: '110px'}}>
+    <Box bgcolor={"info.light"} textAlign="center" style={{width: '24%'}}>
+      <CardContent px={1} style={{padding: '20px', marginBottom: '10px', height: '110px'}}>
           
 
           <Typography
