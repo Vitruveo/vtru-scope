@@ -60,7 +60,6 @@ export default function Dashboard() {
   const [vestingBalance, setVestingBalance] = useState(0);
 
   const [vibeBalance, setVibeBalance] = useState(0);
-  const [veoBalance, setVeoBalance] = useState(0);
   const [verseBalance, setVerseBalance] = useState(0);
   const [vusdBalance, setVusdBalance] = useState(0);
   const [wvtruBalance, setWvtruBalance] = useState(0);
@@ -393,7 +392,6 @@ export default function Dashboard() {
         let reserved =
           wvtruBalance +
           bridgeBalance +
-          veoBalance +
           vibeBalance +
           vusdBalance +
           vestingBalance +
@@ -445,11 +443,6 @@ export default function Dashboard() {
       label: "VIBE",
       amount: vibeBalance,
       address: "0x8e7C7f0DF435Be6773641f8cf62C590d7Dde5a8a",
-    },
-    {
-      label: "VEO",
-      amount: veoBalance,
-      address: "0x4D5B24179c656A88087eF4369887fD58AB5e8EF3",
     },
     {
       label: "VUSD",
