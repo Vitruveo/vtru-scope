@@ -303,11 +303,6 @@ export default function Dashboard() {
             //console.log(3)
             targets.push(i);
             break;
-          case lower(config[network].VEO):
-            setVeoBalance(item.balance);
-            //console.log(4)
-            targets.push(i);
-            break;
           case lower(config[network].VUSD):
             setVusdBalance(item.balance);
             //console.log(5)
@@ -361,7 +356,7 @@ export default function Dashboard() {
         }
       }
 
-      const KNOWN = 13;
+      const KNOWN = 12;
       for (let t = 0; t < KNOWN; t++) {
         balances[targets[t]] = null;
       }
