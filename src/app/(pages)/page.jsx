@@ -383,7 +383,7 @@ export default function Dashboard() {
       setWhaleMax(tempWhaleMax);
       setWhaleMin(tempWhaleMin);
 
-      if (targets.length == KNOWN) {
+      if (targets.length >= KNOWN) {
         let reserved =
           wvtruBalance +
           bridgeBalance +
@@ -461,11 +461,6 @@ export default function Dashboard() {
       label: "Perks Vault",
       amount: perksBalance,
       address: "0xCA0216cE0F48c0b9595597634B17a3C7Ef12F4d4",
-    },
-    {
-      label: "Perks Pool",
-      amount: perksPoolBalance,
-      address: "0xec274828B11338A5fa5A0f83F60DaD7be429F15C",
     },
     {
       label: "Validators",
@@ -765,16 +760,6 @@ export default function Dashboard() {
 
 
       <h1 style={{ fontSize: "30px", color: "#fff", marginTop: "40px" }}>
-        VERSE Stats
-      </h1>
-      <VerseStats
-        provider={provider}
-        verseAddress={config[network].VERSE}
-        verseAbi={config.abi.VERSE}
-      />
-      <h4 style={{color: 'white', marginTop: "-10px", marginBottom: "30px"}}><sup>1</sup> Additional {display(600000)} units allocated to Community from Team allocation.</h4>
-
-      <h1 style={{ fontSize: "30px", color: "#fff", marginTop: "40px" }}>
         Locked Balances
       </h1>
       <Grid container spacing={3} style={{ marginBottom: "30px" }}>
@@ -875,6 +860,17 @@ export default function Dashboard() {
           <InfoBar items={reservedBarItems} />
         </Grid>
       </Grid>
+
+
+      <h1 style={{ fontSize: "30px", color: "#fff", marginTop: "40px" }}>
+        VERSE Stats
+      </h1>
+      <VerseStats
+        provider={provider}
+        verseAddress={config[network].VERSE}
+        verseAbi={config.abi.VERSE}
+      />
+      <h4 style={{color: 'white', marginTop: "-10px", marginBottom: "30px"}}><sup>1</sup> Additional {display(600000)} units allocated to Community from Team allocation.</h4>
 
       <h1 style={{ fontSize: "30px", color: "#fff", marginTop: "40px" }}>
         Wallet Balance &gt;50K
