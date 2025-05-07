@@ -720,6 +720,159 @@ export default function Dashboard() {
       </Grid> */}
 
 
+<h1 style={{ fontSize: "30px", color: "#fff", marginTop: "40px" }}>
+        Trading
+      </h1>
+      <Grid container spacing={3} style={{ marginBottom: "30px" }}>
+
+        <Grid item xs={12} sm={12} md={3} lg={3} key={0}>
+          <Box bgcolor={"primary.main"} textAlign="center">
+            <CardContent px={1}>
+              <Typography color={"grey.900"} variant="h3" fontWeight={600}>
+                <Link
+                  style={linkStyle}
+                  target="_new"
+                  href="https://vitruveo.exchange"
+                >
+                  VITRUVEO EXCHANGE
+                </Link>
+              </Typography>
+            </CardContent>
+          </Box>
+        </Grid>
+
+
+        <Grid item xs={12} sm={12} md={3} lg={3} key={1}>
+          <Box bgcolor={"primary.main"} textAlign="center">
+            <CardContent px={1}>
+              <Typography color={"grey.900"} variant="h3" fontWeight={600}>
+                <Link
+                  style={linkStyle}
+                  target="_new"
+                  href="https://pancakeswap.finance/?chain=bsc&inputCurrency=0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d&outputCurrency=0xb08504D245713Ca9692C8fA605E76A0A11Ed4955&fee=10000"
+                >
+                  <img
+                    alt="PancakeSwap"
+                    src="/images/pancake.png"
+                    style={{ width: "24px", position: "relative", top: "2px" }}
+                  />{" "}
+                  USDC/VTRU (BSC)
+                </Link>
+              </Typography>
+            </CardContent>
+          </Box>
+        </Grid>
+
+        <Grid item xs={12} sm={12} md={3} lg={3} key={2}>
+          <Box bgcolor={"primary.main"} textAlign="center">
+            <CardContent px={1}>
+              <Typography color={"grey.900"} variant="h3" fontWeight={600}>
+                <Link
+                  style={linkStyle}
+                  target="_new"
+                  href="https://pancakeswap.finance/?chain=bsc&inputCurrency=BNB&outputCurrency=0xb08504D245713Ca9692C8fA605E76A0A11Ed4955&fee=10000"
+                >
+                  <img
+                    alt="PancakeSwap"
+                    src="/images/pancake.png"
+                    style={{ width: "24px", position: "relative", top: "2px" }}
+                  />{" "}
+                  BNB/VTRU (BSC)
+                </Link>
+              </Typography>
+            </CardContent>
+          </Box>
+        </Grid>
+
+        <Grid item xs={12} sm={12} md={3} lg={3} key={3}>
+          <Box bgcolor={"primary.main"} textAlign="center">
+            <CardContent px={1}>
+              <Typography color={"grey.900"} variant="h3" fontWeight={600}>
+                <Link
+                  style={linkStyle}
+                  target="_new"
+                  href="https://app.uniswap.org/swap?chain=mainnet&inputCurrency=0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48&outputCurrency=0x7070f01a2040bd06109c6fc478cd139b323459af&fee=10000"
+                >
+                  <img
+                    alt="Uniswap"
+                    src="/images/uniswap.png"
+                    style={{ width: "24px", position: "relative", top: "2px" }}
+                  />{" "}
+                  USDC/VTRU (ETH)
+                </Link>
+              </Typography>
+            </CardContent>
+          </Box>
+        </Grid>
+      </Grid>
+
+      <Grid container spacing={3} style={{ marginBottom: "30px" }}>
+        <Grid item xs={12} sm={12} md={3} lg={3} key={1}>
+          <Box bgcolor={"primary.main"} textAlign="center">
+            <CardContent px={1}>
+              <Typography color={"grey.900"} variant="h5" fontWeight={600}>
+                <Link
+                  style={linkStyle}
+                  target="_new"
+                  href="https://www.dextools.io/app/en/bnb/pair-explorer/0xbe14641c6e776721ae8cff906612bdee81693e7e"
+                >
+                  DEX Tools (BSC)
+                </Link>
+              </Typography>
+            </CardContent>
+          </Box>
+        </Grid>
+
+        <Grid item xs={12} sm={12} md={3} lg={3} key={2}>
+          <Box bgcolor={"primary.main"} textAlign="center">
+            <CardContent px={1}>
+              <Typography color={"grey.900"} variant="h5" fontWeight={600}>
+                <Link
+                  style={linkStyle}
+                  target="_new"
+                  href="https://dexscreener.com/bsc/0xbe14641c6e776721ae8cff906612bdee81693e7e"
+                >
+                  DEX Screener (BSC)
+                </Link>
+              </Typography>
+            </CardContent>
+          </Box>
+        </Grid>
+
+        <Grid item xs={12} sm={12} md={3} lg={3} key={3}>
+          <Box bgcolor={"primary.main"} textAlign="center">
+            <CardContent px={1}>
+              <Typography color={"grey.900"} variant="h5" fontWeight={600}>
+                <Link
+                  style={linkStyle}
+                  target="_new"
+                  href="https://www.dextools.io/app/en/ether/pair-explorer/0xdad3e43020f50a94b92c6f7617c6540b54adf87e"
+                >
+                  DEX Tools (ETH)
+                </Link>
+              </Typography>
+            </CardContent>
+          </Box>
+        </Grid>
+
+        <Grid item xs={12} sm={12} md={3} lg={3} key={4}>
+          <Box bgcolor={"primary.main"} textAlign="center">
+            <CardContent px={1}>
+              <Typography color={"grey.900"} variant="h5" fontWeight={600}>
+                <Link
+                  style={linkStyle}
+                  target="_new"
+                  href="https://dexscreener.com/ethereum/0xdad3e43020f50a94b92c6f7617c6540b54adf87e"
+                >
+                  DEX Screener (ETH)
+                </Link>
+              </Typography>
+            </CardContent>
+          </Box>
+        </Grid>
+      </Grid>
+
+      
       <h1 style={{ fontSize: "30px", color: "#fff", marginTop: "40px" }}>
         Locked Balances
       </h1>
@@ -889,157 +1042,6 @@ export default function Dashboard() {
 
       </Grid> */}
 
-      <h1 style={{ fontSize: "30px", color: "#fff", marginTop: "40px" }}>
-        Trading
-      </h1>
-      <Grid container spacing={3} style={{ marginBottom: "30px" }}>
-
-        <Grid item xs={12} sm={12} md={3} lg={3} key={0}>
-          <Box bgcolor={"primary.main"} textAlign="center">
-            <CardContent px={1}>
-              <Typography color={"grey.900"} variant="h3" fontWeight={600}>
-                <Link
-                  style={linkStyle}
-                  target="_new"
-                  href="https://vitruveo.exchange"
-                >
-                  VITRUVEO EXCHANGE
-                </Link>
-              </Typography>
-            </CardContent>
-          </Box>
-        </Grid>
-
-
-        <Grid item xs={12} sm={12} md={3} lg={3} key={1}>
-          <Box bgcolor={"primary.main"} textAlign="center">
-            <CardContent px={1}>
-              <Typography color={"grey.900"} variant="h3" fontWeight={600}>
-                <Link
-                  style={linkStyle}
-                  target="_new"
-                  href="https://pancakeswap.finance/?chain=bsc&inputCurrency=0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d&outputCurrency=0xb08504D245713Ca9692C8fA605E76A0A11Ed4955&fee=10000"
-                >
-                  <img
-                    alt="PancakeSwap"
-                    src="/images/pancake.png"
-                    style={{ width: "24px", position: "relative", top: "2px" }}
-                  />{" "}
-                  USDC/VTRU (BSC)
-                </Link>
-              </Typography>
-            </CardContent>
-          </Box>
-        </Grid>
-
-        <Grid item xs={12} sm={12} md={3} lg={3} key={2}>
-          <Box bgcolor={"primary.main"} textAlign="center">
-            <CardContent px={1}>
-              <Typography color={"grey.900"} variant="h3" fontWeight={600}>
-                <Link
-                  style={linkStyle}
-                  target="_new"
-                  href="https://pancakeswap.finance/?chain=bsc&inputCurrency=BNB&outputCurrency=0xb08504D245713Ca9692C8fA605E76A0A11Ed4955&fee=10000"
-                >
-                  <img
-                    alt="PancakeSwap"
-                    src="/images/pancake.png"
-                    style={{ width: "24px", position: "relative", top: "2px" }}
-                  />{" "}
-                  BNB/VTRU (BSC)
-                </Link>
-              </Typography>
-            </CardContent>
-          </Box>
-        </Grid>
-
-        <Grid item xs={12} sm={12} md={3} lg={3} key={3}>
-          <Box bgcolor={"primary.main"} textAlign="center">
-            <CardContent px={1}>
-              <Typography color={"grey.900"} variant="h3" fontWeight={600}>
-                <Link
-                  style={linkStyle}
-                  target="_new"
-                  href="https://app.uniswap.org/swap?chain=mainnet&inputCurrency=0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48&outputCurrency=0x7070f01a2040bd06109c6fc478cd139b323459af&fee=10000"
-                >
-                  <img
-                    alt="Uniswap"
-                    src="/images/uniswap.png"
-                    style={{ width: "24px", position: "relative", top: "2px" }}
-                  />{" "}
-                  USDC/VTRU (ETH)
-                </Link>
-              </Typography>
-            </CardContent>
-          </Box>
-        </Grid>
-      </Grid>
-
-      <Grid container spacing={3} style={{ marginBottom: "30px" }}>
-        <Grid item xs={12} sm={12} md={3} lg={3} key={1}>
-          <Box bgcolor={"primary.main"} textAlign="center">
-            <CardContent px={1}>
-              <Typography color={"grey.900"} variant="h5" fontWeight={600}>
-                <Link
-                  style={linkStyle}
-                  target="_new"
-                  href="https://www.dextools.io/app/en/bnb/pair-explorer/0xbe14641c6e776721ae8cff906612bdee81693e7e"
-                >
-                  DEX Tools (BSC)
-                </Link>
-              </Typography>
-            </CardContent>
-          </Box>
-        </Grid>
-
-        <Grid item xs={12} sm={12} md={3} lg={3} key={2}>
-          <Box bgcolor={"primary.main"} textAlign="center">
-            <CardContent px={1}>
-              <Typography color={"grey.900"} variant="h5" fontWeight={600}>
-                <Link
-                  style={linkStyle}
-                  target="_new"
-                  href="https://dexscreener.com/bsc/0xbe14641c6e776721ae8cff906612bdee81693e7e"
-                >
-                  DEX Screener (BSC)
-                </Link>
-              </Typography>
-            </CardContent>
-          </Box>
-        </Grid>
-
-        <Grid item xs={12} sm={12} md={3} lg={3} key={3}>
-          <Box bgcolor={"primary.main"} textAlign="center">
-            <CardContent px={1}>
-              <Typography color={"grey.900"} variant="h5" fontWeight={600}>
-                <Link
-                  style={linkStyle}
-                  target="_new"
-                  href="https://www.dextools.io/app/en/ether/pair-explorer/0xdad3e43020f50a94b92c6f7617c6540b54adf87e"
-                >
-                  DEX Tools (ETH)
-                </Link>
-              </Typography>
-            </CardContent>
-          </Box>
-        </Grid>
-
-        <Grid item xs={12} sm={12} md={3} lg={3} key={4}>
-          <Box bgcolor={"primary.main"} textAlign="center">
-            <CardContent px={1}>
-              <Typography color={"grey.900"} variant="h5" fontWeight={600}>
-                <Link
-                  style={linkStyle}
-                  target="_new"
-                  href="https://dexscreener.com/ethereum/0xdad3e43020f50a94b92c6f7617c6540b54adf87e"
-                >
-                  DEX Screener (ETH)
-                </Link>
-              </Typography>
-            </CardContent>
-          </Box>
-        </Grid>
-      </Grid>
     </PageContainer>
   );
 }
