@@ -356,7 +356,7 @@ export default function Dashboard() {
         }
       }
 
-      const KNOWN = 12;
+      const KNOWN = 11;
       for (let t = 0; t < KNOWN; t++) {
         balances[targets[t]] = null;
       }
@@ -403,24 +403,6 @@ export default function Dashboard() {
         if (reserved > 0) {
           let currentCirculatingSupply = totalSupply - reserved;
           setCirculatingSupply(currentCirculatingSupply);
-
-          // Goal calculations
-          
-          const goalBalance = Math.max(20_000_000 - stakedBalance, 0);
-
-          if ((goalBalance == 0) && (fireworks == false)) {
-            setFireworks(true);
-          }
-          const walletMin = goalBalance / 30_000;
-          const days = Math.max(0, Math.ceil((new Date(new Date().getFullYear(), 1, 1) - new Date()) / (1000 * 60 * 60 * 24)));
-          const weekly = targetPerWeek(goalBalance, 3);
-          setGoal({
-            balance: goalBalance,
-            jan12: weekly[0],
-            jan19: weekly[1],
-            jan26: weekly[2],
-            wallet: walletMin
-          });
         }
         setTradingSupply(wvtruBalance + bridgeBalance - 112_000);
       }
@@ -473,32 +455,11 @@ export default function Dashboard() {
       address: "0xCA06ecC58c9EB5237270d3360bD36f3Bf04CcC9c",
     },
     {
-      label: "Partners",
-      amount: partnerBalance,
-      address: "0xCA0552B00450DC23EEe813486e75154c48791218",
-    },
-    {
       label: "Treasury",
       amount: treasuryBalance,
       address: "0xCA01dDbEacFcEF7456C4f291BE2F216F8fd81Ea6",
     },
   ];
-
-  const challengeBarItems = [
-    {
-      label: "Staked 🎉",
-      amount: stakedBalance,
-      address: "0xf793A4faD64241c7273b9329FE39e433c2D45d71",
-    },
-  ]
-
-  if (fireworks == false) {
-    challengeBarItems.push({ 
-      label: "Needed 🫣",
-      amount: goal.balance,
-      address: "0xf793A4faD64241c7273b9329FE39e433c2D45d71"
-    });
-  }
 
   const lockedBarItems = [
     {
@@ -639,7 +600,7 @@ export default function Dashboard() {
                 variant="subtitle1"
                 fontWeight={600}
               >
-                Circulating Supply<sup>1</sup>
+                Circulating Supply
               </Typography>
               <Typography color={"grey.900"} variant="h2" fontWeight={600}>
                 {display(circulatingSupply)}
@@ -699,11 +660,11 @@ export default function Dashboard() {
           </Box>
         </Grid>
       </Grid>
-      <h4 style={{color: 'white', marginBottom: "30px"}}><sup>1</sup> Excludes total balance of all Creator Vaults of { display(vaultsBalance) }</h4>
 
 
 
-      {/* <Grid container spacing={3} style={{ marginBottom: "30px" }}>
+      {/* 
+      <Grid container spacing={3} style={{ marginBottom: "30px" }}>
 
 
         <Grid item xs={12} sm={12} md={4} lg={4} key={2}>
@@ -870,9 +831,8 @@ export default function Dashboard() {
         verseAddress={config[network].VERSE}
         verseAbi={config.abi.VERSE}
       />
-      <h4 style={{color: 'white', marginTop: "-10px", marginBottom: "30px"}}><sup>1</sup> Additional {display(600000)} units allocated to Community from Team allocation.</h4>
 
-      <h1 style={{ fontSize: "30px", color: "#fff", marginTop: "40px" }}>
+      {/* <h1 style={{ fontSize: "30px", color: "#fff", marginTop: "40px" }}>
         Wallet Balance &gt;50K
       </h1>
       <Grid container spacing={3} style={{ marginBottom: "30px" }}>
@@ -927,34 +887,31 @@ export default function Dashboard() {
           </Box>
         </Grid>
 
-        {/* <Grid item xs={12} sm={12} md={3} lg={3} key={4}>
-                  <Box bgcolor={"grey.700"} textAlign="center">
-                    <CardContent px={1}>
-                  
-                            <Typography
-                              color={"grey.900"}
-                              variant="subtitle1"
-                              fontWeight={600}
-                            >
-                              Min
-                            </Typography>
-                            <Typography
-                              color={"grey.900"}
-                              variant="h2"
-                              fontWeight={600}
-                            >
-                              { display(whaleMin) }                        
-                            </Typography>
-                      </CardContent>
-                  </Box>
-                </Grid> */}
-      </Grid>
+      </Grid> */}
 
       <h1 style={{ fontSize: "30px", color: "#fff", marginTop: "40px" }}>
         Trading
       </h1>
       <Grid container spacing={3} style={{ marginBottom: "30px" }}>
-        <Grid item xs={12} sm={12} md={4} lg={4} key={1}>
+
+        <Grid item xs={12} sm={12} md={3} lg={3} key={0}>
+          <Box bgcolor={"primary.main"} textAlign="center">
+            <CardContent px={1}>
+              <Typography color={"grey.900"} variant="h3" fontWeight={600}>
+                <Link
+                  style={linkStyle}
+                  target="_new"
+                  href="https://vitruveo.exchange"
+                >
+                  VITRUVEO EXCHANGE
+                </Link>
+              </Typography>
+            </CardContent>
+          </Box>
+        </Grid>
+
+
+        <Grid item xs={12} sm={12} md={3} lg={3} key={1}>
           <Box bgcolor={"primary.main"} textAlign="center">
             <CardContent px={1}>
               <Typography color={"grey.900"} variant="h3" fontWeight={600}>
@@ -975,7 +932,7 @@ export default function Dashboard() {
           </Box>
         </Grid>
 
-        <Grid item xs={12} sm={12} md={4} lg={4} key={2}>
+        <Grid item xs={12} sm={12} md={3} lg={3} key={2}>
           <Box bgcolor={"primary.main"} textAlign="center">
             <CardContent px={1}>
               <Typography color={"grey.900"} variant="h3" fontWeight={600}>
@@ -996,7 +953,7 @@ export default function Dashboard() {
           </Box>
         </Grid>
 
-        <Grid item xs={12} sm={12} md={4} lg={4} key={3}>
+        <Grid item xs={12} sm={12} md={3} lg={3} key={3}>
           <Box bgcolor={"primary.main"} textAlign="center">
             <CardContent px={1}>
               <Typography color={"grey.900"} variant="h3" fontWeight={600}>

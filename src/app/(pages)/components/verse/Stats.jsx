@@ -94,7 +94,7 @@ return (
               variant="subtitle1"
               fontWeight={600}
             >
-              Total Allocated Units<sup>1</sup>
+              Total Allocated Units
             </Typography>
             <Typography color={"info.main"} variant="h1" fontWeight={600}>
               {stats.allocatedUnits.toLocaleString()}
