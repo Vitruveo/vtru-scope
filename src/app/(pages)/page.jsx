@@ -172,7 +172,7 @@ export default function Dashboard() {
   }, [blockNumber, provider]);
 
   function formatCurrency(amount) {
-    if (amount < 1_000_000) {
+    if (amount < 10_000) {
       return amount
         ? Intl.NumberFormat("en-US", {
             style: "currency",
