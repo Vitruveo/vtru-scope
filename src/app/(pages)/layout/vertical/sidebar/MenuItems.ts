@@ -47,27 +47,6 @@ const Menuitems: MenuitemsType[] = [
     chipColor: "secondary",
   },
   {
-    id: uniqueId(),
-    title: "VERSE Projector",
-    icon: IconCalculator,
-    href: "/verse",
-    chipColor: "secondary",
-  },
-  {
-    id: uniqueId(),
-    title: "What-if Calculator",
-    icon: IconCalculatorFilled,
-    href: "/whatif",
-    chipColor: "secondary",
-  },
-  {
-    id: uniqueId(),
-    title: "Rebase Calculator",
-    icon: IconCoins,
-    href: "/rebase",
-    chipColor: "secondary",
-  },
-  {
     id:uniqueId(),
     title: "Digital Assets",
     icon: IconPackage,
@@ -128,6 +107,34 @@ const Menuitems: MenuitemsType[] = [
         icon: IconClockStop,
         href: "/staking/vtruvest"
       }
+    ]
+  },
+  {
+    id:uniqueId(),
+    title: "Calculators",
+    icon: IconCalculator,
+    children: [
+      {
+        id: uniqueId(),
+        title: "What-if Calculator",
+        icon: IconCalculatorFilled,
+        href: "/whatif",
+        chipColor: "secondary",
+      },
+      {
+        id: uniqueId(),
+        title: "Rebase Calculator",
+        icon: IconCoins,
+        href: "/rebase",
+        chipColor: "secondary",
+      },
+      {
+        id: uniqueId(),
+        title: "VERSE Projector",
+        icon: IconCalculator,
+        href: "/verse",
+        chipColor: "secondary",
+      },
     ]
   },
   {
