@@ -66,12 +66,10 @@ export default function Dashboard() {
   const [bridgeBalance, setBridgeBalance] = useState(0);
 
   const [perksBalance, setPerksBalance] = useState(0);
-  const [vipBalance, setVipBalance] = useState(0);
   const [partnerBalance, setPartnerBalance] = useState(0);
   const [boosterBalance, setBoosterBalance] = useState(0);
   const [communityVibeBalance, setCommunityVibeBalance] = useState(0);
   const [perksPoolBalance, setPerksPoolBalance] = useState(0);
-  const [sabongMktBalance, setSabongMktBalance] = useState(0);
 
   const [treasuryBalance, setTreasuryBalance] = useState(0);
   const [circulatingSupply, setCirculatingSupply] = useState(0);
@@ -328,11 +326,6 @@ export default function Dashboard() {
             //console.log(9)
             targets.push(i);
             break;
-          case lower("0xCA03830833702561926b34F65e9C822959B2Ccf5"):
-            setVipBalance(item.balance);
-            //console.log(10)
-            targets.push(i);
-            break;
           case lower("0xCA0552B00450DC23EEe813486e75154c48791218"):
             setPartnerBalance(item.balance);
             //console.log(11)
@@ -356,7 +349,7 @@ export default function Dashboard() {
         }
       }
 
-      const KNOWN = 11;
+      const KNOWN = 9;
       for (let t = 0; t < KNOWN; t++) {
         balances[targets[t]] = null;
       }
@@ -392,14 +385,11 @@ export default function Dashboard() {
           vestingBalance +
           stakedBalance +
           perksBalance +
-          vipBalance +
           partnerBalance +
           boosterBalance +
           treasuryBalance +
           communityVibeBalance +
-          perksPoolBalance +
-          vaultsBalance + 
-          sabongMktBalance;
+          perksPoolBalance;
         if (reserved > 0) {
           let currentCirculatingSupply = totalSupply - reserved;
           setCirculatingSupply(currentCirculatingSupply);
@@ -445,11 +435,6 @@ export default function Dashboard() {
       address: "0xCA0216cE0F48c0b9595597634B17a3C7Ef12F4d4",
     },
     {
-      label: "Validators",
-      amount: vipBalance,
-      address: "0xCA03830833702561926b34F65e9C822959B2Ccf5",
-    },
-    {
       label: "Boosters",
       amount: boosterBalance,
       address: "0xCA06ecC58c9EB5237270d3360bD36f3Bf04CcC9c",
@@ -471,11 +456,6 @@ export default function Dashboard() {
       label: "Staked",
       amount: stakedBalance,
       address: "0xf793A4faD64241c7273b9329FE39e433c2D45d71",
-    },
-    {
-      label: "Creator Vaults",
-      amount: vaultsBalance,
-      address: "0xDFda76C704515d19C737C54cFf523E45ab01d90A",
     },
   ];
 

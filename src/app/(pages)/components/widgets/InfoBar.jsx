@@ -22,15 +22,15 @@ const InfoBar = ({ items }) => {
   }, [items]);
 
   const palette = [
-    "#AF52DE", // Purple
-    "#5856D6", // Indigo
-    "#5AC8FA", // Light Blue
-    "#4CD964", // Green
-    "#FFD60A", // Yellow
-    "#FF9500", // Orange
-    "#34C759", // Bright Green
-    "#8E8E93", // Grey
-    "#C7C7CC"  // Light Gray
+    "#9B59B6", // Soft Purple
+    "#A29BFE", // Lavender Blue
+    "#6C5CE7", // Vivid Indigo
+    "#74B9FF", // Sky Blue
+    "#00BFFF", // Bright Blue
+    "#E84393", // Hot Pink
+    "#8E44AD", // Deep Purple
+    "#FD79A8", // Soft Pink
+    "#D980FA"  // Orchid
   ];
 
   
@@ -100,7 +100,6 @@ const InfoBar = ({ items }) => {
               borderRadius: getRadius(index)
               
             }}
-            onClick={() => handleClick(item.address)}
           >
                   <Typography
                     color={"grey.900"}
