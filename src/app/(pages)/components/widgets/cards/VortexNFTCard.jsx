@@ -48,24 +48,12 @@ const VortexNFTCard = ({ nft }) => {
       <BlankCard className="hoverCard">
         <>
         <div>
-          <img src={`/images/vortex/${nft.rarity.toLowerCase()}.png`} alt={`${nft.name}`} style={{width: '100%' }} id={`img-${nft.key}`} />
-          <div style={{position:'absolute', top: '20px', right: '10px', marginLeft: '-150px', fontSize: '60px', color: '#fff'}}>{`${glyphs[index]}`}</div>
+          <img src={`/images/vortex/${nft.rarity.toLowerCase()}.gif`} alt={`${nft.name}`} style={{width: '100%' }} id={`img-${nft.key}`} />
         </div>
           <CardContent>
               <Chip label={`${nft.id}`} size="large" color="primary"></Chip>
               &nbsp;&nbsp;
               <Chip label={`${nft.rarity}`} size="large" color="primary" ></Chip>
-              &nbsp;&nbsp;
-              <Chip label={`${nft.glyphName}`} size="large" color="primary"></Chip>
-              {
-                nft.vibecount > 0 && Number(nft.id) > 27684 ?
-                <>
-                &nbsp;&nbsp;
-                <Chip label={`VIBE Eligible x ${nft.vibecount}`} size="large" color="primary"></Chip>
-                </>
-                :
-                <></>
-              }
           </CardContent>
         </>
       </BlankCard>

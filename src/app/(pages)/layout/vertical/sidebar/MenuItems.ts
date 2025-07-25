@@ -59,9 +59,9 @@ const Menuitems: MenuitemsType[] = [
       },
       {
         id: uniqueId(),
-        title: "Artwork",
-        icon: IconBrush,
-        href: "/assets/artwork"
+        title: "AIWARS",
+        icon: IconAperture,
+        href: "/assets/aiwars"
       },
       {
         id: uniqueId(),
@@ -74,12 +74,6 @@ const Menuitems: MenuitemsType[] = [
         title: "VERSE",
         icon: IconMovie,
         href: "/assets/verse"
-      },
-      {
-        id: uniqueId(),
-        title: "Vortex",
-        icon: IconAperture,
-        href: "/assets/vortex"
       },
       {
         id: uniqueId(),
