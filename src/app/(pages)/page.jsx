@@ -272,9 +272,10 @@ export default function Dashboard() {
   useEffect(() => {
     async function fetchBalances() {
       const response = await fetch(
-        "https://explorer.vitruveo.net/api/v2/addresses?page=1"
+        "https://explorer.vitruveo.net/api/v2/addresses"
       );
       const data = await response.json();
+      console.log(data)
       const balances = data.items.map((i) => {
         return {
           account: lower(i.hash),
