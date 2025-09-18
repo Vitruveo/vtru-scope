@@ -436,11 +436,6 @@ export default function Dashboard() {
       address: "0xCA0216cE0F48c0b9595597634B17a3C7Ef12F4d4",
     },
     {
-      label: "Boosters",
-      amount: boosterBalance,
-      address: "0xCA06ecC58c9EB5237270d3360bD36f3Bf04CcC9c",
-    },
-    {
       label: "Treasury",
       amount: treasuryBalance,
       address: "0xCA01dDbEacFcEF7456C4f291BE2F216F8fd81Ea6",
@@ -468,7 +463,7 @@ export default function Dashboard() {
   return (
     <PageContainer title="VTRU Scope" description="VTRU Scope by Vitruveo">
       {/* <div style={{backgroundColor: '#cc0000', fontSize: '20px', border: '1px solid white', textAlign: 'center', margin: '20px 0', padding: '20px'}}>We are working on resolving errors on this page. Thank you for your patience.</div> */}
-      
+{/*       
       <h1 style={{ fontSize: "30px", color: "#fff", marginTop: "40px" }}>
         Current
       </h1>
@@ -567,7 +562,7 @@ export default function Dashboard() {
             </CardContent>
           </Box>
         </Grid>
-      </Grid>
+      </Grid> */}
 
       <h1 style={{ fontSize: "30px", color: "#fff", marginTop: "40px" }}>
         Supply
@@ -957,14 +952,14 @@ export default function Dashboard() {
       </Grid>
 
 
-      <h1 style={{ fontSize: "30px", color: "#fff", marginTop: "40px" }}>
+      {/* <h1 style={{ fontSize: "30px", color: "#fff", marginTop: "40px" }}>
         VERSE Stats
       </h1>
       <VerseStats
         provider={provider}
         verseAddress={config[network].VERSE}
         verseAbi={config.abi.VERSE}
-      />
+      /> */}
 
       {/* <h1 style={{ fontSize: "30px", color: "#fff", marginTop: "40px" }}>
         Wallet Balance &gt;50K
