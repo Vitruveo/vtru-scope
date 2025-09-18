@@ -109,7 +109,7 @@ export default function Contracts() {
                 <p>Vitruveo DEX token</p>
                 <a
                   style={linkStyle}
-                  href="https://explorer.vitruveo.xyz/address/0xDECAF2f187Cb837a42D26FA364349Abc3e80Aa5D"
+                  href="https://explorer.vitruveo.net/address/0xDECAF2f187Cb837a42D26FA364349Abc3e80Aa5D"
                   target="_new"
                 >
                   0xDECAF2f187Cb837a42D26FA364349Abc3e80Aa5D
@@ -134,7 +134,7 @@ export default function Contracts() {
                 <p>Offical VTRU token for all exchanges</p>
                 <a
                   style={linkStyle}
-                  href="https://explorer.vitruveo.xyz/address/0x3ccc3F22462cAe34766820894D04a40381201ef9"
+                  href="https://explorer.vitruveo.net/address/0x3ccc3F22462cAe34766820894D04a40381201ef9"
                   target="_new"
                 >
                   0x3ccc3F22462cAe34766820894D04a40381201ef9
@@ -162,7 +162,7 @@ export default function Contracts() {
                 <p>USDC.pol contract by Circle</p>
                 <a
                   style={linkStyle}
-                  href="https://explorer.vitruveo.xyz/address/0xbCfB3FCa16b12C7756CD6C24f1cC0AC0E38569CF"
+                  href="https://explorer.vitruveo.net/address/0xbCfB3FCa16b12C7756CD6C24f1cC0AC0E38569CF"
                   target="_new"
                 >
                   0xbCfB3FCa16b12C7756CD6C24f1cC0AC0E38569CF
@@ -187,7 +187,7 @@ export default function Contracts() {
                 <p>Vitruveo stablecoin</p>
                 <a
                   style={linkStyle}
-                  href="https://explorer.vitruveo.xyz/address/0x1D607d8c617A09c638309bE2Ceb9b4afF42236dA"
+                  href="https://explorer.vitruveo.net/address/0x1D607d8c617A09c638309bE2Ceb9b4afF42236dA"
                   target="_new"
                 >
                   0x1D607d8c617A09c638309bE2Ceb9b4afF42236dA
@@ -214,7 +214,7 @@ export default function Contracts() {
                 <p>Vitruveo Income Building Engine token</p>
                 <a
                   style={linkStyle}
-                  href="https://explorer.vitruveo.xyz/address/0x8e7C7f0DF435Be6773641f8cf62C590d7Dde5a8a"
+                  href="https://explorer.vitruveo.net/address/0x8e7C7f0DF435Be6773641f8cf62C590d7Dde5a8a"
                   target="_new"
                 >
                   0x8e7C7f0DF435Be6773641f8cf62C590d7Dde5a8a
@@ -239,7 +239,7 @@ export default function Contracts() {
                 <p>Vortex World gaming token</p>
                 <a
                   style={linkStyle}
-                  href="https://explorer.vitruveo.xyz/address/0xABA06E4A2Eb17C686Fc67C81d26701D9b82e3a41"
+                  href="https://explorer.vitruveo.net/address/0xABA06E4A2Eb17C686Fc67C81d26701D9b82e3a41"
                   target="_new"
                 >
                   0xABA06E4A2Eb17C686Fc67C81d26701D9b82e3a41
@@ -266,7 +266,7 @@ export default function Contracts() {
                 <p>Core vesting NFT contract for VTRU grants</p>
                 <a
                   style={linkStyle}
-                  href="https://explorer.vitruveo.xyz/address/0xaEf0a72A661B82CB1d871FCA5117486C664EeF13"
+                  href="https://explorer.vitruveo.net/address/0xaEf0a72A661B82CB1d871FCA5117486C664EeF13"
                   target="_new"
                 >
                   0xaEf0a72A661B82CB1d871FCA5117486C664EeF13
@@ -290,7 +290,7 @@ export default function Contracts() {
                 <p>Core staking contract for VTRU</p>
                 <a
                   style={linkStyle}
-                  href="https://explorer.vitruveo.xyz/address/0xf793A4faD64241c7273b9329FE39e433c2D45d71"
+                  href="https://explorer.vitruveo.net/address/0xf793A4faD64241c7273b9329FE39e433c2D45d71"
                   target="_new"
                 >
                   0xf793A4faD64241c7273b9329FE39e433c2D45d71
@@ -318,7 +318,7 @@ export default function Contracts() {
                 <p>Vitruveo Entertainment Revenue Sharing Engine </p>
                 <a
                   style={linkStyle}
-                  href="https://explorer.vitruveo.xyz/token/0x72D2bFb14b3351d17A63Cd4c8085E034e313c54c"
+                  href="https://explorer.vitruveo.net/token/0x72D2bFb14b3351d17A63Cd4c8085E034e313c54c"
                   target="_new"
                 >
                   0x72D2bFb14b3351d17A63Cd4c8085E034e313c54c

@@ -31,8 +31,8 @@ const vitruveo = {
     default: { http: ['https://rpc.vitruveo.xyz/'] },
   },
   blockExplorers: {
-    default: { name: 'VitruveoScan', url: 'https://explorer.vitruveo.xyz' },
-    etherscan: { name: 'VitruveoScan', url: 'https://explorer.vitruveo.xyz' },
+    default: { name: 'VitruveoScan', url: 'https://explorer.vitruveo.net' },
+    etherscan: { name: 'VitruveoScan', url: 'https://explorer.vitruveo.net' },
   },
   testnet: false,
 };
@@ -53,8 +53,8 @@ const vitruveoTestnet = {
     default: { http: ['https://test-rpc.vitruveo.xyz/'] },
   },
   blockExplorers: {
-    default: { name: 'VitruveoScan', url: 'https://test-explorer.vitruveo.xyz' },
-    etherscan: { name: 'VitruveoScan', url: 'https://test-explorer.vitruveo.xyz' },
+    default: { name: 'VitruveoScan', url: 'https://test-explorer.vitruveo.net' },
+    etherscan: { name: 'VitruveoScan', url: 'https://test-explorer.vitruveo.net' },
   },
   testnet: false,
 };

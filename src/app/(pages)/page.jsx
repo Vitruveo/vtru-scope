@@ -272,7 +272,7 @@ export default function Dashboard() {
   useEffect(() => {
     async function fetchBalances() {
       const response = await fetch(
-        "https://explorer.vitruveo.xyz/api/v2/addresses?page=1"
+        "https://explorer.vitruveo.net/api/v2/addresses?page=1"
       );
       const data = await response.json();
       const balances = data.items.map((i) => {
@@ -402,7 +402,7 @@ export default function Dashboard() {
   }, [blockNumber, stakedBalance]);
 
   const handleClick = function (account) {
-    window.open(`https://explorer.vitruveo.xyz/address/${account}`);
+    window.open(`https://explorer.vitruveo.net/address/${account}`);
   };
 
   const contractBarItems = [

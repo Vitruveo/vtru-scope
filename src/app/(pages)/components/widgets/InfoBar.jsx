@@ -57,7 +57,7 @@ const InfoBar = ({ items }) => {
   };
 
   const handleClick = function(account) {
-    window.open(`https://explorer.vitruveo.xyz/address/${account}`);
+    window.open(`https://explorer.vitruveo.net/address/${account}`);
   }
 
   let total = items.reduce((a, b) => a + b.amount, 0);

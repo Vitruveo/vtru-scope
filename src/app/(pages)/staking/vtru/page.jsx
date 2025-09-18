@@ -684,7 +684,7 @@ export default function Stake () {
             </CardContent>
           </Box>
         </Grid>
-    </Grid>
+      </Grid>
 
     <Grid container spacing={3}  style={stakes.length == 0 ? {display: 'none'} : {}}>
         <Grid item xs={12} sm={12} md={3} lg={3} key={1}>
