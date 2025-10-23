@@ -327,6 +327,31 @@ export default function Contracts() {
             </CardContent>
           </Box>
         </Grid>
+
+        <Grid item xs={12} sm={12} md={6} lg={6} key={3}>
+          <Box bgcolor={"grey.100"} textAlign="center">
+            <CardContent px={1}>
+              <Typography
+                color={"info.main"}
+                variant="subtitle1"
+                fontWeight={600}
+                style={titleStyle}
+              >
+                Booster Perks
+              </Typography>
+              <Typography color={"info.main"} fontWeight={600}>
+                <p>Claim contract for 1.9M Booster Perks</p>
+                <a
+                  style={linkStyle}
+                  href="https://explorer.vitruveo.net/address/0x8A66d12De0276Eb6eF9dd493038531b00E9B9B4b"
+                  target="_new"
+                >
+                  0x8A66d12De0276Eb6eF9dd493038531b00E9B9B4b
+                </a>
+              </Typography>
+            </CardContent>
+          </Box>
+        </Grid>
       </Grid>
     </PageContainer>
   );
