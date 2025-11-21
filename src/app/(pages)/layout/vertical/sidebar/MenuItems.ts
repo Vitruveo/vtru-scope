@@ -24,6 +24,7 @@ import {
   IconCalculator,
   IconCalculatorFilled,
   IconBox,
+  IconTicketOff,
   IconAperture,
   IconClockStar,
   IconClockStop,
@@ -100,63 +101,69 @@ const Menuitems: MenuitemsType[] = [
         title: "VTRU (Vesting)",
         icon: IconClockStop,
         href: "/staking/vtruvest"
+      },
+      {
+        id: uniqueId(),
+        title: "Booster Perks",
+        icon: IconTicketOff,
+        href: "/staking/booster"
       }
     ]
   },
-  {
-    id:uniqueId(),
-    title: "Calculators",
-    icon: IconCalculator,
-    children: [
-      {
-        id: uniqueId(),
-        title: "What-if Calculator",
-        icon: IconCalculatorFilled,
-        href: "/whatif",
-        chipColor: "secondary",
-      },
-      {
-        id: uniqueId(),
-        title: "Rebase Calculator",
-        icon: IconCoins,
-        href: "/rebase",
-        chipColor: "secondary",
-      },
-      {
-        id: uniqueId(),
-        title: "VERSE Projector",
-        icon: IconCalculator,
-        href: "/verse",
-        chipColor: "secondary",
-      },
-    ]
-  },
-  {
-    id:uniqueId(),
-    title: "FAQers",
-    icon: IconPackage,
-    children: [
-      // {
-      //   id: uniqueId(),
-      //   title: "General",
-      //   icon: IconHelp,
-      //   href: "/faqers/general"
-      // },
-      {
-        id: uniqueId(),
-        title: "wVTRU",
-        icon: IconCircleKey,
-        href: "/faqers/wVTRU"
-      },
-      {
-        id: uniqueId(),
-        title: "Vault",
-        icon: IconCircleKey,
-        href: "/faqers/vault"
-      }
+  // {
+  //   id:uniqueId(),
+  //   title: "Calculators",
+  //   icon: IconCalculator,
+  //   children: [
+  //     {
+  //       id: uniqueId(),
+  //       title: "What-if Calculator",
+  //       icon: IconCalculatorFilled,
+  //       href: "/whatif",
+  //       chipColor: "secondary",
+  //     },
+  //     {
+  //       id: uniqueId(),
+  //       title: "Rebase Calculator",
+  //       icon: IconCoins,
+  //       href: "/rebase",
+  //       chipColor: "secondary",
+  //     },
+  //     {
+  //       id: uniqueId(),
+  //       title: "VERSE Projector",
+  //       icon: IconCalculator,
+  //       href: "/verse",
+  //       chipColor: "secondary",
+  //     },
+  //   ]
+  // },
+  // {
+  //   id:uniqueId(),
+  //   title: "FAQers",
+  //   icon: IconPackage,
+  //   children: [
+  //     // {
+  //     //   id: uniqueId(),
+  //     //   title: "General",
+  //     //   icon: IconHelp,
+  //     //   href: "/faqers/general"
+  //     // },
+  //     {
+  //       id: uniqueId(),
+  //       title: "wVTRU",
+  //       icon: IconCircleKey,
+  //       href: "/faqers/wVTRU"
+  //     },
+  //     {
+  //       id: uniqueId(),
+  //       title: "Vault",
+  //       icon: IconCircleKey,
+  //       href: "/faqers/vault"
+  //     }
 
-    ]
-  },
+  //   ]
+  // },
   {
     id:uniqueId(),
     title: "Info",

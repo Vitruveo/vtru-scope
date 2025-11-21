@@ -224,7 +224,7 @@ export default function Contracts() {
           </Box>
         </Grid>
 
-        <Grid item xs={12} sm={12} md={6} lg={6} key={1}>
+          <Grid item xs={12} sm={12} md={6} lg={6} key={3}>
           <Box bgcolor={"grey.100"} textAlign="center">
             <CardContent px={1}>
               <Typography
@@ -233,16 +233,16 @@ export default function Contracts() {
                 fontWeight={600}
                 style={titleStyle}
               >
-                Vortex
+                VERSE
               </Typography>
               <Typography color={"info.main"} fontWeight={600}>
-                <p>Vortex World gaming token</p>
+                <p>Vitruveo Entertainment Revenue Sharing Engine </p>
                 <a
                   style={linkStyle}
-                  href="https://explorer.vitruveo.net/address/0xABA06E4A2Eb17C686Fc67C81d26701D9b82e3a41"
+                  href="https://explorer.vitruveo.net/token/0x72D2bFb14b3351d17A63Cd4c8085E034e313c54c"
                   target="_new"
                 >
-                  0xABA06E4A2Eb17C686Fc67C81d26701D9b82e3a41
+                  0x72D2bFb14b3351d17A63Cd4c8085E034e313c54c
                 </a>
               </Typography>
             </CardContent>
@@ -303,30 +303,7 @@ export default function Contracts() {
 
 
       <Grid container spacing={3} style={{ marginBottom: "30px" }}>
-        <Grid item xs={12} sm={12} md={6} lg={6} key={2}>
-          <Box bgcolor={"grey.100"} textAlign="center">
-            <CardContent px={1}>
-              <Typography
-                color={"info.main"}
-                variant="subtitle1"
-                fontWeight={600}
-                style={titleStyle}
-              >
-                VERSE
-              </Typography>
-              <Typography color={"info.main"} fontWeight={600}>
-                <p>Vitruveo Entertainment Revenue Sharing Engine </p>
-                <a
-                  style={linkStyle}
-                  href="https://explorer.vitruveo.net/token/0x72D2bFb14b3351d17A63Cd4c8085E034e313c54c"
-                  target="_new"
-                >
-                  0x72D2bFb14b3351d17A63Cd4c8085E034e313c54c
-                </a>
-              </Typography>
-            </CardContent>
-          </Box>
-        </Grid>
+
 
         <Grid item xs={12} sm={12} md={6} lg={6} key={3}>
           <Box bgcolor={"grey.100"} textAlign="center">

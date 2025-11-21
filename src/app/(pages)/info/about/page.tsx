@@ -39,6 +39,15 @@ export default function CoreNft () {
                 Release Notes
               </Typography>
             </FormLabel>
+            <ChildCard>
+                  <Typography variant="h6">v0.8.8</Typography>
+
+                  <Typography variant="body1" color="textSecondary">
+                    <ul>
+                      <li>Booster Perks</li>
+                    </ul>
+                  </Typography>
+            </ChildCard>
 
             <ChildCard>
                   <Typography variant="h6">v0.8.7</Typography>
