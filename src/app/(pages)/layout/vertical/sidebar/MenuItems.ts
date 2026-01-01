@@ -23,6 +23,7 @@ import {
   IconPackage,
   IconCalculator,
   IconCalculatorFilled,
+  IconIdBadge,
   IconBox,
   IconTicketOff,
   IconAperture,
@@ -47,6 +48,13 @@ const Menuitems: MenuitemsType[] = [
     href: "/",
     chipColor: "secondary",
   },
+  // {
+  //   id: uniqueId(),
+  //   title: "VNS",
+  //   icon: IconIdBadge,
+  //   href: "/vns",
+  //   chipColor: "secondary",
+  // },
   {
     id:uniqueId(),
     title: "Digital Assets",
@@ -57,12 +65,6 @@ const Menuitems: MenuitemsType[] = [
         title: "Core",
         icon: IconTicket,
         href: "/assets/core"
-      },
-      {
-        id: uniqueId(),
-        title: "AIWARS",
-        icon: IconAperture,
-        href: "/assets/aiwars"
       },
       {
         id: uniqueId(),
@@ -78,10 +80,16 @@ const Menuitems: MenuitemsType[] = [
       },
       {
         id: uniqueId(),
-        title: "Booster",
-        icon: IconBox,
-        href: "/assets/booster"
+        title: "AIWARS",
+        icon: IconAperture,
+        href: "/assets/aiwars"
       },
+      // {
+      //   id: uniqueId(),
+      //   title: "Booster",
+      //   icon: IconBox,
+      //   href: "/assets/booster"
+      // },
 
     ]
   },

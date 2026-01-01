@@ -202,7 +202,7 @@ const CoreNFTCard = ({ nft, handleClaim, getBlockNumber }) => {
   async function fetchImage(tokenId, imgUrl) {
     if (imgUrl.indexOf('nftstorage.link') > -1) {
       const frags = imgUrl.split('/');
-      imgUrl = `https://scope.vitruveo.xyz/images/core/${frags[frags.length-1]}`;
+      imgUrl = `https://scope.vitruveo.ai/images/core/${frags[frags.length-1]}`;
     }
     if (loadedImages.indexOf(tokenId) > -1) return;
     const img = document.getElementById(`img-${tokenId}`);

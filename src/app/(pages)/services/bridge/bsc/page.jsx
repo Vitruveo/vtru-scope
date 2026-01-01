@@ -145,7 +145,7 @@ export default function Bsc() {
   // Toast state
   const [toast, setToast] = useState({ open: false, message: '', severity: 'success' });
 
-  const rpcUrl = 'https://rpc.vitruveo.xyz';
+  const rpcUrl = 'https://rpc.vitruveo.ai';
   const provider = new ethers.JsonRpcProvider(rpcUrl);
   const binanceProvider = new ethers.JsonRpcProvider('https://bsc-dataseed.binance.org/');
 

@@ -71,7 +71,7 @@ export default function Faqers_wVTRU() {
     }
   ];
 
-  const provider = new ethers.JsonRpcProvider('https://rpc.vitruveo.xyz');
+  const provider = new ethers.JsonRpcProvider('https://rpc.vitruveo.ai');
 
   function formatPrice(price) {
     return (price ? Intl.NumberFormat("en-US", {

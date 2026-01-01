@@ -27,8 +27,8 @@ const vitruveo = {
     symbol: 'VTRU',
   },
   rpcUrls: {
-    public: { http: ['https://rpc.vitruveo.xyz/'] },
-    default: { http: ['https://rpc.vitruveo.xyz/'] },
+    public: { http: ['https://rpc.vitruveo.ai/'] },
+    default: { http: ['https://rpc.vitruveo.ai/'] },
   },
   blockExplorers: {
     default: { name: 'VitruveoScan', url: 'https://explorer.vitruveo.net' },
@@ -49,8 +49,8 @@ const vitruveoTestnet = {
     symbol: 'tVTRU',
   },
   rpcUrls: {
-    public: { http: ['https://test-rpc.vitruveo.xyz/'] },
-    default: { http: ['https://test-rpc.vitruveo.xyz/'] },
+    public: { http: ['https://test-rpc.vitruveo.ai/'] },
+    default: { http: ['https://test-rpc.vitruveo.ai/'] },
   },
   blockExplorers: {
     default: { name: 'VitruveoScan', url: 'https://test-explorer.vitruveo.net' },

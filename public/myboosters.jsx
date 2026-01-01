@@ -142,7 +142,7 @@ function MyCollections() {
       <div className="top-bar">
         <div className="nav">
           <div className="logo">
-            <a href={"https://www.vitruveo.xyz/"} target="_blank">
+            <a href={"https://www.vitruveo.ai/"} target="_blank">
               <img src="/images/logo.png" alt="logo" />
             </a>
           </div>

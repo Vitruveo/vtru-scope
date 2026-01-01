@@ -41,7 +41,7 @@ export default function Booster () {
 
   useAccount({
       onConnect({ address, connector, isReconnected }) {
-        const rpcUrl = 'https://rpc.vitruveo.xyz';
+        const rpcUrl = 'https://rpc.vitruveo.ai';
         setProvider(new ethers.JsonRpcProvider(rpcUrl));     
 
       setAccount(address);

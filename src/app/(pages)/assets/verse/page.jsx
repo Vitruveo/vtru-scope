@@ -180,7 +180,7 @@ export default function Stake() {
   const [verseUnits, setVerseUnits] = useState(1);
   const [stakeMonths, setStakeMonths] = useState(36);
 
-  const rpcUrl = 'https://rpc.vitruveo.xyz';
+  const rpcUrl = 'https://rpc.vitruveo.ai';
   const provider = new ethers.JsonRpcProvider(rpcUrl);
   const verseContract = new ethers.Contract(config[network].VERSE, config.abi.VERSE, provider);
   const vtroContract = new ethers.Contract(vtroAddress, vtroAbi, provider);
