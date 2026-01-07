@@ -87,7 +87,16 @@ export default function Dashboard() {
       </Grid>
 
       <h2 style={{width: '100%', marginTop: '30px', lineHeight: '32px'}}>
-        Please be patient as we complete the Vitruveo protocol upgrade during the week of Jan. 1, 2026. The chain has been upgraded from the London build to the Shanghai build and we have to test and modify features for an optimal user experience.
+        The Vitruveo protocol has been upgraded to the Shanghai build. All features are live and all prior wallets and contracts are on-chain. This upgrade features:
+        <ul style={{listStyleType: "none"}}>
+          <li>✨ 12 unique and innovative built-in protocol contracts for AI and Game developers</li>
+          <li>✨ New tokenomics to address circulating supply</li>
+          <li>✨ AI-first agentic workflows driven by smart contracts</li>
+          <li>✨ Gemini AI chat access to all chain data via custom MCP server</li>
+          <li>✨ EVM-first smart contract triggers</li>
+          <li>✨ New monetization model for Validators</li>
+        </ul>
+        Stay tuned for upcoming content updates 🔥
       </h2>
 
     </PageContainer>
