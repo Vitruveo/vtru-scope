@@ -32,6 +32,7 @@ export default function Dashboard() {
           <li>✨ Gemini AI chat access to all chain data via custom MCP server</li>
           <li>✨ EVM-first smart contract triggers</li>
           <li>✨ New monetization model for Validators</li>
+          <li>✨ NEW: Custom Vitruveo Multisig Wallet</li>
         </ul>
       </h2>
 
