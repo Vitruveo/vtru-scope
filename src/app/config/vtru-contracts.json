@@ -5,6 +5,7 @@
     "ContractRegistry": "0x0FC006bda54457Bbc650002f8635464298101406",
     "CoreStake": "0xf793A4faD64241c7273b9329FE39e433c2D45d71",
     "CoreVestV2": "0xaEf0a72A661B82CB1d871FCA5117486C664EeF13",
+    "MutexWallet": "0x5247a266C6EE8bAb8eBb9ee248A9e832982f2Cc9",
     "RebaseInfo": "0xF7682C3434F1896D3Ed298A6E540CeA2D6FBEf78",
     "SupplySentry": "0x00d266bD859D5d9e54D6dB1aC774E56352c53705",
     "ValidatorRegistry": "0x7A7dB2f4d073B59f9Af4beF32bc16C804610Edc9",
@@ -20,7 +21,10 @@
     "BoosterPerks": "0x8A66d12De0276Eb6eF9dd493038531b00E9B9B4b",
     "VNSRegistry": "0x620B13591d9705BBCB5BaC2f89536e0716b025a4",
     "VNSResolver": "0xed2208AB1C747d4684458f381f038D33564bD1BC",
-    "VNSRegistrar": "0xD974784f0f87301Bdf92292CAee91dF5ff0a1394"
+    "VNSRegistrar": "0xD974784f0f87301Bdf92292CAee91dF5ff0a1394",
+    "HOSTRegistry": "0xbdc8a59Ec92065848D0a6591F1a67Ce09D5E5FA7",
+    "IBCStorage": "0x1dbe97231e0bd613EDD58b05A70287DEb84a63C4",
+    "WalletFactory": "0x352db29ADA70eBE33b928A135CcaB577468487fD"
   },
   "testnet": {
     "BlockList": "0xE6Ea33CCFDe3BE3fdc9525B6DddF59576c6BFcAc",
@@ -5130,6 +5134,12 @@
     ],
     "VUSD": [
       {
+        "type": "constructor",
+        "stateMutability": "undefined",
+        "payable": false,
+        "inputs": []
+      },
+      {
         "type": "event",
         "anonymous": false,
         "name": "Approval",
@@ -5147,23 +5157,6 @@
           {
             "type": "uint256",
             "name": "value",
-            "indexed": false
-          }
-        ]
-      },
-      {
-        "type": "event",
-        "anonymous": false,
-        "name": "Granted",
-        "inputs": [
-          {
-            "type": "address",
-            "name": "to",
-            "indexed": true
-          },
-          {
-            "type": "uint256",
-            "name": "vusdAmount",
             "indexed": false
           }
         ]
@@ -5212,163 +5205,6 @@
       {
         "type": "event",
         "anonymous": false,
-        "name": "PayVTRU",
-        "inputs": [
-          {
-            "type": "address",
-            "name": "from",
-            "indexed": true
-          },
-          {
-            "type": "address",
-            "name": "to",
-            "indexed": true
-          },
-          {
-            "type": "uint256",
-            "name": "cents",
-            "indexed": false
-          },
-          {
-            "type": "uint256",
-            "name": "vtru",
-            "indexed": false
-          }
-        ]
-      },
-      {
-        "type": "event",
-        "anonymous": false,
-        "name": "PayVUSD",
-        "inputs": [
-          {
-            "type": "address",
-            "name": "from",
-            "indexed": true
-          },
-          {
-            "type": "address",
-            "name": "to",
-            "indexed": true
-          },
-          {
-            "type": "uint256",
-            "name": "cents",
-            "indexed": false
-          },
-          {
-            "type": "uint256",
-            "name": "vusd",
-            "indexed": false
-          }
-        ]
-      },
-      {
-        "type": "event",
-        "anonymous": false,
-        "name": "Redeemed",
-        "inputs": [
-          {
-            "type": "address",
-            "name": "account",
-            "indexed": true
-          },
-          {
-            "type": "uint256",
-            "name": "licenseInstanceId",
-            "indexed": true
-          },
-          {
-            "type": "address[5]",
-            "name": "payees"
-          },
-          {
-            "type": "uint256[5]",
-            "name": "cents"
-          }
-        ]
-      },
-      {
-        "type": "event",
-        "anonymous": false,
-        "name": "Revoked",
-        "inputs": [
-          {
-            "type": "address",
-            "name": "account",
-            "indexed": true
-          }
-        ]
-      },
-      {
-        "type": "event",
-        "anonymous": false,
-        "name": "RoleAdminChanged",
-        "inputs": [
-          {
-            "type": "bytes32",
-            "name": "role",
-            "indexed": true
-          },
-          {
-            "type": "bytes32",
-            "name": "previousAdminRole",
-            "indexed": true
-          },
-          {
-            "type": "bytes32",
-            "name": "newAdminRole",
-            "indexed": true
-          }
-        ]
-      },
-      {
-        "type": "event",
-        "anonymous": false,
-        "name": "RoleGranted",
-        "inputs": [
-          {
-            "type": "bytes32",
-            "name": "role",
-            "indexed": true
-          },
-          {
-            "type": "address",
-            "name": "account",
-            "indexed": true
-          },
-          {
-            "type": "address",
-            "name": "sender",
-            "indexed": true
-          }
-        ]
-      },
-      {
-        "type": "event",
-        "anonymous": false,
-        "name": "RoleRevoked",
-        "inputs": [
-          {
-            "type": "bytes32",
-            "name": "role",
-            "indexed": true
-          },
-          {
-            "type": "address",
-            "name": "account",
-            "indexed": true
-          },
-          {
-            "type": "address",
-            "name": "sender",
-            "indexed": true
-          }
-        ]
-      },
-      {
-        "type": "event",
-        "anonymous": false,
         "name": "Transfer",
         "inputs": [
           {
@@ -5397,132 +5233,6 @@
             "type": "address",
             "name": "account",
             "indexed": false
-          }
-        ]
-      },
-      {
-        "type": "function",
-        "name": "BLOCKS_PER_EPOCH",
-        "constant": true,
-        "stateMutability": "view",
-        "payable": false,
-        "inputs": [],
-        "outputs": [
-          {
-            "type": "uint256",
-            "name": ""
-          }
-        ]
-      },
-      {
-        "type": "function",
-        "name": "DEFAULT_ADMIN_ROLE",
-        "constant": true,
-        "stateMutability": "view",
-        "payable": false,
-        "inputs": [],
-        "outputs": [
-          {
-            "type": "bytes32",
-            "name": ""
-          }
-        ]
-      },
-      {
-        "type": "function",
-        "name": "GRANTER_ROLE",
-        "constant": true,
-        "stateMutability": "view",
-        "payable": false,
-        "inputs": [],
-        "outputs": [
-          {
-            "type": "bytes32",
-            "name": ""
-          }
-        ]
-      },
-      {
-        "type": "function",
-        "name": "REDEEMER_ROLE",
-        "constant": true,
-        "stateMutability": "view",
-        "payable": false,
-        "inputs": [],
-        "outputs": [
-          {
-            "type": "bytes32",
-            "name": ""
-          }
-        ]
-      },
-      {
-        "type": "function",
-        "name": "USDC_ADDRESS",
-        "constant": true,
-        "stateMutability": "view",
-        "payable": false,
-        "inputs": [],
-        "outputs": [
-          {
-            "type": "address",
-            "name": ""
-          }
-        ]
-      },
-      {
-        "type": "function",
-        "name": "VTRU_DECIMALS",
-        "constant": true,
-        "stateMutability": "view",
-        "payable": false,
-        "inputs": [],
-        "outputs": [
-          {
-            "type": "uint256",
-            "name": ""
-          }
-        ]
-      },
-      {
-        "type": "function",
-        "name": "VTRU_USDC_PAIR",
-        "constant": true,
-        "stateMutability": "view",
-        "payable": false,
-        "inputs": [],
-        "outputs": [
-          {
-            "type": "address",
-            "name": ""
-          }
-        ]
-      },
-      {
-        "type": "function",
-        "name": "VUSD_DECIMALS",
-        "constant": true,
-        "stateMutability": "view",
-        "payable": false,
-        "inputs": [],
-        "outputs": [
-          {
-            "type": "uint256",
-            "name": ""
-          }
-        ]
-      },
-      {
-        "type": "function",
-        "name": "WVTRU_ADDRESS",
-        "constant": true,
-        "stateMutability": "view",
-        "payable": false,
-        "inputs": [],
-        "outputs": [
-          {
-            "type": "address",
-            "name": ""
           }
         ]
       },
@@ -5592,212 +5302,17 @@
       },
       {
         "type": "function",
-        "name": "balanceOfInCents",
-        "constant": true,
-        "stateMutability": "view",
-        "payable": false,
-        "inputs": [
-          {
-            "type": "address",
-            "name": "account"
-          }
-        ],
-        "outputs": [
-          {
-            "type": "uint256",
-            "name": ""
-          }
-        ]
-      },
-      {
-        "type": "function",
-        "name": "calculateRedemptionAmounts",
-        "constant": true,
-        "stateMutability": "view",
-        "payable": false,
-        "inputs": [
-          {
-            "type": "address",
-            "name": "account"
-          },
-          {
-            "type": "address[5]",
-            "name": "payees"
-          },
-          {
-            "type": "uint256[5]",
-            "name": "cents"
-          }
-        ],
-        "outputs": [
-          {
-            "type": "uint256",
-            "name": "totalVusd"
-          },
-          {
-            "type": "uint256",
-            "name": "balanceVusd"
-          }
-        ]
-      },
-      {
-        "type": "function",
-        "name": "collateralRatio",
-        "constant": true,
-        "stateMutability": "view",
-        "payable": false,
-        "inputs": [],
-        "outputs": [
-          {
-            "type": "uint256",
-            "name": "ratio"
-          }
-        ]
-      },
-      {
-        "type": "function",
-        "name": "convertCentsToVtru",
-        "constant": true,
-        "stateMutability": "view",
-        "payable": false,
-        "inputs": [
-          {
-            "type": "uint256",
-            "name": "cents"
-          }
-        ],
-        "outputs": [
-          {
-            "type": "uint256",
-            "name": ""
-          }
-        ]
-      },
-      {
-        "type": "function",
-        "name": "convertCentsToVusd",
-        "constant": true,
-        "stateMutability": "pure",
-        "payable": false,
-        "inputs": [
-          {
-            "type": "uint256",
-            "name": "cents"
-          }
-        ],
-        "outputs": [
-          {
-            "type": "uint256",
-            "name": ""
-          }
-        ]
-      },
-      {
-        "type": "function",
-        "name": "convertVtruToCents",
-        "constant": true,
-        "stateMutability": "view",
-        "payable": false,
-        "inputs": [
-          {
-            "type": "uint256",
-            "name": "vtruAmount"
-          }
-        ],
-        "outputs": [
-          {
-            "type": "uint256",
-            "name": ""
-          }
-        ]
-      },
-      {
-        "type": "function",
-        "name": "convertVtruToVusd",
-        "constant": true,
-        "stateMutability": "view",
-        "payable": false,
-        "inputs": [
-          {
-            "type": "uint256",
-            "name": "vtruAmount"
-          }
-        ],
-        "outputs": [
-          {
-            "type": "uint256",
-            "name": ""
-          }
-        ]
-      },
-      {
-        "type": "function",
-        "name": "convertVusdToCents",
-        "constant": true,
-        "stateMutability": "pure",
-        "payable": false,
-        "inputs": [
-          {
-            "type": "uint256",
-            "name": "vusdAmount"
-          }
-        ],
-        "outputs": [
-          {
-            "type": "uint256",
-            "name": ""
-          }
-        ]
-      },
-      {
-        "type": "function",
-        "name": "convertVusdToVtru",
-        "constant": true,
-        "stateMutability": "view",
-        "payable": false,
-        "inputs": [
-          {
-            "type": "uint256",
-            "name": "vusdAmount"
-          }
-        ],
-        "outputs": [
-          {
-            "type": "uint256",
-            "name": ""
-          }
-        ]
-      },
-      {
-        "type": "function",
-        "name": "creditAdmin",
+        "name": "burn",
         "constant": false,
         "payable": false,
         "inputs": [
           {
             "type": "address",
-            "name": "account"
+            "name": "from"
           },
           {
             "type": "uint256",
-            "name": "vusdAmount"
-          }
-        ],
-        "outputs": []
-      },
-      {
-        "type": "function",
-        "name": "debitAdmin",
-        "constant": false,
-        "payable": false,
-        "inputs": [
-          {
-            "type": "address",
-            "name": "account"
-          },
-          {
-            "type": "uint256",
-            "name": "vusdAmount"
+            "name": "amount"
           }
         ],
         "outputs": []
@@ -5840,105 +5355,6 @@
       },
       {
         "type": "function",
-        "name": "depositCollateral",
-        "constant": false,
-        "stateMutability": "payable",
-        "payable": true,
-        "inputs": [],
-        "outputs": []
-      },
-      {
-        "type": "function",
-        "name": "fallbackVtruPrice",
-        "constant": true,
-        "stateMutability": "view",
-        "payable": false,
-        "inputs": [],
-        "outputs": [
-          {
-            "type": "uint256",
-            "name": ""
-          }
-        ]
-      },
-      {
-        "type": "function",
-        "name": "fixDebit",
-        "constant": false,
-        "payable": false,
-        "inputs": [
-          {
-            "type": "address",
-            "name": "account"
-          },
-          {
-            "type": "uint256",
-            "name": "amount"
-          }
-        ],
-        "outputs": []
-      },
-      {
-        "type": "function",
-        "name": "getRoleAdmin",
-        "constant": true,
-        "stateMutability": "view",
-        "payable": false,
-        "inputs": [
-          {
-            "type": "bytes32",
-            "name": "role"
-          }
-        ],
-        "outputs": [
-          {
-            "type": "bytes32",
-            "name": ""
-          }
-        ]
-      },
-      {
-        "type": "function",
-        "name": "grantRole",
-        "constant": false,
-        "payable": false,
-        "inputs": [
-          {
-            "type": "bytes32",
-            "name": "role"
-          },
-          {
-            "type": "address",
-            "name": "account"
-          }
-        ],
-        "outputs": []
-      },
-      {
-        "type": "function",
-        "name": "hasRole",
-        "constant": true,
-        "stateMutability": "view",
-        "payable": false,
-        "inputs": [
-          {
-            "type": "bytes32",
-            "name": "role"
-          },
-          {
-            "type": "address",
-            "name": "account"
-          }
-        ],
-        "outputs": [
-          {
-            "type": "bool",
-            "name": ""
-          }
-        ]
-      },
-      {
-        "type": "function",
         "name": "increaseAllowance",
         "constant": false,
         "payable": false,
@@ -5969,52 +5385,19 @@
       },
       {
         "type": "function",
-        "name": "maxRedemptionAmountPerVault",
-        "constant": true,
-        "stateMutability": "view",
-        "payable": false,
-        "inputs": [],
-        "outputs": [
-          {
-            "type": "uint256",
-            "name": ""
-          }
-        ]
-      },
-      {
-        "type": "function",
-        "name": "maxRedemptionsPerVault",
-        "constant": true,
-        "stateMutability": "view",
-        "payable": false,
-        "inputs": [],
-        "outputs": [
-          {
-            "type": "uint256",
-            "name": ""
-          }
-        ]
-      },
-      {
-        "type": "function",
-        "name": "mintWithUsdc",
+        "name": "mint",
         "constant": false,
         "payable": false,
         "inputs": [
           {
+            "type": "address",
+            "name": "to"
+          },
+          {
             "type": "uint256",
-            "name": "usdcAmount"
+            "name": "amount"
           }
         ],
-        "outputs": []
-      },
-      {
-        "type": "function",
-        "name": "mintWithVtru",
-        "constant": false,
-        "stateMutability": "payable",
-        "payable": true,
-        "inputs": [],
         "outputs": []
       },
       {
@@ -6069,67 +5452,30 @@
       },
       {
         "type": "function",
-        "name": "payVtru",
+        "name": "recoverERC20",
         "constant": false,
         "payable": false,
         "inputs": [
           {
             "type": "address",
-            "name": "from"
+            "name": "token"
           },
           {
             "type": "address",
             "name": "to"
-          },
-          {
-            "type": "uint256",
-            "name": "cents"
           }
         ],
         "outputs": []
       },
       {
         "type": "function",
-        "name": "payVusd",
+        "name": "recoverNative",
         "constant": false,
         "payable": false,
         "inputs": [
-          {
-            "type": "address",
-            "name": "from"
-          },
           {
             "type": "address",
             "name": "to"
-          },
-          {
-            "type": "uint256",
-            "name": "cents"
-          }
-        ],
-        "outputs": []
-      },
-      {
-        "type": "function",
-        "name": "redeem",
-        "constant": false,
-        "payable": false,
-        "inputs": [
-          {
-            "type": "address",
-            "name": "account"
-          },
-          {
-            "type": "uint256",
-            "name": "licenseInstanceId"
-          },
-          {
-            "type": "address[5]",
-            "name": "payees"
-          },
-          {
-            "type": "uint256[5]",
-            "name": "cents"
           }
         ],
         "outputs": []
@@ -6141,72 +5487,6 @@
         "payable": false,
         "inputs": [],
         "outputs": []
-      },
-      {
-        "type": "function",
-        "name": "renounceRole",
-        "constant": false,
-        "payable": false,
-        "inputs": [
-          {
-            "type": "bytes32",
-            "name": "role"
-          },
-          {
-            "type": "address",
-            "name": "account"
-          }
-        ],
-        "outputs": []
-      },
-      {
-        "type": "function",
-        "name": "revokeRole",
-        "constant": false,
-        "payable": false,
-        "inputs": [
-          {
-            "type": "bytes32",
-            "name": "role"
-          },
-          {
-            "type": "address",
-            "name": "account"
-          }
-        ],
-        "outputs": []
-      },
-      {
-        "type": "function",
-        "name": "setFallbackVtruPrice",
-        "constant": false,
-        "payable": false,
-        "inputs": [
-          {
-            "type": "uint256",
-            "name": "cents"
-          }
-        ],
-        "outputs": []
-      },
-      {
-        "type": "function",
-        "name": "supportsInterface",
-        "constant": true,
-        "stateMutability": "view",
-        "payable": false,
-        "inputs": [
-          {
-            "type": "bytes4",
-            "name": "interfaceId"
-          }
-        ],
-        "outputs": [
-          {
-            "type": "bool",
-            "name": ""
-          }
-        ]
       },
       {
         "type": "function",
@@ -6304,40 +5584,6 @@
         "payable": false,
         "inputs": [],
         "outputs": []
-      },
-      {
-        "type": "function",
-        "name": "vtruPriceInCents",
-        "constant": true,
-        "stateMutability": "view",
-        "payable": false,
-        "inputs": [],
-        "outputs": [
-          {
-            "type": "uint256",
-            "name": ""
-          }
-        ]
-      },
-      {
-        "type": "function",
-        "name": "withdrawUsdc",
-        "constant": false,
-        "payable": false,
-        "inputs": [],
-        "outputs": []
-      },
-      {
-        "type": "function",
-        "name": "withdrawVtru",
-        "constant": false,
-        "payable": false,
-        "inputs": [],
-        "outputs": []
-      },
-      {
-        "type": "receive",
-        "stateMutability": "payable"
       }
     ],
     "Vortex": [
@@ -18747,6 +17993,1518 @@
         ],
         "outputs": []
       }
+    ],
+    "HOSTRegistry": [
+      {
+        "type": "event",
+        "anonymous": false,
+        "name": "AdminChanged",
+        "inputs": [
+          {
+            "type": "address",
+            "name": "previousAdmin",
+            "indexed": false
+          },
+          {
+            "type": "address",
+            "name": "newAdmin",
+            "indexed": false
+          }
+        ]
+      },
+      {
+        "type": "event",
+        "anonymous": false,
+        "name": "BeaconUpgraded",
+        "inputs": [
+          {
+            "type": "address",
+            "name": "beacon",
+            "indexed": true
+          }
+        ]
+      },
+      {
+        "type": "event",
+        "anonymous": false,
+        "name": "Initialized",
+        "inputs": [
+          {
+            "type": "uint8",
+            "name": "version",
+            "indexed": false
+          }
+        ]
+      },
+      {
+        "type": "event",
+        "anonymous": false,
+        "name": "Paused",
+        "inputs": [
+          {
+            "type": "address",
+            "name": "account",
+            "indexed": false
+          }
+        ]
+      },
+      {
+        "type": "event",
+        "anonymous": false,
+        "name": "RoleAdminChanged",
+        "inputs": [
+          {
+            "type": "bytes32",
+            "name": "role",
+            "indexed": true
+          },
+          {
+            "type": "bytes32",
+            "name": "previousAdminRole",
+            "indexed": true
+          },
+          {
+            "type": "bytes32",
+            "name": "newAdminRole",
+            "indexed": true
+          }
+        ]
+      },
+      {
+        "type": "event",
+        "anonymous": false,
+        "name": "RoleGranted",
+        "inputs": [
+          {
+            "type": "bytes32",
+            "name": "role",
+            "indexed": true
+          },
+          {
+            "type": "address",
+            "name": "account",
+            "indexed": true
+          },
+          {
+            "type": "address",
+            "name": "sender",
+            "indexed": true
+          }
+        ]
+      },
+      {
+        "type": "event",
+        "anonymous": false,
+        "name": "RoleRevoked",
+        "inputs": [
+          {
+            "type": "bytes32",
+            "name": "role",
+            "indexed": true
+          },
+          {
+            "type": "address",
+            "name": "account",
+            "indexed": true
+          },
+          {
+            "type": "address",
+            "name": "sender",
+            "indexed": true
+          }
+        ]
+      },
+      {
+        "type": "event",
+        "anonymous": false,
+        "name": "Unpaused",
+        "inputs": [
+          {
+            "type": "address",
+            "name": "account",
+            "indexed": false
+          }
+        ]
+      },
+      {
+        "type": "event",
+        "anonymous": false,
+        "name": "Upgraded",
+        "inputs": [
+          {
+            "type": "address",
+            "name": "implementation",
+            "indexed": true
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "DEFAULT_ADMIN_ROLE",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "bytes32",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "UPGRADER_ROLE",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "bytes32",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "getRoleAdmin",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [
+          {
+            "type": "bytes32",
+            "name": "role"
+          }
+        ],
+        "outputs": [
+          {
+            "type": "bytes32",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "grantRole",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "bytes32",
+            "name": "role"
+          },
+          {
+            "type": "address",
+            "name": "account"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "hasRole",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [
+          {
+            "type": "bytes32",
+            "name": "role"
+          },
+          {
+            "type": "address",
+            "name": "account"
+          }
+        ],
+        "outputs": [
+          {
+            "type": "bool",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "pause",
+        "constant": false,
+        "payable": false,
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "paused",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "bool",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "proxiableUUID",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "bytes32",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "renounceRole",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "bytes32",
+            "name": "role"
+          },
+          {
+            "type": "address",
+            "name": "account"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "revokeRole",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "bytes32",
+            "name": "role"
+          },
+          {
+            "type": "address",
+            "name": "account"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "supportsInterface",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [
+          {
+            "type": "bytes4",
+            "name": "interfaceId"
+          }
+        ],
+        "outputs": [
+          {
+            "type": "bool",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "unpause",
+        "constant": false,
+        "payable": false,
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "upgradeTo",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "address",
+            "name": "newImplementation"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "upgradeToAndCall",
+        "constant": false,
+        "stateMutability": "payable",
+        "payable": true,
+        "inputs": [
+          {
+            "type": "address",
+            "name": "newImplementation"
+          },
+          {
+            "type": "bytes",
+            "name": "data"
+          }
+        ],
+        "outputs": []
+      }
+    ],
+    "IBCStorage": [
+      {
+        "type": "function",
+        "name": "getSlot",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [
+          {
+            "type": "bytes32",
+            "name": "key"
+          }
+        ],
+        "outputs": [
+          {
+            "type": "bytes32",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "setSlot",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "bytes32",
+            "name": "key"
+          },
+          {
+            "type": "bytes32",
+            "name": "value"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "slots",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [
+          {
+            "type": "bytes32",
+            "name": ""
+          }
+        ],
+        "outputs": [
+          {
+            "type": "bytes32",
+            "name": ""
+          }
+        ]
+      }
+    ],
+    "MutexWallet": [
+      {
+        "type": "event",
+        "anonymous": false,
+        "name": "Deposit",
+        "inputs": [
+          {
+            "type": "address",
+            "name": "sender",
+            "indexed": true
+          },
+          {
+            "type": "uint256",
+            "name": "amount",
+            "indexed": false
+          }
+        ]
+      },
+      {
+        "type": "event",
+        "anonymous": false,
+        "name": "Initialized",
+        "inputs": [
+          {
+            "type": "uint8",
+            "name": "version",
+            "indexed": false
+          }
+        ]
+      },
+      {
+        "type": "event",
+        "anonymous": false,
+        "name": "Initialized",
+        "inputs": [
+          {
+            "type": "string",
+            "name": "title",
+            "indexed": false
+          },
+          {
+            "type": "address[]",
+            "name": "signers"
+          },
+          {
+            "type": "uint256",
+            "name": "threshold",
+            "indexed": false
+          },
+          {
+            "type": "address",
+            "name": "token",
+            "indexed": false
+          }
+        ]
+      },
+      {
+        "type": "event",
+        "anonymous": false,
+        "name": "Rescued",
+        "inputs": [
+          {
+            "type": "address",
+            "name": "token",
+            "indexed": true
+          },
+          {
+            "type": "address",
+            "name": "to",
+            "indexed": true
+          },
+          {
+            "type": "uint256",
+            "name": "amount",
+            "indexed": false
+          }
+        ]
+      },
+      {
+        "type": "event",
+        "anonymous": false,
+        "name": "TransactionCreated",
+        "inputs": [
+          {
+            "type": "address",
+            "name": "initiator",
+            "indexed": true
+          },
+          {
+            "type": "address",
+            "name": "to",
+            "indexed": true
+          },
+          {
+            "type": "uint256",
+            "name": "amount",
+            "indexed": false
+          },
+          {
+            "type": "uint256",
+            "name": "validUntil",
+            "indexed": false
+          }
+        ]
+      },
+      {
+        "type": "event",
+        "anonymous": false,
+        "name": "TransactionExecuted",
+        "inputs": [
+          {
+            "type": "address",
+            "name": "to",
+            "indexed": true
+          },
+          {
+            "type": "uint256",
+            "name": "amount",
+            "indexed": false
+          }
+        ]
+      },
+      {
+        "type": "event",
+        "anonymous": false,
+        "name": "TransactionPurged",
+        "inputs": [
+          {
+            "type": "address",
+            "name": "purgedBy",
+            "indexed": true
+          }
+        ]
+      },
+      {
+        "type": "event",
+        "anonymous": false,
+        "name": "TransactionSigned",
+        "inputs": [
+          {
+            "type": "address",
+            "name": "signer",
+            "indexed": true
+          },
+          {
+            "type": "uint256",
+            "name": "currentSignatures",
+            "indexed": false
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "DEFAULT_TIMEOUT_BLOCKS",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "uint256",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "MAX_SIGNERS",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "uint256",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "VERSION",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "uint256",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "createTransaction",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "address",
+            "name": "_to"
+          },
+          {
+            "type": "uint256",
+            "name": "_amount"
+          },
+          {
+            "type": "uint256",
+            "name": "_validUntil"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "currentTx",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "address",
+            "name": "to"
+          },
+          {
+            "type": "uint256",
+            "name": "amount"
+          },
+          {
+            "type": "address",
+            "name": "initiator"
+          },
+          {
+            "type": "uint256",
+            "name": "signatureCount"
+          },
+          {
+            "type": "uint256",
+            "name": "validUntil"
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "getSignerCount",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "uint256",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "getSigners",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "address[]",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "getWalletDashboard",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [
+          {
+            "type": "address",
+            "name": "user"
+          }
+        ],
+        "outputs": [
+          {
+            "type": "tuple",
+            "name": "info",
+            "components": [
+              {
+                "type": "uint256",
+                "name": "version"
+              },
+              {
+                "type": "uint256",
+                "name": "primaryBalance"
+              },
+              {
+                "type": "uint256",
+                "name": "availableBalance"
+              },
+              {
+                "type": "uint256",
+                "name": "escrowedFunds"
+              },
+              {
+                "type": "uint256",
+                "name": "nativeBalance"
+              },
+              {
+                "type": "uint256",
+                "name": "tokenBalance"
+              },
+              {
+                "type": "bool",
+                "name": "isLocked"
+              },
+              {
+                "type": "string",
+                "name": "walletTitle"
+              },
+              {
+                "type": "address",
+                "name": "initiator"
+              },
+              {
+                "type": "address",
+                "name": "to"
+              },
+              {
+                "type": "uint256",
+                "name": "amount"
+              },
+              {
+                "type": "uint256",
+                "name": "currentSigs"
+              },
+              {
+                "type": "uint256",
+                "name": "requiredSigs"
+              },
+              {
+                "type": "uint256",
+                "name": "validUntilBlock"
+              },
+              {
+                "type": "bool",
+                "name": "userHasSigned"
+              },
+              {
+                "type": "bool",
+                "name": "userIsSigner"
+              },
+              {
+                "type": "bool",
+                "name": "isExpired"
+              },
+              {
+                "type": "address",
+                "name": "assetToken"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "hasPendingTx",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "bool",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "hasSignedCurrentTx",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [
+          {
+            "type": "address",
+            "name": ""
+          }
+        ],
+        "outputs": [
+          {
+            "type": "bool",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "initialize",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "string",
+            "name": "_title"
+          },
+          {
+            "type": "address[]",
+            "name": "_signers"
+          },
+          {
+            "type": "uint256",
+            "name": "_threshold"
+          },
+          {
+            "type": "address",
+            "name": "_token"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "isSigner",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [
+          {
+            "type": "address",
+            "name": ""
+          }
+        ],
+        "outputs": [
+          {
+            "type": "bool",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "lockedFunds",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "uint256",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "purgeExpired",
+        "constant": false,
+        "payable": false,
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "rescue",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "address",
+            "name": "_token"
+          },
+          {
+            "type": "address",
+            "name": "_to"
+          },
+          {
+            "type": "uint256",
+            "name": "_amount"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "signTransaction",
+        "constant": false,
+        "payable": false,
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "signers",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [
+          {
+            "type": "uint256",
+            "name": ""
+          }
+        ],
+        "outputs": [
+          {
+            "type": "address",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "threshold",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "uint256",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "title",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "string",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "token",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "address",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "receive",
+        "stateMutability": "payable"
+      }
+    ],
+    "WalletFactory": [
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_implementation",
+          "type": "address"
+        },
+        {
+          "internalType": "string",
+          "name": "_description",
+          "type": "string"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "version",
+          "type": "uint256"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "implementation",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "string",
+          "name": "description",
+          "type": "string"
+        }
+      ],
+      "name": "ImplementationAdded",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "previousOwner",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "OwnershipTransferred",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "wallet",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "implementation",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "version",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "string",
+          "name": "title",
+          "type": "string"
+        },
+        {
+          "indexed": false,
+          "internalType": "bool",
+          "name": "isPublic",
+          "type": "bool"
+        }
+      ],
+      "name": "WalletCreated",
+      "type": "event"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_implementation",
+          "type": "address"
+        },
+        {
+          "internalType": "string",
+          "name": "_description",
+          "type": "string"
+        }
+      ],
+      "name": "addImplementation",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "_title",
+          "type": "string"
+        },
+        {
+          "internalType": "address[]",
+          "name": "_signers",
+          "type": "address[]"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_threshold",
+          "type": "uint256"
+        },
+        {
+          "internalType": "bool",
+          "name": "_isPublic",
+          "type": "bool"
+        },
+        {
+          "internalType": "address",
+          "name": "_tokenAddress",
+          "type": "address"
+        }
+      ],
+      "name": "createWallet",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "payable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "_title",
+          "type": "string"
+        },
+        {
+          "internalType": "address[]",
+          "name": "_signers",
+          "type": "address[]"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_threshold",
+          "type": "uint256"
+        },
+        {
+          "internalType": "bool",
+          "name": "_isPublic",
+          "type": "bool"
+        },
+        {
+          "internalType": "address",
+          "name": "_tokenAddress",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_versionIndex",
+          "type": "uint256"
+        }
+      ],
+      "name": "createWalletWithVersion",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "payable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "currentImplementation",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "currentVersion",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getImplementationCount",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getImplementationHistory",
+      "outputs": [
+        {
+          "components": [
+            {
+              "internalType": "address",
+              "name": "implementation",
+              "type": "address"
+            },
+            {
+              "internalType": "uint256",
+              "name": "activatedAt",
+              "type": "uint256"
+            },
+            {
+              "internalType": "string",
+              "name": "description",
+              "type": "string"
+            }
+          ],
+          "internalType": "struct WalletFactory.ImplementationRecord[]",
+          "name": "",
+          "type": "tuple[]"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getPublicWalletCount",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getPublicWallets",
+      "outputs": [
+        {
+          "internalType": "address[]",
+          "name": "",
+          "type": "address[]"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_offset",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_limit",
+          "type": "uint256"
+        }
+      ],
+      "name": "getPublicWalletsPaginated",
+      "outputs": [
+        {
+          "internalType": "address[]",
+          "name": "result",
+          "type": "address[]"
+        },
+        {
+          "internalType": "uint256",
+          "name": "total",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_wallet",
+          "type": "address"
+        }
+      ],
+      "name": "getWalletImplementation",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_user",
+          "type": "address"
+        }
+      ],
+      "name": "getWalletsForUser",
+      "outputs": [
+        {
+          "internalType": "address[]",
+          "name": "",
+          "type": "address[]"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_user",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_offset",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_limit",
+          "type": "uint256"
+        }
+      ],
+      "name": "getWalletsForUserPaginated",
+      "outputs": [
+        {
+          "internalType": "address[]",
+          "name": "result",
+          "type": "address[]"
+        },
+        {
+          "internalType": "uint256",
+          "name": "total",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "implementationHistory",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "implementation",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "activatedAt",
+          "type": "uint256"
+        },
+        {
+          "internalType": "string",
+          "name": "description",
+          "type": "string"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "isRegisteredWallet",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "owner",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "publicWallets",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "transferOwnership",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "userWallets",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "walletImplementation",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "stateMutability": "payable",
+      "type": "receive"
+    }
     ]
   }
 }

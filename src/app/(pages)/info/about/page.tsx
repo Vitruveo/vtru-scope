@@ -40,6 +40,17 @@ export default function CoreNft () {
               </Typography>
             </FormLabel>
             <ChildCard>
+                  <Typography variant="h6">v0.8.9</Typography>
+
+                  <Typography variant="body1" color="textSecondary">
+                    <ul>
+                      <li>Remove deprecated features</li>
+                    </ul>
+                  </Typography>
+            </ChildCard>
+
+
+            <ChildCard>
                   <Typography variant="h6">v0.8.8</Typography>
 
                   <Typography variant="body1" color="textSecondary">

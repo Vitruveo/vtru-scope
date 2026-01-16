@@ -22,69 +22,6 @@ export default function Dashboard() {
       <h1 style={{ fontSize: "30px", color: "#fff", marginTop: "40px", marginBottom: "30px" }}>
         Vitruveo Blockchain
       </h1>
-      <Grid container spacing={3} style={{  }}>
-        <Grid item xs={12} sm={12} md={3} lg={3} key={3}>
-          <Box bgcolor={"secondary.main"} textAlign="center">
-            <CardContent px={1}>
-              <Typography
-                color={"grey.900"}
-                variant="h2"
-                fontWeight={600}
-              >
-                🎉 New<br />Year
-              </Typography>
-            </CardContent>
-          </Box>
-        </Grid>
-
-        <Grid item xs={12} sm={12} md={3} lg={3} key={2}>
-          <Box bgcolor={"secondary.main"} textAlign="center">
-            <CardContent px={1}>
-              <Typography
-                color={"grey.900"}
-                variant="h2"
-                fontWeight={600}
-              >
-                ⛓️ New<br />Chain Upgrade
-              </Typography>
-              <Typography color={"grey.900"} variant="h2" fontWeight={600}>
-                
-              </Typography>
-            </CardContent>
-          </Box>
-        </Grid>
-
-        <Grid item xs={12} sm={12} md={3} lg={3} key={1}>
-          <Box bgcolor={"secondary.main"} textAlign="center">
-            <CardContent px={1}>
-              <Typography
-                color={"grey.900"}
-                variant="h2"
-                fontWeight={600}
-              >
-                🪙 New<br/>Tokenomics
-              </Typography>
-            </CardContent>
-          </Box>
-        </Grid>
-
-        <Grid item xs={12} sm={12} md={3} lg={3} key={4}>
-          <Box bgcolor={"secondary.main"} textAlign="center">
-            <CardContent px={1}>
-              <Typography
-                color={"grey.900"}
-                variant="h2"
-                fontWeight={600}
-              >
-               ⚡️ New<br />Energy
-              </Typography>
-              <Typography color={"grey.900"} variant="h2" fontWeight={600}>
-                
-              </Typography>
-            </CardContent>
-          </Box>
-        </Grid>
-      </Grid>
 
       <h2 style={{width: '100%', marginTop: '30px', lineHeight: '32px'}}>
         The Vitruveo protocol has been upgraded to the Shanghai build. All features are live and all prior wallets and contracts are on-chain. This upgrade features:
@@ -96,7 +33,6 @@ export default function Dashboard() {
           <li>✨ EVM-first smart contract triggers</li>
           <li>✨ New monetization model for Validators</li>
         </ul>
-        Stay tuned for upcoming content updates 🔥
       </h2>
 
     </PageContainer>

@@ -33,6 +33,7 @@ import {
   IconCircleKey,
   IconCoins,
   IconMovie,
+  IconWallet,
 } from "@tabler/icons-react";
 
 const Menuitems: MenuitemsType[] = [
@@ -48,6 +49,13 @@ const Menuitems: MenuitemsType[] = [
     href: "/",
     chipColor: "secondary",
   },
+  {
+    id: uniqueId(),
+    title: "Multisig",
+    icon: IconWallet,
+    href: "/assets/multisig",
+    chipColor: "secondary",
+  },
   // {
   //   id: uniqueId(),
   //   title: "VNS",
@@ -60,12 +68,12 @@ const Menuitems: MenuitemsType[] = [
     title: "Digital Assets",
     icon: IconPackage,
     children: [
-      {
-        id: uniqueId(),
-        title: "Core",
-        icon: IconTicket,
-        href: "/assets/core"
-      },
+      // {
+      //   id: uniqueId(),
+      //   title: "Core",
+      //   icon: IconTicket,
+      //   href: "/assets/core"
+      // },
       {
         id: uniqueId(),
         title: "VIBE",
@@ -104,18 +112,18 @@ const Menuitems: MenuitemsType[] = [
         icon: IconClockStar,
         href: "/staking/vtru"
       },
-      {
-        id: uniqueId(),
-        title: "VTRU (Vesting)",
-        icon: IconClockStop,
-        href: "/staking/vtruvest"
-      },
-      {
-        id: uniqueId(),
-        title: "Booster Perks",
-        icon: IconTicketOff,
-        href: "/staking/booster"
-      }
+      // {
+      //   id: uniqueId(),
+      //   title: "VTRU (Vesting)",
+      //   icon: IconClockStop,
+      //   href: "/staking/vtruvest"
+      // },
+      // {
+      //   id: uniqueId(),
+      //   title: "Booster Perks",
+      //   icon: IconTicketOff,
+      //   href: "/staking/booster"
+      // }
     ]
   },
   // {

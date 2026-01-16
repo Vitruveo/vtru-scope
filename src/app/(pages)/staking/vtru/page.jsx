@@ -498,7 +498,7 @@ export default function Stake () {
       <Grid container spacing={3} style={{marginBottom: '30px'}}>
 
 
-                <Grid item xs={12} sm={12} md={3} lg={3} key={2}>
+                <Grid item xs={12} sm={12} md={4} lg={4} key={2}>
                   <Box bgcolor={"info.light"} textAlign="center">
                     <CardContent px={1}>
                   
@@ -520,7 +520,7 @@ export default function Stake () {
                   </Box>
                 </Grid>
 
-                <Grid item xs={12} sm={12} md={3} lg={3} key={3}>
+                <Grid item xs={12} sm={12} md={4} lg={4} key={3}>
                   <Box bgcolor={"info.light"} textAlign="center">
                     <CardContent px={1}>
                   
@@ -542,7 +542,7 @@ export default function Stake () {
                   </Box>
                 </Grid>
 
-                <Grid item xs={12} sm={12} md={3} lg={3} key={1}>
+                <Grid item xs={12} sm={12} md={4} lg={4} key={1}>
                   <Box bgcolor={"info.light"} textAlign="center">
                     <CardContent px={1}>
                   
@@ -564,34 +564,10 @@ export default function Stake () {
                   </Box>
                 </Grid>
 
-                <Grid item xs={12} sm={12} md={3} lg={3} key={4}>
-                  <Box bgcolor={"info.light"} textAlign="center">
-                    <CardContent px={1}>
-                  
-                            <Typography
-                              color={"info.main"}
-                              variant="subtitle1"
-                              fontWeight={600}
-                            >
-                              All-time Stakes
-                            </Typography>
-                            <Typography
-                              color={"info.main"}
-                              variant="h1"
-                              fontWeight={600}
-                            >
-                              {stats.totalStakes}                        
-                            </Typography>
-                      </CardContent>
-                  </Box>
-                </Grid>
-                
-
-
 
       </Grid>
 
-
+{/*}
       <Grid container spacing={3}  style={{marginBottom: '30px'}}>
         <Grid item xs={12} sm={12} md={3} lg={3} key={1}>
           <Box bgcolor={"secondary.main"} textAlign="center" style={{height: '120px'}}>
@@ -636,13 +612,13 @@ export default function Stake () {
                       onChange={handleSliderChange}
                       sx={{color: "grey.900"}}
                     />
-                    {/* <Typography
+                    /* <Typography
                       color={"grey.900"}
                       variant="subtitle1"
                       fontWeight={600}
                     >
                       Airdrop: {Math.trunc(stakeAmount/150)} VIBE (150 each)
-                    </Typography> */}
+                    </Typography> /*
               </CardContent>
           </Box>
         </Grid>
@@ -685,9 +661,10 @@ export default function Stake () {
           </Box>
         </Grid>
       </Grid>
+      */}
 
     <Grid container spacing={3}  style={stakes.length == 0 ? {display: 'none'} : {}}>
-        <Grid item xs={12} sm={12} md={3} lg={3} key={1}>
+        <Grid item xs={12} sm={12} md={6} lg={6} key={1}>
           <Box bgcolor={"primary.main"} textAlign="center">
             <CardContent px={1}>
           
@@ -709,7 +686,7 @@ export default function Stake () {
           </Box>
         </Grid>
 
-        <Grid item xs={12} sm={12} md={3} lg={3} key={2}>
+        <Grid item xs={12} sm={12} md={6} lg={6} key={2}>
           <Box bgcolor={"primary.main"} textAlign="center">
             <CardContent px={1}>
           
@@ -730,7 +707,7 @@ export default function Stake () {
               </CardContent>
           </Box>
         </Grid>
-
+{/*
         <Grid item xs={12} sm={12} md={3} lg={3} key={3}>
           <Box bgcolor={userTotal.enabled === true ? "success.main" : "grey.700"} textAlign="center">
             <CardContent px={1}>
@@ -763,11 +740,11 @@ export default function Stake () {
           </Box>
         </Grid>
 
-
+*/}
 
     </Grid>
 
-
+<h1 style={{marginTop: '30px', lineHeight: '32px'}}>Staking paused as the announcement of a new program is imminent.</h1>
             <TableContainer
               sx={{
                 maxHeight: 500,
