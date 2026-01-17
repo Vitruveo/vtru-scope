@@ -35,7 +35,7 @@ export default function Dashboard() {
         </ul>
       </h2>
        <h2 style={{width: '100%', marginTop: '30px', lineHeight: '32px'}}>
-          What&quot;s New
+          What&apos;s New
           <ul style={{listStyleType: "none"}}>
             <li>✨ <a href="/assets/multisig" style={{textDecoration: "underline", color: "white"}}>Custom Vitruveo Multisig Wallet</a></li>
             <li>✨ <a href="https://www.verticalfnd.com" target="_new" style={{textDecoration: "underline", color: "white"}}>Vertical Foundation landing page</a></li>
