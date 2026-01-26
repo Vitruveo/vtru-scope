@@ -24,23 +24,30 @@ export default function Dashboard() {
       </h1>
 
       <h2 style={{width: '100%', marginTop: '30px', lineHeight: '32px'}}>
-        The Vitruveo protocol has been upgraded to the Shanghai build. All features are live and all prior wallets and contracts are on-chain. This upgrade features:
+        🚀 HOST is LIVE — For the first time ever, a blockchain enables on-chain transactions to make off-chain HTTP POST requests. Smart contracts that don&apos;t just execute—they act.
         <ul style={{listStyleType: "none"}}>
-          <li>✅ 12 unique and innovative built-in protocol contracts for AI and Game developers</li>
-          <li>✅ New tokenomics to address circulating supply</li>
-          <li>✅ AI-first agentic workflows driven by smart contracts</li>
-          <li>✅ Gemini AI chat access to all chain data via custom MCP server</li>
-          <li>✅ EVM-first smart contract triggers</li>
-          <li>✅ Monetization model for Validators</li>
+          <li>✅ Trigger AI agents and agentic workflows directly from smart contracts</li>
+          <li>✅ No indexers, no polling, no middleware required</li>
+          <li>✅ 12 protocol-level smart contract capabilities extending the EVM</li>
+          <li>✅ 100% Solidity compatible</li>
         </ul>
       </h2>
        <h2 style={{width: '100%', marginTop: '30px', lineHeight: '32px'}}>
-          What&apos;s New
+          Interactive Demos
           <ul style={{listStyleType: "none"}}>
-            <li>✨ <a href="/assets/multisig" style={{textDecoration: "underline", color: "white"}}>Custom Vitruveo Multisig Wallet</a></li>
-            <li>✨ <a href="https://www.verticalfnd.com" target="_new" style={{textDecoration: "underline", color: "white"}}>Vertical Foundation landing page</a></li>
-            <li>✨ <a href="https://kalyani.com" target="_new" style={{textDecoration: "underline", color: "white"}}>HOST (HTTP Outbound Service Trigger) Whitepaper</a></li>
-            <li>✨ <a href="https://kalyani.com/trend.html" target="_new" style={{textDecoration: "underline", color: "white"}}>Trend Protocol Yellowpaper</a></li>
+            <li>✨ <a href="https://vitruveo.ai/host/scout" target="_new" style={{textDecoration: "underline", color: "white"}}>AI Alpha Scout — Trigger AI research agents from blockchain</a></li>
+            <li>✨ <a href="https://vitruveo.ai/host/sheets" target="_new" style={{textDecoration: "underline", color: "white"}}>AI Google Sheets — Log on-chain data to spreadsheets</a></li>
+            <li>✨ <a href="https://vitruveo.ai/host/ntfy" target="_new" style={{textDecoration: "underline", color: "white"}}>Ntfy Alerts — Push notifications from smart contracts</a></li>
+            <li>✨ <a href="https://vitruveo.ai/host" target="_new" style={{textDecoration: "underline", color: "white"}}>More HOST Demos</a></li>
+          </ul>
+       </h2>
+       <h2 style={{width: '100%', marginTop: '30px', lineHeight: '32px'}}>
+          Resources
+          <ul style={{listStyleType: "none"}}>
+            <li>📄 <a href="https://vitruveo.ai/host-primer" target="_new" style={{textDecoration: "underline", color: "white"}}>HOST Primer</a></li>
+            <li>📄 <a href="https://kalyani.com" target="_new" style={{textDecoration: "underline", color: "white"}}>HOST Whitepaper</a></li>
+            <li>📄 <a href="https://kalyani.com/trend.html" target="_new" style={{textDecoration: "underline", color: "white"}}>Trend Protocol Yellowpaper</a></li>
+            <li>📄 <a href="https://vitruveo.ai/developers/psc" target="_new" style={{textDecoration: "underline", color: "white"}}>Protocol Smart Contracts Documentation</a></li>
           </ul>
        </h2>
     </PageContainer>

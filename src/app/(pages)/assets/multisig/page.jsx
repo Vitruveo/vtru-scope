@@ -670,6 +670,19 @@ export default function Multisig() {
     }
   };
 
+  // Handle refresh - refreshes wallets and expanded wallet details
+  const handleRefresh = async () => {
+    if (activeTab === 0) {
+      await fetchUserWallets();
+    } else {
+      await fetchPublicWallets();
+    }
+    // Also refresh expanded wallet's tx history
+    if (expandedWallet) {
+      fetchWalletTxHistory(expandedWallet);
+    }
+  };
+
   const breadcrumb = [
     { to: '/', title: 'Home' },
     { title: "Multisig" },
@@ -691,7 +704,7 @@ export default function Multisig() {
           <Stack direction="row" spacing={1} sx={{ display: { xs: 'none', sm: 'flex' } }}>
             <Button
               startIcon={<IconRefresh />}
-              onClick={activeTab === 0 ? fetchUserWallets : fetchPublicWallets}
+              onClick={handleRefresh}
               disabled={Boolean(loading)}
             >
               Refresh
@@ -722,7 +735,7 @@ export default function Multisig() {
         {/* Mobile buttons */}
         <Box sx={{ display: { xs: 'flex', sm: 'none' }, justifyContent: 'flex-end', mt: 2, gap: 1 }}>
           <IconButton
-            onClick={activeTab === 0 ? fetchUserWallets : fetchPublicWallets}
+            onClick={handleRefresh}
             disabled={Boolean(loading)}
           >
             <IconRefresh size={20} />
