@@ -24,7 +24,8 @@ export default function Dashboard() {
       </h1>
 
       <h2 style={{width: '100%', marginTop: '30px', lineHeight: '32px'}}>
-        🚀 HOST is LIVE — For the first time ever, a blockchain enables on-chain transactions to make off-chain HTTP POST requests. Smart contracts that don&apos;t just execute—they act.
+        <p><a href="https://www.verticalfnd.com" target="_new" style={{textDecoration: "underline", color: "white"}}>Vertical Foundation</a> website is now LIVE!</p>
+        <p>HOST is also live — For the first time ever, a blockchain enables on-chain transactions to make off-chain HTTP POST requests. Smart contracts that don&apos;t just execute—they act.</p>
         <ul style={{listStyleType: "none"}}>
           <li>✅ Trigger AI agents and agentic workflows directly from smart contracts</li>
           <li>✅ No indexers, no polling, no middleware required</li>
@@ -44,9 +45,10 @@ export default function Dashboard() {
        <h2 style={{width: '100%', marginTop: '30px', lineHeight: '32px'}}>
           Resources
           <ul style={{listStyleType: "none"}}>
+            <li>📄 <a href="https://www.verticalfnd.com/#vibe-legal" target="_new" style={{textDecoration: "underline", color: "white"}}>Vibe Legal Information</a></li>
             <li>📄 <a href="https://vitruveo.ai/host-primer" target="_new" style={{textDecoration: "underline", color: "white"}}>HOST Primer</a></li>
             <li>📄 <a href="https://kalyani.com" target="_new" style={{textDecoration: "underline", color: "white"}}>HOST Whitepaper</a></li>
-            <li>📄 <a href="https://kalyani.com/trend.html" target="_new" style={{textDecoration: "underline", color: "white"}}>Trend Protocol Yellowpaper</a></li>
+            <li>📄 <a href="https://www.pretrend.ai" target="_new" style={{textDecoration: "underline", color: "white"}}>Pretrend Protocol</a></li>
             <li>📄 <a href="https://vitruveo.ai/developers/psc" target="_new" style={{textDecoration: "underline", color: "white"}}>Protocol Smart Contracts Documentation</a></li>
           </ul>
        </h2>
