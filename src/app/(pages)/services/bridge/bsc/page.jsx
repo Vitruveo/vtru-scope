@@ -369,21 +369,6 @@ export default function Bsc() {
                 )}
               </Box>
 
-              <Typography variant="body2" textAlign="center" mt={2} color="text.secondary">
-                Bridge fee of $1/transaction currently waived.
-              </Typography>
-
-              <Typography variant="body2" textAlign="center" mt={2}>
-                View in-flight bridge transactions at{' '}
-                <a 
-                  href="https://scan.vialabs.io" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  style={{ textDecoration: 'underline', color: 'white' }}
-                >
-                  https://scan.vialabs.io
-                </a>
-              </Typography>
             </CardContent>
           </Card>
         </Grid>
@@ -392,18 +377,6 @@ export default function Bsc() {
         </Grid>
       </Grid>
 
-      <Typography 
-        variant="caption" 
-        display="block" 
-        textAlign="center" 
-        mt={2}
-        color="text.secondary"
-      >
-        Powered by{' '}
-        <a href="https://vialabs.io/" target="_blank" rel="noopener noreferrer" style={{ color: 'white' }}>
-          VIA Labs
-        </a>
-      </Typography>
 
       <Snackbar
         open={toast.open}

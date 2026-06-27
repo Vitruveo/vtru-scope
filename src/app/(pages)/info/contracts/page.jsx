@@ -66,60 +66,6 @@ export default function Contracts() {
             </CardContent>
           </Box>
         </Grid>
-
-        <Grid item xs={12} sm={12} md={6} lg={6} key={2}>
-          <Box bgcolor={"grey.100"} textAlign="center">
-            <CardContent px={1}>
-              <Typography
-                color={"info.main"}
-                variant="subtitle1"
-                fontWeight={600}
-                style={titleStyle}
-              >
-                VTRU Token (Ethereum)
-              </Typography>
-              <Typography color={"info.main"} fontWeight={600}>
-                <p>VTRU token on Ethereum</p>
-                <a
-                  style={linkStyle}
-                  href="https://etherscan.io/address/0x7070F01A2040bD06109C6fC478cd139b323459af"
-                  target="_new"
-                >
-                  0x7070F01A2040bD06109C6fC478cd139b323459af
-                </a>
-              </Typography>
-            </CardContent>
-          </Box>
-        </Grid>
-      </Grid>
-
-      <Grid container spacing={3} style={{ marginBottom: "30px" }}>
-
-        <Grid item xs={12} sm={12} md={6} lg={6} key={1}>
-          <Box bgcolor={"grey.100"} textAlign="center">
-            <CardContent px={1}>
-              <Typography
-                color={"info.main"}
-                variant="subtitle1"
-                fontWeight={600}
-                style={titleStyle}
-              >
-                Wrapped VTRU Token
-              </Typography>
-              <Typography color={"info.main"} fontWeight={600}>
-                <p>Offical VTRU token for all exchanges</p>
-                <a
-                  style={linkStyle}
-                  href="https://explorer.vitruveo.net/address/0x3ccc3F22462cAe34766820894D04a40381201ef9"
-                  target="_new"
-                >
-                  0x3ccc3F22462cAe34766820894D04a40381201ef9
-                </a>
-              </Typography>
-            </CardContent>
-          </Box>
-        </Grid>
-
         <Grid item xs={12} sm={12} md={6} lg={6} key={2}>
           <Box bgcolor={"grey.100"} textAlign="center">
             <CardContent px={1}>
@@ -135,7 +81,7 @@ export default function Contracts() {
                 <p>Vitruveo stablecoin</p>
                 <a
                   style={linkStyle}
-                  href="https://explorer.vitruveo.net/address/0x1D607d8c617A09c638309bE2Ceb9b4afF42236dA"
+                  href="https://explorer.vitruveo.ai/address/0x1D607d8c617A09c638309bE2Ceb9b4afF42236dA"
                   target="_new"
                 >
                   0x1D607d8c617A09c638309bE2Ceb9b4afF42236dA
@@ -144,10 +90,9 @@ export default function Contracts() {
             </CardContent>
           </Box>
         </Grid>
-
-
-
       </Grid>
+
+
 
 
       
@@ -167,7 +112,7 @@ export default function Contracts() {
                 <p>Vitruveo Income Building Engine token</p>
                 <a
                   style={linkStyle}
-                  href="https://explorer.vitruveo.net/address/0x8e7C7f0DF435Be6773641f8cf62C590d7Dde5a8a"
+                  href="https://explorer.vitruveo.ai/address/0x8e7C7f0DF435Be6773641f8cf62C590d7Dde5a8a"
                   target="_new"
                 >
                   0x8e7C7f0DF435Be6773641f8cf62C590d7Dde5a8a
@@ -186,16 +131,16 @@ export default function Contracts() {
                 fontWeight={600}
                 style={titleStyle}
               >
-                VERSE
+                Staking
               </Typography>
               <Typography color={"info.main"} fontWeight={600}>
-                <p>Vitruveo Entertainment Revenue Sharing Engine </p>
+                <p>Vitruveo Core Staking</p>
                 <a
                   style={linkStyle}
-                  href="https://explorer.vitruveo.net/token/0x72D2bFb14b3351d17A63Cd4c8085E034e313c54c"
+                  href="https://explorer.vitruveo.ai/0xf793A4faD64241c7273b9329FE39e433c2D45d71"
                   target="_new"
                 >
-                  0x72D2bFb14b3351d17A63Cd4c8085E034e313c54c
+                  0xf793A4faD64241c7273b9329FE39e433c2D45d71
                 </a>
               </Typography>
             </CardContent>

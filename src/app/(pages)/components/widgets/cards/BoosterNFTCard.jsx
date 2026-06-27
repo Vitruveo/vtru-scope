@@ -24,7 +24,7 @@ const BoosterNFTCard = ({ nft, tracker }) => {
   const getData = async (id) => {
     return new Promise(async (resolve, reject) => {
       try {
-        const resp = await fetch(`https://booster-api.vitruveo.xyz/api/metadata/${id}.json`);
+        const resp = await fetch(`https://booster-api.vitruveo.ai/api/metadata/${id}.json`);
         const json = await resp.json();
         resolve(json.data);
       } catch (error) {

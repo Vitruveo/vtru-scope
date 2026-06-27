@@ -57,7 +57,7 @@ const InfoBar = ({ items }) => {
   };
 
   const handleClick = function(account) {
-    window.open(`https://explorer.vitruveo.net/address/${account}`);
+    window.open(`https://explorer.vitruveo.ai/address/${account}`);
   }
 
   let total = items.reduce((a, b) => a + b.amount, 0);
@@ -70,7 +70,7 @@ const InfoBar = ({ items }) => {
     }
   };
   
-  items.sort((a,b) => b.amount - a.amount);
+  //items.sort((a,b) => b.amount - a.amount);
   
   return (
     <Box textAlign="center">
@@ -104,7 +104,7 @@ const InfoBar = ({ items }) => {
                   <Typography
                     color={"grey.900"}
                     fontWeight={600}
-                    style={{fontSize: '16px'}}
+                    style={{fontSize: '16px', marginLeft: '5px', marginRight: '5px'}}
                   >
                     {item.label}
                   </Typography>

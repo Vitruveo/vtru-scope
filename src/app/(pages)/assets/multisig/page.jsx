@@ -88,7 +88,7 @@ export default function Multisig() {
   const [publicWallets, setPublicWallets] = useState([]);
   const [walletDashboards, setWalletDashboards] = useState({});
   const [loading, setLoading] = useState(false);
-  const [activeTab, setActiveTab] = useState(0);
+  const [activeTab, setActiveTab] = useState(1);
 
   // Expanded wallet detail
   const [expandedWallet, setExpandedWallet] = useState(null);
@@ -855,7 +855,7 @@ export default function Multisig() {
                     <IconButton
                       size="small"
                       sx={{ color: dashboard?.isLocked ? 'common.white' : 'inherit' }}
-                      onClick={(e) => { e.stopPropagation(); window.open(`https://explorer.vitruveo.xyz/address/${walletAddr}?tab=txs`, '_blank'); }}
+                      onClick={(e) => { e.stopPropagation(); window.open(`https://explorer.vitruveo.ai/address/${walletAddr}?tab=txs`, '_blank'); }}
                     >
                       <IconExternalLink size={14} />
                     </IconButton>
@@ -1128,7 +1128,7 @@ export default function Multisig() {
                               <TableCell align="right">
                                 <IconButton
                                   size="small"
-                                  onClick={() => window.open(`https://explorer.vitruveo.xyz/tx/${event.txHash}`, '_blank')}
+                                  onClick={() => window.open(`https://explorer.vitruveo.ai/tx/${event.txHash}`, '_blank')}
                                 >
                                   <IconExternalLink size={16} />
                                 </IconButton>
@@ -1230,7 +1230,7 @@ export default function Multisig() {
                   />
                 }
                 label="Public"
-                sx={{ whiteSpace: 'nowrap' }}
+                sx={{ whiteSpace: 'nowrap', display : 'none'}}
               />
             </Stack>
 

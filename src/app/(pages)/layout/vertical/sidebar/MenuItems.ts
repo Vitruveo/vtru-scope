@@ -33,6 +33,7 @@ import {
   IconCircleKey,
   IconCoins,
   IconMovie,
+  IconWorld,
   IconWallet,
 } from "@tabler/icons-react";
 
@@ -47,6 +48,13 @@ const Menuitems: MenuitemsType[] = [
     title: "Dashboard",
     icon: IconApps,
     href: "/",
+    chipColor: "secondary",
+  },
+  {
+    id: uniqueId(),
+    title: "Tokenomics",
+    icon: IconCoins,
+    href: "/tokenomics",
     chipColor: "secondary",
   },
   {
@@ -79,19 +87,26 @@ const Menuitems: MenuitemsType[] = [
         title: "VIBE",
         icon: IconEngine,
         href: "/assets/vibe"
-      },
+      },    
       {
         id: uniqueId(),
-        title: "VERSE",
-        icon: IconMovie,
-        href: "/assets/verse"
+        title: "VTRU Staking",
+        icon: IconClockStar,
+        href: "/staking/vtru"
       },
-      {
-        id: uniqueId(),
-        title: "AIWARS",
-        icon: IconAperture,
-        href: "/assets/aiwars"
-      },
+
+      // {
+      //   id: uniqueId(),
+      //   title: "VERSE",
+      //   icon: IconMovie,
+      //   href: "/assets/verse"
+      // },
+      // {
+      //   id: uniqueId(),
+      //   title: "AIWARS",
+      //   icon: IconAperture,
+      //   href: "/assets/aiwars"
+      // },
       // {
       //   id: uniqueId(),
       //   title: "Booster",
@@ -99,31 +114,6 @@ const Menuitems: MenuitemsType[] = [
       //   href: "/assets/booster"
       // },
 
-    ]
-  },
-  {
-    id:uniqueId(),
-    title: "Staking",
-    icon: IconPackage,
-    children: [
-      {
-        id: uniqueId(),
-        title: "VTRU",
-        icon: IconClockStar,
-        href: "/staking/vtru"
-      },
-      // {
-      //   id: uniqueId(),
-      //   title: "VTRU (Vesting)",
-      //   icon: IconClockStop,
-      //   href: "/staking/vtruvest"
-      // },
-      // {
-      //   id: uniqueId(),
-      //   title: "Booster Perks",
-      //   icon: IconTicketOff,
-      //   href: "/staking/booster"
-      // }
     ]
   },
   // {
@@ -187,6 +177,13 @@ const Menuitems: MenuitemsType[] = [
     children: [
       {
         id: uniqueId(),
+        title: "Website",
+        icon: IconWorld,
+        href: "https://www.vitruveo.ai",
+        external: true
+      },
+      {
+        id: uniqueId(),
         title: "Smart Contracts",
         icon: IconScript,
         href: "/info/contracts"
@@ -199,49 +196,7 @@ const Menuitems: MenuitemsType[] = [
       }
     ]
   }
-  // {
-  //   id: uniqueId(),
-  //   title: "Creators",
-  //   icon: IconPalette,
-  //   href: "/creators"
-  // },
   
 ];
 
 export default Menuitems;
-
-/*
-
-{
-    id: uniqueId(),
-    title: "Ecommerce",
-    icon: IconBasket,
-    href: "/apps/ecommerce/",
-    children: [
-      {
-        id: uniqueId(),
-        title: "Shop",
-        icon: IconPoint,
-        href: "/apps/ecommerce/shop",
-      },
-      {
-        id: uniqueId(),
-        title: "Detail",
-        icon: IconPoint,
-        href: "/apps/ecommerce/detail/1",
-      },
-      {
-        id: uniqueId(),
-        title: "List",
-        icon: IconPoint,
-        href: "/apps/ecommerce/list",
-      },
-      {
-        id: uniqueId(),
-        title: "Checkout",
-        icon: IconPoint,
-        href: "/apps/ecommerce/checkout",
-      },
-    ],
-  },
-*/

@@ -13,7 +13,7 @@ import {
   TableHead,
   TableRow,
   Typography,
-} from '@mui/material';
+} from '@mui/material'; 
 import Breadcrumb from "@/app/(pages)/layout/shared/breadcrumb/Breadcrumb";
 import PageContainer from "@/app/(pages)/components/container/PageContainer";
 import { readContract, writeContract } from "@wagmi/core";
@@ -158,7 +158,7 @@ export default function Faqers_wVTRU() {
     <PageContainer title="VTRU Scope" description="Interactive FAQ Answers">
       <Breadcrumb title="Interactive FAQ Answers" items={breadcrumb} />
 
-      <p style={{marginBottom: '30px', marginLeft: '10px'}}>This FAQer provides information on current wVTRU price from <a style={{color: 'white', textDecoration: 'underline'}} href='https://swap.vitruveo.xyz' target='_new'>https://swap.vitruveo.xyz</a></p>
+      <p style={{marginBottom: '30px', marginLeft: '10px'}}>This FAQer provides information on current wVTRU price from <a style={{color: 'white', textDecoration: 'underline'}} href='https://swap.vitruveo.ai' target='_new'>https://swap.vitruveo.ai</a></p>
 
      <h2 style={prices.length == 0 ? {marginLeft: '10px'} : {display: 'none'}}>Fetching current wVTRU price...</h2>
 

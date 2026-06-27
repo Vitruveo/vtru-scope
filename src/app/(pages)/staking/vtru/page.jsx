@@ -38,15 +38,12 @@ export default function Stake () {
   const Capitalize = (str) => str.charAt(0).toUpperCase() + str.slice(1);
 
   const DIVISOR = BigInt(String(Math.pow(10,18)));
-  const REBASE_DIVISOR = BigInt(String(Math.pow(10,8)));
   const EPOCH = 17280;
-  const CURRENT_REBASE = BigInt(100329124);
 
   const columns = [
     { id: 'stake', label: 'VTRU Staked', minWidth: 100 },
     { id: 'term', label: 'Term/APR', minWidth: 100 },
     { id: 'reward', label: 'Reward', minWidth: 100 },
-    { id: 'rebase', label: 'Rebase', minWidth: 100 },
     { id: 'total', label: 'Total', minWidth: 100 },
     { id: 'maturity', label: 'Maturity', minWidth: 100 },
     { id: 'status', label: 'Status', minWidth: 100 },
@@ -74,7 +71,6 @@ export default function Stake () {
   const [userTotal, setUserTotal] = useState({
     stake: '',
     reward: '',
-    rebase: '',
     all: '',
     unstakeable: '',
     enabled: false
@@ -250,7 +246,6 @@ export default function Stake () {
           const total = {
             stake: BigInt(0),
             reward: BigInt(0),
-            rebase: BigInt(0),
             all: BigInt(0),
             unstakeable: BigInt(0)
           }      
@@ -272,7 +267,6 @@ export default function Stake () {
               let epochs = (Number(stakeInfo.endBlock) - Number(blockNumber))/EPOCH;
               let percent;
               let maturity;
-              let rebase = BigInt(0);
               if (epochs <= 0) {
                 maturity = '';
                 percent = 100;
@@ -280,17 +274,13 @@ export default function Stake () {
                 percent = ((stakeTerm.epochs - epochs)/stakeTerm.epochs) * 100;
                 let today = new Date();
                 maturity = new Date(today.setDate(today.getDate() + epochs)).toLocaleDateString();
-                if (epochs >= 365) {
-                  rebase = ((stakeInfo.unstakeAmount * CURRENT_REBASE) / REBASE_DIVISOR) - stakeInfo.unstakeAmount;
-                }
               }
               tmpStakes.push({
                 id: s,
                 stake: Math.trunc(Number(stakeInfo.amount/DIVISOR)).toLocaleString(),
                 rawStake: Number(stakeInfo.amount/DIVISOR),
                 reward: Math.trunc(Number(stakeInfo.reward/DIVISOR)).toLocaleString(),
-                rebase: Math.trunc(Number(rebase/DIVISOR)).toLocaleString(),
-                total: Math.trunc(Number((stakeInfo.unstakeAmount + rebase)/DIVISOR)).toLocaleString(),
+                total: Math.trunc(Number(stakeInfo.unstakeAmount/DIVISOR)).toLocaleString(),
                 term,
                 termLabel,
                 apr: stakeTerm.apr,
@@ -302,9 +292,8 @@ export default function Stake () {
 
               total.stake += stakeInfo.amount;
               total.reward += stakeInfo.reward;
-              total.rebase += rebase;
-              total.all += stakeInfo.unstakeAmount + rebase;
-              total.unstakeable += stakeInfo.eligibleToUnstake == true ? stakeInfo.unstakeAmount + rebase : BigInt(0);
+              total.all += stakeInfo.unstakeAmount;
+              total.unstakeable += stakeInfo.eligibleToUnstake == true ? stakeInfo.unstakeAmount : BigInt(0);
             }
           }
 
@@ -318,7 +307,6 @@ export default function Stake () {
           setUserTotal({
             stake: Math.trunc(Number(total.stake/DIVISOR)).toLocaleString(),
             reward:  Math.trunc(Number(total.reward/DIVISOR)).toLocaleString(),
-            rebase:  Math.trunc(Number(total.rebase/DIVISOR)).toLocaleString(),
             all:  Math.trunc(Number(total.all/DIVISOR)).toLocaleString(),
             unstakeable:  Math.trunc(Number(total.unstakeable/DIVISOR)).toLocaleString(),
             enabled: total.unstakeable > 0
@@ -348,14 +336,12 @@ export default function Stake () {
 
         const termInfo = {};
         for (let t=0;t<terms.length;t++) {
-          if (terms[t].epochs > 0) {
             termInfo[Number(terms[t].id)] = {
               epochs: Number(terms[t].epochs),
               apr: Number(terms[t].aprBasisPoints)/100,
               active: terms[t].active
             }  
           }
-        }
         setStakeTerms(termInfo);
 
       } catch(e) {
@@ -498,7 +484,7 @@ export default function Stake () {
       <Grid container spacing={3} style={{marginBottom: '30px'}}>
 
 
-                <Grid item xs={12} sm={12} md={4} lg={4} key={2}>
+                <Grid item xs={12} sm={12} md={6} lg={6} key={2}>
                   <Box bgcolor={"info.light"} textAlign="center">
                     <CardContent px={1}>
                   
@@ -507,7 +493,7 @@ export default function Stake () {
                               variant="subtitle1"
                               fontWeight={600}
                             >
-                              Currently Staked Amount
+                              Staked Contract Balance
                             </Typography>
                             <Typography
                               color={"info.main"}
@@ -520,7 +506,7 @@ export default function Stake () {
                   </Box>
                 </Grid>
 
-                <Grid item xs={12} sm={12} md={4} lg={4} key={3}>
+                <Grid item xs={12} sm={12} md={6} lg={6} key={3}>
                   <Box bgcolor={"info.light"} textAlign="center">
                     <CardContent px={1}>
                   
@@ -537,28 +523,6 @@ export default function Stake () {
                               fontWeight={600}
                             >
                               {stats.activeStakes}                          
-                            </Typography>
-                      </CardContent>
-                  </Box>
-                </Grid>
-
-                <Grid item xs={12} sm={12} md={4} lg={4} key={1}>
-                  <Box bgcolor={"info.light"} textAlign="center">
-                    <CardContent px={1}>
-                  
-                            <Typography
-                              color={"info.main"}
-                              variant="subtitle1"
-                              fontWeight={600}
-                            >
-                              All-time Staked Amount
-                            </Typography>
-                            <Typography
-                              color={"info.main"}
-                              variant="h1"
-                              fontWeight={600}
-                            >
-                              {stats.totalStaked}                           
                             </Typography>
                       </CardContent>
                   </Box>
@@ -707,7 +671,7 @@ export default function Stake () {
               </CardContent>
           </Box>
         </Grid>
-{/*
+
         <Grid item xs={12} sm={12} md={3} lg={3} key={3}>
           <Box bgcolor={userTotal.enabled === true ? "success.main" : "grey.700"} textAlign="center">
             <CardContent px={1}>
@@ -740,11 +704,10 @@ export default function Stake () {
           </Box>
         </Grid>
 
-*/}
 
     </Grid>
 
-<h1 style={{marginTop: '30px', lineHeight: '32px'}}>Staking paused as the announcement of a new program is imminent.</h1>
+{/* <h1 style={{marginTop: '30px', lineHeight: '32px'}}>Staking paused as the announcement of a new program is imminent.</h1> */}
             <TableContainer
               sx={{
                 maxHeight: 500,
@@ -790,11 +753,6 @@ export default function Stake () {
                           </Stack>
                         </TableCell>
 
-                        <TableCell>
-                          <Stack spacing={2} direction="row" alignItems="center">
-                              <Typography variant="h6">{row.rebase}</Typography>
-                          </Stack>
-                        </TableCell>
 
                         <TableCell>
                           <Stack spacing={1}>

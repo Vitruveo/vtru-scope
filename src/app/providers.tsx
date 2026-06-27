@@ -31,8 +31,8 @@ const vitruveo = {
     default: { http: ['https://rpc.vitruveo.ai/'] },
   },
   blockExplorers: {
-    default: { name: 'VitruveoScan', url: 'https://explorer.vitruveo.net' },
-    etherscan: { name: 'VitruveoScan', url: 'https://explorer.vitruveo.net' },
+    default: { name: 'VitruveoScan', url: 'https://explorer.vitruveo.ai' },
+    etherscan: { name: 'VitruveoScan', url: 'https://explorer.vitruveo.ai' },
   },
   testnet: false,
 };
@@ -53,8 +53,8 @@ const vitruveoTestnet = {
     default: { http: ['https://test-rpc.vitruveo.ai/'] },
   },
   blockExplorers: {
-    default: { name: 'VitruveoScan', url: 'https://test-explorer.vitruveo.net' },
-    etherscan: { name: 'VitruveoScan', url: 'https://test-explorer.vitruveo.net' },
+    default: { name: 'VitruveoScan', url: 'https://test-explorer.vitruveo.ai' },
+    etherscan: { name: 'VitruveoScan', url: 'https://test-explorer.vitruveo.ai' },
   },
   testnet: false,
 };
@@ -75,7 +75,7 @@ const { wallets } = getDefaultWallets({
 
 const appInfo = {
   appName,
-  learnMoreUrl: 'https://www.vitruveo.xyz'
+  learnMoreUrl: 'https://www.vitruveo.ai'
 };
 
 const connectors = connectorsForWallets([
