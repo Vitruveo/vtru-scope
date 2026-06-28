@@ -65,6 +65,7 @@ export default function Tokenomics () {
     const [validatorsBalance, setValidatorsBalance] = useState(0);
     const [liquidityBalance, setLiquidityBalance] = useState(0);
     const [stakedBalance, setStakedBalance] = useState(0);
+    const [rewardsBalance, setRewardsBalance] = useState(0);
   
     const [treasuryBalanceMS, setTreasuryBalanceMS] = useState(0);
     const [operationsBalanceMS, setOperationsBalanceMS] = useState(0);
@@ -112,14 +113,52 @@ export default function Tokenomics () {
       }
     }
   
+    // Sum a wallet's staked principal in the CoreStake contract (same getter the staking page uses).
+    async function stakedBalanceFor(addr) {
+      try {
+        const info = await readContract({
+          address: config[network].CoreStake,
+          abi: config.abi.CoreStake,
+          functionName: "getUserStakesInfo",
+          args: [addr],
+        });
+        const userStakes = info[0];
+        let total = BigInt(0);
+        for (let s = 0; s < userStakes.length; s++) {
+          total += userStakes[s].amount;
+        }
+        return Number(total / DIVISOR);
+      } catch (e) {
+        console.log("stakedBalanceFor error", addr, e);
+        return 0;
+      }
+    }
+
     useEffect(() => {
       async function fetchBalances() {
-        setTreasuryBalance(250000000);
-        setOperationsBalance(60000000);
-        setEcosystemBalance(20000000);
-        setValidatorsBalance(31536000);
-        setLiquidityBalance(7536000);
-  
+        const [t, o, e, v, l] = await Promise.all([
+          stakedBalanceFor("0xbd48BCc0f11d851448Ef99c2D8189934cE721BC3"),
+          stakedBalanceFor("0x30C8A936FA629e351a2AC85a0437814EC50e70c6"),
+          stakedBalanceFor("0xEFed6C891FE97c4edD6AeEe6dbdeff385e1dd35C"),
+          stakedBalanceFor("0x6A48E58E7e4DDd6cd5E80D964A6AE1969Bbf21c3"),
+          stakedBalanceFor("0x8c775D3e535472f56002B6EAeCB2e4d3F64b35C5"),
+        ]);
+        setTreasuryBalance(t);
+        setOperationsBalance(o);
+        setEcosystemBalance(e);
+        setValidatorsBalance(v);
+        setLiquidityBalance(l);
+
+        // Grand total staked principal in the CoreStake contract.
+        const totalStaked = await readContract({
+          address: config[network].CoreStake,
+          abi: config.abi.CoreStake,
+          functionName: "totalStaked",
+          args: [],
+        });
+        const totalStakedNum = Number(totalStaked / DIVISOR);
+        setStakedBalance(totalStakedNum);
+
         const response = await fetch(
           "https://explorer.vitruveo.ai/api/v2/addresses",
         );
@@ -132,11 +171,12 @@ export default function Tokenomics () {
           };
         });
         let targets = [];
+        let contractNative = 0;
         for (let i = 0; i < balances.length; i++) {
           const item = balances[i];
           switch (item.account) {
             case lower(config[network].CoreStake):
-              setStakedBalance(item.balance);
+              contractNative = item.balance;
               targets.push(i);
               break;
             case lower("0xbd48BCc0f11d851448Ef99c2D8189934cE721BC3"):
@@ -162,13 +202,12 @@ export default function Tokenomics () {
           }
         }
   
-        let locked =
-          treasuryBalance +
-          operationsBalance +
-          ecosystemBalance +
-          validatorsBalance +
-          liquidityBalance +
-          stakedBalance;
+        // The contract's native balance beyond staked principal is the rewards reserve.
+        setRewardsBalance(Math.max(0, contractNative - totalStakedNum));
+
+        // Everything held in the CoreStake contract (staked principal + rewards reserve)
+        // is locked; the remainder of supply circulates.
+        let locked = contractNative;
         let currentCirculatingSupply = totalSupply - locked;
         setCirculatingSupply(currentCirculatingSupply);
       }
@@ -208,36 +247,26 @@ export default function Tokenomics () {
       },
     ];
   
+    // Locked bar shows each named wallet's CoreStake staked balance, plus the remainder.
+    // "Staked" = total CoreStake balance minus the named wallets' staked balances.
+    const lockedNamedItems = [
+      { label: "Treasury", amount: treasuryBalance, address: "0xbd48BCc0f11d851448Ef99c2D8189934cE721BC3" },
+      { label: "Operations", amount: operationsBalance, address: "0x30C8A936FA629e351a2AC85a0437814EC50e70c6" },
+      { label: "Ecosystem", amount: ecosystemBalance, address: "0xEFed6C891FE97c4edD6AeEe6dbdeff385e1dd35C" },
+      { label: "Validators", amount: validatorsBalance, address: "0x6A48E58E7e4DDd6cd5E80D964A6AE1969Bbf21c3" },
+    ];
+    const lockedNamedTotal = lockedNamedItems.reduce((a, b) => a + b.amount, 0);
     const lockedBarItems = [
-      {
-        label: "Treasury",
-        amount: treasuryBalance,
-        address: "",
-      },
-      {
-        label: "Operations",
-        amount: operationsBalance,
-        address: "",
-      },
-      {
-        label: "Ecosystem",
-        amount: ecosystemBalance,
-        address: "",
-      },
-      {
-        label: "Validators",
-        amount: validatorsBalance,
-        address: "",
-      },
-      {
-        label: "Liquidity",
-        amount: liquidityBalance,
-        address: "",
-      },
+      ...lockedNamedItems,
       {
         label: "Staked",
-        amount: stakedBalance,
-        address: "0xf793A4faD64241c7273b9329FE39e433c2D45d71",
+        amount: Math.max(0, stakedBalance - lockedNamedTotal),
+        address: config[network].CoreStake,
+      },
+      {
+        label: "Rewards",
+        amount: rewardsBalance,
+        address: config[network].CoreStake,
       },
     ];
   
@@ -298,43 +327,6 @@ export default function Tokenomics () {
       </Grid>
 
       <h1 style={{ fontSize: "30px", color: "#fff", marginTop: "40px" }}>
-        Trading
-      </h1>
-      <Grid container spacing={3} style={{ marginBottom: "30px" }}>
-        <Grid item xs={12} sm={12} md={6} lg={6} key={1}>
-          <Box bgcolor={"secondary.main"} textAlign="center">
-            <CardContent px={1}>
-              <Typography color={"grey.900"} variant="h3" fontWeight={600}>
-                <Link
-                  style={linkStyle}
-                  target="_new"
-                  href="https://pancakeswap.finance/swap?inputCurrency=0xb08504D245713Ca9692C8fA605E76A0A11Ed4955&outputCurrency=0x55d398326f99059fF775485246999027B3197955"
-                >
-                  VTRU/USDT (BSC)
-                </Link>
-              </Typography>
-            </CardContent>
-          </Box>
-        </Grid>
-
-        <Grid item xs={12} sm={12} md={6} lg={6} key={2}>
-          <Box bgcolor={"secondary.main"} textAlign="center">
-            <CardContent px={1}>
-              <Typography color={"grey.900"} variant="h5" fontWeight={600}>
-                <Link
-                  style={linkStyle}
-                  target="_new"
-                  href="https://www.dextools.io/app/bnb/pair-explorer/0x76d6b57b2bfd62b8b936a6e72904a8fa40bcb5dd"
-                >
-                  DEX Tools (BSC)
-                </Link>
-              </Typography>
-            </CardContent>
-          </Box>
-        </Grid>
-      </Grid>
-
-      <h1 style={{ fontSize: "30px", color: "#fff", marginTop: "40px" }}>
         Locked Balances
       </h1>
       <Grid container spacing={3} style={{ marginBottom: "30px" }}>
@@ -386,9 +378,42 @@ export default function Tokenomics () {
         </Grid>
       </Grid>
 
-  
+      <h1 style={{ fontSize: "30px", color: "#fff", marginTop: "40px" }}>
+        Trading
+      </h1>
+      <Grid container spacing={3} style={{ marginBottom: "30px" }}>
+        <Grid item xs={12} sm={12} md={6} lg={6} key={1}>
+          <Box bgcolor={"secondary.main"} textAlign="center">
+            <CardContent px={1}>
+              <Typography color={"grey.900"} variant="h3" fontWeight={600}>
+                <Link
+                  style={linkStyle}
+                  target="_new"
+                  href="https://pancakeswap.finance/swap?inputCurrency=0xb08504D245713Ca9692C8fA605E76A0A11Ed4955&outputCurrency=0x55d398326f99059fF775485246999027B3197955"
+                >
+                  VTRU/USDT (BSC)
+                </Link>
+              </Typography>
+            </CardContent>
+          </Box>
+        </Grid>
 
-
+        <Grid item xs={12} sm={12} md={6} lg={6} key={2}>
+          <Box bgcolor={"secondary.main"} textAlign="center">
+            <CardContent px={1}>
+              <Typography color={"grey.900"} variant="h5" fontWeight={600}>
+                <Link
+                  style={linkStyle}
+                  target="_new"
+                  href="https://www.dextools.io/app/bnb/pair-explorer/0x76d6b57b2bfd62b8b936a6e72904a8fa40bcb5dd"
+                >
+                  DEX Tools (BSC)
+                </Link>
+              </Typography>
+            </CardContent>
+          </Box>
+        </Grid>
+      </Grid>
 
     </PageContainer>
   ); 

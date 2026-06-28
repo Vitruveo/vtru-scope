@@ -60,6 +60,7 @@ import { readContract, writeContract } from "@wagmi/core";
 import config from "@/app/config/vtru-contracts.json";
 import { ethers } from "ethers";
 import { useAccount } from "wagmi";
+import { useRouter } from "next/navigation";
 
 const ZERO_ADDRESS = "0x0000000000000000000000000000000000000000";
 const BLOCKS_PER_DAY = 17280; // ~5 second blocks on Vitruveo
@@ -75,6 +76,7 @@ const ERC20_ABI = [
 ];
 
 export default function Multisig() {
+  const router = useRouter();
   const isTestnet = false;
   const network = isTestnet ? 'testnet' : 'mainnet';
 
@@ -867,6 +869,15 @@ export default function Multisig() {
                         : { bgcolor: 'grey.700', color: 'common.white' }
                       }
                     />
+                    {isVTRU && (
+                      <Chip
+                        size="small"
+                        clickable
+                        label="Stakes"
+                        onClick={(e) => { e.stopPropagation(); router.push(`/staking/vtru/${walletAddr}`); }}
+                        sx={{ bgcolor: 'primary.main', color: 'common.black' }}
+                      />
+                    )}
                   </Stack>
                 </Grid>
                 <Grid item>
