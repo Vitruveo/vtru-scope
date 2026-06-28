@@ -252,17 +252,20 @@ export default function Stake () {
           for(let s=0;s<currentStakes.length;s++) {
             const stakeInfo = currentStakes[s];
             const stake = stakeInfo.amount/DIVISOR;
-            if ((stake > 0) && (Object.keys(stakeTerms).length > 0)) {
+            if (stake > 0) {
               const stakeTermId = Number(stakeInfo.stakeTermID);
-              const stakeTerm = stakeTerms[stakeTermId];
+              const stakeTerm = stakeTerms[stakeTermId]; // undefined for lock terms (not in getStakeTerms)
+              // Term length comes from the contract's start/end blocks; lock-safe, no term lookup.
+              const totalEpochs = (Number(stakeInfo.endBlock) - Number(stakeInfo.startBlock))/EPOCH;
+              const apr = stakeTerm ? stakeTerm.apr : 0; // lock terms have no APR
               let term = 0;
               let termLabel = '';
-              if (stakeTerm.epochs >= 365) {
-                term = stakeTerm.epochs/365;
-                termLabel = `${(stakeTerm.epochs/365).toFixed(0)}Y`;
+              if (totalEpochs >= 365) {
+                term = totalEpochs/365;
+                termLabel = `${(totalEpochs/365).toFixed(0)}Y`;
               } else {
-                term = stakeTerm.epochs/30;
-                termLabel = `${(stakeTerm.epochs/30).toFixed(0)}M`;
+                term = totalEpochs/30;
+                termLabel = `${(totalEpochs/30).toFixed(0)}M`;
               }
               let epochs = (Number(stakeInfo.endBlock) - Number(blockNumber))/EPOCH;
               let percent;
@@ -271,7 +274,7 @@ export default function Stake () {
                 maturity = '';
                 percent = 100;
               } else {
-                percent = ((stakeTerm.epochs - epochs)/stakeTerm.epochs) * 100;
+                percent = ((totalEpochs - epochs)/totalEpochs) * 100;
                 let today = new Date();
                 maturity = new Date(today.setDate(today.getDate() + epochs)).toLocaleDateString();
               }
@@ -283,7 +286,7 @@ export default function Stake () {
                 total: Math.trunc(Number(stakeInfo.unstakeAmount/DIVISOR)).toLocaleString(),
                 term,
                 termLabel,
-                apr: stakeTerm.apr,
+                apr: apr,
                 endBlock: stakeInfo.endBlock,
                 maturity, 
                 percent,
