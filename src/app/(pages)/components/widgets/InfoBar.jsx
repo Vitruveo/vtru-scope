@@ -9,7 +9,7 @@ import {
 
 
 
-const InfoBar = ({ items }) => {
+const InfoBar = ({ items, percent }) => {
   const [isRendered, setIsRendered] = useState(false);
 
   useEffect(() => {
@@ -113,7 +113,7 @@ const InfoBar = ({ items }) => {
                     fontWeight={600}
                     style={{fontSize: '14px', marginTop: '5px'}}
                   >
-                    {formatNumber(item.amount)}
+                    {percent ? `${item.amount}%` : formatNumber(item.amount)}
                   </Typography>
           </div>
         ))

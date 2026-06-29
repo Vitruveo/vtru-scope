@@ -73,7 +73,7 @@ const pillars = [
     tagline: "Revenue Sharing",
     description:
       "The Vitruveo Income Building Engine — on-chain revenue-sharing back to the community.",
-    href: "/vibe",
+    href: "/assets/vibe",
     internal: true,
     Icon: SaleIcon,
   },
@@ -112,16 +112,17 @@ export default function Dashboard() {
           textAlign: "center",
           maxWidth: "820px",
           mx: "auto",
-          mt: { xs: 4, md: 8 },
+          mt: { xs: 3, md: 4 },
           mb: { xs: 5, md: 8 },
           px: 2,
         }}
       >
         <Chip
           label="VERTICAL FOUNDATION"
-          component={Link}
+          component="a"
           href="https://www.verticalfoundation.net"
-          target="_new"
+          target="_blank"
+          rel="noopener noreferrer"
           clickable
           sx={{
             mb: 3,
@@ -158,7 +159,7 @@ export default function Dashboard() {
         >
           As the governing body behind Vitruveo, Vertical Foundation carries the
           protocol&apos;s development, treasury, and long-term growth — organized
-          across six foundational pillars. Select one to explore.
+          across six foundational pillars.
         </Typography>
       </Box>
 

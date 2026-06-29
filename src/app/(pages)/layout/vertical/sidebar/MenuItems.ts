@@ -35,6 +35,9 @@ import {
   IconMovie,
   IconWorld,
   IconWallet,
+  IconHistory,
+  IconGraph,
+  IconCoinFilled,
 } from "@tabler/icons-react";
 
 const Menuitems: MenuitemsType[] = [
@@ -63,6 +66,25 @@ const Menuitems: MenuitemsType[] = [
     icon: IconWallet,
     href: "/assets/multisig",
     chipColor: "secondary",
+  },    
+  {
+    id: uniqueId(),
+    title: "Staking",
+    icon: IconClockStar,
+    href: "/staking/vtru"
+  },
+  {
+    id: uniqueId(),
+    title: "Legacy",
+    icon: IconHistory,
+    href: "/legacy",
+    chipColor: "secondary",
+  },
+  {
+        id: uniqueId(),
+        title: "VIBE",
+        icon: IconEngine,
+        href: "/assets/vibe"
   },
   // {
   //   id: uniqueId(),
@@ -71,29 +93,19 @@ const Menuitems: MenuitemsType[] = [
   //   href: "/vns",
   //   chipColor: "secondary",
   // },
-  {
-    id:uniqueId(),
-    title: "Digital Assets",
-    icon: IconPackage,
-    children: [
+  // {
+  //   id:uniqueId(),
+  //   title: "Tokens",
+  //   icon: IconCoinFilled,
+  //   children: [
       // {
       //   id: uniqueId(),
       //   title: "Core",
       //   icon: IconTicket,
       //   href: "/assets/core"
-      // },
-      {
-        id: uniqueId(),
-        title: "VIBE",
-        icon: IconEngine,
-        href: "/assets/vibe"
-      },    
-      {
-        id: uniqueId(),
-        title: "VTRU Staking",
-        icon: IconClockStar,
-        href: "/staking/vtru"
-      },
+      // }
+
+      
 
       // {
       //   id: uniqueId(),
@@ -114,8 +126,8 @@ const Menuitems: MenuitemsType[] = [
       //   href: "/assets/booster"
       // },
 
-    ]
-  },
+  //   ]
+  // },
   // {
   //   id:uniqueId(),
   //   title: "Calculators",
@@ -177,7 +189,14 @@ const Menuitems: MenuitemsType[] = [
     children: [
       {
         id: uniqueId(),
-        title: "Website",
+        title: "Vertical Foundation",
+        icon: IconWorld,
+        href: "https://www.verticalfoundation.net",
+        external: true
+      },
+      {
+        id: uniqueId(),
+        title: "Vitruveo",
         icon: IconWorld,
         href: "https://www.vitruveo.ai",
         external: true
