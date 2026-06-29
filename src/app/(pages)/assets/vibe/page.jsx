@@ -496,7 +496,7 @@ export default function Nfts() {
               <FlapDisplay
                 className={"XL darkBordered"}
                 chars={Presets.NUM + ','}
-                length={12}
+                length={9}
                 value={Number(revenue.toFixed(0)).toLocaleString()}
               />
             </Grid>
