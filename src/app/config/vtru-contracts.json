@@ -53,7 +53,8 @@
   },
   "bsc": {
     "VEO": "0x6793c3172DacaE034B3e84909E200DB285225AB3",
-    "VTRU": "0xb08504D245713Ca9692C8fA605E76A0A11Ed4955"
+    "VTRU": "0xb08504D245713Ca9692C8fA605E76A0A11Ed4955",
+    "Validators": "0xC2Db1E0e9b17bEd9FA7fbc8500eaDCcBf3079421"
   },
   "abi": {
     "Rebase": [
@@ -5131,6 +5132,23 @@
             "name": ""
           }
         ]
+      },
+      {
+        "type": "function",
+        "name": "transfer",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "address",
+            "name": "to"
+          },
+          {
+            "type": "uint256",
+            "name": "amount"
+          }
+        ],
+        "outputs": []
       },
       {
         "type": "function",
@@ -10244,16 +10262,11 @@
       {
         "type": "event",
         "anonymous": false,
-        "name": "BridgeMessage",
+        "name": "BridgeInitiated",
         "inputs": [
           {
             "type": "uint256",
-            "name": "sourceChainId",
-            "indexed": true
-          },
-          {
-            "type": "uint256",
-            "name": "taskId",
+            "name": "blockNumber",
             "indexed": true
           },
           {
@@ -10264,6 +10277,52 @@
           {
             "type": "uint256",
             "name": "amount",
+            "indexed": false
+          },
+          {
+            "type": "uint8",
+            "name": "direction",
+            "indexed": false
+          }
+        ]
+      },
+      {
+        "type": "event",
+        "anonymous": false,
+        "name": "EscrowCancelled",
+        "inputs": [
+          {
+            "type": "address",
+            "name": "account",
+            "indexed": true
+          },
+          {
+            "type": "uint256",
+            "name": "amount",
+            "indexed": false
+          }
+        ]
+      },
+      {
+        "type": "event",
+        "anonymous": false,
+        "name": "EscrowZeroed",
+        "inputs": [
+          {
+            "type": "address",
+            "name": "account",
+            "indexed": true
+          }
+        ]
+      },
+      {
+        "type": "event",
+        "anonymous": false,
+        "name": "FeeBpsSet",
+        "inputs": [
+          {
+            "type": "uint256",
+            "name": "feeBps",
             "indexed": false
           }
         ]
@@ -10524,13 +10583,8 @@
       {
         "type": "event",
         "anonymous": false,
-        "name": "VTRUCoinLocked",
+        "name": "VTRUClaimed",
         "inputs": [
-          {
-            "type": "uint256",
-            "name": "toChainId",
-            "indexed": false
-          },
           {
             "type": "address",
             "name": "account",
@@ -10539,6 +10593,16 @@
           {
             "type": "uint256",
             "name": "amount",
+            "indexed": false
+          },
+          {
+            "type": "uint256",
+            "name": "feeVtru",
+            "indexed": false
+          },
+          {
+            "type": "uint256",
+            "name": "feeUsdt",
             "indexed": false
           }
         ]
@@ -10601,6 +10665,20 @@
       {
         "type": "function",
         "name": "BLOCK_LIST_CONTRACT",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "address",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "BURN_ADDRESS",
         "constant": true,
         "stateMutability": "view",
         "payable": false,
@@ -10764,28 +10842,28 @@
       },
       {
         "type": "function",
-        "name": "TASK_MINT_TOKEN",
+        "name": "NOTARY_ROLE",
         "constant": true,
         "stateMutability": "view",
         "payable": false,
         "inputs": [],
         "outputs": [
           {
-            "type": "uint256",
+            "type": "bytes32",
             "name": ""
           }
         ]
       },
       {
         "type": "function",
-        "name": "TASK_UNLOCK_COIN",
+        "name": "PANCAKE_ROUTER",
         "constant": true,
         "stateMutability": "view",
         "payable": false,
         "inputs": [],
         "outputs": [
           {
-            "type": "uint256",
+            "type": "address",
             "name": ""
           }
         ]
@@ -10800,6 +10878,20 @@
         "outputs": [
           {
             "type": "bytes32",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "USDT",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "address",
             "name": ""
           }
         ]
@@ -10833,7 +10925,41 @@
       },
       {
         "type": "function",
+        "name": "adminBurnBsc",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "address",
+            "name": "account"
+          },
+          {
+            "type": "uint256",
+            "name": "amount"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "type": "function",
         "name": "adminMint",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "address",
+            "name": "account"
+          },
+          {
+            "type": "uint256",
+            "name": "amount"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "adminUnlockVitruveo",
         "constant": false,
         "payable": false,
         "inputs": [
@@ -10920,10 +11046,6 @@
         "inputs": [
           {
             "type": "uint256",
-            "name": "destChainId"
-          },
-          {
-            "type": "uint256",
             "name": "amount"
           }
         ],
@@ -10931,24 +11053,98 @@
       },
       {
         "type": "function",
-        "name": "burnVTRUTokenTo",
+        "name": "claimCoin",
         "constant": false,
         "payable": false,
         "inputs": [
           {
-            "type": "uint256",
-            "name": "destChainId"
+            "type": "address",
+            "name": "account"
           },
           {
             "type": "uint256",
             "name": "amount"
           },
           {
-            "type": "address",
-            "name": "account"
+            "type": "uint8",
+            "name": "direction"
+          },
+          {
+            "type": "uint256",
+            "name": "blockNumber"
+          },
+          {
+            "type": "bytes",
+            "name": "signature"
           }
         ],
         "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "claimToken",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "address",
+            "name": "account"
+          },
+          {
+            "type": "uint256",
+            "name": "amount"
+          },
+          {
+            "type": "uint8",
+            "name": "direction"
+          },
+          {
+            "type": "uint256",
+            "name": "blockNumber"
+          },
+          {
+            "type": "uint256",
+            "name": "maxFeeUsdt"
+          },
+          {
+            "type": "bytes",
+            "name": "signature"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "claimed",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [
+          {
+            "type": "bytes32",
+            "name": ""
+          }
+        ],
+        "outputs": [
+          {
+            "type": "bool",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "coinSupply",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "uint256",
+            "name": ""
+          }
+        ]
       },
       {
         "type": "function",
@@ -11046,6 +11242,109 @@
           {
             "type": "bool",
             "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "escrow",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [
+          {
+            "type": "address",
+            "name": ""
+          }
+        ],
+        "outputs": [
+          {
+            "type": "uint256",
+            "name": "amount"
+          },
+          {
+            "type": "uint256",
+            "name": "blockNumber"
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "feeBps",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "uint256",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "fixup",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "uint256",
+            "name": "amount"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "getPendingEscrows",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [
+          {
+            "type": "uint256",
+            "name": "start"
+          },
+          {
+            "type": "uint256",
+            "name": "count"
+          }
+        ],
+        "outputs": [
+          {
+            "type": "address[]",
+            "name": "users"
+          },
+          {
+            "type": "uint256[]",
+            "name": "amounts"
+          },
+          {
+            "type": "uint256[]",
+            "name": "blockNumbers"
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "getPendingEscrows",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "address[]",
+            "name": "users"
+          },
+          {
+            "type": "uint256[]",
+            "name": "amounts"
+          },
+          {
+            "type": "uint256[]",
+            "name": "blockNumbers"
           }
         ]
       },
@@ -11190,12 +11489,7 @@
         "constant": false,
         "stateMutability": "payable",
         "payable": true,
-        "inputs": [
-          {
-            "type": "uint256",
-            "name": "destChainId"
-          }
-        ],
+        "inputs": [],
         "outputs": []
       },
       {
@@ -11206,15 +11500,15 @@
         "inputs": [
           {
             "type": "uint256",
-            "name": ""
+            "name": "_txId"
           },
           {
             "type": "uint256",
-            "name": "sourceChainId"
+            "name": "_sourceChainId"
           },
           {
             "type": "address",
-            "name": "sender"
+            "name": "_sender"
           },
           {
             "type": "address",
@@ -11226,7 +11520,7 @@
           },
           {
             "type": "bytes",
-            "name": "data"
+            "name": "_data"
           }
         ],
         "outputs": []
@@ -11269,6 +11563,39 @@
       },
       {
         "type": "function",
+        "name": "pendingCount",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "uint256",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "pendingUsers",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [
+          {
+            "type": "uint256",
+            "name": ""
+          }
+        ],
+        "outputs": [
+          {
+            "type": "address",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
         "name": "proxiableUUID",
         "constant": true,
         "stateMutability": "view",
@@ -11296,6 +11623,22 @@
             "name": "_amount"
           }
         ],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "releaseCoinEscrow",
+        "constant": false,
+        "payable": false,
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "releaseTokenEscrow",
+        "constant": false,
+        "payable": false,
+        "inputs": [],
         "outputs": []
       },
       {
@@ -11354,6 +11697,19 @@
           {
             "type": "address",
             "name": "_signer"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "setFeeBps",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "uint256",
+            "name": "bps"
           }
         ],
         "outputs": []
@@ -11547,10 +11903,28 @@
       },
       {
         "type": "function",
-        "name": "withdrawFee",
+        "name": "zeroEscrow",
         "constant": false,
         "payable": false,
-        "inputs": [],
+        "inputs": [
+          {
+            "type": "address",
+            "name": "account"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "zeroEscrowBatch",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "address[]",
+            "name": "accounts"
+          }
+        ],
         "outputs": []
       },
       {
@@ -21698,6 +22072,1100 @@
             "name": ""
           }
         ]
+      },
+      {
+        "type": "receive",
+        "stateMutability": "payable"
+      }
+    ],
+    "Validators": [
+      {
+        "type": "constructor",
+        "stateMutability": "undefined",
+        "payable": false,
+        "inputs": []
+      },
+      {
+        "type": "event",
+        "anonymous": false,
+        "name": "AdminChanged",
+        "inputs": [
+          {
+            "type": "address",
+            "name": "previousAdmin",
+            "indexed": false
+          },
+          {
+            "type": "address",
+            "name": "newAdmin",
+            "indexed": false
+          }
+        ]
+      },
+      {
+        "type": "event",
+        "anonymous": false,
+        "name": "BeaconUpgraded",
+        "inputs": [
+          {
+            "type": "address",
+            "name": "beacon",
+            "indexed": true
+          }
+        ]
+      },
+      {
+        "type": "event",
+        "anonymous": false,
+        "name": "Initialized",
+        "inputs": [
+          {
+            "type": "uint8",
+            "name": "version",
+            "indexed": false
+          }
+        ]
+      },
+      {
+        "type": "event",
+        "anonymous": false,
+        "name": "Joined",
+        "inputs": [
+          {
+            "type": "address",
+            "name": "account",
+            "indexed": true
+          },
+          {
+            "type": "uint256",
+            "name": "price",
+            "indexed": false
+          }
+        ]
+      },
+      {
+        "type": "event",
+        "anonymous": false,
+        "name": "LiquidityAddedAndBurned",
+        "inputs": [
+          {
+            "type": "uint256",
+            "name": "usdtAmount",
+            "indexed": false
+          },
+          {
+            "type": "uint256",
+            "name": "vtruAmount",
+            "indexed": false
+          },
+          {
+            "type": "uint256",
+            "name": "liquidity",
+            "indexed": false
+          }
+        ]
+      },
+      {
+        "type": "event",
+        "anonymous": false,
+        "name": "LiquidityEnabledSet",
+        "inputs": [
+          {
+            "type": "bool",
+            "name": "enabled",
+            "indexed": false
+          }
+        ]
+      },
+      {
+        "type": "event",
+        "anonymous": false,
+        "name": "LiquiditySet",
+        "inputs": [
+          {
+            "type": "uint256",
+            "name": "newLiquidityUsdt",
+            "indexed": false
+          },
+          {
+            "type": "uint256",
+            "name": "legacyLiquidityUsdt",
+            "indexed": false
+          }
+        ]
+      },
+      {
+        "type": "event",
+        "anonymous": false,
+        "name": "LiquiditySkipped",
+        "inputs": [
+          {
+            "type": "uint256",
+            "name": "usdtAmount",
+            "indexed": false
+          },
+          {
+            "type": "uint256",
+            "name": "poolPriceUsdt",
+            "indexed": false
+          }
+        ]
+      },
+      {
+        "type": "event",
+        "anonymous": false,
+        "name": "MaxSlotsSet",
+        "inputs": [
+          {
+            "type": "uint256",
+            "name": "maxSlots",
+            "indexed": false
+          }
+        ]
+      },
+      {
+        "type": "event",
+        "anonymous": false,
+        "name": "Paused",
+        "inputs": [
+          {
+            "type": "address",
+            "name": "account",
+            "indexed": false
+          }
+        ]
+      },
+      {
+        "type": "event",
+        "anonymous": false,
+        "name": "PricesSet",
+        "inputs": [
+          {
+            "type": "uint256",
+            "name": "newPrice",
+            "indexed": false
+          },
+          {
+            "type": "uint256",
+            "name": "legacyBasePrice",
+            "indexed": false
+          },
+          {
+            "type": "uint256",
+            "name": "legacyPriceStep",
+            "indexed": false
+          }
+        ]
+      },
+      {
+        "type": "event",
+        "anonymous": false,
+        "name": "Rejoined",
+        "inputs": [
+          {
+            "type": "address",
+            "name": "account",
+            "indexed": true
+          },
+          {
+            "type": "uint256",
+            "name": "price",
+            "indexed": false
+          }
+        ]
+      },
+      {
+        "type": "event",
+        "anonymous": false,
+        "name": "RoleAdminChanged",
+        "inputs": [
+          {
+            "type": "bytes32",
+            "name": "role",
+            "indexed": true
+          },
+          {
+            "type": "bytes32",
+            "name": "previousAdminRole",
+            "indexed": true
+          },
+          {
+            "type": "bytes32",
+            "name": "newAdminRole",
+            "indexed": true
+          }
+        ]
+      },
+      {
+        "type": "event",
+        "anonymous": false,
+        "name": "RoleGranted",
+        "inputs": [
+          {
+            "type": "bytes32",
+            "name": "role",
+            "indexed": true
+          },
+          {
+            "type": "address",
+            "name": "account",
+            "indexed": true
+          },
+          {
+            "type": "address",
+            "name": "sender",
+            "indexed": true
+          }
+        ]
+      },
+      {
+        "type": "event",
+        "anonymous": false,
+        "name": "RoleRevoked",
+        "inputs": [
+          {
+            "type": "bytes32",
+            "name": "role",
+            "indexed": true
+          },
+          {
+            "type": "address",
+            "name": "account",
+            "indexed": true
+          },
+          {
+            "type": "address",
+            "name": "sender",
+            "indexed": true
+          }
+        ]
+      },
+      {
+        "type": "event",
+        "anonymous": false,
+        "name": "TargetPriceSet",
+        "inputs": [
+          {
+            "type": "uint256",
+            "name": "vtruPriceUsdt",
+            "indexed": false
+          }
+        ]
+      },
+      {
+        "type": "event",
+        "anonymous": false,
+        "name": "Unpaused",
+        "inputs": [
+          {
+            "type": "address",
+            "name": "account",
+            "indexed": false
+          }
+        ]
+      },
+      {
+        "type": "event",
+        "anonymous": false,
+        "name": "Upgraded",
+        "inputs": [
+          {
+            "type": "address",
+            "name": "implementation",
+            "indexed": true
+          }
+        ]
+      },
+      {
+        "type": "event",
+        "anonymous": false,
+        "name": "ValidatorsAdded",
+        "inputs": [
+          {
+            "type": "uint256",
+            "name": "count",
+            "indexed": false
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "BURN_ADDRESS",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "address",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "DECIMALS",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "uint256",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "DEFAULT_ADMIN_ROLE",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "bytes32",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "PANCAKE_ROUTER",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "address",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "UPGRADER_ROLE",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "bytes32",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "USDT",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "address",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "VTRU",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "address",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "addValidators",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "address[]",
+            "name": "accounts"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "adminRejoin",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "address",
+            "name": "account"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "getNewValidators",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "address[]",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "getRejoinedValidators",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "address[]",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "getRoleAdmin",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [
+          {
+            "type": "bytes32",
+            "name": "role"
+          }
+        ],
+        "outputs": [
+          {
+            "type": "bytes32",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "grantRole",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "bytes32",
+            "name": "role"
+          },
+          {
+            "type": "address",
+            "name": "account"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "hasRole",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [
+          {
+            "type": "bytes32",
+            "name": "role"
+          },
+          {
+            "type": "address",
+            "name": "account"
+          }
+        ],
+        "outputs": [
+          {
+            "type": "bool",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "initialize",
+        "constant": false,
+        "payable": false,
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "isValidator",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [
+          {
+            "type": "address",
+            "name": ""
+          }
+        ],
+        "outputs": [
+          {
+            "type": "bool",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "join",
+        "constant": false,
+        "payable": false,
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "joinedNew",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [
+          {
+            "type": "address",
+            "name": ""
+          }
+        ],
+        "outputs": [
+          {
+            "type": "bool",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "legacyBasePrice",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "uint256",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "legacyLiquidityUsdt",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "uint256",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "legacyPriceStep",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "uint256",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "legacyRejoinCount",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "uint256",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "legacyRejoinPrice",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "uint256",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "liquidityEnabled",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "bool",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "maxSlots",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "uint256",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "newLiquidityUsdt",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "uint256",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "newList",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [
+          {
+            "type": "uint256",
+            "name": ""
+          }
+        ],
+        "outputs": [
+          {
+            "type": "address",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "newPrice",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "uint256",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "pause",
+        "constant": false,
+        "payable": false,
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "paused",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "bool",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "proxiableUUID",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "bytes32",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "rejoin",
+        "constant": false,
+        "payable": false,
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "rejoined",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [
+          {
+            "type": "address",
+            "name": ""
+          }
+        ],
+        "outputs": [
+          {
+            "type": "bool",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "rejoinedList",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [
+          {
+            "type": "uint256",
+            "name": ""
+          }
+        ],
+        "outputs": [
+          {
+            "type": "address",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "renounceRole",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "bytes32",
+            "name": "role"
+          },
+          {
+            "type": "address",
+            "name": "account"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "revokeRole",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "bytes32",
+            "name": "role"
+          },
+          {
+            "type": "address",
+            "name": "account"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "setLiquidity",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "uint256",
+            "name": "newLiquidityUsdt_"
+          },
+          {
+            "type": "uint256",
+            "name": "legacyLiquidityUsdt_"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "setLiquidityEnabled",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "bool",
+            "name": "enabled"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "setMaxSlots",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "uint256",
+            "name": "maxSlots_"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "setPrices",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "uint256",
+            "name": "newPrice_"
+          },
+          {
+            "type": "uint256",
+            "name": "legacyBasePrice_"
+          },
+          {
+            "type": "uint256",
+            "name": "legacyPriceStep_"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "setTargetPrice",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "uint256",
+            "name": "priceUsdt"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "slotsRemaining",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "uint256",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "slotsSold",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "uint256",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "supportsInterface",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [
+          {
+            "type": "bytes4",
+            "name": "interfaceId"
+          }
+        ],
+        "outputs": [
+          {
+            "type": "bool",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "totalLiquidityUsdt",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "uint256",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "totalLiquidityVtru",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "uint256",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "totalLpBurned",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "uint256",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "unpause",
+        "constant": false,
+        "payable": false,
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "upgradeTo",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "address",
+            "name": "newImplementation"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "upgradeToAndCall",
+        "constant": false,
+        "stateMutability": "payable",
+        "payable": true,
+        "inputs": [
+          {
+            "type": "address",
+            "name": "newImplementation"
+          },
+          {
+            "type": "bytes",
+            "name": "data"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "vtruPriceUsdt",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "uint256",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "withdrawNative",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "address",
+            "name": "to"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "withdrawToken",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "address",
+            "name": "token"
+          },
+          {
+            "type": "address",
+            "name": "to"
+          },
+          {
+            "type": "uint256",
+            "name": "amount"
+          }
+        ],
+        "outputs": []
       },
       {
         "type": "receive",

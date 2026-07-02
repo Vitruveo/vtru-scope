@@ -38,6 +38,7 @@ import {
   IconHistory,
   IconGraph,
   IconCoinFilled,
+  IconBuildingBridge,
 } from "@tabler/icons-react";
 
 const Menuitems: MenuitemsType[] = [
@@ -72,6 +73,13 @@ const Menuitems: MenuitemsType[] = [
     title: "Staking",
     icon: IconClockStar,
     href: "/staking/vtru"
+  },
+  {
+    id: uniqueId(),
+    title: "VTRU Bridge",
+    icon: IconBuildingBridge,
+    href: "/services/bridge/bsc",
+    chipColor: "secondary",
   },
   {
     id: uniqueId(),
@@ -206,12 +214,6 @@ const Menuitems: MenuitemsType[] = [
         title: "Smart Contracts",
         icon: IconScript,
         href: "/info/contracts"
-      },
-      {
-        id: uniqueId(),
-        title: "About",
-        icon: IconNotes,
-        href: "/info/about"
       }
     ]
   }

@@ -11,7 +11,9 @@ import {
 } from '@rainbow-me/rainbowkit';
 
 import { configureChains, createConfig, WagmiConfig } from 'wagmi';
+import { bsc } from 'wagmi/chains';
 import { publicProvider } from 'wagmi/providers/public';
+import { usePathname } from 'next/navigation';
 
 import merge from 'lodash.merge';
 
@@ -59,47 +61,49 @@ const vitruveoTestnet = {
   testnet: false,
 };
 
-const { chains, publicClient, webSocketPublicClient } = configureChains(
- [...process.env.NEXT_PUBLIC_IS_TESTNET == "true" ? [vitruveoTestnet] : [vitruveo]],
-  [publicProvider()]
-);
-
 const projectId = '7a21b3d51f846061c7b618791d151066';
 const appName = 'Vitruveo Scope';
-
-const { wallets } = getDefaultWallets({
-  appName,
-  projectId,
-  chains,
-});
 
 const appInfo = {
   appName,
   learnMoreUrl: 'https://www.vitruveo.ai'
 };
 
-const connectors = connectorsForWallets([
-  ...wallets,
-]);
 const myTheme = merge(darkTheme(), {
   colors: {
     accentColor: '#763EBD',
   },
 } as Theme);
 
-const wagmiConfig = createConfig({
-  autoConnect: true,
-  
-  connectors,
-  publicClient,
-  webSocketPublicClient,
-});
+// Build a wagmi config for the given chain set. BSC is only included on the bridge route,
+// so the rest of Scope never sees BSC as a supported network.
+function buildWagmi(includeBsc: boolean) {
+  const baseChains = process.env.NEXT_PUBLIC_IS_TESTNET == "true" ? [vitruveoTestnet] : [vitruveo];
+  const { chains, publicClient, webSocketPublicClient } = configureChains(
+    includeBsc ? [...baseChains, bsc] : baseChains,
+    [publicProvider()]
+  );
+  const { wallets } = getDefaultWallets({ appName, projectId, chains });
+  const connectors = connectorsForWallets([...wallets]);
+  const wagmiConfig = createConfig({
+    autoConnect: true,
+    connectors,
+    publicClient,
+    webSocketPublicClient,
+  });
+  return { wagmiConfig, chains };
+}
 
 export function Providers({ children }: { children: React.ReactNode }) {
   const [mounted, setMounted] = React.useState(false);
   React.useEffect(() => setMounted(true), []);
+
+  const pathname = usePathname();
+  const includeBsc = !!pathname && pathname.startsWith('/services/bridge');
+  const { wagmiConfig, chains } = React.useMemo(() => buildWagmi(includeBsc), [includeBsc]);
+
   return (
-    <WagmiConfig config={wagmiConfig}>
+    <WagmiConfig config={wagmiConfig} key={includeBsc ? 'with-bsc' : 'base'}>
       <RainbowKitProvider id={projectId} chains={chains} appInfo={appInfo} theme={myTheme}>
         {mounted && children}
       </RainbowKitProvider>
