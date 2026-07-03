@@ -51,6 +51,10 @@ const V3_POOL_ABI = [
 ];
 const Q96 = 2n ** 96n;
 
+// Rough gas units to cover the BSC-side USDT approve + claimToken; used to check the
+// user holds enough BNB for gas. Priced at the live BSC gas price.
+const BRIDGE_GAS_ESTIMATE = 300000n;
+
 const vitruveoProvider = new ethers.JsonRpcProvider("https://rpc.vitruveo.ai", VITRUVEO_CHAIN_ID);
 const bscProvider = new ethers.JsonRpcProvider("https://bsc-dataseed.binance.org", BSC_CHAIN_ID);
 
@@ -136,6 +140,8 @@ export default function Bsc() {
   const [coinBalance, setCoinBalance] = useState(0n);
   const [tokenBalance, setTokenBalance] = useState(0n);
   const [usdtBalance, setUsdtBalance] = useState(0n);
+  const [bnbBalance, setBnbBalance] = useState(0n);
+  const [requiredBnb, setRequiredBnb] = useState(0n); // estimated BNB needed for BSC-side gas
   const [fee, setFee] = useState(null); // { feeVtru, feeUsdt, maxFeeUsdt } for the forward direction
 
   // Detected in-flight state
@@ -177,14 +183,21 @@ export default function Bsc() {
     }
     try {
       // Independent settles so one flaky RPC read can't zero out the others.
-      const [coin, tok, usdt] = await Promise.allSettled([
+      const [coin, tok, usdt, bnb, feeData] = await Promise.allSettled([
         vitruveoProvider.getBalance(account),
         new ethers.Contract(BSC_VTRU, ERC20_ABI, bscProvider).balanceOf(account),
         new ethers.Contract(USDT_BSC, ERC20_ABI, bscProvider).balanceOf(account),
+        bscProvider.getBalance(account),
+        bscProvider.getFeeData(),
       ]);
       if (coin.status === "fulfilled") setCoinBalance(coin.value);
       if (tok.status === "fulfilled") setTokenBalance(tok.value);
       if (usdt.status === "fulfilled") setUsdtBalance(usdt.value);
+      if (bnb.status === "fulfilled") setBnbBalance(bnb.value);
+      if (feeData.status === "fulfilled") {
+        const gasPrice = feeData.value.gasPrice ?? feeData.value.maxFeePerGas ?? 3_000_000_000n;
+        setRequiredBnb(BigInt(gasPrice) * BRIDGE_GAS_ESTIMATE);
+      }
 
       const stored = loadReceipt(account);
       if (stored) {
@@ -267,6 +280,8 @@ export default function Bsc() {
   const maxStr = (v) => Math.max(0, Math.trunc(Number(ethers.formatEther(v)))).toFixed(0);
   const fmtUsdt = (v) => parseFloat(ethers.formatUnits(v, 18)).toFixed(4);
   const insufficientUsdt = currentFrom === VITRUVEO && fee && fee.maxFeeUsdt > 0n && usdtBalance < fee.maxFeeUsdt;
+  // The forward claim runs on BSC and is paid in BNB gas.
+  const insufficientBnb = currentFrom === VITRUVEO && requiredBnb > 0n && bnbBalance < requiredBnb;
 
   const inputInvalid = () => {
     const n = Number(amountStr);
@@ -618,6 +633,20 @@ export default function Bsc() {
                             You need ~{fmtUsdt(fee.feeUsdt)} USDT on BSC (you hold {fmtUsdt(usdtBalance)}). Add USDT, then try again.
                           </Alert>
                         )}
+                        <Box display="flex" justifyContent="space-between" alignItems="center" mt={1}>
+                          <Typography variant="body2" color="text.secondary">Your BSC BNB (gas)</Typography>
+                          <Chip
+                            size="small"
+                            variant="outlined"
+                            color={insufficientBnb ? "error" : "default"}
+                            label={`${fmt(bnbBalance)} BNB`}
+                          />
+                        </Box>
+                        {insufficientBnb && (
+                          <Alert severity="warning" sx={{ mt: 1.5 }}>
+                            You need ~{fmt(requiredBnb)} BNB on BSC for gas (you hold {fmt(bnbBalance)}). Add BNB, then try again.
+                          </Alert>
+                        )}
                       </>
                     ) : (
                       <Chip size="small" variant="outlined" color="success" label="No fee · BSC → Vitruveo" />
@@ -629,7 +658,7 @@ export default function Bsc() {
                       fullWidth
                       variant="contained"
                       size="large"
-                      disabled={busy || inputInvalid() || insufficientUsdt}
+                      disabled={busy || inputInvalid() || insufficientUsdt || insufficientBnb}
                       onClick={handleBridge}
                       sx={{ py: 1.8, borderRadius: 3, fontSize: "1.05rem", fontWeight: 700, textTransform: "none" }}
                     >
