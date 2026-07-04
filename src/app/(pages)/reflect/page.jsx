@@ -139,7 +139,7 @@ export default function Reflect() {
                     onClick={handleReflect}
                     sx={{ py: 1.8, borderRadius: 3, fontWeight: 700, textTransform: "none" }}
                   >
-                    {busy ? status || "Processing…" : "Send 1 VTRU to Reflect"}
+                    {busy ? status || "Processing…" : "Send 1 VTRU to VIBE"}
                   </Button>
                 </>
               )}
