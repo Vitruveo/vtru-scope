@@ -191,6 +191,13 @@ const Menuitems: MenuitemsType[] = [
   //   ]
   // },
   {
+    id: uniqueId(),
+    title: "Reflect",
+    icon: IconAperture,
+    href: "/reflect",
+    chipColor: "secondary",
+  },
+  {
     id:uniqueId(),
     title: "Info",
     icon: IconPackage,

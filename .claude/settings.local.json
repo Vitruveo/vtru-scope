@@ -2,7 +2,8 @@
   "permissions": {
     "allow": [
       "mcp__ide__getDiagnostics",
-      "Bash(node -e:*)"
+      "Bash(node -e:*)",
+      "Bash(python3 -c \"import json;c=json.load\\(open\\('src/app/config/vtru-contracts.json'\\)\\);print\\('VIBE:', c['mainnet'].get\\('VIBE'\\)\\)\")"
     ]
   }
 }
