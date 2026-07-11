@@ -65,7 +65,7 @@ const pillars = [
     tagline: "Prediction Markets",
     description:
       "On-chain trend resolution for prediction markets, powered by native statistical computation.",
-    href: "https://www.verticalfoundation.net/pretrend",
+    href: "https://www.pretrend.ai",
     Icon: TrendingIcon,
   },
   {
