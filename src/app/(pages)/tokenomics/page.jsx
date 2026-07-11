@@ -55,7 +55,8 @@ export default function Tokenomics () {
     let processing = false;
   
     const provider = new ethers.JsonRpcProvider("https://rpc.vitruveo.ai");
-    const [totalSupply] = useState(TOTAL_SUPPLY);
+    const BURN_WALLET = "0x000000000000000000000000000000000000dEaD";
+    const [totalSupply, setTotalSupply] = useState(TOTAL_SUPPLY);
   
     const [balances, setBalances] = useState([]);
   
@@ -74,6 +75,7 @@ export default function Tokenomics () {
     const [liquidityBalanceMS, setLiquidityBalanceMS] = useState(0);
   
     const [circulatingSupply, setCirculatingSupply] = useState(0);
+    const [burnedBalance, setBurnedBalance] = useState(0);
   
     function formatCurrency(amount) {
       if (amount < 10_000) {
@@ -205,10 +207,16 @@ export default function Tokenomics () {
         // The contract's native balance beyond staked principal is the rewards reserve.
         setRewardsBalance(Math.max(0, contractNative - totalStakedNum));
 
+        // Tokens sent to the burn wallet are permanently removed from supply.
+        const burned = Number((await provider.getBalance(BURN_WALLET)) / DIVISOR);
+        setBurnedBalance(burned);
+        const adjustedSupply = TOTAL_SUPPLY - burned;
+        setTotalSupply(adjustedSupply);
+
         // Everything held in the CoreStake contract (staked principal + rewards reserve)
         // is locked; the remainder of supply circulates.
         let locked = contractNative;
-        let currentCirculatingSupply = totalSupply - locked;
+        let currentCirculatingSupply = adjustedSupply - locked;
         setCirculatingSupply(currentCirculatingSupply);
       }
   
@@ -285,7 +293,7 @@ export default function Tokenomics () {
         Supply
       </h1>
       <Grid container spacing={3} style={{marginBottom: "30px" }}>
-        <Grid item xs={12} sm={12} md={6} lg={6} key={3}>
+        <Grid item xs={12} sm={12} md={4} lg={4} key={3}>
           <Box bgcolor={"success.main"} textAlign="center">
             <CardContent px={1}>
               <Typography
@@ -305,7 +313,27 @@ export default function Tokenomics () {
           </Box>
         </Grid>
 
-        <Grid item xs={12} sm={12} md={6} lg={6} key={2}>
+        <Grid item xs={12} sm={12} md={4} lg={4} key={4}>
+          <Box bgcolor={"success.main"} textAlign="center" sx={{ cursor: "pointer" }} onClick={() => handleClick(BURN_WALLET)}>
+            <CardContent px={1}>
+              <Typography
+                color={"grey.900"}
+                variant="subtitle1"
+                fontWeight={600}
+              >
+                Burn Wallet
+              </Typography>
+              <Typography color={"grey.900"} variant="h2" fontWeight={600}>
+                {display(burnedBalance)}
+              </Typography>
+              <Typography color={"grey.700"} variant="h5" fontWeight={600}>
+                {display((burnedBalance / TOTAL_SUPPLY) * 100)}%
+              </Typography>
+            </CardContent>
+          </Box>
+        </Grid>
+
+        <Grid item xs={12} sm={12} md={4} lg={4} key={2}>
           <Box bgcolor={"success.main"} textAlign="center">
             <CardContent px={1}>
               <Typography

@@ -148,7 +148,59 @@ export default function Contracts() {
         </Grid>
       </Grid>
 
- 
+      <Grid container spacing={3} style={{ marginBottom: "30px" }}>
+        <Grid item xs={12} sm={12} md={6} lg={6} key={5}>
+          <Box bgcolor={"grey.100"} textAlign="center">
+            <CardContent px={1}>
+              <Typography
+                color={"info.main"}
+                variant="subtitle1"
+                fontWeight={600}
+                style={titleStyle}
+              >
+                VNS Registrar
+              </Typography>
+              <Typography color={"info.main"} fontWeight={600}>
+                <p>Vitruveo Naming Service registrar</p>
+                <a
+                  style={linkStyle}
+                  href="https://explorer.vitruveo.ai/address/0xD974784f0f87301Bdf92292CAee91dF5ff0a1394"
+                  target="_new"
+                >
+                  0xD974784f0f87301Bdf92292CAee91dF5ff0a1394
+                </a>
+              </Typography>
+            </CardContent>
+          </Box>
+        </Grid>
+
+        <Grid item xs={12} sm={12} md={6} lg={6} key={4}>
+          <Box bgcolor={"grey.100"} textAlign="center">
+            <CardContent px={1}>
+              <Typography
+                color={"info.main"}
+                variant="subtitle1"
+                fontWeight={600}
+                style={titleStyle}
+              >
+                Burn Wallet
+              </Typography>
+              <Typography color={"info.main"} fontWeight={600}>
+                <p>Dead address where tokens are permanently burned</p>
+                <a
+                  style={linkStyle}
+                  href="https://explorer.vitruveo.ai/address/0x000000000000000000000000000000000000dEaD"
+                  target="_new"
+                >
+                  0x000000000000000000000000000000000000dEaD
+                </a>
+              </Typography>
+            </CardContent>
+          </Box>
+        </Grid>
+      </Grid>
+
+
 
 
     </PageContainer>

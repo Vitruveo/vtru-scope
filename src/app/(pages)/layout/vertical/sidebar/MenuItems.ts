@@ -83,6 +83,12 @@ const Menuitems: MenuitemsType[] = [
   },
   {
     id: uniqueId(),
+    title: "VNS",
+    icon: IconWorld,
+    href: "/vns",
+  },
+  {
+    id: uniqueId(),
     title: "Legacy",
     icon: IconHistory,
     href: "/legacy",

@@ -54,7 +54,7 @@
   "bsc": {
     "VEO": "0x6793c3172DacaE034B3e84909E200DB285225AB3",
     "VTRU": "0xb08504D245713Ca9692C8fA605E76A0A11Ed4955",
-    "Validators": "0xC2Db1E0e9b17bEd9FA7fbc8500eaDCcBf3079421"
+    "Validators": "0x1cCa4144103b7eE91b139631AdFc1ece3fE1eD22"
   },
   "abi": {
     "Rebase": [
@@ -328,16 +328,6 @@
           {
             "type": "uint256",
             "name": "total",
-            "indexed": false
-          },
-          {
-            "type": "uint256",
-            "name": "community",
-            "indexed": false
-          },
-          {
-            "type": "uint256",
-            "name": "validator",
             "indexed": false
           }
         ]
@@ -10842,6 +10832,20 @@
       },
       {
         "type": "function",
+        "name": "NFPM",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "address",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
         "name": "NOTARY_ROLE",
         "constant": true,
         "stateMutability": "view",
@@ -10850,20 +10854,6 @@
         "outputs": [
           {
             "type": "bytes32",
-            "name": ""
-          }
-        ]
-      },
-      {
-        "type": "function",
-        "name": "PANCAKE_ROUTER",
-        "constant": true,
-        "stateMutability": "view",
-        "payable": false,
-        "inputs": [],
-        "outputs": [
-          {
-            "type": "address",
             "name": ""
           }
         ]
@@ -10885,6 +10875,20 @@
       {
         "type": "function",
         "name": "USDT",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "address",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "V3_POOL",
         "constant": true,
         "stateMutability": "view",
         "payable": false,
@@ -10925,41 +10929,7 @@
       },
       {
         "type": "function",
-        "name": "adminBurnBsc",
-        "constant": false,
-        "payable": false,
-        "inputs": [
-          {
-            "type": "address",
-            "name": "account"
-          },
-          {
-            "type": "uint256",
-            "name": "amount"
-          }
-        ],
-        "outputs": []
-      },
-      {
-        "type": "function",
         "name": "adminMint",
-        "constant": false,
-        "payable": false,
-        "inputs": [
-          {
-            "type": "address",
-            "name": "account"
-          },
-          {
-            "type": "uint256",
-            "name": "amount"
-          }
-        ],
-        "outputs": []
-      },
-      {
-        "type": "function",
-        "name": "adminUnlockVitruveo",
         "constant": false,
         "payable": false,
         "inputs": [
@@ -11297,59 +11267,6 @@
       },
       {
         "type": "function",
-        "name": "getPendingEscrows",
-        "constant": true,
-        "stateMutability": "view",
-        "payable": false,
-        "inputs": [
-          {
-            "type": "uint256",
-            "name": "start"
-          },
-          {
-            "type": "uint256",
-            "name": "count"
-          }
-        ],
-        "outputs": [
-          {
-            "type": "address[]",
-            "name": "users"
-          },
-          {
-            "type": "uint256[]",
-            "name": "amounts"
-          },
-          {
-            "type": "uint256[]",
-            "name": "blockNumbers"
-          }
-        ]
-      },
-      {
-        "type": "function",
-        "name": "getPendingEscrows",
-        "constant": true,
-        "stateMutability": "view",
-        "payable": false,
-        "inputs": [],
-        "outputs": [
-          {
-            "type": "address[]",
-            "name": "users"
-          },
-          {
-            "type": "uint256[]",
-            "name": "amounts"
-          },
-          {
-            "type": "uint256[]",
-            "name": "blockNumbers"
-          }
-        ]
-      },
-      {
-        "type": "function",
         "name": "getRoleAdmin",
         "constant": true,
         "stateMutability": "view",
@@ -11557,20 +11474,6 @@
         "outputs": [
           {
             "type": "bool",
-            "name": ""
-          }
-        ]
-      },
-      {
-        "type": "function",
-        "name": "pendingCount",
-        "constant": true,
-        "stateMutability": "view",
-        "payable": false,
-        "inputs": [],
-        "outputs": [
-          {
-            "type": "uint256",
             "name": ""
           }
         ]
@@ -11910,19 +11813,6 @@
           {
             "type": "address",
             "name": "account"
-          }
-        ],
-        "outputs": []
-      },
-      {
-        "type": "function",
-        "name": "zeroEscrowBatch",
-        "constant": false,
-        "payable": false,
-        "inputs": [
-          {
-            "type": "address[]",
-            "name": "accounts"
           }
         ],
         "outputs": []
@@ -17691,6 +17581,20 @@
       },
       {
         "type": "function",
+        "name": "GRACE_PERIOD",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "uint256",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
         "name": "UPGRADER_ROLE",
         "constant": true,
         "stateMutability": "view",
@@ -17740,6 +17644,32 @@
       },
       {
         "type": "function",
+        "name": "adminWireNode",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "bytes32",
+            "name": "labelHash"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "adminWireNodes",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "bytes32[]",
+            "name": "labelHashes"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "type": "function",
         "name": "approve",
         "constant": false,
         "payable": false,
@@ -17754,6 +17684,25 @@
           }
         ],
         "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "available",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [
+          {
+            "type": "string",
+            "name": "name"
+          }
+        ],
+        "outputs": [
+          {
+            "type": "bool",
+            "name": ""
+          }
+        ]
       },
       {
         "type": "function",
@@ -17854,6 +17803,25 @@
         "outputs": [
           {
             "type": "uint16",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "expired",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [
+          {
+            "type": "string",
+            "name": "name"
+          }
+        ],
+        "outputs": [
+          {
+            "type": "bool",
             "name": ""
           }
         ]
@@ -17969,6 +17937,25 @@
       },
       {
         "type": "function",
+        "name": "labelName",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [
+          {
+            "type": "bytes32",
+            "name": ""
+          }
+        ],
+        "outputs": [
+          {
+            "type": "string",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
         "name": "lookupName",
         "constant": true,
         "stateMutability": "view",
@@ -18044,6 +18031,62 @@
           {
             "type": "uint64",
             "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "namesOf",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [
+          {
+            "type": "address",
+            "name": "owner_"
+          }
+        ],
+        "outputs": [
+          {
+            "type": "string[]",
+            "name": "names"
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "namesOfDetailed",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [
+          {
+            "type": "address",
+            "name": "owner_"
+          }
+        ],
+        "outputs": [
+          {
+            "type": "tuple[]",
+            "name": "list",
+            "components": [
+              {
+                "type": "string",
+                "name": "name"
+              },
+              {
+                "type": "bytes32",
+                "name": "labelHash"
+              },
+              {
+                "type": "uint64",
+                "name": "expiresAt"
+              },
+              {
+                "type": "bool",
+                "name": "expired"
+              }
+            ]
           }
         ]
       },
@@ -18139,6 +18182,19 @@
       },
       {
         "type": "function",
+        "name": "reclaimExpired",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "bytes32",
+            "name": "labelHash"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "type": "function",
         "name": "register",
         "constant": false,
         "stateMutability": "payable",
@@ -18187,6 +18243,24 @@
             "name": ""
           }
         ]
+      },
+      {
+        "type": "function",
+        "name": "renew",
+        "constant": false,
+        "stateMutability": "payable",
+        "payable": true,
+        "inputs": [
+          {
+            "type": "string",
+            "name": "name"
+          },
+          {
+            "type": "uint256",
+            "name": "yrs"
+          }
+        ],
+        "outputs": []
       },
       {
         "type": "function",
@@ -18320,6 +18394,19 @@
           {
             "type": "uint16",
             "name": "newDiscountBps"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "setLabelNames",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "string[]",
+            "name": "names"
           }
         ],
         "outputs": []
@@ -22117,6 +22204,18 @@
       {
         "type": "event",
         "anonymous": false,
+        "name": "Imported",
+        "inputs": [
+          {
+            "type": "uint256",
+            "name": "count",
+            "indexed": false
+          }
+        ]
+      },
+      {
+        "type": "event",
+        "anonymous": false,
         "name": "Initialized",
         "inputs": [
           {
@@ -22129,96 +22228,26 @@
       {
         "type": "event",
         "anonymous": false,
-        "name": "Joined",
+        "name": "Paid",
         "inputs": [
           {
             "type": "address",
-            "name": "account",
+            "name": "wallet",
             "indexed": true
           },
           {
             "type": "uint256",
-            "name": "price",
-            "indexed": false
-          }
-        ]
-      },
-      {
-        "type": "event",
-        "anonymous": false,
-        "name": "LiquidityAddedAndBurned",
-        "inputs": [
-          {
-            "type": "uint256",
-            "name": "usdtAmount",
+            "name": "amount",
             "indexed": false
           },
           {
             "type": "uint256",
-            "name": "vtruAmount",
+            "name": "amountPaid",
             "indexed": false
           },
-          {
-            "type": "uint256",
-            "name": "liquidity",
-            "indexed": false
-          }
-        ]
-      },
-      {
-        "type": "event",
-        "anonymous": false,
-        "name": "LiquidityEnabledSet",
-        "inputs": [
           {
             "type": "bool",
-            "name": "enabled",
-            "indexed": false
-          }
-        ]
-      },
-      {
-        "type": "event",
-        "anonymous": false,
-        "name": "LiquiditySet",
-        "inputs": [
-          {
-            "type": "uint256",
-            "name": "newLiquidityUsdt",
-            "indexed": false
-          },
-          {
-            "type": "uint256",
-            "name": "legacyLiquidityUsdt",
-            "indexed": false
-          }
-        ]
-      },
-      {
-        "type": "event",
-        "anonymous": false,
-        "name": "LiquiditySkipped",
-        "inputs": [
-          {
-            "type": "uint256",
-            "name": "usdtAmount",
-            "indexed": false
-          },
-          {
-            "type": "uint256",
-            "name": "poolPriceUsdt",
-            "indexed": false
-          }
-        ]
-      },
-      {
-        "type": "event",
-        "anonymous": false,
-        "name": "MaxSlotsSet",
-        "inputs": [
-          {
-            "type": "uint256",
-            "name": "maxSlots",
+            "name": "active",
             "indexed": false
           }
         ]
@@ -22242,34 +22271,27 @@
         "inputs": [
           {
             "type": "uint256",
-            "name": "newPrice",
+            "name": "basicPrice",
             "indexed": false
           },
           {
             "type": "uint256",
-            "name": "legacyBasePrice",
+            "name": "superPrice",
             "indexed": false
           },
           {
             "type": "uint256",
-            "name": "legacyPriceStep",
+            "name": "hyperPrice",
             "indexed": false
-          }
-        ]
-      },
-      {
-        "type": "event",
-        "anonymous": false,
-        "name": "Rejoined",
-        "inputs": [
-          {
-            "type": "address",
-            "name": "account",
-            "indexed": true
           },
           {
             "type": "uint256",
-            "name": "price",
+            "name": "installPrice",
+            "indexed": false
+          },
+          {
+            "type": "uint256",
+            "name": "minPayment",
             "indexed": false
           }
         ]
@@ -22343,11 +22365,75 @@
       {
         "type": "event",
         "anonymous": false,
-        "name": "TargetPriceSet",
+        "name": "SlotClaimed",
+        "inputs": [
+          {
+            "type": "address",
+            "name": "wallet",
+            "indexed": true
+          },
+          {
+            "type": "uint256",
+            "name": "slot",
+            "indexed": true
+          },
+          {
+            "type": "uint8",
+            "name": "nodeType",
+            "indexed": false
+          },
+          {
+            "type": "bool",
+            "name": "support",
+            "indexed": false
+          },
+          {
+            "type": "uint256",
+            "name": "totalCost",
+            "indexed": false
+          },
+          {
+            "type": "uint256",
+            "name": "paid",
+            "indexed": false
+          }
+        ]
+      },
+      {
+        "type": "event",
+        "anonymous": false,
+        "name": "SlotMoved",
+        "inputs": [
+          {
+            "type": "address",
+            "name": "wallet",
+            "indexed": true
+          },
+          {
+            "type": "uint256",
+            "name": "fromSlot",
+            "indexed": true
+          },
+          {
+            "type": "uint256",
+            "name": "toSlot",
+            "indexed": true
+          }
+        ]
+      },
+      {
+        "type": "event",
+        "anonymous": false,
+        "name": "SlotReserved",
         "inputs": [
           {
             "type": "uint256",
-            "name": "vtruPriceUsdt",
+            "name": "slot",
+            "indexed": true
+          },
+          {
+            "type": "bool",
+            "name": "reserved",
             "indexed": false
           }
         ]
@@ -22373,32 +22459,6 @@
             "type": "address",
             "name": "implementation",
             "indexed": true
-          }
-        ]
-      },
-      {
-        "type": "event",
-        "anonymous": false,
-        "name": "ValidatorsAdded",
-        "inputs": [
-          {
-            "type": "uint256",
-            "name": "count",
-            "indexed": false
-          }
-        ]
-      },
-      {
-        "type": "function",
-        "name": "BURN_ADDRESS",
-        "constant": true,
-        "stateMutability": "view",
-        "payable": false,
-        "inputs": [],
-        "outputs": [
-          {
-            "type": "address",
-            "name": ""
           }
         ]
       },
@@ -22432,14 +22492,28 @@
       },
       {
         "type": "function",
-        "name": "PANCAKE_ROUTER",
+        "name": "RESERVED_SLOTS",
         "constant": true,
         "stateMutability": "view",
         "payable": false,
         "inputs": [],
         "outputs": [
           {
-            "type": "address",
+            "type": "uint256",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "TOTAL_SLOTS",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "uint256",
             "name": ""
           }
         ]
@@ -22474,69 +22548,160 @@
       },
       {
         "type": "function",
-        "name": "VTRU",
-        "constant": true,
-        "stateMutability": "view",
-        "payable": false,
-        "inputs": [],
-        "outputs": [
-          {
-            "type": "address",
-            "name": ""
-          }
-        ]
-      },
-      {
-        "type": "function",
-        "name": "addValidators",
+        "name": "adminImport",
         "constant": false,
         "payable": false,
         "inputs": [
           {
             "type": "address[]",
-            "name": "accounts"
+            "name": "wallets"
+          },
+          {
+            "type": "uint256[]",
+            "name": "slots_"
+          },
+          {
+            "type": "uint256[]",
+            "name": "payments"
           }
         ],
         "outputs": []
       },
       {
         "type": "function",
-        "name": "adminRejoin",
-        "constant": false,
+        "name": "amountOwed",
+        "constant": true,
+        "stateMutability": "view",
         "payable": false,
         "inputs": [
           {
             "type": "address",
-            "name": "account"
+            "name": "wallet"
           }
         ],
-        "outputs": []
-      },
-      {
-        "type": "function",
-        "name": "getNewValidators",
-        "constant": true,
-        "stateMutability": "view",
-        "payable": false,
-        "inputs": [],
         "outputs": [
           {
-            "type": "address[]",
+            "type": "uint256",
             "name": ""
           }
         ]
       },
       {
         "type": "function",
-        "name": "getRejoinedValidators",
+        "name": "basicPrice",
         "constant": true,
         "stateMutability": "view",
         "payable": false,
         "inputs": [],
         "outputs": [
           {
-            "type": "address[]",
+            "type": "uint256",
             "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "claimSlot",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "uint256",
+            "name": "slot"
+          },
+          {
+            "type": "uint8",
+            "name": "nodeType"
+          },
+          {
+            "type": "bool",
+            "name": "support"
+          },
+          {
+            "type": "uint256",
+            "name": "payment"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "cost",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [
+          {
+            "type": "uint8",
+            "name": "nodeType"
+          },
+          {
+            "type": "bool",
+            "name": "support"
+          }
+        ],
+        "outputs": [
+          {
+            "type": "uint256",
+            "name": "total"
+          },
+          {
+            "type": "bool",
+            "name": "effectiveSupport"
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "getNode",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [
+          {
+            "type": "address",
+            "name": "wallet"
+          }
+        ],
+        "outputs": [
+          {
+            "type": "tuple",
+            "name": "",
+            "components": [
+              {
+                "type": "bool",
+                "name": "exists"
+              },
+              {
+                "type": "uint256",
+                "name": "slot"
+              },
+              {
+                "type": "uint8",
+                "name": "nodeType"
+              },
+              {
+                "type": "bool",
+                "name": "support"
+              },
+              {
+                "type": "uint256",
+                "name": "totalCost"
+              },
+              {
+                "type": "uint256",
+                "name": "amountPaid"
+              },
+              {
+                "type": "uint256",
+                "name": "owed"
+              },
+              {
+                "type": "bool",
+                "name": "active"
+              }
+            ]
           }
         ]
       },
@@ -22556,6 +22721,107 @@
           {
             "type": "bytes32",
             "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "getSlot",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [
+          {
+            "type": "uint256",
+            "name": "slot"
+          }
+        ],
+        "outputs": [
+          {
+            "type": "tuple",
+            "name": "",
+            "components": [
+              {
+                "type": "uint256",
+                "name": "slot"
+              },
+              {
+                "type": "uint8",
+                "name": "state"
+              },
+              {
+                "type": "address",
+                "name": "owner"
+              },
+              {
+                "type": "uint8",
+                "name": "nodeType"
+              },
+              {
+                "type": "bool",
+                "name": "support"
+              },
+              {
+                "type": "uint256",
+                "name": "totalCost"
+              },
+              {
+                "type": "uint256",
+                "name": "amountPaid"
+              },
+              {
+                "type": "bool",
+                "name": "active"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "getSlots",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "tuple[]",
+            "name": "list",
+            "components": [
+              {
+                "type": "uint256",
+                "name": "slot"
+              },
+              {
+                "type": "uint8",
+                "name": "state"
+              },
+              {
+                "type": "address",
+                "name": "owner"
+              },
+              {
+                "type": "uint8",
+                "name": "nodeType"
+              },
+              {
+                "type": "bool",
+                "name": "support"
+              },
+              {
+                "type": "uint256",
+                "name": "totalCost"
+              },
+              {
+                "type": "uint256",
+                "name": "amountPaid"
+              },
+              {
+                "type": "bool",
+                "name": "active"
+              }
+            ]
           }
         ]
       },
@@ -22601,6 +22867,20 @@
       },
       {
         "type": "function",
+        "name": "hyperPrice",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "uint256",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
         "name": "initialize",
         "constant": false,
         "payable": false,
@@ -22609,14 +22889,28 @@
       },
       {
         "type": "function",
-        "name": "isValidator",
+        "name": "installPrice",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "uint256",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "isActive",
         "constant": true,
         "stateMutability": "view",
         "payable": false,
         "inputs": [
           {
             "type": "address",
-            "name": ""
+            "name": "wallet"
           }
         ],
         "outputs": [
@@ -22628,34 +22922,34 @@
       },
       {
         "type": "function",
-        "name": "join",
-        "constant": false,
+        "name": "minPayment",
+        "constant": true,
+        "stateMutability": "view",
         "payable": false,
         "inputs": [],
+        "outputs": [
+          {
+            "type": "uint256",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "moveSlot",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "uint256",
+            "name": "newSlot"
+          }
+        ],
         "outputs": []
       },
       {
         "type": "function",
-        "name": "joinedNew",
-        "constant": true,
-        "stateMutability": "view",
-        "payable": false,
-        "inputs": [
-          {
-            "type": "address",
-            "name": ""
-          }
-        ],
-        "outputs": [
-          {
-            "type": "bool",
-            "name": ""
-          }
-        ]
-      },
-      {
-        "type": "function",
-        "name": "legacyBasePrice",
+        "name": "nodeCount",
         "constant": true,
         "stateMutability": "view",
         "payable": false,
@@ -22669,105 +22963,7 @@
       },
       {
         "type": "function",
-        "name": "legacyLiquidityUsdt",
-        "constant": true,
-        "stateMutability": "view",
-        "payable": false,
-        "inputs": [],
-        "outputs": [
-          {
-            "type": "uint256",
-            "name": ""
-          }
-        ]
-      },
-      {
-        "type": "function",
-        "name": "legacyPriceStep",
-        "constant": true,
-        "stateMutability": "view",
-        "payable": false,
-        "inputs": [],
-        "outputs": [
-          {
-            "type": "uint256",
-            "name": ""
-          }
-        ]
-      },
-      {
-        "type": "function",
-        "name": "legacyRejoinCount",
-        "constant": true,
-        "stateMutability": "view",
-        "payable": false,
-        "inputs": [],
-        "outputs": [
-          {
-            "type": "uint256",
-            "name": ""
-          }
-        ]
-      },
-      {
-        "type": "function",
-        "name": "legacyRejoinPrice",
-        "constant": true,
-        "stateMutability": "view",
-        "payable": false,
-        "inputs": [],
-        "outputs": [
-          {
-            "type": "uint256",
-            "name": ""
-          }
-        ]
-      },
-      {
-        "type": "function",
-        "name": "liquidityEnabled",
-        "constant": true,
-        "stateMutability": "view",
-        "payable": false,
-        "inputs": [],
-        "outputs": [
-          {
-            "type": "bool",
-            "name": ""
-          }
-        ]
-      },
-      {
-        "type": "function",
-        "name": "maxSlots",
-        "constant": true,
-        "stateMutability": "view",
-        "payable": false,
-        "inputs": [],
-        "outputs": [
-          {
-            "type": "uint256",
-            "name": ""
-          }
-        ]
-      },
-      {
-        "type": "function",
-        "name": "newLiquidityUsdt",
-        "constant": true,
-        "stateMutability": "view",
-        "payable": false,
-        "inputs": [],
-        "outputs": [
-          {
-            "type": "uint256",
-            "name": ""
-          }
-        ]
-      },
-      {
-        "type": "function",
-        "name": "newList",
+        "name": "nodeList",
         "constant": true,
         "stateMutability": "view",
         "payable": false,
@@ -22786,15 +22982,40 @@
       },
       {
         "type": "function",
-        "name": "newPrice",
+        "name": "nodes",
         "constant": true,
         "stateMutability": "view",
         "payable": false,
-        "inputs": [],
+        "inputs": [
+          {
+            "type": "address",
+            "name": ""
+          }
+        ],
         "outputs": [
           {
             "type": "uint256",
-            "name": ""
+            "name": "slot"
+          },
+          {
+            "type": "uint8",
+            "name": "nodeType"
+          },
+          {
+            "type": "bool",
+            "name": "support"
+          },
+          {
+            "type": "uint256",
+            "name": "totalCost"
+          },
+          {
+            "type": "uint256",
+            "name": "amountPaid"
+          },
+          {
+            "type": "bool",
+            "name": "exists"
           }
         ]
       },
@@ -22822,6 +23043,19 @@
       },
       {
         "type": "function",
+        "name": "pay",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "uint256",
+            "name": "payment"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "type": "function",
         "name": "proxiableUUID",
         "constant": true,
         "stateMutability": "view",
@@ -22830,52 +23064,6 @@
         "outputs": [
           {
             "type": "bytes32",
-            "name": ""
-          }
-        ]
-      },
-      {
-        "type": "function",
-        "name": "rejoin",
-        "constant": false,
-        "payable": false,
-        "inputs": [],
-        "outputs": []
-      },
-      {
-        "type": "function",
-        "name": "rejoined",
-        "constant": true,
-        "stateMutability": "view",
-        "payable": false,
-        "inputs": [
-          {
-            "type": "address",
-            "name": ""
-          }
-        ],
-        "outputs": [
-          {
-            "type": "bool",
-            "name": ""
-          }
-        ]
-      },
-      {
-        "type": "function",
-        "name": "rejoinedList",
-        "constant": true,
-        "stateMutability": "view",
-        "payable": false,
-        "inputs": [
-          {
-            "type": "uint256",
-            "name": ""
-          }
-        ],
-        "outputs": [
-          {
-            "type": "address",
             "name": ""
           }
         ]
@@ -22899,6 +23087,23 @@
       },
       {
         "type": "function",
+        "name": "reserveSlot",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "uint256",
+            "name": "slot"
+          },
+          {
+            "type": "bool",
+            "name": "reserved"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "type": "function",
         "name": "revokeRole",
         "constant": false,
         "payable": false,
@@ -22916,84 +23121,74 @@
       },
       {
         "type": "function",
-        "name": "setLiquidity",
-        "constant": false,
-        "payable": false,
-        "inputs": [
-          {
-            "type": "uint256",
-            "name": "newLiquidityUsdt_"
-          },
-          {
-            "type": "uint256",
-            "name": "legacyLiquidityUsdt_"
-          }
-        ],
-        "outputs": []
-      },
-      {
-        "type": "function",
-        "name": "setLiquidityEnabled",
-        "constant": false,
-        "payable": false,
-        "inputs": [
-          {
-            "type": "bool",
-            "name": "enabled"
-          }
-        ],
-        "outputs": []
-      },
-      {
-        "type": "function",
-        "name": "setMaxSlots",
-        "constant": false,
-        "payable": false,
-        "inputs": [
-          {
-            "type": "uint256",
-            "name": "maxSlots_"
-          }
-        ],
-        "outputs": []
-      },
-      {
-        "type": "function",
         "name": "setPrices",
         "constant": false,
         "payable": false,
         "inputs": [
           {
             "type": "uint256",
-            "name": "newPrice_"
+            "name": "basicPrice_"
           },
           {
             "type": "uint256",
-            "name": "legacyBasePrice_"
+            "name": "superPrice_"
           },
           {
             "type": "uint256",
-            "name": "legacyPriceStep_"
+            "name": "hyperPrice_"
+          },
+          {
+            "type": "uint256",
+            "name": "installPrice_"
+          },
+          {
+            "type": "uint256",
+            "name": "minPayment_"
           }
         ],
         "outputs": []
       },
       {
         "type": "function",
-        "name": "setTargetPrice",
-        "constant": false,
+        "name": "slotOwner",
+        "constant": true,
+        "stateMutability": "view",
         "payable": false,
         "inputs": [
           {
             "type": "uint256",
-            "name": "priceUsdt"
+            "name": ""
           }
         ],
-        "outputs": []
+        "outputs": [
+          {
+            "type": "address",
+            "name": ""
+          }
+        ]
       },
       {
         "type": "function",
-        "name": "slotsRemaining",
+        "name": "slotState",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [
+          {
+            "type": "uint256",
+            "name": ""
+          }
+        ],
+        "outputs": [
+          {
+            "type": "uint8",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "stats",
         "constant": true,
         "stateMutability": "view",
         "payable": false,
@@ -23001,13 +23196,29 @@
         "outputs": [
           {
             "type": "uint256",
-            "name": ""
+            "name": "open"
+          },
+          {
+            "type": "uint256",
+            "name": "reserved"
+          },
+          {
+            "type": "uint256",
+            "name": "claimed"
+          },
+          {
+            "type": "uint256",
+            "name": "active"
+          },
+          {
+            "type": "uint256",
+            "name": "inactive"
           }
         ]
       },
       {
         "type": "function",
-        "name": "slotsSold",
+        "name": "superPrice",
         "constant": true,
         "stateMutability": "view",
         "payable": false,
@@ -23034,48 +23245,6 @@
         "outputs": [
           {
             "type": "bool",
-            "name": ""
-          }
-        ]
-      },
-      {
-        "type": "function",
-        "name": "totalLiquidityUsdt",
-        "constant": true,
-        "stateMutability": "view",
-        "payable": false,
-        "inputs": [],
-        "outputs": [
-          {
-            "type": "uint256",
-            "name": ""
-          }
-        ]
-      },
-      {
-        "type": "function",
-        "name": "totalLiquidityVtru",
-        "constant": true,
-        "stateMutability": "view",
-        "payable": false,
-        "inputs": [],
-        "outputs": [
-          {
-            "type": "uint256",
-            "name": ""
-          }
-        ]
-      },
-      {
-        "type": "function",
-        "name": "totalLpBurned",
-        "constant": true,
-        "stateMutability": "view",
-        "payable": false,
-        "inputs": [],
-        "outputs": [
-          {
-            "type": "uint256",
             "name": ""
           }
         ]
@@ -23118,20 +23287,6 @@
           }
         ],
         "outputs": []
-      },
-      {
-        "type": "function",
-        "name": "vtruPriceUsdt",
-        "constant": true,
-        "stateMutability": "view",
-        "payable": false,
-        "inputs": [],
-        "outputs": [
-          {
-            "type": "uint256",
-            "name": ""
-          }
-        ]
       },
       {
         "type": "function",
