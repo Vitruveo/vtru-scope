@@ -43,8 +43,10 @@ import config from "@/app/config/vtru-contracts.json";
 import { ethers } from "ethers";
 import { useAccount } from "wagmi";
 
-// canvas-confetti's default export is the callable function.
-import confetti from "canvas-confetti";
+// canvas-confetti's callable lives on the default export under ESM interop,
+// but falls back to the namespace itself in some bundler configs.
+import * as confettiModule from "canvas-confetti";
+const confetti = confettiModule.default || confettiModule;
 
 const VITRUVEO_CHAIN_ID = 1490;
 const vitruveoProvider = new ethers.JsonRpcProvider("https://rpc.vitruveo.ai", VITRUVEO_CHAIN_ID);
