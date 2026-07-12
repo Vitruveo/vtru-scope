@@ -207,8 +207,15 @@ export default function Tokenomics () {
         // The contract's native balance beyond staked principal is the rewards reserve.
         setRewardsBalance(Math.max(0, contractNative - totalStakedNum));
 
-        // Tokens sent to the burn wallet are permanently removed from supply.
-        const burned = Number((await provider.getBalance(BURN_WALLET)) / DIVISOR);
+        // Tokens sent to the burn wallet are permanently removed from supply:
+        // native VTRU on Vitruveo plus VTRU token on BSC.
+        const bscProvider = new ethers.JsonRpcProvider("https://bsc-dataseed.binance.org", 56);
+        const burnedBsc = await new ethers.Contract(
+          config.bsc.VTRU,
+          ["function balanceOf(address) view returns (uint256)"],
+          bscProvider
+        ).balanceOf(BURN_WALLET).catch(() => 0n);
+        const burned = Number((await provider.getBalance(BURN_WALLET)) / DIVISOR) + Number(burnedBsc / DIVISOR);
         setBurnedBalance(burned);
         const adjustedSupply = TOTAL_SUPPLY - burned;
         setTotalSupply(adjustedSupply);
