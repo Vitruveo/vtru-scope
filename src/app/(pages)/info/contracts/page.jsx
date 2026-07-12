@@ -137,10 +137,10 @@ export default function Contracts() {
                 <p>Vitruveo Core Staking</p>
                 <a
                   style={linkStyle}
-                  href="https://explorer.vitruveo.ai/address/0xf793A4faD64241c7273b9329FE39e433c2D45d71"
+                  href="https://explorer.vitruveo.ai/address/0x24b0bb73c1d1a6EE11C48cDa1cE35be0F7811881"
                   target="_new"
                 >
-                  0xf793A4faD64241c7273b9329FE39e433c2D45d71
+                  0x24b0bb73c1d1a6EE11C48cDa1cE35be0F7811881
                 </a>
               </Typography>
             </CardContent>
