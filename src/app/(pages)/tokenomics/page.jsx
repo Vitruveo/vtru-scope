@@ -115,12 +115,12 @@ export default function Tokenomics () {
       }
     }
   
-    // Sum a wallet's staked principal in the CoreStake contract (same getter the staking page uses).
+    // Sum a wallet's staked principal in the CoreStakeV2 contract (same getter the staking page uses).
     async function stakedBalanceFor(addr) {
       try {
         const info = await readContract({
-          address: config[network].CoreStake,
-          abi: config.abi.CoreStake,
+          address: config[network].CoreStakeV2,
+          abi: config.abi.CoreStakeV2,
           functionName: "getUserStakesInfo",
           args: [addr],
         });
@@ -151,10 +151,10 @@ export default function Tokenomics () {
         setValidatorsBalance(v);
         setLiquidityBalance(l);
 
-        // Grand total staked principal in the CoreStake contract.
+        // Grand total staked principal in the CoreStakeV2 contract.
         const totalStaked = await readContract({
-          address: config[network].CoreStake,
-          abi: config.abi.CoreStake,
+          address: config[network].CoreStakeV2,
+          abi: config.abi.CoreStakeV2,
           functionName: "totalStaked",
           args: [],
         });
@@ -177,7 +177,7 @@ export default function Tokenomics () {
         for (let i = 0; i < balances.length; i++) {
           const item = balances[i];
           switch (item.account) {
-            case lower(config[network].CoreStake):
+            case lower(config[network].CoreStakeV2):
               contractNative = item.balance;
               targets.push(i);
               break;
@@ -213,7 +213,7 @@ export default function Tokenomics () {
         const adjustedSupply = TOTAL_SUPPLY - burned;
         setTotalSupply(adjustedSupply);
 
-        // Everything held in the CoreStake contract (staked principal + rewards reserve)
+        // Everything held in the CoreStakeV2 contract (staked principal + rewards reserve)
         // is locked; the remainder of supply circulates.
         let locked = contractNative;
         let currentCirculatingSupply = adjustedSupply - locked;
@@ -255,8 +255,8 @@ export default function Tokenomics () {
       },
     ];
   
-    // Locked bar shows each named wallet's CoreStake staked balance, plus the remainder.
-    // "Staked" = total CoreStake balance minus the named wallets' staked balances.
+    // Locked bar shows each named wallet's CoreStakeV2 staked balance, plus the remainder.
+    // "Staked" = total CoreStakeV2 balance minus the named wallets' staked balances.
     const lockedNamedItems = [
       { label: "Treasury", amount: treasuryBalance, address: "0xbd48BCc0f11d851448Ef99c2D8189934cE721BC3" },
       { label: "Operations", amount: operationsBalance, address: "0x30C8A936FA629e351a2AC85a0437814EC50e70c6" },
@@ -269,12 +269,12 @@ export default function Tokenomics () {
       {
         label: "Staked",
         amount: Math.max(0, stakedBalance - lockedNamedTotal),
-        address: config[network].CoreStake,
+        address: config[network].CoreStakeV2,
       },
       {
         label: "Rewards",
         amount: rewardsBalance,
-        address: config[network].CoreStake,
+        address: config[network].CoreStakeV2,
       },
     ];
   

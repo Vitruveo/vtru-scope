@@ -121,7 +121,7 @@ export default function StakeView ({ viewAddress = null }) {
 
   useEffect(() => {
     if (provider !== null) {
-      setContract(new ethers.Contract(config[network].CoreStake, config.abi.CoreStake, provider));
+      setContract(new ethers.Contract(config[network].CoreStakeV2, config.abi.CoreStakeV2, provider));
     }
   }, [provider]);
 
@@ -179,7 +179,7 @@ export default function StakeView ({ viewAddress = null }) {
 
   const [currentStaked, setCurrentStaked] = useState(0);
   const contractBalance = useBalance({
-    address: config[network].CoreStake,
+    address: config[network].CoreStakeV2,
     cacheTime: 15_000,
   });
 
@@ -225,8 +225,8 @@ export default function StakeView ({ viewAddress = null }) {
 
     async function getStats() {
       const stats = await readContract({
-        address: config[network].CoreStake,
-        abi: config.abi.CoreStake,
+        address: config[network].CoreStakeV2,
+        abi: config.abi.CoreStakeV2,
         functionName: "stats",
         args: []
       });
@@ -250,8 +250,8 @@ export default function StakeView ({ viewAddress = null }) {
       if (connectedOwner !== null && connectedOwner !== undefined) {
         try {
           const userStakes = await readContract({
-            address: config[network].CoreStake,
-            abi: config.abi.CoreStake,
+            address: config[network].CoreStakeV2,
+            abi: config.abi.CoreStakeV2,
             functionName: "getUserStakesInfo",
             args: [connectedOwner]
           });
@@ -346,8 +346,8 @@ export default function StakeView ({ viewAddress = null }) {
     async function getStakeTerms() {
       try {
         const terms = await readContract({
-          address: config[network].CoreStake,
-          abi: config.abi.CoreStake,
+          address: config[network].CoreStakeV2,
+          abi: config.abi.CoreStakeV2,
           functionName: "getStakeTerms",
           args: []
         });
@@ -379,8 +379,8 @@ export default function StakeView ({ viewAddress = null }) {
       // Send transaction
       try {
           await writeContract({
-            address: config[network].CoreStake,
-            abi: config.abi.CoreStake,
+            address: config[network].CoreStakeV2,
+            abi: config.abi.CoreStakeV2,
             functionName: "stake",
             args: [Number(terms)],
             gas: 20_500_000,
@@ -405,8 +405,8 @@ export default function StakeView ({ viewAddress = null }) {
       // Send transaction
       try {
           await writeContract({
-            address: config[network].CoreStake,
-            abi: config.abi.CoreStake,
+            address: config[network].CoreStakeV2,
+            abi: config.abi.CoreStakeV2,
             functionName: "unstake",
             args: [],
             gas: 2_500_000
