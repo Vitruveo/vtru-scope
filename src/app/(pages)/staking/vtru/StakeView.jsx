@@ -268,11 +268,9 @@ export default function StakeView ({ viewAddress = null }) {
             const stakeInfo = currentStakes[s];
             const stake = stakeInfo.amount/DIVISOR;
             if (stake > 0) {
-              const stakeTermId = Number(stakeInfo.stakeTermID);
-              const stakeTerm = stakeTerms[stakeTermId]; // undefined for lock terms (not in getStakeTerms)
               // Term length comes from the contract's start/end blocks; lock-safe, no term lookup.
               const totalEpochs = (Number(stakeInfo.endBlock) - Number(stakeInfo.startBlock))/EPOCH;
-              const apr = stakeTerm ? stakeTerm.apr : 0; // lock terms have no APR
+              const apr = Number(stakeInfo.aprBasisPoints)/100; // V2 returns APR per stake
               let term = 0;
               let termLabel = '';
               if (totalEpochs >= 365) {
@@ -352,12 +350,13 @@ export default function StakeView ({ viewAddress = null }) {
           args: []
         });
 
+        const [ids, termList] = terms; // V2 returns (ids[], terms[]) instead of one tuple array
         const termInfo = {};
-        for (let t=0;t<terms.length;t++) {
-            termInfo[Number(terms[t].id)] = {
-              epochs: Number(terms[t].epochs),
-              apr: Number(terms[t].aprBasisPoints)/100,
-              active: terms[t].active
+        for (let t=0;t<ids.length;t++) {
+            termInfo[Number(ids[t])] = {
+              epochs: Number(termList[t].epochs),
+              apr: Number(termList[t].aprBasisPoints)/100,
+              active: termList[t].active
             }
           }
         setStakeTerms(termInfo);
