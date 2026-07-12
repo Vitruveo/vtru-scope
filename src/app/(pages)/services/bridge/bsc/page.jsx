@@ -42,6 +42,7 @@ const VTRU_ABI = config.abi.VTRU;
 
 const ERC20_ABI = [
   "function balanceOf(address) view returns (uint256)",
+  "function totalSupply() view returns (uint256)",
   "function allowance(address,address) view returns (uint256)",
   "function approve(address,uint256) returns (bool)",
 ];
@@ -58,7 +59,7 @@ const BRIDGE_GAS_ESTIMATE = 300000n;
 const vitruveoProvider = new ethers.JsonRpcProvider("https://rpc.vitruveo.ai", VITRUVEO_CHAIN_ID);
 const bscProvider = new ethers.JsonRpcProvider("https://bsc-dataseed.binance.org", BSC_CHAIN_ID);
 
-const CHAIN_NAME = { [VITRUVEO_CHAIN_ID]: "Vitruveo", [BSC_CHAIN_ID]: "Binance Smart Chain" };
+const CHAIN_NAME = { [VITRUVEO_CHAIN_ID]: "Vitruveo", [BSC_CHAIN_ID]: "BSC" };
 
 // BSC is added to the wagmi config only on the bridge route (see providers.tsx). We switch the
 // wallet via wagmi and adapt the connected wallet client (injected OR WalletConnect) to an ethers
@@ -79,20 +80,29 @@ async function getSigner(chainId) {
 }
 
 const SwapInput = ({ isFrom, max, value, setValue, tokenSymbol, tokenBalance, network, disabled }) => (
-  <Paper elevation={2} sx={{ p: 3, border: 1, borderColor: "grey.300", backgroundColor: network === "binance" ? "#FFF9C4" : "primary.main" }}>
-    <Box display="flex" justifyContent="space-between" alignItems="flex-end" mb={2}>
-      <Box>
-        <Typography variant="caption" color="grey.900" sx={{ textTransform: "uppercase", fontSize: "0.9rem" }}>
-          {isFrom ? "FROM" : "TO"}
-        </Typography>
-        <Typography variant="h4" color="grey.900" fontWeight={600}>
-          {tokenSymbol}
-        </Typography>
-      </Box>
-      <Typography variant="h6" color="grey.900">
+  <Paper
+    elevation={0}
+    sx={{
+      p: 3,
+      height: "100%",
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "space-between",
+      borderRadius: 3,
+      backgroundColor: network === "binance" ? "#FFF9C4" : "primary.main",
+    }}
+  >
+    <Box display="flex" justifyContent="space-between" alignItems="baseline" mb={0.5}>
+      <Typography variant="caption" color="grey.900" sx={{ textTransform: "uppercase", fontSize: "0.9rem" }}>
+        {isFrom ? "FROM" : "TO"}
+      </Typography>
+      <Typography variant="h6" color="grey.900" whiteSpace="nowrap">
         Balance: {tokenBalance}
       </Typography>
     </Box>
+    <Typography variant="h4" color="grey.900" fontWeight={600} mb={2} whiteSpace="nowrap">
+      {tokenSymbol}
+    </Typography>
     <TextField
       fullWidth
       type="number"
@@ -103,28 +113,30 @@ const SwapInput = ({ isFrom, max, value, setValue, tokenSymbol, tokenBalance, ne
       variant="outlined"
       InputProps={{ style: { fontSize: "1.5rem", color: network === "binance" ? "#757575" : "#212121" } }}
     />
-    <Box display="flex" justifyContent="space-between" alignItems="center" mt={1}>
-      <Typography variant="body1" color="grey.900">
-        Network: {network === "vitruveo" ? "Vitruveo" : "Binance Smart Chain"}
+    <Box display="flex" justifyContent="space-between" alignItems="center" mt={2}>
+      <Typography variant="body1" color="grey.900" whiteSpace="nowrap">
+        Network: {network === "vitruveo" ? "Vitruveo" : "BSC"}
       </Typography>
-      {isFrom && (
-        <Button
-          size="small"
-          variant="contained"
-          disableElevation
-          onClick={() => setValue(max)}
-          disabled={disabled}
-          sx={{
-            fontWeight: 800,
-            px: 2,
-            backgroundColor: network === "binance" ? "#FFF176" : "#D1C4E9", // light yellow / light purple
-            color: network === "binance" ? "#4A3200" : "#3B0A63", // very dark gold / very dark purple
-            "&:hover": { backgroundColor: network === "binance" ? "#FFEE58" : "#B39DDB" },
-          }}
-        >
-          MAX
-        </Button>
-      )}
+      <Button
+        size="small"
+        variant="contained"
+        disableElevation
+        onClick={() => setValue(max)}
+        disabled={!isFrom || disabled}
+        sx={{
+          fontWeight: 800,
+          px: 2,
+          minWidth: 64,
+          whiteSpace: "nowrap",
+          flexShrink: 0,
+          backgroundColor: network === "binance" ? "#FFF176" : "#D1C4E9", // light yellow / light purple
+          color: network === "binance" ? "#4A3200" : "#3B0A63", // very dark gold / very dark purple
+          "&:hover": { backgroundColor: network === "binance" ? "#FFEE58" : "#B39DDB" },
+          "&.Mui-disabled": { backgroundColor: "rgba(0,0,0,0.08)", color: "rgba(0,0,0,0.35)" },
+        }}
+      >
+        MAX
+      </Button>
     </Box>
   </Paper>
 );
@@ -150,6 +162,10 @@ export default function Bsc() {
   const [claimFee, setClaimFee] = useState(null); // { feeVtru, feeUsdt } for the receipt being finished
 
   const [error, setError] = useState("");
+
+  // Contract-level bridge stats (wallet-independent)
+  const [lockedBalance, setLockedBalance] = useState(null);
+  const [mintedSupply, setMintedSupply] = useState(null);
 
   const [toast, setToast] = useState({ open: false, message: "", severity: "success" });
   const showToast = (message, severity = "success") => setToast({ open: true, message, severity });
@@ -229,6 +245,20 @@ export default function Bsc() {
     const id = setInterval(refresh, busy ? 5000 : 15000);
     return () => clearInterval(id);
   }, [account, busy]);
+
+  useEffect(() => {
+    async function loadBridgeStats() {
+      const [locked, minted] = await Promise.allSettled([
+        vitruveoProvider.getBalance(VITRUVEO_VTRU),
+        new ethers.Contract(BSC_VTRU, ERC20_ABI, bscProvider).totalSupply(),
+      ]);
+      if (locked.status === "fulfilled") setLockedBalance(locked.value);
+      if (minted.status === "fulfilled") setMintedSupply(minted.value);
+    }
+    loadBridgeStats();
+    const id = setInterval(loadBridgeStats, 15000);
+    return () => clearInterval(id);
+  }, []);
 
   // Recompute the forward-direction (Vitruveo -> BSC) fee when amount/direction changes.
   useEffect(() => {
@@ -479,10 +509,47 @@ export default function Bsc() {
     <PageContainer title="VTRU Bridge" description="Bridge VTRU between Vitruveo and Binance Smart Chain">
       <Breadcrumb title="VTRU Bridge" items={breadcrumb} />
       <Grid container spacing={3}>
-        <Grid item xs={12} md={3} />
-        <Grid item xs={12} md={6}>
-          <Card elevation={2}>
-            <CardContent sx={{ p: 4, pt: 2 }}>
+        <Grid item xs={12} sm={6} md={6} lg={6}>
+          <Paper elevation={0} sx={{ p: 3, height: "100%", borderRadius: 3, backgroundColor: "primary.main", textAlign: "center" }}>
+            <Typography color={"grey.900"} variant="subtitle1" fontWeight={600}>
+              Locked VTRU Coin Balance
+            </Typography>
+            <Typography color={"grey.900"} variant="h2" fontWeight={700} my={1}>
+              {lockedBalance === null ? "..." : Math.trunc(Number(ethers.formatEther(lockedBalance))).toLocaleString()}
+            </Typography>
+            <a
+              href={`https://explorer.vitruveo.ai/address/${VITRUVEO_VTRU}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ fontFamily: "Courier", color: "#212121", fontSize: "14px", wordBreak: "break-all" }}
+            >
+              {VITRUVEO_VTRU}
+            </a>
+          </Paper>
+        </Grid>
+        <Grid item xs={12} sm={6} md={6} lg={6}>
+          <Paper elevation={0} sx={{ p: 3, height: "100%", borderRadius: 3, backgroundColor: "#FFF9C4", textAlign: "center" }}>
+            <Typography color={"grey.900"} variant="subtitle1" fontWeight={600}>
+              Minted VTRU Token Balance (BSC)
+            </Typography>
+            <Typography color={"grey.900"} variant="h2" fontWeight={700} my={1}>
+              {mintedSupply === null ? "..." : Math.trunc(Number(ethers.formatEther(mintedSupply))).toLocaleString()}
+            </Typography>
+            <a
+              href={`https://bscscan.com/address/${BSC_VTRU}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ fontFamily: "Courier", color: "#212121", fontSize: "14px", wordBreak: "break-all" }}
+            >
+              {BSC_VTRU}
+            </a>
+          </Paper>
+        </Grid>
+      </Grid>
+      <Grid container spacing={3}>
+        <Grid item xs={12}>
+          <Card elevation={0} sx={{ bgcolor: "transparent", backgroundImage: "none" }}>
+            <CardContent sx={{ p: 0, "&:last-child": { pb: 0 } }}>
               {!account ? (
                 <Typography variant="h6" textAlign="center">
                   Please connect your wallet to bridge VTRU
@@ -570,41 +637,60 @@ export default function Bsc() {
               ) : (
                 // ---- Normal bridge form ----
                 <Box>
-                  <Typography variant="body2" color="text.secondary" mb={2}>
-                    Move VTRU between Vitruveo and Binance Smart Chain.
+                  <Typography variant="h4" fontWeight={600} mb={3}>
+                    Move VTRU between Vitruveo and BSC
                   </Typography>
-                  <Box display="flex" flexDirection="column" gap={2}>
-                    <SwapInput
-                      isFrom
-                      max={currentFrom === VITRUVEO ? maxStr(coinBalance) : maxStr(tokenBalance)}
-                      value={amountStr}
-                      setValue={setAmountStr}
-                      tokenSymbol={currentFrom === VITRUVEO ? "VTRU Coin" : "VTRU Token"}
-                      tokenBalance={currentFrom === VITRUVEO ? fmt(coinBalance) : fmt(tokenBalance)}
-                      network={currentFrom === VITRUVEO ? "vitruveo" : "binance"}
-                      disabled={busy}
-                    />
-                    <Box display="flex" justifyContent="center">
+                  <Box display="flex" flexDirection={{ xs: "column", md: "row" }} gap={3} alignItems="stretch">
+                  <Box flex={2} minWidth={0} display="flex" flexDirection="column" gap={3}>
+                  <Box display="flex" flexDirection={{ xs: "column", md: "row" }} gap={3} flex={1}>
+                    <Box flex={1} minWidth={0}>
+                      <SwapInput
+                        isFrom
+                        max={currentFrom === VITRUVEO ? maxStr(coinBalance) : maxStr(tokenBalance)}
+                        value={amountStr}
+                        setValue={setAmountStr}
+                        tokenSymbol={currentFrom === VITRUVEO ? "VTRU Coin" : "VTRU Token"}
+                        tokenBalance={currentFrom === VITRUVEO ? fmt(coinBalance) : fmt(tokenBalance)}
+                        network={currentFrom === VITRUVEO ? "vitruveo" : "binance"}
+                        disabled={busy}
+                      />
+                    </Box>
+                    <Box display="flex" justifyContent="center" alignItems="center">
                       <IconButton
                         onClick={() => setCurrentFrom(currentFrom === VITRUVEO ? "binance" : VITRUVEO)}
                         disabled={busy}
-                        sx={{ border: 1, borderColor: "grey.300" }}
+                        sx={{ border: 1, borderColor: "grey.300", width: 64, height: 64 }}
                       >
-                        <ArrowDownIcon />
+                        <ArrowDownIcon sx={{ fontSize: 40, transform: { xs: "none", md: "rotate(-90deg)" } }} />
                       </IconButton>
                     </Box>
-                    <SwapInput
-                      isFrom={false}
-                      max="0"
-                      value={amountStr}
-                      setValue={setAmountStr}
-                      tokenSymbol={currentFrom === VITRUVEO ? "VTRU Token" : "VTRU Coin"}
-                      tokenBalance={currentFrom === VITRUVEO ? fmt(tokenBalance) : fmt(coinBalance)}
-                      network={currentFrom === VITRUVEO ? "binance" : "vitruveo"}
-                      disabled
-                    />
+                    <Box flex={1} minWidth={0}>
+                      <SwapInput
+                        isFrom={false}
+                        max="0"
+                        value={amountStr}
+                        setValue={setAmountStr}
+                        tokenSymbol={currentFrom === VITRUVEO ? "VTRU Token" : "VTRU Coin"}
+                        tokenBalance={currentFrom === VITRUVEO ? fmt(tokenBalance) : fmt(coinBalance)}
+                        network={currentFrom === VITRUVEO ? "binance" : "vitruveo"}
+                        disabled
+                      />
+                    </Box>
                   </Box>
-                  <Box mt={3} p={2.5} sx={{ borderRadius: 3, bgcolor: "action.hover" }}>
+                  <Box display="flex" justifyContent="center">
+                    <Button
+                      fullWidth
+                      variant="contained"
+                      size="large"
+                      disabled={busy || inputInvalid() || insufficientUsdt || insufficientBnb}
+                      onClick={handleBridge}
+                      sx={{ py: 1.8, borderRadius: 3, fontSize: "1.05rem", fontWeight: 700, textTransform: "none" }}
+                    >
+                      {busy ? status || "Processing…" : "Bridge VTRU"}
+                    </Button>
+                  </Box>
+                  </Box>
+                    <Box flex={1} minWidth={0} p={3} sx={{ borderRadius: 3, bgcolor: "action.hover" }}>
                     {currentFrom === VITRUVEO ? (
                       <>
                         <Box display="flex" alignItems="center" gap={1} mb={1.5}>
@@ -651,20 +737,9 @@ export default function Bsc() {
                     ) : (
                       <Chip size="small" variant="outlined" color="success" label="No fee · BSC → Vitruveo" />
                     )}
+                    </Box>
                   </Box>
 
-                  <Box mt={3}>
-                    <Button
-                      fullWidth
-                      variant="contained"
-                      size="large"
-                      disabled={busy || inputInvalid() || insufficientUsdt || insufficientBnb}
-                      onClick={handleBridge}
-                      sx={{ py: 1.8, borderRadius: 3, fontSize: "1.05rem", fontWeight: 700, textTransform: "none" }}
-                    >
-                      {busy ? status || "Processing…" : "Bridge VTRU"}
-                    </Button>
-                  </Box>
                 </Box>
               )}
 
@@ -685,8 +760,18 @@ export default function Bsc() {
             </CardContent>
           </Card>
         </Grid>
-        <Grid item xs={12} md={3} />
       </Grid>
+
+      <Box mt={3} sx={{ borderRadius: 3, overflow: "hidden", lineHeight: 0 }}>
+        <iframe
+          title="VTRU/USDT PancakeSwap chart"
+          src={`https://www.dextools.io/widget-chart/en/bnb/pe-light/${V3_POOL.toLowerCase()}?theme=dark&chartType=2&chartResolution=30&drawingToolbars=false`}
+          width="100%"
+          height="500"
+          style={{ border: 0 }}
+          allow="clipboard-write"
+        />
+      </Box>
 
       <Snackbar open={toast.open} autoHideDuration={6000} onClose={() => setToast({ ...toast, open: false })}>
         <Alert onClose={() => setToast({ ...toast, open: false })} severity={toast.severity} sx={{ width: "100%" }}>
