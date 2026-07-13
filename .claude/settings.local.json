@@ -7,7 +7,10 @@
       "Bash(curl -sI -A \"Mozilla/5.0 \\(Macintosh; Intel Mac OS X 10_15_7\\) AppleWebKit/537.36\" \"https://www.geckoterminal.com/bsc/pools/0x76d6B57B2bfD62B8b936a6E72904A8FA40bcB5dD?embed=1&info=0&swaps=0\")",
       "Bash(curl -s -A \"Mozilla/5.0 \\(Macintosh; Intel Mac OS X 10_15_7\\) AppleWebKit/537.36 \\(KHTML, like Gecko\\) Chrome/126.0 Safari/537.36\" \"https://www.dextools.io/widgets\" -o /private/tmp/claude-501/-Users-nik-Developer-Vitruveo-vtru-scope/58d6d1f3-4ef9-40ab-a0a0-96c58ad99f0b/scratchpad/widgets.html -w \"%{http_code}\\\\n\")",
       "WebSearch",
-      "WebFetch(domain:github.com)"
+      "WebFetch(domain:github.com)",
+      "Bash(python3 *)",
+      "Bash(git mv *)",
+      "Bash(git rm *)"
     ]
   }
 }

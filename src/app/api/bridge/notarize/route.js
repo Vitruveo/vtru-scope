@@ -13,13 +13,23 @@ const BSC_CHAIN_ID = 56;
 const CHAINS = {
   [VITRUVEO_CHAIN_ID]: {
     rpc: process.env.VITRUVEO_RPC || "https://rpc.vitruveo.ai",
-    vtru: config.mainnet.VTRU,
-    notaryKey: process.env.VITRUVEO_NOTARY_KEY, // NOTARY_ROLE holder on the Vitruveo VTRU
+    notaryKey: process.env.VITRUVEO_NOTARY_KEY, // NOTARY_ROLE holder on the Vitruveo side
   },
   [BSC_CHAIN_ID]: {
     rpc: process.env.BSC_RPC || "https://bsc-dataseed.binance.org",
-    vtru: config.bsc.VTRU,
-    notaryKey: process.env.BSC_NOTARY_KEY, // NOTARY_ROLE holder on the BSC VTRU
+    notaryKey: process.env.BSC_NOTARY_KEY, // NOTARY_ROLE holder on the BSC side
+  },
+};
+
+// Bridgeable tokens. BridgedUSDT is one contract deployed at the same address on both chains.
+const TOKENS = {
+  VTRU: {
+    abi: config.abi.VTRU,
+    address: { [VITRUVEO_CHAIN_ID]: config.mainnet.VTRU, [BSC_CHAIN_ID]: config.bsc.VTRU },
+  },
+  USDT: {
+    abi: config.abi.BridgedUSDT,
+    address: { [VITRUVEO_CHAIN_ID]: config.mainnet.BridgedUSDT, [BSC_CHAIN_ID]: config.bsc.BridgedUSDT },
   },
 };
 
@@ -28,10 +38,15 @@ const DIRECTION = { [VITRUVEO_CHAIN_ID]: 0, [BSC_CHAIN_ID]: 1 };
 
 export async function POST(req) {
   try {
-    const { account, sourceChainId } = await req.json();
+    const { account, sourceChainId, token = "VTRU" } = await req.json();
 
     if (!ethers.isAddress(account)) {
       return NextResponse.json({ error: "Invalid account" }, { status: 400 });
+    }
+
+    const tok = TOKENS[token];
+    if (!tok) {
+      return NextResponse.json({ error: "Unsupported token" }, { status: 400 });
     }
 
     const srcId = Number(sourceChainId);
@@ -51,7 +66,7 @@ export async function POST(req) {
     const srcProvider = new ethers.JsonRpcProvider(src.rpc, srcId);
     const zeroWallet = new ethers.Wallet(src.notaryKey, srcProvider);
     const signWallet = new ethers.Wallet(dest.notaryKey);
-    const srcContract = new ethers.Contract(src.vtru, config.abi.VTRU, zeroWallet);
+    const srcContract = new ethers.Contract(tok.address[srcId], tok.abi, zeroWallet);
 
     const esc = await srcContract.escrow(account);
     const amount = BigInt(esc.amount ?? esc[0]);
@@ -66,7 +81,7 @@ export async function POST(req) {
     const receiptHash = ethers.keccak256(
       ethers.AbiCoder.defaultAbiCoder().encode(
         ["address", "uint256", "uint8", "uint256", "uint256", "address"],
-        [account, amount, direction, blockNumber, destId, dest.vtru]
+        [account, amount, direction, blockNumber, destId, tok.address[destId]]
       )
     );
     const signature = await signWallet.signMessage(ethers.getBytes(receiptHash));
@@ -87,7 +102,7 @@ export async function POST(req) {
       direction,
       blockNumber: blockNumber.toString(),
       destChainId: destId,
-      destContract: dest.vtru,
+      destContract: tok.address[destId],
       signature,
     });
   } catch (e) {

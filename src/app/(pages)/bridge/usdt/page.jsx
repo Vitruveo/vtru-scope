@@ -34,11 +34,10 @@ import { useAccount, useNetwork } from "wagmi";
 const VITRUVEO_CHAIN_ID = 1490;
 const BSC_CHAIN_ID = 56;
 
-const VITRUVEO_VTRU = config.mainnet.VTRU;
-const BSC_VTRU = config.bsc.VTRU;
+// Same contract address on both chains: locks USDT on BSC, mints USDT.b on Vitruveo.
+const BRIDGE = config.mainnet.BridgedUSDT;
 const USDT_BSC = "0x55d398326f99059fF775485246999027B3197955";
-const V3_POOL = "0x76d6B57B2bfD62B8b936a6E72904A8FA40bcB5dD"; // PancakeSwap V3 VTRU/USDT 0.25% pool (matches the contract)
-const VTRU_ABI = config.abi.VTRU;
+const BRIDGE_ABI = config.abi.BridgedUSDT;
 
 const ERC20_ABI = [
   "function balanceOf(address) view returns (uint256)",
@@ -46,13 +45,10 @@ const ERC20_ABI = [
   "function allowance(address,address) view returns (uint256)",
   "function approve(address,uint256) returns (bool)",
 ];
-const V3_POOL_ABI = [
-  "function slot0() view returns (uint160 sqrtPriceX96, int24 tick, uint16, uint16, uint16, uint32, bool)",
-  "function token0() view returns (address)",
-];
-const Q96 = 2n ** 96n;
 
-// Rough gas units to cover the BSC-side USDT approve + claimToken; used to check the
+const V3_POOL = "0x76d6B57B2bfD62B8b936a6E72904A8FA40bcB5dD"; // PancakeSwap V3 VTRU/USDT 0.25% pool
+
+// Rough gas units to cover the BSC-side approve + lock/claim; used to check the
 // user holds enough BNB for gas. Priced at the live BSC gas price.
 const BRIDGE_GAS_ESTIMATE = 300000n;
 
@@ -141,25 +137,25 @@ const SwapInput = ({ isFrom, max, value, setValue, tokenSymbol, tokenBalance, ne
   </Paper>
 );
 
-export default function Bsc() {
+export default function Usdt() {
   const VITRUVEO = "vitruveo";
+  const BINANCE = "binance";
 
-  const [currentFrom, setCurrentFrom] = useState(VITRUVEO);
+  // Primary flow is USDT (BSC) -> USDT.b (Vitruveo).
+  const [currentFrom, setCurrentFrom] = useState(BINANCE);
   const [amountStr, setAmountStr] = useState("");
   const [busy, setBusy] = useState(false);
   const [status, setStatus] = useState("");
 
-  const [coinBalance, setCoinBalance] = useState(0n);
-  const [tokenBalance, setTokenBalance] = useState(0n);
-  const [usdtBalance, setUsdtBalance] = useState(0n);
+  const [usdtBalance, setUsdtBalance] = useState(0n); // USDT on BSC
+  const [usdtbBalance, setUsdtbBalance] = useState(0n); // USDT.b on Vitruveo
   const [bnbBalance, setBnbBalance] = useState(0n);
   const [requiredBnb, setRequiredBnb] = useState(0n); // estimated BNB needed for BSC-side gas
-  const [fee, setFee] = useState(null); // { feeVtru, feeUsdt, maxFeeUsdt } for the forward direction
+  const [fee, setFee] = useState(null); // { feeUsdt, receive } for the BSC -> Vitruveo direction
 
   // Detected in-flight state
   const [pending, setPending] = useState(null); // { sourceChainId, amount, blockNumber } — locked/burned, not yet notarized
   const [receipt, setReceipt] = useState(null); // notarized receipt awaiting claim
-  const [claimFee, setClaimFee] = useState(null); // { feeVtru, feeUsdt } for the receipt being finished
 
   const [error, setError] = useState("");
 
@@ -176,7 +172,7 @@ export default function Bsc() {
   const { address: account } = useAccount();
   const { chain } = useNetwork();
 
-  const receiptKey = (a) => `vtru-bridge-receipt-${(a || "").toLowerCase()}`;
+  const receiptKey = (a) => `usdt-bridge-receipt-${(a || "").toLowerCase()}`;
   const loadReceipt = (a) => {
     try {
       const raw = localStorage.getItem(receiptKey(a));
@@ -191,24 +187,22 @@ export default function Bsc() {
   // Balances + in-flight detection (read-only, both chains)
   async function refresh() {
     if (!account) {
-      setCoinBalance(0n);
-      setTokenBalance(0n);
+      setUsdtBalance(0n);
+      setUsdtbBalance(0n);
       setPending(null);
       setReceipt(null);
       return;
     }
     try {
       // Independent settles so one flaky RPC read can't zero out the others.
-      const [coin, tok, usdt, bnb, feeData] = await Promise.allSettled([
-        vitruveoProvider.getBalance(account),
-        new ethers.Contract(BSC_VTRU, ERC20_ABI, bscProvider).balanceOf(account),
+      const [usdt, usdtb, bnb, feeData] = await Promise.allSettled([
         new ethers.Contract(USDT_BSC, ERC20_ABI, bscProvider).balanceOf(account),
+        new ethers.Contract(BRIDGE, ERC20_ABI, vitruveoProvider).balanceOf(account),
         bscProvider.getBalance(account),
         bscProvider.getFeeData(),
       ]);
-      if (coin.status === "fulfilled") setCoinBalance(coin.value);
-      if (tok.status === "fulfilled") setTokenBalance(tok.value);
       if (usdt.status === "fulfilled") setUsdtBalance(usdt.value);
+      if (usdtb.status === "fulfilled") setUsdtbBalance(usdtb.value);
       if (bnb.status === "fulfilled") setBnbBalance(bnb.value);
       if (feeData.status === "fulfilled") {
         const gasPrice = feeData.value.gasPrice ?? feeData.value.maxFeePerGas ?? 3_000_000_000n;
@@ -224,14 +218,14 @@ export default function Bsc() {
       setReceipt(null);
 
       // No receipt yet — is there a raw escrow (locked/burned but not notarized)?
-      const vtruEscrow = await new ethers.Contract(VITRUVEO_VTRU, VTRU_ABI, vitruveoProvider).escrow(account);
-      if (BigInt(vtruEscrow.amount) > 0n) {
-        setPending({ sourceChainId: VITRUVEO_CHAIN_ID, amount: BigInt(vtruEscrow.amount), blockNumber: BigInt(vtruEscrow.blockNumber) });
-        return;
-      }
-      const bscEscrow = await new ethers.Contract(BSC_VTRU, VTRU_ABI, bscProvider).escrow(account);
+      const bscEscrow = await new ethers.Contract(BRIDGE, BRIDGE_ABI, bscProvider).escrow(account);
       if (BigInt(bscEscrow.amount) > 0n) {
         setPending({ sourceChainId: BSC_CHAIN_ID, amount: BigInt(bscEscrow.amount), blockNumber: BigInt(bscEscrow.blockNumber) });
+        return;
+      }
+      const vtruEscrow = await new ethers.Contract(BRIDGE, BRIDGE_ABI, vitruveoProvider).escrow(account);
+      if (BigInt(vtruEscrow.amount) > 0n) {
+        setPending({ sourceChainId: VITRUVEO_CHAIN_ID, amount: BigInt(vtruEscrow.amount), blockNumber: BigInt(vtruEscrow.blockNumber) });
         return;
       }
       setPending(null);
@@ -249,8 +243,8 @@ export default function Bsc() {
   useEffect(() => {
     async function loadBridgeStats() {
       const [locked, minted] = await Promise.allSettled([
-        vitruveoProvider.getBalance(VITRUVEO_VTRU),
-        new ethers.Contract(BSC_VTRU, ERC20_ABI, bscProvider).totalSupply(),
+        new ethers.Contract(BRIDGE, BRIDGE_ABI, bscProvider).lockedSupply(),
+        new ethers.Contract(BRIDGE, ERC20_ABI, vitruveoProvider).totalSupply(),
       ]);
       if (locked.status === "fulfilled") setLockedBalance(locked.value);
       if (minted.status === "fulfilled") setMintedSupply(minted.value);
@@ -260,11 +254,11 @@ export default function Bsc() {
     return () => clearInterval(id);
   }, []);
 
-  // Recompute the forward-direction (Vitruveo -> BSC) fee when amount/direction changes.
+  // The 1% fee is charged on BSC when bridging USDT to Vitruveo; nothing on the way back.
   useEffect(() => {
     let cancelled = false;
     (async () => {
-      if (currentFrom !== VITRUVEO) {
+      if (currentFrom !== BINANCE) {
         setFee(null);
         return;
       }
@@ -274,8 +268,10 @@ export default function Bsc() {
         return;
       }
       try {
-        const f = await computeForwardFee(ethers.parseEther(String(Math.trunc(n))));
-        if (!cancelled) setFee(f);
+        const amount = ethers.parseEther(String(Math.trunc(n)));
+        const feeBps = BigInt(await new ethers.Contract(BRIDGE, BRIDGE_ABI, bscProvider).feeBps());
+        const feeUsdt = (amount * feeBps) / 10000n;
+        if (!cancelled) setFee({ feeUsdt, receive: amount - feeUsdt });
       } catch {
         if (!cancelled) setFee(null);
       }
@@ -285,37 +281,15 @@ export default function Bsc() {
     };
   }, [amountStr, currentFrom]);
 
-  // Fee for the receipt currently being finished (forward direction only).
-  useEffect(() => {
-    let cancelled = false;
-    (async () => {
-      if (!receipt || Number(receipt.destChainId) !== BSC_CHAIN_ID) {
-        setClaimFee(null);
-        return;
-      }
-      try {
-        const f = await computeForwardFee(BigInt(receipt.amount));
-        if (!cancelled) setClaimFee(f);
-      } catch {
-        if (!cancelled) setClaimFee(null);
-      }
-    })();
-    return () => {
-      cancelled = true;
-    };
-  }, [receipt]);
-
   const sourceChainId = currentFrom === VITRUVEO ? VITRUVEO_CHAIN_ID : BSC_CHAIN_ID;
   const fmt = (v) => parseFloat(ethers.formatEther(v)).toFixed(4);
   const maxStr = (v) => Math.max(0, Math.trunc(Number(ethers.formatEther(v)))).toFixed(0);
-  const fmtUsdt = (v) => parseFloat(ethers.formatUnits(v, 18)).toFixed(4);
-  const insufficientUsdt = currentFrom === VITRUVEO && fee && fee.maxFeeUsdt > 0n && usdtBalance < fee.maxFeeUsdt;
-  // The forward claim runs on BSC and is paid in BNB gas.
-  const insufficientBnb = currentFrom === VITRUVEO && requiredBnb > 0n && bnbBalance < requiredBnb;
+  // Both source actions and the return claim touch BSC, so BNB gas is always required.
+  const insufficientBnb = requiredBnb > 0n && bnbBalance < requiredBnb;
 
   const inputInvalid = () => {
     const n = Number(amountStr);
-    const bal = currentFrom === VITRUVEO ? coinBalance : tokenBalance;
+    const bal = currentFrom === VITRUVEO ? usdtbBalance : usdtBalance;
     return n <= 0 || n > Math.trunc(Number(ethers.formatEther(bal)));
   };
 
@@ -325,7 +299,7 @@ export default function Bsc() {
     const res = await fetch("/api/bridge/notarize", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ account, sourceChainId: srcChainId }),
+      body: JSON.stringify({ account, sourceChainId: srcChainId, token: "USDT" }),
     });
     if (!res.ok) {
       const err = await res.json().catch(() => ({}));
@@ -350,11 +324,22 @@ export default function Bsc() {
       if (getNetwork().chain?.id !== sourceChainId) setStatus(`Switching your wallet to ${srcName}…`);
       const signer = await getSigner(sourceChainId);
 
-      setStatus("Confirm the transfer in your wallet…");
-      const tx =
-        currentFrom === VITRUVEO
-          ? await new ethers.Contract(VITRUVEO_VTRU, VTRU_ABI, signer).lockVTRUCoin({ value: amount })
-          : await new ethers.Contract(BSC_VTRU, VTRU_ABI, signer).burnVTRUToken(amount);
+      let tx;
+      if (currentFrom === VITRUVEO) {
+        setStatus("Confirm the transfer in your wallet…");
+        tx = await new ethers.Contract(BRIDGE, BRIDGE_ABI, signer).burnUSDTToken(amount);
+      } else {
+        // Lock on BSC: the bridge pulls USDT, so it needs an allowance first.
+        const allowance = BigInt(await new ethers.Contract(USDT_BSC, ERC20_ABI, bscProvider).allowance(account, BRIDGE));
+        if (allowance < amount) {
+          setStatus("Approve USDT in your wallet…");
+          const atx = await new ethers.Contract(USDT_BSC, ERC20_ABI, signer).approve(BRIDGE, amount);
+          setStatus("Waiting for confirmation…");
+          await atx.wait();
+        }
+        setStatus("Confirm the transfer in your wallet…");
+        tx = await new ethers.Contract(BRIDGE, BRIDGE_ABI, signer).lockUSDT(amount);
+      }
       setStatus("Waiting for confirmation…");
       await tx.wait();
 
@@ -374,61 +359,22 @@ export default function Bsc() {
     }
   }
 
-  // Compute the USDT fee + a small buffer for a forward (VitruveoToBsc) claim,
-  // priced off the PancakeSwap V3 pool exactly like the contract's _quoteVtruToUsdt.
-  async function computeForwardFee(amount) {
-    const vtru = new ethers.Contract(BSC_VTRU, VTRU_ABI, bscProvider);
-    const feeBps = BigInt(await vtru.feeBps());
-    const feeVtru = (amount * feeBps) / 10000n;
-    if (feeVtru === 0n) return { feeVtru: 0n, feeUsdt: 0n, maxFeeUsdt: 0n };
-
-    const pool = new ethers.Contract(V3_POOL, V3_POOL_ABI, bscProvider);
-    const [slot0, token0] = await Promise.all([pool.slot0(), pool.token0()]);
-    const sp = BigInt(slot0[0]); // sqrtPriceX96
-
-    // Both tokens are 18 decimals. USDT per VTRU = (sqrtP/2^96)^2 when token0 is VTRU, else its inverse.
-    const feeUsdt =
-      token0.toLowerCase() === BSC_VTRU.toLowerCase()
-        ? (feeVtru * sp * sp) / (Q96 * Q96)
-        : (feeVtru * Q96 * Q96) / (sp * sp);
-    const maxFeeUsdt = (feeUsdt * 102n) / 100n; // 2% buffer
-    return { feeVtru, feeUsdt, maxFeeUsdt };
-  }
-
-  // Finish a receipt on its destination chain: switch, approve the fee if any, then claim.
+  // Finish a receipt on its destination chain: switch, then claim.
   // Throws on failure (the receipt stays saved so the user can retry).
   async function finishReceipt(r) {
     const destId = Number(r.destChainId);
-    const destName = destId === BSC_CHAIN_ID ? "BSC" : "Vitruveo";
+    const destName = CHAIN_NAME[destId];
     if (getNetwork().chain?.id !== destId) setStatus(`Switching your wallet to ${destName}…`);
     const signer = await getSigner(destId);
 
-    const amount = BigInt(r.amount);
-    const args = [r.account, amount, Number(r.direction), BigInt(r.blockNumber)];
+    const args = [r.account, BigInt(r.amount), Number(r.direction), BigInt(r.blockNumber), r.signature];
 
-    if (destId === BSC_CHAIN_ID) {
-      // Forward finish: approve the USDT fee (if any), then claimToken.
-      setStatus("Calculating fees…");
-      const { maxFeeUsdt } = await computeForwardFee(amount);
-      if (maxFeeUsdt > 0n) {
-        const allowance = BigInt(await new ethers.Contract(USDT_BSC, ERC20_ABI, bscProvider).allowance(r.account, BSC_VTRU));
-        if (allowance < maxFeeUsdt) {
-          setStatus("Approve the USDT fee in your wallet…");
-          const atx = await new ethers.Contract(USDT_BSC, ERC20_ABI, signer).approve(BSC_VTRU, maxFeeUsdt);
-          setStatus("Waiting for confirmation…");
-          await atx.wait();
-        }
-      }
-      setStatus("Confirm in your wallet…");
-      const tx = await new ethers.Contract(BSC_VTRU, VTRU_ABI, signer).claimToken(...args, maxFeeUsdt, r.signature);
-      setStatus("Waiting for confirmation…");
-      await tx.wait();
-    } else {
-      setStatus("Confirm in your wallet…");
-      const tx = await new ethers.Contract(VITRUVEO_VTRU, VTRU_ABI, signer).claimCoin(...args, r.signature);
-      setStatus("Waiting for confirmation…");
-      await tx.wait();
-    }
+    setStatus("Confirm in your wallet…");
+    const bridge = new ethers.Contract(BRIDGE, BRIDGE_ABI, signer);
+    // Mint USDT.b on Vitruveo; release the locked USDT on BSC. No fee on the claim itself.
+    const tx = destId === VITRUVEO_CHAIN_ID ? await bridge.claimToken(...args) : await bridge.claimUSDT(...args);
+    setStatus("Waiting for confirmation…");
+    await tx.wait();
     clearReceipt(r.account);
   }
 
@@ -461,8 +407,8 @@ export default function Bsc() {
       if (getNetwork().chain?.id !== pending.sourceChainId) setStatus(`Switching your wallet to ${isVitruveo ? "Vitruveo" : "BSC"}…`);
       const signer = await getSigner(pending.sourceChainId);
       setStatus("Confirm the refund in your wallet…");
-      const c = new ethers.Contract(isVitruveo ? VITRUVEO_VTRU : BSC_VTRU, VTRU_ABI, signer);
-      const tx = isVitruveo ? await c.releaseCoinEscrow() : await c.releaseTokenEscrow();
+      const c = new ethers.Contract(BRIDGE, BRIDGE_ABI, signer);
+      const tx = isVitruveo ? await c.releaseTokenEscrow() : await c.releaseLockEscrow();
       setStatus("Waiting for confirmation…");
       await tx.wait();
       setStatus("");
@@ -498,50 +444,52 @@ export default function Bsc() {
 
   const breadcrumb = [
     { to: "/", title: "Home" },
-    { title: "Services" },
     { title: "Bridge" },
+    { title: "USDT" },
   ];
 
   const receiptDestName = receipt ? CHAIN_NAME[Number(receipt.destChainId)] : "";
+  const receiptDestSymbol = receipt ? (Number(receipt.destChainId) === VITRUVEO_CHAIN_ID ? "USDT.b" : "USDT") : "";
   const pendingSourceName = pending ? CHAIN_NAME[pending.sourceChainId] : "";
+  const pendingSourceSymbol = pending ? (pending.sourceChainId === VITRUVEO_CHAIN_ID ? "USDT.b" : "USDT") : "";
 
   return (
-    <PageContainer title="VTRU Bridge" description="Bridge VTRU between Vitruveo and Binance Smart Chain">
-      <Breadcrumb title="VTRU Bridge" items={breadcrumb} />
+    <PageContainer title="USDT Bridge" description="Bridge USDT between BSC and Vitruveo">
+      <Breadcrumb title="USDT Bridge" items={breadcrumb} />
       <Grid container spacing={3}>
         <Grid item xs={12} sm={6} md={6} lg={6}>
-          <Paper elevation={0} sx={{ p: 3, height: "100%", borderRadius: 3, backgroundColor: "primary.main", textAlign: "center" }}>
+          <Paper elevation={0} sx={{ p: 3, height: "100%", borderRadius: 3, backgroundColor: "#FFF9C4", textAlign: "center" }}>
             <Typography color={"grey.900"} variant="subtitle1" fontWeight={600}>
-              Locked VTRU Coin Balance
+              Locked USDT Balance (BSC)
             </Typography>
             <Typography color={"grey.900"} variant="h2" fontWeight={700} my={1}>
               {lockedBalance === null ? "..." : Math.trunc(Number(ethers.formatEther(lockedBalance))).toLocaleString()}
             </Typography>
             <a
-              href={`https://explorer.vitruveo.ai/address/${VITRUVEO_VTRU}`}
+              href={`https://bscscan.com/address/${BRIDGE}`}
               target="_blank"
               rel="noopener noreferrer"
               style={{ fontFamily: "Courier", color: "#212121", fontSize: "14px", wordBreak: "break-all" }}
             >
-              {VITRUVEO_VTRU}
+              {BRIDGE}
             </a>
           </Paper>
         </Grid>
         <Grid item xs={12} sm={6} md={6} lg={6}>
-          <Paper elevation={0} sx={{ p: 3, height: "100%", borderRadius: 3, backgroundColor: "#FFF9C4", textAlign: "center" }}>
+          <Paper elevation={0} sx={{ p: 3, height: "100%", borderRadius: 3, backgroundColor: "primary.main", textAlign: "center" }}>
             <Typography color={"grey.900"} variant="subtitle1" fontWeight={600}>
-              Minted VTRU Token Balance (BSC)
+              Minted USDT.b Balance (Vitruveo)
             </Typography>
             <Typography color={"grey.900"} variant="h2" fontWeight={700} my={1}>
               {mintedSupply === null ? "..." : Math.trunc(Number(ethers.formatEther(mintedSupply))).toLocaleString()}
             </Typography>
             <a
-              href={`https://bscscan.com/address/${BSC_VTRU}`}
+              href={`https://explorer.vitruveo.ai/address/${BRIDGE}`}
               target="_blank"
               rel="noopener noreferrer"
               style={{ fontFamily: "Courier", color: "#212121", fontSize: "14px", wordBreak: "break-all" }}
             >
-              {BSC_VTRU}
+              {BRIDGE}
             </a>
           </Paper>
         </Grid>
@@ -552,7 +500,7 @@ export default function Bsc() {
             <CardContent sx={{ p: 0, "&:last-child": { pb: 0 } }}>
               {!account ? (
                 <Typography variant="h6" textAlign="center">
-                  Please connect your wallet to bridge VTRU
+                  Please connect your wallet to bridge USDT
                 </Typography>
               ) : receipt ? (
                 // ---- Finish step (signed receipt awaiting redemption on the destination) ----
@@ -562,24 +510,17 @@ export default function Bsc() {
                     <Typography variant="h6" fontWeight={700}>Almost done</Typography>
                     <Typography variant="body2" color="text.secondary">
                       {chain?.id === Number(receipt.destChainId)
-                        ? `Receive your VTRU on ${receiptDestName}.`
-                        : `Switch to ${receiptDestName} to receive your VTRU.`}
+                        ? `Receive your ${receiptDestSymbol} on ${receiptDestName}.`
+                        : `Switch to ${receiptDestName} to receive your ${receiptDestSymbol}.`}
                     </Typography>
                   </Box>
 
                   <Box>
                     <Typography variant="h3" fontWeight={800} lineHeight={1}>
-                      {fmt(BigInt(receipt.amount) - (claimFee ? claimFee.feeVtru : 0n))}
+                      {fmt(BigInt(receipt.amount))}
                     </Typography>
-                    <Typography variant="overline" color="text.secondary">VTRU you receive</Typography>
+                    <Typography variant="overline" color="text.secondary">{receiptDestSymbol} you receive</Typography>
                   </Box>
-
-                  {Number(receipt.destChainId) === BSC_CHAIN_ID && claimFee && claimFee.feeVtru > 0n && (
-                    <Stack direction="row" spacing={1} justifyContent="center" flexWrap="wrap" useFlexGap>
-                      <Chip size="small" variant="outlined" label={`Fee ${fmt(claimFee.feeVtru)} VTRU`} />
-                      <Chip size="small" variant="outlined" label={`+ ~${fmtUsdt(claimFee.feeUsdt)} USDT`} />
-                    </Stack>
-                  )}
 
                   <Button
                     fullWidth
@@ -607,7 +548,7 @@ export default function Bsc() {
                   <Box>
                     <Typography variant="h6" fontWeight={700}>Unfinished transfer</Typography>
                     <Typography variant="body2" color="text.secondary">
-                      {parseFloat(ethers.formatEther(pending.amount)).toFixed(0)} VTRU is in progress on {pendingSourceName}.
+                      {parseFloat(ethers.formatEther(pending.amount)).toFixed(0)} {pendingSourceSymbol} is in progress on {pendingSourceName}.
                     </Typography>
                   </Box>
                   <Stack direction="row" spacing={2}>
@@ -638,7 +579,7 @@ export default function Bsc() {
                 // ---- Normal bridge form ----
                 <Box>
                   <Typography variant="h4" fontWeight={600} mb={3}>
-                    Move VTRU between Vitruveo and BSC
+                    Move USDT between BSC and Vitruveo
                   </Typography>
                   <Box display="flex" flexDirection={{ xs: "column", md: "row" }} gap={3} alignItems="stretch">
                   <Box flex={2} minWidth={0} display="flex" flexDirection="column" gap={3}>
@@ -646,18 +587,18 @@ export default function Bsc() {
                     <Box flex={1} minWidth={0}>
                       <SwapInput
                         isFrom
-                        max={currentFrom === VITRUVEO ? maxStr(coinBalance) : maxStr(tokenBalance)}
+                        max={currentFrom === VITRUVEO ? maxStr(usdtbBalance) : maxStr(usdtBalance)}
                         value={amountStr}
                         setValue={setAmountStr}
-                        tokenSymbol={currentFrom === VITRUVEO ? "VTRU Coin" : "VTRU Token"}
-                        tokenBalance={currentFrom === VITRUVEO ? fmt(coinBalance) : fmt(tokenBalance)}
+                        tokenSymbol={currentFrom === VITRUVEO ? "USDT.b" : "USDT"}
+                        tokenBalance={currentFrom === VITRUVEO ? fmt(usdtbBalance) : fmt(usdtBalance)}
                         network={currentFrom === VITRUVEO ? "vitruveo" : "binance"}
                         disabled={busy}
                       />
                     </Box>
                     <Box display="flex" justifyContent="center" alignItems="center">
                       <IconButton
-                        onClick={() => setCurrentFrom(currentFrom === VITRUVEO ? "binance" : VITRUVEO)}
+                        onClick={() => setCurrentFrom(currentFrom === VITRUVEO ? BINANCE : VITRUVEO)}
                         disabled={busy}
                         sx={{ border: 1, borderColor: "grey.300", width: 64, height: 64 }}
                       >
@@ -670,8 +611,8 @@ export default function Bsc() {
                         max="0"
                         value={amountStr}
                         setValue={setAmountStr}
-                        tokenSymbol={currentFrom === VITRUVEO ? "VTRU Token" : "VTRU Coin"}
-                        tokenBalance={currentFrom === VITRUVEO ? fmt(tokenBalance) : fmt(coinBalance)}
+                        tokenSymbol={currentFrom === VITRUVEO ? "USDT" : "USDT.b"}
+                        tokenBalance={currentFrom === VITRUVEO ? fmt(usdtBalance) : fmt(usdtbBalance)}
                         network={currentFrom === VITRUVEO ? "binance" : "vitruveo"}
                         disabled
                       />
@@ -682,60 +623,46 @@ export default function Bsc() {
                       fullWidth
                       variant="contained"
                       size="large"
-                      disabled={busy || inputInvalid() || insufficientUsdt || insufficientBnb}
+                      disabled={busy || inputInvalid() || insufficientBnb}
                       onClick={handleBridge}
                       sx={{ py: 1.8, borderRadius: 3, fontSize: "1.05rem", fontWeight: 700, textTransform: "none" }}
                     >
-                      {busy ? status || "Processing…" : "Bridge VTRU"}
+                      {busy ? status || "Processing…" : "Bridge USDT"}
                     </Button>
                   </Box>
                   </Box>
                     <Box flex={1} minWidth={0} p={3} sx={{ borderRadius: 3, bgcolor: "action.hover" }}>
-                    {currentFrom === VITRUVEO ? (
+                    {currentFrom === BINANCE ? (
                       <>
                         <Box display="flex" alignItems="center" gap={1} mb={1.5}>
                           <Typography variant="subtitle2" fontWeight={700}>Bridge fee</Typography>
-                          <Chip label="2%" size="small" color="primary" sx={{ fontWeight: 700 }} />
+                          <Chip label="1%" size="small" color="primary" sx={{ fontWeight: 700 }} />
                         </Box>
                         <Stack direction="row" spacing={1} mb={1.5} flexWrap="wrap" useFlexGap>
-                          <Chip size="small" variant="outlined" label={fee ? `1% VTRU · ${fmt(fee.feeVtru)}` : "1% VTRU"} />
-                          <Chip size="small" variant="outlined" label={fee ? `1% USDT · ~${fmtUsdt(fee.feeUsdt)}` : "1% USDT"} />
+                          <Chip size="small" variant="outlined" label={fee ? `Fee ${fmt(fee.feeUsdt)} USDT` : "1% USDT"} />
+                          {fee && <Chip size="small" variant="outlined" label={`You receive ~${fmt(fee.receive)} USDT.b`} />}
                         </Stack>
                         <Typography variant="caption" color="text.secondary" display="block">
-                          Seeds permanent VTRU/USDT liquidity on PancakeSwap (position burned).
+                          Charged on BSC when bridging USDT to Vitruveo.
                         </Typography>
-                        <Divider sx={{ my: 1.5 }} />
-                        <Box display="flex" justifyContent="space-between" alignItems="center">
-                          <Typography variant="body2" color="text.secondary">Your BSC USDT</Typography>
-                          <Chip
-                            size="small"
-                            variant="outlined"
-                            color={insufficientUsdt ? "error" : "default"}
-                            label={`${fmtUsdt(usdtBalance)} USDT`}
-                          />
-                        </Box>
-                        {insufficientUsdt && (
-                          <Alert severity="warning" sx={{ mt: 1.5 }}>
-                            You need ~{fmtUsdt(fee.feeUsdt)} USDT on BSC (you hold {fmtUsdt(usdtBalance)}). Add USDT, then try again.
-                          </Alert>
-                        )}
-                        <Box display="flex" justifyContent="space-between" alignItems="center" mt={1}>
-                          <Typography variant="body2" color="text.secondary">Your BSC BNB (gas)</Typography>
-                          <Chip
-                            size="small"
-                            variant="outlined"
-                            color={insufficientBnb ? "error" : "default"}
-                            label={`${fmt(bnbBalance)} BNB`}
-                          />
-                        </Box>
-                        {insufficientBnb && (
-                          <Alert severity="warning" sx={{ mt: 1.5 }}>
-                            You need ~{fmt(requiredBnb)} BNB on BSC for gas (you hold {fmt(bnbBalance)}). Add BNB, then try again.
-                          </Alert>
-                        )}
                       </>
                     ) : (
-                      <Chip size="small" variant="outlined" color="success" label="No fee · BSC → Vitruveo" />
+                      <Chip size="small" variant="outlined" color="success" label="No fee · Vitruveo → BSC" />
+                    )}
+                    <Divider sx={{ my: 1.5 }} />
+                    <Box display="flex" justifyContent="space-between" alignItems="center">
+                      <Typography variant="body2" color="text.secondary">Your BSC BNB (gas)</Typography>
+                      <Chip
+                        size="small"
+                        variant="outlined"
+                        color={insufficientBnb ? "error" : "default"}
+                        label={`${fmt(bnbBalance)} BNB`}
+                      />
+                    </Box>
+                    {insufficientBnb && (
+                      <Alert severity="warning" sx={{ mt: 1.5 }}>
+                        You need ~{fmt(requiredBnb)} BNB on BSC for gas (you hold {fmt(bnbBalance)}). Add BNB, then try again.
+                      </Alert>
                     )}
                     </Box>
                   </Box>
@@ -782,4 +709,4 @@ export default function Bsc() {
   );
 }
 
-Bsc.layout = "Blank";
+Usdt.layout = "Blank";

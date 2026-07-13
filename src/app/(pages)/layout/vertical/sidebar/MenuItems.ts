@@ -39,6 +39,7 @@ import {
   IconGraph,
   IconCoinFilled,
   IconBuildingBridge,
+  IconCurrencyDollar,
 } from "@tabler/icons-react";
 
 const Menuitems: MenuitemsType[] = [
@@ -78,7 +79,14 @@ const Menuitems: MenuitemsType[] = [
     id: uniqueId(),
     title: "VTRU Bridge",
     icon: IconBuildingBridge,
-    href: "/services/bridge/bsc",
+    href: "/bridge/vtru",
+    chipColor: "secondary",
+  },
+  {
+    id: uniqueId(),
+    title: "USDT Bridge",
+    icon: IconCurrencyDollar,
+    href: "/bridge/usdt",
     chipColor: "secondary",
   },
   {

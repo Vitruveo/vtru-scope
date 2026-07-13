@@ -99,7 +99,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
   React.useEffect(() => setMounted(true), []);
 
   const pathname = usePathname();
-  const includeBsc = !!pathname && pathname.startsWith('/services/bridge');
+  const includeBsc = !!pathname && pathname.startsWith('/bridge');
   const { wagmiConfig, chains } = React.useMemo(() => buildWagmi(includeBsc), [includeBsc]);
 
   return (
