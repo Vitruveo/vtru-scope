@@ -485,6 +485,77 @@ export default function VNS() {
   const formatVTRU = (value) =>
     value == null ? "—" : parseFloat(ethers.formatEther(value)).toLocaleString(undefined, { maximumFractionDigits: 4 });
 
+  // Sending only resolves a name and transfers VTRU, so it works without any registration.
+  const sendSection = (
+    <Box>
+      <Typography fontWeight={800} sx={{ fontSize: "2rem", mb: 2 }}>
+        VNS Send
+      </Typography>
+      <Typography color="text.secondary" sx={{ fontSize: "1.2rem", mb: 2 }}>
+        Send VTRU to a VNS name. The name is resolved to its address.
+      </Typography>
+      <Box display="flex" gap={2} flexWrap="wrap" alignItems="flex-start">
+        <TextField
+          label="VNS name"
+          value={sendName}
+          onChange={(e) => {
+            setSendName(e.target.value.toLowerCase().replace(/[^a-z0-9_]/g, ""));
+            setSendError(null);
+            setSendSuccess(null);
+          }}
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <Box component="span" sx={{ fontSize: "1.6rem", fontWeight: 700, color: "text.secondary" }}>@</Box>
+              </InputAdornment>
+            ),
+            sx: { fontSize: "1.6rem" },
+          }}
+          InputLabelProps={{ sx: { fontSize: "1.2rem" } }}
+          sx={{ flex: "2 1 260px" }}
+        />
+        <TextField
+          label="Amount (VTRU)"
+          type="number"
+          value={sendAmount}
+          onChange={(e) => {
+            setSendAmount(e.target.value);
+            setSendError(null);
+            setSendSuccess(null);
+          }}
+          InputProps={{ sx: { fontSize: "1.6rem" } }}
+          InputLabelProps={{ sx: { fontSize: "1.2rem" } }}
+          sx={{ flex: "1 1 160px" }}
+        />
+        <Button
+          variant="contained"
+          size="large"
+          disabled={sending || !sendName || !sendAmount}
+          onClick={handleSend}
+          sx={{ py: 1.9, px: 4, borderRadius: 3, fontWeight: 700, fontSize: "1.2rem", textTransform: "none" }}
+        >
+          {sending ? "Sending…" : "Send"}
+        </Button>
+      </Box>
+      {sending && sendStatus && (
+        <Box mt={2} display="flex" alignItems="center" gap={1.5}>
+          <CircularProgress size={18} />
+          <Typography color="text.secondary" sx={{ fontSize: "1.1rem" }}>{sendStatus}</Typography>
+        </Box>
+      )}
+      {sendSuccess && (
+        <Alert severity="success" onClose={() => setSendSuccess(null)} sx={{ mt: 2, fontSize: "1.1rem", wordBreak: "break-word" }}>
+          Sent {sendSuccess.amount} VTRU to @{sendSuccess.name} ({sendSuccess.to}).
+        </Alert>
+      )}
+      {sendError && (
+        <Alert severity="error" onClose={() => setSendError(null)} sx={{ mt: 2, fontSize: "1.1rem", wordBreak: "break-word" }}>
+          {sendError}
+        </Alert>
+      )}
+    </Box>
+  );
+
   return (
     <PageContainer title="Vitruveo Naming Service" description="Vitruveo Naming Service">
       <Breadcrumb title="Vitruveo Naming Service (VNS)" items={breadcrumb} />
@@ -531,73 +602,7 @@ export default function VNS() {
                 // ---- List of the account's names ----
                 <Stack spacing={4}>
                   {/* ---- VNS Send ---- */}
-                  <Box>
-                    <Typography fontWeight={800} sx={{ fontSize: "2rem", mb: 2 }}>
-                      VNS Send
-                    </Typography>
-                    <Typography color="text.secondary" sx={{ fontSize: "1.2rem", mb: 2 }}>
-                      Send VTRU to a VNS name. The name is resolved to its address.
-                    </Typography>
-                    <Box display="flex" gap={2} flexWrap="wrap" alignItems="flex-start">
-                      <TextField
-                        label="VNS name"
-                        value={sendName}
-                        onChange={(e) => {
-                          setSendName(e.target.value.toLowerCase().replace(/[^a-z0-9_]/g, ""));
-                          setSendError(null);
-                          setSendSuccess(null);
-                        }}
-                        InputProps={{
-                          startAdornment: (
-                            <InputAdornment position="start">
-                              <Box component="span" sx={{ fontSize: "1.6rem", fontWeight: 700, color: "text.secondary" }}>@</Box>
-                            </InputAdornment>
-                          ),
-                          sx: { fontSize: "1.6rem" },
-                        }}
-                        InputLabelProps={{ sx: { fontSize: "1.2rem" } }}
-                        sx={{ flex: "2 1 260px" }}
-                      />
-                      <TextField
-                        label="Amount (VTRU)"
-                        type="number"
-                        value={sendAmount}
-                        onChange={(e) => {
-                          setSendAmount(e.target.value);
-                          setSendError(null);
-                          setSendSuccess(null);
-                        }}
-                        InputProps={{ sx: { fontSize: "1.6rem" } }}
-                        InputLabelProps={{ sx: { fontSize: "1.2rem" } }}
-                        sx={{ flex: "1 1 160px" }}
-                      />
-                      <Button
-                        variant="contained"
-                        size="large"
-                        disabled={sending || !sendName || !sendAmount}
-                        onClick={handleSend}
-                        sx={{ py: 1.9, px: 4, borderRadius: 3, fontWeight: 700, fontSize: "1.2rem", textTransform: "none" }}
-                      >
-                        {sending ? "Sending…" : "Send"}
-                      </Button>
-                    </Box>
-                    {sending && sendStatus && (
-                      <Box mt={2} display="flex" alignItems="center" gap={1.5}>
-                        <CircularProgress size={18} />
-                        <Typography color="text.secondary" sx={{ fontSize: "1.1rem" }}>{sendStatus}</Typography>
-                      </Box>
-                    )}
-                    {sendSuccess && (
-                      <Alert severity="success" onClose={() => setSendSuccess(null)} sx={{ mt: 2, fontSize: "1.1rem", wordBreak: "break-word" }}>
-                        Sent {sendSuccess.amount} VTRU to @{sendSuccess.name} ({sendSuccess.to}).
-                      </Alert>
-                    )}
-                    {sendError && (
-                      <Alert severity="error" onClose={() => setSendError(null)} sx={{ mt: 2, fontSize: "1.1rem", wordBreak: "break-word" }}>
-                        {sendError}
-                      </Alert>
-                    )}
-                  </Box>
+                  {sendSection}
 
                   <Divider />
 
@@ -760,10 +765,19 @@ contract Example {
               ) : (
                 // ---- Registration form ----
                 <>
+                  {sendSection}
+
+                  <Divider sx={{ my: 4 }} />
+
                   <Box display="flex" justifyContent="space-between" alignItems="center" mb={3} flexWrap="wrap" gap={1}>
-                    <Typography color="text.secondary" sx={{ fontSize: "1.4rem" }}>
-                      Register a name on the Vitruveo Naming Service (VNS).
-                    </Typography>
+                    <Box>
+                      <Typography fontWeight={800} sx={{ fontSize: "2rem", mb: 2 }}>
+                        VNS Register
+                      </Typography>
+                      <Typography color="text.secondary" sx={{ fontSize: "1.2rem" }}>
+                        Register a name on the Vitruveo Naming Service (VNS).
+                      </Typography>
+                    </Box>
                     {hasRegistrations && (
                       <Button onClick={goToList} sx={{ textTransform: "none", fontSize: "1.15rem" }}>
                         ← My names
