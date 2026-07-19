@@ -193,7 +193,7 @@ export default function Legacy () {
             {hasVip ? (
             <Box sx={{ p: 4, borderBottom: "1px solid rgba(255,255,255,0.08)" }}>
               <Typography sx={{ fontSize: "34px", fontWeight: 800, color: "#fff", mb: 1.5, textAlign: "center" }}>
-                VIP Token {vipTokenId}
+                VIP Token #{vipTokenId}
               </Typography>
               <style>{`@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&display=swap');`}</style>
               <Box sx={{ textAlign: "center", color: "#fff", mt: 5 }}>
