@@ -189,8 +189,9 @@ export default function Legacy () {
               border: "1px solid rgba(255,255,255,0.08)",
             }}
           >
-            {/* Section 1: VIP details when held, otherwise Migrate Legacy Tokens */}
-            {hasVip ? (
+            {/* Section 1: VIP details when held. The burn section stays visible either way,
+                since the contract burns at most 100 tokens per transaction. */}
+            {hasVip && (
             <Box sx={{ p: 4, borderBottom: "1px solid rgba(255,255,255,0.08)" }}>
               <Typography sx={{ fontSize: "34px", fontWeight: 800, color: "#fff", mb: 1.5, textAlign: "center" }}>
                 VIP Token #{vipTokenId}
@@ -207,7 +208,7 @@ export default function Legacy () {
                 </Typography>
               </Box>
             </Box>
-            ) : (
+            )}
             <Box sx={{ p: 4, borderBottom: "1px solid rgba(255,255,255,0.08)" }}>
               <Typography sx={{ fontSize: "22px", fontWeight: 800, color: "#fff", mb: 1.5 }}>
                 Migrate Legacy Tokens
@@ -239,7 +240,7 @@ export default function Legacy () {
                 </TableBody>
               </Table>
               <Typography sx={{ color: "#fff", fontWeight: 700, lineHeight: 1.6, mb: 3 }}>
-                THIS ACTION IS NOT REVERSIBLE. YOUR LEGACY TOKENS WILL BE BURNT
+                THIS ACTION IS NOT REVERSIBLE. YOUR LEGACY TOKENS WILL BE BURNT 100 AT A TIME. BURN MULTIPLE TIMES TO BURN THEM ALL.
               </Typography>
               <Box sx={{ display: "flex", justifyContent: "center" }}>
                 <Button variant="contained" color="error" sx={{ width: 240 }} onClick={handleBurn}>
@@ -252,7 +253,6 @@ export default function Legacy () {
                 </Typography>
               )}
             </Box>
-            )}
 
             {/* Section 2: Claim Validator Rewards */}
             <Box sx={{ p: 4 }}>
