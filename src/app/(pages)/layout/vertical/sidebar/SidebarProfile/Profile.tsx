@@ -27,7 +27,7 @@ export const Profile = () => {
           </Box>
           <p style={{textAlign: "center"}}>
               Powered by<br />
-              <a href="https://www.verticalfnd.com" target="_new"><img src="/images/vertical-foundation-logo.png" style={{width: "90%"}}/></a>
+              <a href="https://www.verticalfoundation.net" target="_new"><img src="/images/vertical-foundation-logo.png" style={{width: "90%"}}/></a>
           </p>
 
         </>
