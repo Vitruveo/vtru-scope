@@ -84,6 +84,11 @@ export default function Multisig() {
   const [account, setAccount] = useState(null);
   const [blockNumber, setBlockNumber] = useState(0);
   const [processing, setProcessing] = useState(false);
+  const [isLocalhost, setIsLocalhost] = useState(false);
+
+  useEffect(() => {
+    setIsLocalhost(window.location.hostname === 'localhost');
+  }, []);
 
   // Wallet lists
   const [userWallets, setUserWallets] = useState([]);
@@ -1241,7 +1246,7 @@ export default function Multisig() {
                   />
                 }
                 label="Public"
-                sx={{ whiteSpace: 'nowrap', display : 'none'}}
+                sx={{ whiteSpace: 'nowrap', display: isLocalhost ? undefined : 'none' }}
               />
             </Stack>
 
