@@ -243,7 +243,7 @@ export default function Legacy () {
                 THIS ACTION IS NOT REVERSIBLE. YOUR LEGACY TOKENS WILL BE BURNT 100 AT A TIME. BURN MULTIPLE TIMES TO BURN THEM ALL.
               </Typography>
               <Box sx={{ display: "flex", justifyContent: "center" }}>
-                <Button variant="contained" color="error" sx={{ width: 240 }} onClick={handleBurn}>
+                <Button variant="contained" color="error" sx={{ width: 240 }} disabled onClick={handleBurn}>
                   🔥 Burn Legacy Tokens 🔥
                 </Button>
               </Box>
@@ -263,7 +263,7 @@ export default function Legacy () {
                 Clicking Claim will deliver Legacy Validator rewards to your account.
               </Typography>
               <Box sx={{ display: "flex", justifyContent: "center" }}>
-                <Button variant="contained" color="primary" sx={{ width: 240 }} disabled={!isValidator || claimed} onClick={handleClaim}>
+                <Button variant="contained" color="primary" sx={{ width: 240 }} disabled onClick={handleClaim}>
                   {claimed ? "Claimed" : "Claim"}
                 </Button>
               </Box>
