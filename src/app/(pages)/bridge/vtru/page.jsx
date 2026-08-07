@@ -307,6 +307,8 @@ export default function Bsc() {
 
   const sourceChainId = currentFrom === VITRUVEO ? VITRUVEO_CHAIN_ID : BSC_CHAIN_ID;
   const fmt = (v) => parseFloat(ethers.formatEther(v)).toFixed(4);
+  // BNB amounts are small enough that 4 decimals rounds the gas figures to nothing.
+  const fmtGas = (v) => parseFloat(ethers.formatEther(v)).toFixed(5);
   const maxStr = (v) => Math.max(0, Math.trunc(Number(ethers.formatEther(v)))).toFixed(0);
   const fmtUsdt = (v) => parseFloat(ethers.formatUnits(v, 18)).toFixed(4);
   const insufficientUsdt = currentFrom === VITRUVEO && fee && fee.maxFeeUsdt > 0n && usdtBalance < fee.maxFeeUsdt;
@@ -725,12 +727,12 @@ export default function Bsc() {
                             size="small"
                             variant="outlined"
                             color={insufficientBnb ? "error" : "default"}
-                            label={`${fmt(bnbBalance)} BNB`}
+                            label={`${fmtGas(bnbBalance)} BNB`}
                           />
                         </Box>
                         {insufficientBnb && (
                           <Alert severity="warning" sx={{ mt: 1.5 }}>
-                            You need ~{fmt(requiredBnb)} BNB on BSC for gas (you hold {fmt(bnbBalance)}). Add BNB, then try again.
+                            You need ~{fmtGas(requiredBnb)} BNB on BSC for gas (you hold {fmtGas(bnbBalance)}). Add BNB, then try again.
                           </Alert>
                         )}
                       </>

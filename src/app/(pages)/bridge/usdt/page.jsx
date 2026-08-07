@@ -283,6 +283,8 @@ export default function Usdt() {
 
   const sourceChainId = currentFrom === VITRUVEO ? VITRUVEO_CHAIN_ID : BSC_CHAIN_ID;
   const fmt = (v) => parseFloat(ethers.formatEther(v)).toFixed(4);
+  // BNB amounts are small enough that 4 decimals rounds the gas figures to nothing.
+  const fmtGas = (v) => parseFloat(ethers.formatEther(v)).toFixed(5);
   const maxStr = (v) => Math.max(0, Math.trunc(Number(ethers.formatEther(v)))).toFixed(0);
   // Both source actions and the return claim touch BSC, so BNB gas is always required.
   const insufficientBnb = requiredBnb > 0n && bnbBalance < requiredBnb;
@@ -656,12 +658,12 @@ export default function Usdt() {
                         size="small"
                         variant="outlined"
                         color={insufficientBnb ? "error" : "default"}
-                        label={`${fmt(bnbBalance)} BNB`}
+                        label={`${fmtGas(bnbBalance)} BNB`}
                       />
                     </Box>
                     {insufficientBnb && (
                       <Alert severity="warning" sx={{ mt: 1.5 }}>
-                        You need ~{fmt(requiredBnb)} BNB on BSC for gas (you hold {fmt(bnbBalance)}). Add BNB, then try again.
+                        You need ~{fmtGas(requiredBnb)} BNB on BSC for gas (you hold {fmtGas(bnbBalance)}). Add BNB, then try again.
                       </Alert>
                     )}
                     </Box>

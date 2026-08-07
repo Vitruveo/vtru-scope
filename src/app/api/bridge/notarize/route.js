@@ -36,6 +36,10 @@ const TOKENS = {
 // Direction enum in the contract: 0 = VitruveoToBsc, 1 = BscToVitruveo
 const DIRECTION = { [VITRUVEO_CHAIN_ID]: 0, [BSC_CHAIN_ID]: 1 };
 
+// Gas units the destination claim tx needs; the notary fronts this much native gas
+// to wallets that hold none, priced at the live gas price.
+const CLAIM_GAS_ESTIMATE = 300000n;
+
 export async function POST(req) {
   try {
     const { account, sourceChainId, token = "VTRU" } = await req.json();
@@ -73,6 +77,24 @@ export async function POST(req) {
     const blockNumber = BigInt(esc.blockNumber ?? esc[1]);
     if (amount === 0n) {
       return NextResponse.json({ error: "No pending escrow" }, { status: 404 });
+    }
+
+    // Bridging into Vitruveo: a fresh wallet holds no VTRU and cannot pay gas for the
+    // claim tx, so front it some gas before handing back the receipt. Done before the
+    // escrow is zeroed so a failed top-up leaves the transfer cancellable.
+    if (destId === VITRUVEO_CHAIN_ID) {
+      const destProvider = new ethers.JsonRpcProvider(dest.rpc, destId);
+      const balance = await destProvider.getBalance(account);
+      if (balance === 0n) {
+        const feeData = await destProvider.getFeeData();
+        const gasPrice = feeData.gasPrice ?? feeData.maxFeePerGas;
+        if (!gasPrice) throw new Error("Cannot determine destination gas price");
+        const gasTx = await signWallet.connect(destProvider).sendTransaction({
+          to: account,
+          value: gasPrice * CLAIM_GAS_ESTIMATE,
+        });
+        await gasTx.wait();
+      }
     }
 
     const direction = DIRECTION[srcId];
