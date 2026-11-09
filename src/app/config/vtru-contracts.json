@@ -16,7 +16,8 @@
     "VTROStake": "0x27436fccC5b1B3Ff50Bd74c413a9DCfEd4bA2d0b",
     "VTRU": "0x931AC5400ba4BD2d882Ef6Bc3C5714113f2a4d29",
     "VTRUBridged": "",
-    "VUSD": "0x1D607d8c617A09c638309bE2Ceb9b4afF42236dA",
+    "VUSD": "0xA173E3B4e3cDEBa92C789F1E764A05f0Be4a6652",
+    "VUSD1": "0x1D607d8c617A09c638309bE2Ceb9b4afF42236dA",
     "wVTRU": "0x3ccc3F22462cAe34766820894D04a40381201ef9",
     "BoosterPerks": "0x8A66d12De0276Eb6eF9dd493038531b00E9B9B4b",
     "VNSRegistry": "0x620B13591d9705BBCB5BaC2f89536e0716b025a4",
@@ -5261,6 +5262,70 @@
       {
         "type": "event",
         "anonymous": false,
+        "name": "AdminChanged",
+        "inputs": [
+          {
+            "type": "address",
+            "name": "previousAdmin",
+            "indexed": false
+          },
+          {
+            "type": "address",
+            "name": "newAdmin",
+            "indexed": false
+          }
+        ]
+      },
+      {
+        "type": "event",
+        "anonymous": false,
+        "name": "AllowlistAdded",
+        "inputs": [
+          {
+            "type": "address",
+            "name": "account",
+            "indexed": true
+          }
+        ]
+      },
+      {
+        "type": "event",
+        "anonymous": false,
+        "name": "AllowlistRemoved",
+        "inputs": [
+          {
+            "type": "address",
+            "name": "account",
+            "indexed": true
+          }
+        ]
+      },
+      {
+        "type": "event",
+        "anonymous": false,
+        "name": "AllowlistResolverSet",
+        "inputs": [
+          {
+            "type": "address",
+            "name": "resolver",
+            "indexed": true
+          }
+        ]
+      },
+      {
+        "type": "event",
+        "anonymous": false,
+        "name": "AllowlistSet",
+        "inputs": [
+          {
+            "type": "address[]",
+            "name": "accounts"
+          }
+        ]
+      },
+      {
+        "type": "event",
+        "anonymous": false,
         "name": "Approval",
         "inputs": [
           {
@@ -5283,12 +5348,103 @@
       {
         "type": "event",
         "anonymous": false,
+        "name": "BeaconUpgraded",
+        "inputs": [
+          {
+            "type": "address",
+            "name": "beacon",
+            "indexed": true
+          }
+        ]
+      },
+      {
+        "type": "event",
+        "anonymous": false,
+        "name": "Deposited",
+        "inputs": [
+          {
+            "type": "address",
+            "name": "payer",
+            "indexed": true
+          },
+          {
+            "type": "address",
+            "name": "recipient",
+            "indexed": true
+          },
+          {
+            "type": "uint256",
+            "name": "usdtIn",
+            "indexed": false
+          },
+          {
+            "type": "uint256",
+            "name": "vusdOut",
+            "indexed": false
+          },
+          {
+            "type": "uint256",
+            "name": "fee",
+            "indexed": false
+          }
+        ]
+      },
+      {
+        "type": "event",
+        "anonymous": false,
+        "name": "EIP712DomainChanged",
+        "inputs": []
+      },
+      {
+        "type": "event",
+        "anonymous": false,
+        "name": "FeeRecipientSet",
+        "inputs": [
+          {
+            "type": "address",
+            "name": "feeRecipient",
+            "indexed": true
+          }
+        ]
+      },
+      {
+        "type": "event",
+        "anonymous": false,
+        "name": "FeeSet",
+        "inputs": [
+          {
+            "type": "uint256",
+            "name": "feeBps",
+            "indexed": false
+          }
+        ]
+      },
+      {
+        "type": "event",
+        "anonymous": false,
         "name": "Initialized",
         "inputs": [
           {
             "type": "uint8",
             "name": "version",
             "indexed": false
+          }
+        ]
+      },
+      {
+        "type": "event",
+        "anonymous": false,
+        "name": "OwnershipTransferStarted",
+        "inputs": [
+          {
+            "type": "address",
+            "name": "previousOwner",
+            "indexed": true
+          },
+          {
+            "type": "address",
+            "name": "newOwner",
+            "indexed": true
           }
         ]
       },
@@ -5317,6 +5473,38 @@
           {
             "type": "address",
             "name": "account",
+            "indexed": false
+          }
+        ]
+      },
+      {
+        "type": "event",
+        "anonymous": false,
+        "name": "Redeemed",
+        "inputs": [
+          {
+            "type": "address",
+            "name": "burner",
+            "indexed": true
+          },
+          {
+            "type": "address",
+            "name": "recipient",
+            "indexed": true
+          },
+          {
+            "type": "uint256",
+            "name": "vusdIn",
+            "indexed": false
+          },
+          {
+            "type": "uint256",
+            "name": "usdtOut",
+            "indexed": false
+          },
+          {
+            "type": "uint256",
+            "name": "fee",
             "indexed": false
           }
         ]
@@ -5356,6 +5544,87 @@
         ]
       },
       {
+        "type": "event",
+        "anonymous": false,
+        "name": "Upgraded",
+        "inputs": [
+          {
+            "type": "address",
+            "name": "implementation",
+            "indexed": true
+          }
+        ]
+      },
+      {
+        "type": "event",
+        "anonymous": false,
+        "name": "UpgradesFrozen",
+        "inputs": []
+      },
+      {
+        "type": "function",
+        "name": "BPS",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "uint256",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "DOMAIN_SEPARATOR",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "bytes32",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "MAX_FEE_BPS",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "uint256",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "acceptOwnership",
+        "constant": false,
+        "payable": false,
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "addToAllowlist",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "address",
+            "name": "account"
+          }
+        ],
+        "outputs": []
+      },
+      {
         "type": "function",
         "name": "allowance",
         "constant": true,
@@ -5374,6 +5643,34 @@
         "outputs": [
           {
             "type": "uint256",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "allowlist",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "address[]",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "allowlistResolver",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "address",
             "name": ""
           }
         ]
@@ -5421,8 +5718,9 @@
       },
       {
         "type": "function",
-        "name": "burn",
-        "constant": false,
+        "name": "canTransfer",
+        "constant": true,
+        "stateMutability": "view",
         "payable": false,
         "inputs": [
           {
@@ -5430,17 +5728,22 @@
             "name": "from"
           },
           {
-            "type": "uint256",
-            "name": "amount"
+            "type": "address",
+            "name": "to"
           }
         ],
-        "outputs": []
+        "outputs": [
+          {
+            "type": "bool",
+            "name": ""
+          }
+        ]
       },
       {
         "type": "function",
         "name": "decimals",
         "constant": true,
-        "stateMutability": "pure",
+        "stateMutability": "view",
         "payable": false,
         "inputs": [],
         "outputs": [
@@ -5463,6 +5766,129 @@
           {
             "type": "uint256",
             "name": "subtractedValue"
+          }
+        ],
+        "outputs": [
+          {
+            "type": "bool",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "deposit",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "uint256",
+            "name": "amount"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "depositFor",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "address",
+            "name": "account"
+          },
+          {
+            "type": "uint256",
+            "name": "amount"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "eip712Domain",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "bytes1",
+            "name": "fields"
+          },
+          {
+            "type": "string",
+            "name": "name"
+          },
+          {
+            "type": "string",
+            "name": "version"
+          },
+          {
+            "type": "uint256",
+            "name": "chainId"
+          },
+          {
+            "type": "address",
+            "name": "verifyingContract"
+          },
+          {
+            "type": "bytes32",
+            "name": "salt"
+          },
+          {
+            "type": "uint256[]",
+            "name": "extensions"
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "feeBps",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "uint256",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "feeRecipient",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "address",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "freezeUpgrades",
+        "constant": false,
+        "payable": false,
+        "inputs": [],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "inLocalAllowlist",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [
+          {
+            "type": "address",
+            "name": ""
           }
         ],
         "outputs": [
@@ -5499,25 +5925,46 @@
         "name": "initialize",
         "constant": false,
         "payable": false,
-        "inputs": [],
+        "inputs": [
+          {
+            "type": "address",
+            "name": "usdt_"
+          }
+        ],
         "outputs": []
       },
       {
         "type": "function",
-        "name": "mint",
-        "constant": false,
+        "name": "isAllowlisted",
+        "constant": true,
+        "stateMutability": "view",
         "payable": false,
         "inputs": [
           {
             "type": "address",
-            "name": "to"
-          },
-          {
-            "type": "uint256",
-            "name": "amount"
+            "name": "account"
           }
         ],
-        "outputs": []
+        "outputs": [
+          {
+            "type": "bool",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "isPublicTransfer",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "bool",
+            "name": ""
+          }
+        ]
       },
       {
         "type": "function",
@@ -5529,6 +5976,25 @@
         "outputs": [
           {
             "type": "string",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "nonces",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [
+          {
+            "type": "address",
+            "name": "owner"
+          }
+        ],
+        "outputs": [
+          {
+            "type": "uint256",
             "name": ""
           }
         ]
@@ -5571,30 +6037,162 @@
       },
       {
         "type": "function",
-        "name": "recoverERC20",
+        "name": "pendingOwner",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "address",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "permit",
         "constant": false,
         "payable": false,
         "inputs": [
           {
             "type": "address",
-            "name": "token"
+            "name": "owner"
           },
           {
             "type": "address",
-            "name": "to"
+            "name": "spender"
+          },
+          {
+            "type": "uint256",
+            "name": "value"
+          },
+          {
+            "type": "uint256",
+            "name": "deadline"
+          },
+          {
+            "type": "uint8",
+            "name": "v"
+          },
+          {
+            "type": "bytes32",
+            "name": "r"
+          },
+          {
+            "type": "bytes32",
+            "name": "s"
           }
         ],
         "outputs": []
       },
       {
         "type": "function",
-        "name": "recoverNative",
+        "name": "proxiableUUID",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "bytes32",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "quote",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [
+          {
+            "type": "uint256",
+            "name": "amount"
+          }
+        ],
+        "outputs": [
+          {
+            "type": "uint256",
+            "name": "amountOut"
+          },
+          {
+            "type": "uint256",
+            "name": "fee"
+          },
+          {
+            "type": "uint256",
+            "name": "total"
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "quoteInput",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [
+          {
+            "type": "uint256",
+            "name": "total"
+          }
+        ],
+        "outputs": [
+          {
+            "type": "uint256",
+            "name": "amountOut"
+          },
+          {
+            "type": "uint256",
+            "name": "fee"
+          },
+          {
+            "type": "uint256",
+            "name": "total_"
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "redeem",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "uint256",
+            "name": "amount"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "redeemTo",
         "constant": false,
         "payable": false,
         "inputs": [
           {
             "type": "address",
-            "name": "to"
+            "name": "account"
+          },
+          {
+            "type": "uint256",
+            "name": "amount"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "removeFromAllowlist",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "address",
+            "name": "account"
           }
         ],
         "outputs": []
@@ -5605,6 +6203,72 @@
         "constant": false,
         "payable": false,
         "inputs": [],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "reserve",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "uint256",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "setAllowlist",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "address[]",
+            "name": "accounts"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "setAllowlistResolver",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "address",
+            "name": "resolver"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "setFee",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "uint256",
+            "name": "feeBps_"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "setFeeRecipient",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "address",
+            "name": "feeRecipient_"
+          }
+        ],
         "outputs": []
       },
       {
@@ -5703,6 +6367,65 @@
         "payable": false,
         "inputs": [],
         "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "upgradeTo",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "address",
+            "name": "newImplementation"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "upgradeToAndCall",
+        "constant": false,
+        "stateMutability": "payable",
+        "payable": true,
+        "inputs": [
+          {
+            "type": "address",
+            "name": "newImplementation"
+          },
+          {
+            "type": "bytes",
+            "name": "data"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "upgradesFrozen",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "bool",
+            "name": ""
+          }
+        ]
+      },
+      {
+        "type": "function",
+        "name": "usdt",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "address",
+            "name": ""
+          }
+        ]
       }
     ],
     "Vortex": [
@@ -10311,18 +11034,6 @@
       {
         "type": "event",
         "anonymous": false,
-        "name": "FeeBpsSet",
-        "inputs": [
-          {
-            "type": "uint256",
-            "name": "feeBps",
-            "indexed": false
-          }
-        ]
-      },
-      {
-        "type": "event",
-        "anonymous": false,
         "name": "Initialized",
         "inputs": [
           {
@@ -10335,50 +11046,11 @@
       {
         "type": "event",
         "anonymous": false,
-        "name": "MessageOwnershipTransferred",
-        "inputs": [
-          {
-            "type": "address",
-            "name": "previousOwner",
-            "indexed": false
-          },
-          {
-            "type": "address",
-            "name": "newOwner",
-            "indexed": false
-          }
-        ]
-      },
-      {
-        "type": "event",
-        "anonymous": false,
         "name": "Paused",
         "inputs": [
           {
             "type": "address",
             "name": "account",
-            "indexed": false
-          }
-        ]
-      },
-      {
-        "type": "event",
-        "anonymous": false,
-        "name": "RecoverToken",
-        "inputs": [
-          {
-            "type": "address",
-            "name": "owner",
-            "indexed": false
-          },
-          {
-            "type": "address",
-            "name": "token",
-            "indexed": false
-          },
-          {
-            "type": "uint256",
-            "name": "amount",
             "indexed": false
           }
         ]
@@ -10446,84 +11118,6 @@
             "type": "address",
             "name": "sender",
             "indexed": true
-          }
-        ]
-      },
-      {
-        "type": "event",
-        "anonymous": false,
-        "name": "SendMessageWithFeature",
-        "inputs": [
-          {
-            "type": "uint256",
-            "name": "txId",
-            "indexed": false
-          },
-          {
-            "type": "uint256",
-            "name": "destinationChainId",
-            "indexed": false
-          },
-          {
-            "type": "uint32",
-            "name": "featureId",
-            "indexed": false
-          },
-          {
-            "type": "bytes",
-            "name": "featureData",
-            "indexed": false
-          }
-        ]
-      },
-      {
-        "type": "event",
-        "anonymous": false,
-        "name": "SetExsig",
-        "inputs": [
-          {
-            "type": "address",
-            "name": "owner",
-            "indexed": false
-          },
-          {
-            "type": "address",
-            "name": "exsig",
-            "indexed": false
-          }
-        ]
-      },
-      {
-        "type": "event",
-        "anonymous": false,
-        "name": "SetMaxfee",
-        "inputs": [
-          {
-            "type": "address",
-            "name": "owner",
-            "indexed": false
-          },
-          {
-            "type": "uint256",
-            "name": "maxfee",
-            "indexed": false
-          }
-        ]
-      },
-      {
-        "type": "event",
-        "anonymous": false,
-        "name": "SetMaxgas",
-        "inputs": [
-          {
-            "type": "address",
-            "name": "owner",
-            "indexed": false
-          },
-          {
-            "type": "uint256",
-            "name": "maxGas",
-            "indexed": false
           }
         ]
       },
@@ -10650,10 +11244,6 @@
             "indexed": true
           }
         ]
-      },
-      {
-        "type": "fallback",
-        "stateMutability": "payable"
       },
       {
         "type": "function",
@@ -10919,36 +11509,6 @@
       },
       {
         "type": "function",
-        "name": "addItem",
-        "constant": false,
-        "payable": false,
-        "inputs": [
-          {
-            "type": "address",
-            "name": "item"
-          }
-        ],
-        "outputs": []
-      },
-      {
-        "type": "function",
-        "name": "adminMint",
-        "constant": false,
-        "payable": false,
-        "inputs": [
-          {
-            "type": "address",
-            "name": "account"
-          },
-          {
-            "type": "uint256",
-            "name": "amount"
-          }
-        ],
-        "outputs": []
-      },
-      {
-        "type": "function",
         "name": "allowance",
         "constant": true,
         "stateMutability": "view",
@@ -11121,69 +11681,6 @@
       },
       {
         "type": "function",
-        "name": "configureClient",
-        "constant": false,
-        "payable": false,
-        "inputs": [
-          {
-            "type": "address",
-            "name": "_messageV3"
-          },
-          {
-            "type": "uint256[]",
-            "name": "_chains"
-          },
-          {
-            "type": "address[]",
-            "name": "_endpoints"
-          },
-          {
-            "type": "uint16[]",
-            "name": "_confirmations"
-          }
-        ],
-        "outputs": []
-      },
-      {
-        "type": "function",
-        "name": "configureClientExtended",
-        "constant": false,
-        "payable": false,
-        "inputs": [
-          {
-            "type": "address",
-            "name": "_messageV3"
-          },
-          {
-            "type": "uint256[]",
-            "name": "_chains"
-          },
-          {
-            "type": "bytes[]",
-            "name": "_endpoints"
-          },
-          {
-            "type": "uint16[]",
-            "name": "_confirmations"
-          }
-        ],
-        "outputs": []
-      },
-      {
-        "type": "function",
-        "name": "configureFeatureGateway",
-        "constant": false,
-        "payable": false,
-        "inputs": [
-          {
-            "type": "address",
-            "name": "_featureGateway"
-          }
-        ],
-        "outputs": []
-      },
-      {
-        "type": "function",
         "name": "decimals",
         "constant": true,
         "stateMutability": "view",
@@ -11257,19 +11754,6 @@
       },
       {
         "type": "function",
-        "name": "fixup",
-        "constant": false,
-        "payable": false,
-        "inputs": [
-          {
-            "type": "uint256",
-            "name": "amount"
-          }
-        ],
-        "outputs": []
-      },
-      {
-        "type": "function",
         "name": "getRoleAdmin",
         "constant": true,
         "stateMutability": "view",
@@ -11295,11 +11779,11 @@
         "inputs": [
           {
             "type": "bytes32",
-            "name": "role"
+            "name": ""
           },
           {
             "type": "address",
-            "name": "account"
+            "name": ""
           }
         ],
         "outputs": []
@@ -11359,90 +11843,11 @@
       },
       {
         "type": "function",
-        "name": "isAuthorized",
-        "constant": true,
-        "stateMutability": "view",
-        "payable": false,
-        "inputs": [
-          {
-            "type": "address",
-            "name": "_sender"
-          },
-          {
-            "type": "uint256",
-            "name": "_sourceChainId"
-          }
-        ],
-        "outputs": [
-          {
-            "type": "bool",
-            "name": ""
-          }
-        ]
-      },
-      {
-        "type": "function",
-        "name": "isSelf",
-        "constant": true,
-        "stateMutability": "view",
-        "payable": false,
-        "inputs": [
-          {
-            "type": "address",
-            "name": "_sender"
-          },
-          {
-            "type": "uint256",
-            "name": "_sourceChainId"
-          }
-        ],
-        "outputs": [
-          {
-            "type": "bool",
-            "name": ""
-          }
-        ]
-      },
-      {
-        "type": "function",
         "name": "lockVTRUCoin",
         "constant": false,
         "stateMutability": "payable",
         "payable": true,
         "inputs": [],
-        "outputs": []
-      },
-      {
-        "type": "function",
-        "name": "messageProcess",
-        "constant": false,
-        "payable": false,
-        "inputs": [
-          {
-            "type": "uint256",
-            "name": "_txId"
-          },
-          {
-            "type": "uint256",
-            "name": "_sourceChainId"
-          },
-          {
-            "type": "address",
-            "name": "_sender"
-          },
-          {
-            "type": "address",
-            "name": ""
-          },
-          {
-            "type": "uint256",
-            "name": ""
-          },
-          {
-            "type": "bytes",
-            "name": "_data"
-          }
-        ],
         "outputs": []
       },
       {
@@ -11458,14 +11863,6 @@
             "name": ""
           }
         ]
-      },
-      {
-        "type": "function",
-        "name": "pause",
-        "constant": false,
-        "payable": false,
-        "inputs": [],
-        "outputs": []
       },
       {
         "type": "function",
@@ -11516,23 +11913,6 @@
       },
       {
         "type": "function",
-        "name": "recoverToken",
-        "constant": false,
-        "payable": false,
-        "inputs": [
-          {
-            "type": "address",
-            "name": "_token"
-          },
-          {
-            "type": "uint256",
-            "name": "_amount"
-          }
-        ],
-        "outputs": []
-      },
-      {
-        "type": "function",
         "name": "releaseCoinEscrow",
         "constant": false,
         "payable": false,
@@ -11549,30 +11929,17 @@
       },
       {
         "type": "function",
-        "name": "removeItem",
-        "constant": false,
-        "payable": false,
-        "inputs": [
-          {
-            "type": "address",
-            "name": "item"
-          }
-        ],
-        "outputs": []
-      },
-      {
-        "type": "function",
         "name": "renounceRole",
         "constant": false,
         "payable": false,
         "inputs": [
           {
             "type": "bytes32",
-            "name": "role"
+            "name": ""
           },
           {
             "type": "address",
-            "name": "account"
+            "name": ""
           }
         ],
         "outputs": []
@@ -11585,63 +11952,11 @@
         "inputs": [
           {
             "type": "bytes32",
-            "name": "role"
+            "name": ""
           },
           {
             "type": "address",
-            "name": "account"
-          }
-        ],
-        "outputs": []
-      },
-      {
-        "type": "function",
-        "name": "setExsig",
-        "constant": false,
-        "payable": false,
-        "inputs": [
-          {
-            "type": "address",
-            "name": "_signer"
-          }
-        ],
-        "outputs": []
-      },
-      {
-        "type": "function",
-        "name": "setFeeBps",
-        "constant": false,
-        "payable": false,
-        "inputs": [
-          {
-            "type": "uint256",
-            "name": "bps"
-          }
-        ],
-        "outputs": []
-      },
-      {
-        "type": "function",
-        "name": "setMaxfee",
-        "constant": false,
-        "payable": false,
-        "inputs": [
-          {
-            "type": "uint256",
-            "name": "_maxFee"
-          }
-        ],
-        "outputs": []
-      },
-      {
-        "type": "function",
-        "name": "setMaxgas",
-        "constant": false,
-        "payable": false,
-        "inputs": [
-          {
-            "type": "uint256",
-            "name": "_maxGas"
+            "name": ""
           }
         ],
         "outputs": []
@@ -11757,27 +12072,6 @@
       },
       {
         "type": "function",
-        "name": "transferMessageOwnership",
-        "constant": false,
-        "payable": false,
-        "inputs": [
-          {
-            "type": "address",
-            "name": "_newMessageOwner"
-          }
-        ],
-        "outputs": []
-      },
-      {
-        "type": "function",
-        "name": "unpause",
-        "constant": false,
-        "payable": false,
-        "inputs": [],
-        "outputs": []
-      },
-      {
-        "type": "function",
         "name": "upgradeTo",
         "constant": false,
         "payable": false,
@@ -11819,10 +12113,6 @@
           }
         ],
         "outputs": []
-      },
-      {
-        "type": "receive",
-        "stateMutability": "payable"
       }
     ],
     "VTRUBridged": [
@@ -23798,6 +24088,27 @@
       },
       {
         "type": "function",
+        "name": "adminSetUnstaked",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "address",
+            "name": "account"
+          },
+          {
+            "type": "uint256[]",
+            "name": "indices"
+          },
+          {
+            "type": "uint256[]",
+            "name": "unstakedValues"
+          }
+        ],
+        "outputs": []
+      },
+      {
+        "type": "function",
         "name": "changeStakeTerm",
         "constant": false,
         "payable": false,
@@ -24477,6 +24788,19 @@
         "constant": false,
         "payable": false,
         "inputs": [],
+        "outputs": []
+      },
+      {
+        "type": "function",
+        "name": "unstakeAdmin",
+        "constant": false,
+        "payable": false,
+        "inputs": [
+          {
+            "type": "address",
+            "name": "account"
+          }
+        ],
         "outputs": []
       },
       {

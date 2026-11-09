@@ -1,134 +1,78 @@
-import { NextResponse } from "next/server";
 import { ethers } from "ethers";
-import config from "@/app/config/vtru-contracts.json";
+import { CHAINS, GAS, TOKENS, VITRUVEO_CHAIN_ID, errMsg, gasPrice, otherChain, providerFor } from "@/lib/bridge/config";
+import { notaryWallet, readEscrow, signReceipt } from "@/lib/bridge/chain";
+import { getReceiptByEscrow, insertReceipt, listReceipts, reconcile, toReceipt, updateReceipt } from "@/lib/bridge/receipts";
+import { fail, json, preflight } from "@/lib/bridge/http";
 
-// Notary endpoint. Runs server-side only (holds NOTARY_PRIVATE_KEY).
-// Given a user's pending escrow on the source chain, it signs a Claim Receipt bound to the
-// destination chain, zeroes the source escrow (so the user can no longer cancel), and returns
-// the receipt for the user to redeem on the destination chain.
+// Notary endpoint. Runs server-side only (holds the notary keys).
+// Given a user's pending escrow on the source chain, it signs a Claim Receipt bound to the destination chain,
+// stores it, zeroes the source escrow (so the user can no longer cancel), and returns the receipt.
+// The receipt row is written BEFORE the escrow is zeroed, so a zeroed escrow always has a stored receipt.
 
-const VITRUVEO_CHAIN_ID = 1490;
-const BSC_CHAIN_ID = 56;
+export const OPTIONS = preflight;
 
-const CHAINS = {
-  [VITRUVEO_CHAIN_ID]: {
-    rpc: process.env.VITRUVEO_RPC || "https://rpc.vitruveo.ai",
-    notaryKey: process.env.VITRUVEO_NOTARY_KEY, // NOTARY_ROLE holder on the Vitruveo side
-  },
-  [BSC_CHAIN_ID]: {
-    rpc: process.env.BSC_RPC || "https://bsc-dataseed.binance.org",
-    notaryKey: process.env.BSC_NOTARY_KEY, // NOTARY_ROLE holder on the BSC side
-  },
-};
-
-// Bridgeable tokens. BridgedUSDT is one contract deployed at the same address on both chains.
-const TOKENS = {
-  VTRU: {
-    abi: config.abi.VTRU,
-    address: { [VITRUVEO_CHAIN_ID]: config.mainnet.VTRU, [BSC_CHAIN_ID]: config.bsc.VTRU },
-  },
-  USDT: {
-    abi: config.abi.BridgedUSDT,
-    address: { [VITRUVEO_CHAIN_ID]: config.mainnet.BridgedUSDT, [BSC_CHAIN_ID]: config.bsc.BridgedUSDT },
-  },
-};
-
-// Direction enum in the contract: 0 = VitruveoToBsc, 1 = BscToVitruveo
-const DIRECTION = { [VITRUVEO_CHAIN_ID]: 0, [BSC_CHAIN_ID]: 1 };
-
-// Gas units the destination claim tx needs; the notary fronts this much native gas
-// to wallets that hold none, priced at the live gas price.
-const CLAIM_GAS_ESTIMATE = 300000n;
+const wire = toReceipt;
 
 export async function POST(req) {
   try {
     const { account, sourceChainId, token = "VTRU" } = await req.json();
-
-    if (!ethers.isAddress(account)) {
-      return NextResponse.json({ error: "Invalid account" }, { status: 400 });
-    }
-
-    const tok = TOKENS[token];
-    if (!tok) {
-      return NextResponse.json({ error: "Unsupported token" }, { status: 400 });
-    }
-
+    if (!ethers.isAddress(account)) return fail(req, 400, "Invalid account");
+    if (!TOKENS[token]) return fail(req, 400, "Unsupported token");
     const srcId = Number(sourceChainId);
-    const destId = srcId === VITRUVEO_CHAIN_ID ? BSC_CHAIN_ID : VITRUVEO_CHAIN_ID;
-    const src = CHAINS[srcId];
-    const dest = CHAINS[destId];
-    if (!src || !dest) {
-      return NextResponse.json({ error: "Unsupported chain" }, { status: 400 });
+    if (!CHAINS[srcId]) return fail(req, 400, "Unsupported chain");
+    const destId = otherChain(srcId);
+    const acct = ethers.getAddress(account);
+
+    const zeroWallet = notaryWallet(srcId);
+    if (!zeroWallet || !notaryWallet(destId)) return fail(req, 500, "Notary not configured");
+
+    const esc = await readEscrow(token, srcId, acct);
+    if (esc.amount === 0n) {
+      // Nothing to notarize. If a receipt was already issued for this account, hand it back (resume).
+      const issued = (await listReceipts({ account: acct, token, status: "issued" })).find((r) => r.source_chain_id === srcId);
+      return issued ? json(req, wire(issued)) : fail(req, 404, "No pending escrow");
     }
 
-    // Source notary zeroes the escrow on the source chain; destination notary signs the receipt
-    // (it is verified against NOTARY_ROLE on the destination chain).
-    if (!src.notaryKey || !dest.notaryKey) {
-      return NextResponse.json({ error: "Notary not configured" }, { status: 500 });
-    }
+    // Already notarized (e.g. a retry after the response was lost)?
+    let row = await reconcile(await getReceiptByEscrow(token, srcId, acct, esc.blockNumber));
+    if (row?.status === "issued" || row?.status === "claimed") return json(req, wire(row));
 
-    const srcProvider = new ethers.JsonRpcProvider(src.rpc, srcId);
-    const zeroWallet = new ethers.Wallet(src.notaryKey, srcProvider);
-    const signWallet = new ethers.Wallet(dest.notaryKey);
-    const srcContract = new ethers.Contract(tok.address[srcId], tok.abi, zeroWallet);
-
-    const esc = await srcContract.escrow(account);
-    const amount = BigInt(esc.amount ?? esc[0]);
-    const blockNumber = BigInt(esc.blockNumber ?? esc[1]);
-    if (amount === 0n) {
-      return NextResponse.json({ error: "No pending escrow" }, { status: 404 });
-    }
-
-    // Bridging into Vitruveo: a fresh wallet holds no VTRU and cannot pay gas for the
-    // claim tx, so front it some gas before handing back the receipt. Done before the
-    // escrow is zeroed so a failed top-up leaves the transfer cancellable.
+    // Bridging into Vitruveo: a fresh wallet holds no VTRU and cannot pay gas for the claim tx, so front it
+    // some gas first. Done before the escrow is zeroed so a failed top-up leaves the transfer cancellable.
     if (destId === VITRUVEO_CHAIN_ID) {
-      const destProvider = new ethers.JsonRpcProvider(dest.rpc, destId);
-      const balance = await destProvider.getBalance(account);
-      if (balance === 0n) {
-        const feeData = await destProvider.getFeeData();
-        const gasPrice = feeData.gasPrice ?? feeData.maxFeePerGas;
-        if (!gasPrice) throw new Error("Cannot determine destination gas price");
-        const gasTx = await signWallet.connect(destProvider).sendTransaction({
-          to: account,
-          value: gasPrice * CLAIM_GAS_ESTIMATE,
-        });
+      const destProvider = providerFor(destId);
+      if ((await destProvider.getBalance(acct)) === 0n) {
+        const gp = await gasPrice(destId);
+        if (!gp) throw new Error("Cannot determine destination gas price");
+        const gasTx = await notaryWallet(destId).sendTransaction({ to: acct, value: gp * GAS.vitClaim });
         await gasTx.wait();
       }
     }
 
-    const direction = DIRECTION[srcId];
-
-    // Receipt is bound to the DESTINATION chain id + contract (domain separation).
-    const receiptHash = ethers.keccak256(
-      ethers.AbiCoder.defaultAbiCoder().encode(
-        ["address", "uint256", "uint8", "uint256", "uint256", "address"],
-        [account, amount, direction, blockNumber, destId, tok.address[destId]]
-      )
-    );
-    const signature = await signWallet.signMessage(ethers.getBytes(receiptHash));
+    // Sign and store (pending: not exposed until the escrow is zeroed).
+    const signed = await signReceipt({ token, account: acct, sourceChainId: srcId, amount: esc.amount, blockNumber: esc.blockNumber });
+    row = await insertReceipt(signed, { status: "pending" });
 
     // Zero the escrow so the user can no longer release/cancel it (the receipt is now the artifact).
-    // Tolerate a concurrent zero: if it's already cleared, the signed receipt is still valid.
+    const tok = TOKENS[token];
+    const srcContract = new ethers.Contract(tok.address[srcId], tok.abi, zeroWallet);
     try {
-      const tx = await srcContract.zeroEscrow(account);
+      const tx = await srcContract.zeroEscrow(acct);
+      await updateReceipt(row.id, { zeroTx: tx.hash });
       await tx.wait();
+      row = await updateReceipt(row.id, { status: "issued" });
     } catch (e) {
-      const still = await srcContract.escrow(account);
-      if (BigInt(still.amount ?? still[0]) !== 0n) throw e;
+      // A concurrent request may have zeroed it with its own tx; reconcile decides issued / void / still pending.
+      row = await reconcile(await getReceiptByEscrow(token, srcId, acct, esc.blockNumber));
+      if (row?.status !== "issued") {
+        const still = await readEscrow(token, srcId, acct);
+        if (still.amount > 0n) await updateReceipt(row.id, { status: "void" });
+        throw e;
+      }
     }
-
-    return NextResponse.json({
-      account,
-      amount: amount.toString(),
-      direction,
-      blockNumber: blockNumber.toString(),
-      destChainId: destId,
-      destContract: tok.address[destId],
-      signature,
-    });
+    return json(req, wire(row));
   } catch (e) {
     console.error("notarize error", e);
-    return NextResponse.json({ error: "Notarize failed", detail: String(e?.message || e) }, { status: 500 });
+    return fail(req, 500, "Notarize failed", errMsg(e));
   }
 }
