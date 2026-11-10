@@ -58,6 +58,7 @@ import {
 
 import { readContract, writeContract } from "@wagmi/core";
 import config from "@/app/config/vtru-contracts.json";
+import { EXTRA_PUBLIC_WALLETS } from "@/app/config/public-wallets";
 import { ethers } from "ethers";
 import { useAccount } from "wagmi";
 import { useRouter } from "next/navigation";
@@ -244,12 +245,15 @@ export default function Multisig() {
   const fetchPublicWallets = useCallback(async () => {
     setLoading(true);
     try {
-      const wallets = await readContract({
+      const factoryPublic = await readContract({
         address: config[network].WalletFactory,
         abi: config.abi.WalletFactory,
         functionName: "getPublicWallets",
         args: []
       });
+      // plus wallets created non-public that are listed publicly by config
+      const seen = new Set(factoryPublic.map((a) => a.toLowerCase()));
+      const wallets = [...factoryPublic, ...(EXTRA_PUBLIC_WALLETS[network] || []).filter((a) => !seen.has(a.toLowerCase()))];
       setPublicWallets(wallets);
 
       // Fetch dashboard and signer count for each wallet
