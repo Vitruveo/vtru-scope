@@ -309,6 +309,8 @@ export default function Multisig() {
           console.log('Error fetching dashboard for', walletAddr, e);
         }
       }
+      // public list sorted by wallet title
+      setPublicWallets([...wallets].sort((x, y) => (dashboards[x]?.walletTitle || '').localeCompare(dashboards[y]?.walletTitle || '')));
       setWalletDashboards(prev => ({ ...prev, ...dashboards }));
       setWalletSignerCounts(prev => ({ ...prev, ...signerCounts }));
       setTokenSymbols(prev => ({ ...prev, ...symbols }));
