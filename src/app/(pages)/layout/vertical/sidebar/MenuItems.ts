@@ -35,7 +35,6 @@ import {
   IconMovie,
   IconWorld,
   IconWallet,
-  IconHistory,
   IconGraph,
   IconCoinFilled,
   IconBuildingBridge,
@@ -94,13 +93,6 @@ const Menuitems: MenuitemsType[] = [
     title: "VNS",
     icon: IconWorld,
     href: "/vns",
-  },
-  {
-    id: uniqueId(),
-    title: "Legacy",
-    icon: IconHistory,
-    href: "/legacy",
-    chipColor: "secondary",
   },
   {
         id: uniqueId(),
