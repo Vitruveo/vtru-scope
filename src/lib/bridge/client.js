@@ -153,11 +153,18 @@ export function createBridge({ token = "VTRU", apiBase = "", account, provider, 
     let hash = null;
     for (const step of steps) {
       await ensureChain(step.chainId);
+      const w = await wallet();
+      const tx = { from: account, to: step.tx.to, data: step.tx.data, value: step.tx.value };
+      // Gas is estimated here and passed explicitly: some wallets crash in their own estimator (e.g. "Cannot
+      // destructure property 'gasLimit'") instead of reporting the revert, and this surfaces the real reason.
+      let gas;
+      try {
+        gas = BigInt(await w.request({ method: "eth_estimateGas", params: [tx] }));
+      } catch (e) {
+        throw new Error(`"${step.label}" would fail on ${CHAIN_NAME[step.chainId]}: ${e?.data?.message || e?.message || e}`);
+      }
       onStatus(`Confirm "${step.label}" in your wallet…`);
-      hash = await (await wallet()).request({
-        method: "eth_sendTransaction",
-        params: [{ from: account, to: step.tx.to, data: step.tx.data, value: step.tx.value }],
-      });
+      hash = await w.request({ method: "eth_sendTransaction", params: [{ ...tx, gas: `0x${((gas * 12n) / 10n).toString(16)}` }] });
       // Tracked server-side so a stalled tx shows in status() with its exact reason, from any device.
       await api("/txs", { method: "POST", body: { account, token, chainId: step.chainId, hash, label: step.label } }).catch(() => {});
       onStatus(`Waiting for "${step.label}" to confirm on ${CHAIN_NAME[step.chainId]}…`);
